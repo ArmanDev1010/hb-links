@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  /* Breakpoints */
+  --breakpoint-1920: 1920px;
+  --breakpoint-1600: 1600px;
+  --breakpoint-1440: 1440px;
+  --breakpoint-1280: 1280px;
+  --breakpoint-1080: 1080px;
+  --breakpoint-900: 900px;
+  --breakpoint-700: 700px;
+  --breakpoint-550: 550px;
+  --breakpoint-400: 400px;
+  --breakpoint-360: 360px;
+
+  /* Colors */
+
+  --color-primary: #222;
+  --color-secondary: #3c454a;
+  --color-third: #106B37;
+
+  /* Animation */
+
+  --animate-fadeIn: fadeInText 1s ease-out forwards;
+
+  @keyframes fadeInText {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+*,
+*::after,
+*::before {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+body {
+  background: white;
+  color: #222;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.request__close:after,
+.request__close:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% - 30px);
+  height: 1px;
+  background-color: #ffffff;
+}
+.request__close:before {
+  -webkit-transform: translate(-50%, -50%) rotate(-45deg);
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.request__close:after {
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.bottom_line,
+.bottom_line_reverse {
+  position: relative;
+}
+
+.bottom_line::before,
+.bottom_line_reverse::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.1vw;
+  background: #222;
+  height: 0.5px;
+  transition: all 0.3s cubic-bezier(0.32, 0, 0.12, 1);
+}
+
+.bottom_line::before {
+  width: 0%;
+}
+.bottom_line_reverse::before {
+  width: 100%;
+}
+
+.bottom_line:hover::before {
+  width: 100%;
+}
+.bottom_line_reverse:hover::before {
+  width: 0%;
+}
+
+.hero_swiper .swiper-wrapper {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+}
