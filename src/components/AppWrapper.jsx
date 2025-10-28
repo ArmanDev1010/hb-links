@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import Navbar from "./Navigation/Navbar";
+import Navbar from "./Navbar";
 import LoadingScreen from "./Home/LoadingScreen";
 import Consultation from "./Consultation_button";
 

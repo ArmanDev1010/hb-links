@@ -14,8 +14,8 @@ import Image from "next/image";
 
 const slideTexts = [
   ["Secure.", "Smart.", "Connected."],
-  ["Low Voltage -", "High Impact"],
   ["Control Every", "Connection"],
+  ["Low Voltage -", "High Impact"],
   ["Integration.", "Network.", "Surveillance."],
   ["Smart Wiring.", "Smarter Control."],
 ];
