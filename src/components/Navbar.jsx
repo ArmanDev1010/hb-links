@@ -20,7 +20,12 @@ export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const [atTop, setAtTop] = useState(true);
 
-  const isLightPage = ["/contact", "/projects"].includes(pathname);
+  const isLightPage = [
+    "/contact",
+    "/projects",
+    "/terms-of-service",
+    "/privacy-policy",
+  ].includes(pathname);
   const isContactPage = ["/contact"].includes(pathname);
 
   useEffect(() => {
@@ -40,7 +45,11 @@ export default function Navbar() {
   const navClasses = `
     fixed z-[99] px-[3%] w-full border-b transition-all duration-400
     ${visible ? "translate-y-0" : "-translate-y-full"}
-    ${atTop ? "bg-transparent" : "!bg-white !h-[65px] !text-black"}
+    ${
+      atTop
+        ? "bg-transparent"
+        : "!bg-white !h-[65px] !text-black border-black/10"
+    }
     ${
       isLightPage && !isContactPage
         ? "text-black border-black/10 h-[80px]"
@@ -50,7 +59,6 @@ export default function Navbar() {
     }
   `;
 
-  const logoSrc = isLightPage ? blackLogo : whiteLogo;
   const phoneBg = isLightPage ? "bg-black/10" : "bg-[hsla(48,36%,95%,.1)]";
   const contactBtn = isLightPage ? "border-black" : "border-white";
 

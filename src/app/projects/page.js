@@ -5,7 +5,6 @@ export default function ProjectsPage() {
     <div className="">
       <div className="h-[80px]"></div>
       <Projects />
-      
     </div>
   );
 }

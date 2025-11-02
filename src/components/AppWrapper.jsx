@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import LoadingScreen from "./Home/LoadingScreen";
 import Consultation from "./Consultation_button";
+import Footer from "./Footer";
 
 export default function AppWrapper({ children, fontClass }) {
   const [showLoading, setShowLoading] = useState(false);
@@ -24,6 +25,7 @@ export default function AppWrapper({ children, fontClass }) {
       <Navbar />
       <Consultation />
       {children}
+      <Footer />
     </body>
   );
 }

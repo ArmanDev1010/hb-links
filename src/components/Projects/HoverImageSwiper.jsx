@@ -51,7 +51,7 @@ export default function HoverImageSwiper({ images, alt, video }) {
           src={src}
           alt={`${alt} ${i + 1}`}
           fill
-          className={`object-cover transition-opacity duration-500 ease-in-out ${
+          className={`object-cover transition-opacity duration-300 ease-in-out ${
             shouldShowImages && i === activeIndex
               ? "opacity-100 z-20"
               : "opacity-0 z-0"

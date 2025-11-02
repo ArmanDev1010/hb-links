@@ -47,7 +47,7 @@ export default function Projects() {
   };
 
   return (
-    <div className="relative px-[3%] pt-[50px]">
+    <div className="relative px-[3%] pt-[50px] pb-[30px]">
       <h2 className="uppercase text-[max(3vw,5.5vw)] mb-[50px] leading-[1.1] pointer-events-none max-_1440:text-7xl max-_1440:mb-[30px] max-_550:text-[14vw]">
         Projects
       </h2>
@@ -60,7 +60,7 @@ export default function Projects() {
               key={filter}
               ref={(el) => (tabRefs.current[filter] = el)}
               onClick={() => handleFilterChange(filter)}
-              className={`pb-2 text-[17px] font-medium cursor-pointer ${
+              className={`pb-2 text-[16px] font-medium cursor-pointer ${
                 selectedFilter === filter
                   ? "text-third"
                   : "text-gray-500 hover:text-black"
@@ -110,12 +110,12 @@ export default function Projects() {
                   </>
                 ) : (
                   <>
-                    <p className="text-base text-gray-400 mb-1">
-                      {project.categories.join(", ")}
-                    </p>
-                    <h3 className="text-[2.5vw] font-semibold">
+                    <h3 className="text-[2vw] font-semibold mb-1">
                       {project.title}
                     </h3>
+                    <p className="text-base text-gray-400">
+                      {project.categories.join(", ")}
+                    </p>
                   </>
                 )}
               </div>

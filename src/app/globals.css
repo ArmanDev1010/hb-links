@@ -17,20 +17,18 @@
 
   --color-primary: #222;
   --color-secondary: #3c454a;
-  --color-third: #106B37;
+  --color-third: #106b37;
 
   /* Animation */
 
-  --animate-fadeIn: fadeInText 1s ease-out forwards;
+  --animate-infiniteScroll: infiniteScroll 30s linear infinite;
 
-  @keyframes fadeInText {
+  @keyframes infiniteScroll {
     0% {
-      opacity: 0;
-      transform: translateY(20px);
+      transform: translateX(0%);
     }
     100% {
-      opacity: 1;
-      transform: translateY(0);
+      transform: translateX(-100%);
     }
   }
 }
@@ -102,4 +100,10 @@ body {
 .hero_swiper .swiper-wrapper {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.footer_swiper .swiper-wrapper {
+  -webkit-transition-timing-function: linear !important;
+  -o-transition-timing-function: linear !important;
+  transition-timing-function: linear !important;
 }
