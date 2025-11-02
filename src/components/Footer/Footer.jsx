@@ -1,6 +1,14 @@
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import { projects } from "@/data/projects";
+
+import whiteLine from "@/../public/patterns/line_white.png";
+import blackLine from "@/../public/patterns/line_black.png";
+import Image from "next/image";
+
+import Services_Slides from "./Services_Slides";
 
 const contactInfo = [
   { type: "Phone", label: "+1 (818) 303-3555", href: "tel:+1 (818) 303-3555" },
@@ -24,10 +32,14 @@ const maxProjectsToShow = 4;
 const visibleProjects = projects.slice(0, maxProjectsToShow);
 const hasMoreProjects = projects.length > maxProjectsToShow;
 
-function Section({ title, children }) {
+function Section({ title, isLightPage, children }) {
   return (
-    <div className="min-w-[200px] text-xl">
-      <p className="uppercase text-base text-gray-500 mb-5 pointer-events-none">
+    <div className="min-w-[200px] text-lg">
+      <p
+        className={`uppercase text-base mb-5 pointer-events-none ${
+          isLightPage ? "text-white opacity-50" : "text-gray-500"
+        }`}
+      >
         {title}
       </p>
       {children}
@@ -36,13 +48,32 @@ function Section({ title, children }) {
 }
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  const isLightPage = [
+    "/legal/terms-of-service",
+    "/legal/privacy-policy",
+  ].includes(pathname);
+
+  const isContactPage = ["/contact"].includes(pathname);
+
   return (
-    <footer className="relative pt-10 pb-6 bg-[#f6f6f8] text-black">
+    <footer
+      className={`relative pb-6 text-black ${isContactPage ? "hidden" : null} ${
+        isLightPage ? "bg-[#1f1f1f] text-white" : "bg-white"
+      }`}
+    >
+      <Services_Slides isLightPage={isLightPage} />
+
       <div className="flex flex-wrap justify-between px-[3%] mb-10 gap-10">
-        <ul className="flex flex-col gap-9 min-w-[250px] text-xl">
+        <ul className="flex flex-col gap-9 min-w-[250px] text-2xl">
           {contactInfo.map(({ type, label, href }) => (
             <li key={type} className="w-fit">
-              <p className="uppercase text-base text-gray-500 mb-2 pointer-events-none">
+              <p
+                className={`uppercase text-base mb-2 pointer-events-none ${
+                  isLightPage ? "text-white opacity-50" : "text-gray-500"
+                }`}
+              >
                 {type}
               </p>
               {href ? (
@@ -56,7 +87,7 @@ export default function Footer() {
           ))}
         </ul>
 
-        <Section title="Pages">
+        <Section title="Pages" isLightPage={isLightPage}>
           <ul className="flex flex-col gap-5 capitalize">
             {pages.map((page) => (
               <li key={page}>
@@ -71,7 +102,7 @@ export default function Footer() {
           </ul>
         </Section>
 
-        <Section title="Projects">
+        <Section title="Projects" isLightPage={isLightPage}>
           <ul className="flex flex-col gap-5 capitalize">
             {visibleProjects.map(({ title, id }) => (
               <li key={id}>
@@ -87,7 +118,11 @@ export default function Footer() {
               <li>
                 <Link
                   href="/projects"
-                  className="bottom_line_reverse text-gray-400 text-lg before:!bg-gray-400"
+                  className={`bottom_line_reverse text-base ${
+                    isLightPage
+                      ? "text-white opacity-50 before:!bg-white/50"
+                      : "text-gray-500 before:!bg-gray-500"
+                  }`}
                 >
                   View More
                 </Link>
@@ -96,8 +131,8 @@ export default function Footer() {
           </ul>
         </Section>
 
-        <Section title="Socials">
-          <ul className="flex justify-start gap-5 font-medium uppercase">
+        <Section title="Socials" isLightPage={isLightPage}>
+          <ul className="flex justify-start gap-5 font-medium uppercase text-xl">
             {socials.map(({ type, href }) => (
               <li key={type}>
                 <Link href={href} className="bottom_line_reverse">
@@ -110,7 +145,11 @@ export default function Footer() {
       </div>
 
       {/* Footer Bottom */}
-      <div className="mt-26 px-[3%] flex flex-wrap justify-between items-center gap-4 text-sm text-gray-500">
+      <div
+        className={`mt-26 px-[3%] flex flex-wrap justify-between items-center gap-4 text-sm ${
+          isLightPage ? "text-white opacity-50" : "text-gray-500"
+        }`}
+      >
         <div className="flex gap-36">
           <p className="pointer-events-none">
             © 2025 HB Links. All rights reserved.
@@ -135,6 +174,16 @@ export default function Footer() {
             Arman Manukyan
           </Link>
         </p>
+      </div>
+
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat opacity-10 z-[0]">
+        <Image
+          src={isLightPage ? whiteLine : blackLine}
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+          alt=""
+        />
       </div>
     </footer>
   );

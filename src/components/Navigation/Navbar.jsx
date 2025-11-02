@@ -60,7 +60,6 @@ export default function Navbar() {
   `;
 
   const phoneBg = isLightPage ? "bg-black/10" : "bg-[hsla(48,36%,95%,.1)]";
-  const contactBtn = isLightPage ? "border-black" : "border-white";
 
   return (
     <nav className={navClasses}>
@@ -120,9 +119,7 @@ export default function Navbar() {
 
           {!isContactPage && (
             <Link href="/contact">
-              <button
-                className={`group py-[10px] px-[60px] border rounded-full relative cursor-pointer overflow-hidden ${contactBtn}`}
-              >
+              <button className="group py-[10px] px-[60px] border rounded-full relative cursor-pointer overflow-hidden">
                 <p className="relative text-center top-0 group-hover:top-[-40px] transition-[top] duration-[.4s] ease-[cubic-bezier(.33,1,.68,1)]">
                   Contact us
                 </p>

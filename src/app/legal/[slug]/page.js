@@ -88,12 +88,12 @@ export default function LegalPage({ params }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#1f1f1f] text-white">
+    <div className="relative min-h-screen bg-[#1f1f1f] text-white">
       <div className="h-[80px]"></div>
 
-      <div className="mx-auto px-[3%] flex flex-col lg:flex-row gap-10">
+      <div className="mx-auto pt-16 px-[3%] flex flex-col lg:flex-row gap-10">
         {/* Main Content */}
-        <div className="flex-1 pt-16 pb-8 text-gray-200 pointer-events-none">
+        <div className="w-[75%] pb-8 text-gray-200 pointer-events-none">
           <h1 className="text-[6vw] uppercase mb-[8.5rem] text-white">
             {content.title}
           </h1>
@@ -113,7 +113,7 @@ export default function LegalPage({ params }) {
         </div>
 
         {/* Sidebar Navigation */}
-        <aside className="lg:w-[250px] pt-16 pb-8">
+        <aside className="w-[25%] px-5">
           <ul className="flex lg:flex-col gap-3 text-lg font-medium">
             {privacyPages.map(({ label, slug: linkSlug }) => {
               const isActive = pathname.includes(linkSlug);
@@ -135,6 +135,8 @@ export default function LegalPage({ params }) {
           </ul>
         </aside>
       </div>
+
+      <div className="absolute top-[0px] left-[calc(75%-1.5%)] bg-white/30 h-[95%] w-[1px] z-[3]" />
     </div>
   );
 }

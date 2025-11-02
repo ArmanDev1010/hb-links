@@ -102,7 +102,7 @@ body {
   transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-.footer_swiper .swiper-wrapper {
+.services_swiper .swiper-wrapper {
   -webkit-transition-timing-function: linear !important;
   -o-transition-timing-function: linear !important;
   transition-timing-function: linear !important;

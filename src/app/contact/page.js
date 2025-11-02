@@ -2,8 +2,11 @@
 
 import React from "react";
 
-import Form from "@/components/Form";
+import Form from "@/components/Navigation/Form";
 import { motion } from "framer-motion";
+
+import blackLine from "@/../public/patterns/line_black.png";
+import Image from "next/image";
 
 export default function ContactPage() {
   return (
@@ -19,6 +22,15 @@ export default function ContactPage() {
           Request <span className="font-semibold text-secondary">Callback</span>
         </h2>
         <Form />
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat opacity-5 z-[0]">
+          <Image
+            src={blackLine}
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+            alt=""
+          />
+        </div>
       </div>
     </motion.div>
   );
