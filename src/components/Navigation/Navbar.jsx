@@ -20,12 +20,9 @@ export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const [atTop, setAtTop] = useState(true);
 
-  const isLightPage = [
-    "/contact",
-    "/projects",
-    "/terms-of-service",
-    "/privacy-policy",
-  ].includes(pathname);
+  const isLightPage =
+    pathname.startsWith("/projects") ||
+    ["/contact", "/terms-of-service", "/privacy-policy"].includes(pathname);
   const isContactPage = ["/contact"].includes(pathname);
 
   useEffect(() => {
@@ -78,7 +75,7 @@ export default function Navbar() {
             />
           </Link>
 
-          <ul className="flex gap-[2.5rem] text-base ml-[7rem]">
+          <ul className="flex gap-[2.5rem] text-base ml-[7rem] font-[400]">
             {NAV_LINKS.map(({ label, href }) => (
               <li key={label}>
                 <Link

@@ -107,7 +107,7 @@ export default function Footer() {
             {visibleProjects.map(({ title, id }) => (
               <li key={id}>
                 <Link
-                  href={`/projects/${id}`}
+                  href={`/projects/${title.toLowerCase().replace(/\s+/g, "-")}`}
                   className="bottom_line w-full truncate overflow-hidden text-ellipsis whitespace-nowrap"
                 >
                   {title}

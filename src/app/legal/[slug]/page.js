@@ -74,7 +74,7 @@ const contentMap = {
   },
 };
 
-export default function LegalPage({ params }) {
+export default function LegalPage() {
   const pathname = usePathname();
   const { slug } = useParams();
   const content = contentMap[slug];
@@ -124,7 +124,7 @@ export default function LegalPage({ params }) {
                     className={`transition-colors ${
                       isActive
                         ? "text-white font-bold"
-                        : "text-gray-400 hover:text-white"
+                        : "opacity-50 hover:text-white"
                     }`}
                   >
                     {label}

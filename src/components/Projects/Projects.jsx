@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
-import HoverImageSwiper from "@/components/Projects/HoverImageSwiper";
-import Link from "next/link";
 
 import { projects } from "@/data/projects";
+import ProjectPreview from "./ProjectPreview";
 
 export default function Projects() {
   const [selectedFilter, setSelectedFilter] = useState("All");
@@ -48,7 +47,7 @@ export default function Projects() {
 
   return (
     <div className="relative px-[3%] pt-[50px] pb-[30px]">
-      <h2 className="uppercase text-[max(3vw,5.5vw)] mb-[50px] leading-[1.1] pointer-events-none max-_1440:text-7xl max-_1440:mb-[30px] max-_550:text-[14vw]">
+      <h2 className="uppercase text-[max(3vw,5.5vw)] mb-[50px] leading-[1.1] pointer-events-none">
         Projects
       </h2>
 
@@ -84,44 +83,19 @@ export default function Projects() {
 
       {/* Project Grid */}
       <div className="grid grid-cols-2 gap-6">
-        {filteredProjects.map((project) => (
-          <Link href={`projects/${project.id}`} key={project.id}>
-            <div
-              className={`overflow-hidden transition-opacity duration-300 ${
-                isLoading ? "pointer-events-none" : "hover:opacity-90"
-              }`}
-            >
-              {isLoading ? (
-                // Gray Placeholder Card
-                <div className="w-full h-[400px] bg-gray-200 animate-pulse" />
-              ) : (
-                <HoverImageSwiper
-                  images={project.images}
-                  video={project.video}
-                  alt={project.title}
-                />
-              )}
-
-              <div className="py-4">
-                {isLoading ? (
-                  <>
-                    <div className="h-4 w-3/4 bg-gray-200 rounded mb-2 animate-pulse" />
-                    <div className="h-6 w-1/2 bg-gray-300 rounded animate-pulse" />
-                  </>
-                ) : (
-                  <>
-                    <h3 className="text-[2vw] font-semibold mb-1">
-                      {project.title}
-                    </h3>
-                    <p className="text-base text-gray-400">
-                      {project.categories.join(", ")}
-                    </p>
-                  </>
-                )}
-              </div>
-            </div>
-          </Link>
-        ))}
+        {filteredProjects.map(
+          ({ title, id, videos, images, categories }, key) => (
+            <ProjectPreview
+              key={key}
+              title={title}
+              id={id}
+              videos={videos}
+              images={images}
+              categories={categories}
+              isLoading={isLoading}
+            />
+          )
+        )}
       </div>
     </div>
   );
