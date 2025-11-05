@@ -5,18 +5,18 @@ import "swiper/css";
 
 export default function Services_Slides({ isLightPage }) {
   const items = [
-    "LowVoltageContractor",
-    "SecuritySystems",
+    "Low Voltage",
+    "Security Systems",
     "CCTV",
-    "AccessControl",
+    "Access Control",
     "Networking",
-    "AVIntegration",
-    "AudioVideo",
-    "SurveillanceSystems",
-    "SmartHome",
+    "AV Integration",
+    "Audio / Video",
+    "Surveillance Systems",
+    "Smart Home",
   ];
 
-  const duplicatedItems = [...items, ...items, ...items]; // 3× duplication
+  const duplicatedItems = [...items, ...items, ...items];
 
   return (
     <div
@@ -27,24 +27,19 @@ export default function Services_Slides({ isLightPage }) {
       }`}
     >
       <Swiper
+        loop={true}
         spaceBetween={0}
-        slidesPerView={"auto"}
+        slidesPerView={7}
         autoplay={{
-          delay: 0,
+          delay: 1,
           disableOnInteraction: false,
         }}
-        speed={2000}
-        loop
+        speed={1500}
         modules={[Autoplay]}
-        className="services_swiper relative pointer-events-none text-lg"
+        className="services_swiper relative w-full h-full"
       >
         {duplicatedItems.map((text, key) => (
-          <SwiperSlide key={key} className="text-center !w-fit px-3">
-            <span>{text}</span>{" "}
-            <span className={`pl-4 ${isLightPage ? "text-white" : "text-gray-500"}`}>
-              |
-            </span>
-          </SwiperSlide>
+          <SwiperSlide key={key}>{text}</SwiperSlide>
         ))}
       </Swiper>
     </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,6 +11,8 @@ import blackLine from "@/../public/patterns/line_black.png";
 import Image from "next/image";
 
 import Services_Slides from "./Services_Slides";
+
+import { privacyPages } from "@/data/privacy";
 
 const contactInfo = [
   { type: "Phone", label: "+1 (818) 303-3555", href: "tel:+1 (818) 303-3555" },
@@ -26,7 +30,7 @@ const socials = [
   { type: "Instagram", href: "https://www.instagram.com/hb_links" },
 ];
 
-const privacy_pages = ["Terms of service", "Privacy policy"];
+const privacy_pages = privacyPages.map((page) => page.label);
 
 const maxProjectsToShow = 4;
 const visibleProjects = projects.slice(0, maxProjectsToShow);
@@ -50,16 +54,11 @@ function Section({ title, isLightPage, children }) {
 export default function Footer() {
   const pathname = usePathname();
 
-  const isLightPage = [
-    "/legal/terms-of-service",
-    "/legal/privacy-policy",
-  ].includes(pathname);
-
-  const isContactPage = ["/contact"].includes(pathname);
+  const isLightPage = pathname.startsWith("/legal");
 
   return (
     <footer
-      className={`relative pb-6 text-black ${isContactPage ? "hidden" : null} ${
+      className={`relative pb-6 text-black ${
         isLightPage ? "bg-[#1f1f1f] text-white" : "bg-white"
       }`}
     >
@@ -94,6 +93,7 @@ export default function Footer() {
                 <Link
                   href={page === "home" ? "/" : `/${page}`}
                   className="bottom_line"
+                  prefetch
                 >
                   {page}
                 </Link>
@@ -109,6 +109,7 @@ export default function Footer() {
                 <Link
                   href={`/projects/${title.toLowerCase().replace(/\s+/g, "-")}`}
                   className="bottom_line w-full truncate overflow-hidden text-ellipsis whitespace-nowrap"
+                  prefetch
                 >
                   {title}
                 </Link>
@@ -123,6 +124,7 @@ export default function Footer() {
                       ? "text-white opacity-50 before:!bg-white/50"
                       : "text-gray-500 before:!bg-gray-500"
                   }`}
+                  prefetch
                 >
                   View More
                 </Link>

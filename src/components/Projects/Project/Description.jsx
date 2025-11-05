@@ -4,21 +4,15 @@ import Image from "next/image";
 import greenLine from "@/../public/patterns/line_green.png";
 import greenLine_2 from "@/../public/patterns/line_green_2.png";
 
-import { RiDoubleQuotesL } from "react-icons/ri";
-
 export default function Description({
   description,
   images,
   videos,
   scope,
   infastructure,
-  why_us,
+  categories,
 }) {
-  const gridImages = images?.slice(0, -1);
-  const lastImage = images?.[images.length - 1];
-
   const firstVideo = videos?.[0];
-  const lastVideo = videos?.[1];
 
   return (
     <div className="relative">
@@ -31,6 +25,20 @@ export default function Description({
             </p>
             <p className="text-[1.5rem] leading-[1.4]">{description}</p>
           </div>
+        </div>
+        <div className="mx-auto w-[70%] h-[1px] bg-gray-300"></div>
+        <div className="px-[7%] my-10 flex flex-col items-center">
+          <p className="mb-10 text-xl border rounded-full w-fit px-7 py-1">
+            Services Provided
+          </p>
+          <ul className="flex flex-wrap justify-center gap-x-[5rem] gap-y-[2rem]">
+            {categories?.map((text, key) => (
+              <li key={key} className="flex items-center gap-5">
+                <p className="bg-third min-w-3 min-h-3"></p>
+                <p className="text-xl">{text}</p>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="flex justify-center">
           <video
@@ -94,8 +102,8 @@ export default function Description({
           </ul>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3 px-[5%] max-700:grid-cols-1 my-10">
-        {gridImages?.map((image, key) => (
+      <div className="relative grid grid-cols-2 gap-3 px-[5%] max-700:grid-cols-1 mt-10 mb-14">
+        {images?.map((image, key) => (
           <Image
             src={image}
             key={key}
@@ -105,35 +113,6 @@ export default function Description({
             className="bg-gray-500 aspect-[16/16] w-full h-full object-cover"
           />
         ))}
-      </div>
-      <div className="relative mb-10">
-        <div className="mx-auto w-[60%] mb-10">
-          <p className="mb-7 text-lg text-gray-400 font-[300] border rounded-full w-fit px-5">
-            Why <span className="text-third font-[500]">HB LINKS</span>
-          </p>
-          <div className="text-lg font-[300] flex flex-col gap-7">
-            {why_us?.map((text, key) => (
-              <p key={key}>{text}</p>
-            ))}
-          </div>
-        </div>
-        <div className="flex justify-center gap-3 mx-auto w-[80%] h-[500px]">
-          <Image
-            src={lastImage}
-            alt=""
-            width={800}
-            height={800}
-            className="bg-gray-500 w-[60%] h-full object-cover"
-          />
-          <video
-            src={lastVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-[40%] h-full object-cover"
-          />
-        </div>
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat opacity-30 z-[-1]">
           <Image
             src={greenLine_2}
@@ -142,19 +121,6 @@ export default function Description({
             quality={100}
             alt=""
           />
-        </div>
-      </div>
-      <div className="mx-auto w-[60%] mb-12">
-        <div className="relative flex items-center flex-col gap-5 w-[75%] mx-auto bg-gray-100 text-center font-[300] py-5 px-14">
-          <p>
-            With UniFi, we’ve delivered stability, compliance, and built a
-            network ready for future growth.
-          </p>
-          <p className="text-sm font-[500] text-gray-400">
-            Sean Graham of MacGuru Consulting
-          </p>
-          <RiDoubleQuotesL className="absolute -top-4 -left-5 text-4xl text-gray-400" />
-          <RiDoubleQuotesL className="absolute -bottom-4 -right-5 text-4xl text-gray-400 rotate-180" />
         </div>
       </div>
     </div>

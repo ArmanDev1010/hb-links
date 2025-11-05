@@ -1,96 +1,180 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState } from "react";
+
+import ReCAPTCHA from "react-google-recaptcha";
+
+import { usePathname } from "next/navigation";
 
 import { useForm } from "react-hook-form";
 
-import { usePathname } from "next/navigation";
+import toast from "react-hot-toast";
+
 import Link from "next/link";
 
 export default function Form() {
+  const recaptchaRef = useRef();
   const pathname = usePathname();
 
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const fields = [
-    { place: "Name", clean: "name" },
+    { place: "Full Name", clean: "name" },
     { place: "Phone Number", clean: "phone" },
     { place: "Email", clean: "mail" },
     { place: "Address", clean: "address" },
+    { place: "Message", clean: "message" },
   ];
 
-  const isProjectsPage = ["/projects"].includes(pathname);
+  const isContactPage = ["/contact"].includes(pathname);
 
   const { register, handleSubmit, reset } = useForm();
-  const onSubmit = (data) => {
-    // handle form submission
-    console.log(data);
-    reset();
+
+  const onSubmit = async (data) => {
+    if (!captchaToken) {
+      toast.error("Please complete the CAPTCHA before submitting.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, token: captchaToken }),
+      });
+
+      if (res.ok) {
+        toast.success("Delivered successfully!");
+        reset();
+        setCaptchaToken(null);
+        recaptchaRef.current.reset();
+      } else {
+        toast.error("Delivery failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      toast.error("❌ Something went wrong. Try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const formClasses = `flex flex-col h-full justify-center w-full ${
-    isProjectsPage ? "max-w-[400px]" : "max-w-[528px] gap-6"
-  }`;
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={formClasses}>
-      <div className={`flex flex-col ${isProjectsPage ? "gap-14" : "gap-6"}`}>
-        {fields.map(({ place, clean }) => (
-          <div
-            className={`w-full py-[7px] mb-[7px] font-medium border-b border-gray-200 ${
-              isProjectsPage ? "text-sm" : "text-[15px]"
-            }`}
-            key={clean}
-          >
-            <div className="relative w-full">
-              <input
-                {...register(clean)}
-                className="peer w-full outline-none bg-transparent relative z-10"
-                required
-                placeholder=" "
-              />
-              {/* Fake placeholder */}
-              <div
-                className="absolute top-0 left-0 right-0 flex justify-between text-gray-400 font-light pointer-events-none
-                  peer-focus:hidden peer-[&:not(:placeholder-shown)]:hidden"
-              >
-                <span className="">{place}</span>
-                <span className="text-lg">*</span>
+    <>
+      {!isContactPage && (
+        <h2 className="capitalize text-6xl mb-[60px] pointer-events-none text-black/70 pl-[3%]">
+          Request <span className="font-semibold !text-black">Callback</span>
+        </h2>
+      )}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="relative h-full w-full"
+      >
+        <div className="flex flex-col">
+          {fields.map(({ place, clean }, key) => (
+            <div
+              className="w-full pt-[15px] pb-[10px] px-[5%] font-medium border-t border-gray-200"
+              key={clean}
+            >
+              <div className="relative w-full grid grid-cols-8 text-base">
+                <p className="[grid-area:_span_1_/_span_2_/_span_1_/_span_2] pointer-events-none">
+                  0{key + 1}.
+                </p>
+                <p className="[grid-area:_span_1_/_span_2_/_span_1_/_span_2] pointer-events-none">
+                  {place}
+                </p>
+                <div className="[grid-area:_span_1_/_span_4_/_span_1_/_span_4]">
+                  {clean === "message" ? (
+                    <textarea
+                      {...register(clean)}
+                      className={`text-[3rem] outline-none bg-transparent relative z-10 resize-none h-[100px] ${
+                        isContactPage
+                          ? "placeholder:text-white/40"
+                          : "placeholder:text-black/40"
+                      }`}
+                      required
+                      maxLength={5000}
+                      placeholder={`${place}*`}
+                    />
+                  ) : (
+                    <input
+                      {...register(clean)}
+                      className={`text-[3rem] outline-none bg-transparent relative z-10 ${
+                        isContactPage
+                          ? "placeholder:text-white/40"
+                          : "placeholder:text-black/40"
+                      }`}
+                      required
+                      placeholder={`${place}*`}
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-      {isProjectsPage ? (
-        <p className="mt-[35px] mb-[50px] text-[13px] text-gray-400">
-          By clicking the button, you accept the{" "}
-          <Link href="privacy-policy" className="font-bold underline text-black">
-            privacy policy
-          </Link>{" "}
-          and consent to the processing of personal data
-        </p>
-      ) : null}
-
-      {isProjectsPage ? (
-        <button
-          type="submit"
-          className="relative w-full bg-third cursor-pointer text-[15px] uppercase py-[13px] rounded-full text-white"
-        >
-          Send
-        </button>
-      ) : (
-        <div className="relative mt-[30px] mx-auto">
-          <button
-            type="submit"
-            className="relative w-fit cursor-pointer text-lg uppercase bottom_line_reverse
-              after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 after:left-[-50px] after:w-[35px] after:h-[15px] 
-              after:bg-transparent after:bg-no-repeat after:bg-center after:bg-contain after:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAzNCAxMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuMDkwMjUgNi4yODE5OEM0LjA5MDI1IDguMTE0OTggNC43NjYyNSA5LjgzMDk4IDUuNDk0MjUgMTEuMDAxSDYuMjg3MjVDNS40NDIyNSA5LjUwNTk4IDUuMDAwMjUgOC4wMzY5OCA1LjAwMDI1IDYuMjgxOThDNS4wMDAyNSA0LjUyNjk4IDUuNDQyMjUgMy4wNzA5OCA2LjI4NzI1IDEuNTc1OThINS40OTQyNUM0Ljc2NjI1IDIuNzQ1OTggNC4wOTAyNSA0LjQ3NDk4IDQuMDkwMjUgNi4yODE5OFpNMzMuNDQ1NSA2LjI4MTk4QzMzLjQ0NTUgNC40NzQ5OCAzMi43Njk1IDIuNzQ1OTggMzIuMDQxNSAxLjU3NTk4SDMxLjI0ODVDMzIuMDkzNSAzLjA3MDk4IDMyLjUzNTUgNC41MjY5OCAzMi41MzU1IDYuMjgxOThDMzIuNTM1NSA4LjAzNjk4IDMyLjA5MzUgOS41MDU5OCAzMS4yNDg1IDExLjAwMUgzMi4wNDE1QzMyLjc2OTUgOS44MzA5OCAzMy40NDU1IDguMTE0OTggMzMuNDQ1NSA2LjI4MTk4WiIgZmlsbD0iIzY3NUI1MSIvPgo8cGF0aCBkPSJNMTEuNTA3OCA1LjkzMzA0TDI2LjMyMjEgNS45MzMwNSIgc3Ryb2tlPSIjNjc1QjUxIi8+CjxwYXRoIGQ9Ik0yNi40OTcxIDUuODk0NTNDMjMuNzE2NyA1LjgyMjk5IDE4LjE5OTIgNC43NjEyOCAxOC4xOTkyIDEuMDAwOTMiIHN0cm9rZT0iIzY3NUI1MSIvPgo8cGF0aCBkPSJNMjYuNDk3MSA1Ljg5NDUzQzIzLjcxNjcgNS45NjkxOSAxOC4xOTkyIDcuMDc3MDYgMTguMTk5MiAxMS4wMDA5IiBzdHJva2U9IiM2NzVCNTEiLz4KPC9zdmc+Cg==')]"
-          >
-            Send Request
-          </button>
-          <p className="absolute top-1/2 -translate-y-1/2 left-[110%] w-[200px] text-sm text-gray-400">
-            (info@hb-links.com)
-          </p>
+          ))}
         </div>
-      )}
-    </form>
+        <div className="flex flex-col justify-center w-fit mx-auto">
+          <ReCAPTCHA
+            sitekey="6LfqoQMsAAAAAC9Z0X-kEDdB5VNAZAcVB-pIMeMb"
+            ref={recaptchaRef}
+            size="normal"
+            onChange={(token) => setCaptchaToken(token)}
+          />
+          <div className="flex items-center justify-center gap-10 mt-10 mb-20">
+            <button
+              className="group bg-third py-[12px] px-[60px] text-lg border rounded-full relative cursor-pointer overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span className="text-white">Sending...</span>
+                </div>
+              ) : (
+                <>
+                  <p className="relative text-center text-white top-0 group-hover:top-[-40px] transition-[top] duration-[.4s] ease-[cubic-bezier(.33,1,.68,1)]">
+                    Submit Request
+                  </p>
+                  <div className="w-full h-full absolute top-[110%] left-0 flex items-center justify-center group-hover:top-0 transition-[top] duration-[.4s] ease-[cubic-bezier(.33,1,.68,1)]">
+                    <p
+                      className={`absolute text-black font-[500] ${
+                        isContactPage ? "text-black" : "text-white"
+                      }`}
+                    >
+                      Submit Request
+                    </p>
+                    <div
+                      className={`${
+                        isContactPage ? "bg-white" : "bg-primary"
+                      } w-[60%] h-full rounded-[50%] group-hover:w-full group-hover:rounded-[100px] transition-all duration-[.4s] ease-[cubic-bezier(.33,1,.68,1)]`}
+                    />
+                  </div>
+                </>
+              )}
+            </button>
+            <p
+              className={`text-base w-[400px] pointer-events-none ${
+                isContactPage ? "text-white/70" : "text-black/70"
+              }`}
+            >
+              By clicking the button, you accept the{" "}
+              <Link
+                href="/legal/privacy-policy"
+                className={`font-bold underline pointer-events-auto ${
+                  isContactPage ? "text-white" : "text-black"
+                }`}
+              >
+                privacy policy
+              </Link>{" "}
+              and consent to the processing of personal data
+            </p>
+          </div>
+        </div>
+      </form>
+    </>
   );
 }

@@ -1,6 +1,11 @@
 import "./globals.css";
+
+import Navbar from "@/components/Navigation/Navbar";
+import Consultation from "@/components/Navigation/Consultation_button";
+
 import { Inter } from "next/font/google";
-import AppWrapper from "../components/AppWrapper";
+import { Toaster } from "react-hot-toast";
+import ConditionalComponents from "@/components/other/ConditionalComponents";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,7 +17,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <AppWrapper fontClass={inter.className}>{children}</AppWrapper>
+      <body className={inter.className}>
+        <Navbar />
+        <Consultation />
+        <Toaster position="top-center" />
+        {children}
+        <ConditionalComponents />
+      </body>
     </html>
   );
 }

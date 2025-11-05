@@ -6,7 +6,6 @@ import { projects } from "@/data/projects";
 
 import Intro from "@/components/Projects/Project/Intro";
 import Description from "@/components/Projects/Project/Description";
-import OtherProjects from "@/components/Projects/Project/OtherProjects";
 
 export default function ProjectPage() {
   const params = useParams();
@@ -15,10 +14,6 @@ export default function ProjectPage() {
   const project = projects.find(
     (p) => p.title.toLowerCase().replace(/\s+/g, "-") === projectId
   );
-
-  const otherProjects = projects
-    .filter((p) => p.title.toLowerCase().replace(/\s+/g, "-") !== projectId)
-    .slice(0, 2);
 
   if (!project) {
     return (
@@ -37,7 +32,7 @@ export default function ProjectPage() {
     videos,
     scope,
     infastructure,
-    why_us,
+    categories,
   } = project;
 
   return (
@@ -49,9 +44,8 @@ export default function ProjectPage() {
         videos={videos}
         scope={scope}
         infastructure={infastructure}
-        why_us={why_us}
+        categories={categories}
       />
-      <OtherProjects otherProjects={otherProjects} />
     </div>
   );
 }

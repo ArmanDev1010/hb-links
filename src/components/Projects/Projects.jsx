@@ -46,7 +46,7 @@ export default function Projects() {
   };
 
   return (
-    <div className="relative px-[3%] pt-[50px] pb-[30px]">
+    <div className="relative px-[3%] pt-[50px] pb-[50px]">
       <h2 className="uppercase text-[max(3vw,5.5vw)] mb-[50px] leading-[1.1] pointer-events-none">
         Projects
       </h2>

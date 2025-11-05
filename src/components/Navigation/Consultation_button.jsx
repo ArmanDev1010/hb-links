@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
-export default function ContactPanel() {
+export default function Consultation() {
   const [open, setOpen] = useState(false);
 
   return (

@@ -79,7 +79,7 @@ export default function Slides() {
       >
         {slideTexts.map((_, index) => (
           <SwiperSlide key={index}>
-            <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-0 left-0 w-full h-full brightness-[50%]">
               <Image
                 src={`/swipers/${index + 1}.jpg`}
                 alt={`Slide ${index + 1}`}
@@ -87,9 +87,6 @@ export default function Slides() {
                 priority={index === 0}
                 className="object-cover"
               />
-              <div className="absolute inset-0 z-[1] pointer-events-none">
-                <div className="w-full h-full bg-gradient-to-b from-black/60 via-black/20 to-black/60" />
-              </div>
             </div>
           </SwiperSlide>
         ))}

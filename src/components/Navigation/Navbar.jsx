@@ -22,7 +22,7 @@ export default function Navbar() {
 
   const isLightPage =
     pathname.startsWith("/projects") ||
-    ["/contact", "/terms-of-service", "/privacy-policy"].includes(pathname);
+    ["/terms-of-service", "/privacy-policy"].includes(pathname);
   const isContactPage = ["/contact"].includes(pathname);
 
   useEffect(() => {
@@ -45,13 +45,11 @@ export default function Navbar() {
     ${
       atTop
         ? "bg-transparent"
-        : "!bg-white !h-[65px] !text-black border-black/10"
+        : "!bg-white !h-[65px] !text-black !border-black/10"
     }
     ${
-      isLightPage && !isContactPage
+      isLightPage
         ? "text-black border-black/10 h-[80px]"
-        : isContactPage
-        ? "text-black h-[95px] border-white/30"
         : "text-white border-white/30 h-[75px]"
     }
   `;
@@ -62,9 +60,9 @@ export default function Navbar() {
     <nav className={navClasses}>
       <div className="relative flex items-center h-full max-w-[1600px]">
         <div
-          className={`flex items-center ${isLightPage ? "w-full" : "w-[75%]"}`}
+          className={`flex items-center ${isLightPage || isContactPage ? "w-full" : "w-[75%]"}`}
         >
-          <Link href="/">
+          <Link href="/" prefetch>
             <Image
               src={atTop && !isLightPage ? whiteLogo : blackLogo}
               alt="Logo"
@@ -81,6 +79,7 @@ export default function Navbar() {
                 <Link
                   href={href}
                   className="capitalize transition-opacity duration-200 hover:opacity-70"
+                  prefetch
                 >
                   {label}
                 </Link>
@@ -115,7 +114,7 @@ export default function Navbar() {
           </ul>
 
           {!isContactPage && (
-            <Link href="/contact">
+            <Link href="/contact" prefetch>
               <button className="group py-[10px] px-[60px] border rounded-full relative cursor-pointer overflow-hidden">
                 <p className="relative text-center top-0 group-hover:top-[-40px] transition-[top] duration-[.4s] ease-[cubic-bezier(.33,1,.68,1)]">
                   Contact us

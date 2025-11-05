@@ -10,7 +10,10 @@ export default function ProjectPreview({
   isLoading,
 }) {
   return (
-    <Link href={`./projects/${title?.toLowerCase().replace(/\s+/g, "-")}`}>
+    <Link
+      href={`./projects/${title?.toLowerCase().replace(/\s+/g, "-")}`}
+      prefetch
+    >
       <div
         className={`overflow-hidden transition-opacity duration-300 ${
           isLoading ? "pointer-events-none" : "hover:opacity-90"
