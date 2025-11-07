@@ -27,6 +27,7 @@ export default function Form() {
     { place: "Message", clean: "message" },
   ];
 
+  const isDarkPage = ["/contact", "/services"].includes(pathname);
   const isContactPage = ["/contact"].includes(pathname);
 
   const { register, handleSubmit, reset } = useForm();
@@ -63,12 +64,29 @@ export default function Form() {
   };
 
   return (
-    <>
-      {!isContactPage && (
-        <h2 className="capitalize text-6xl mb-[60px] pointer-events-none text-black/70 pl-[3%]">
-          Request <span className="font-semibold !text-black">Callback</span>
-        </h2>
-      )}
+    <div
+      className={`${
+        isDarkPage && isContactPage
+          ? "w-full bg-transparent"
+          : isDarkPage
+          ? "w-full bg-primary text-white"
+          : null
+      }`}
+    >
+      <h2
+        className={`capitalize text-6xl mb-[60px] pointer-events-none px-[3%] ${
+          isDarkPage ? "text-white/70" : "text-black/70"
+        }`}
+      >
+        Request{" "}
+        <span
+          className={`font-semibold ${
+            isDarkPage ? "!text-white" : "!text-black"
+          }`}
+        >
+          Callback
+        </span>
+      </h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="relative h-full w-full"
@@ -91,7 +109,7 @@ export default function Form() {
                     <textarea
                       {...register(clean)}
                       className={`text-[3rem] outline-none bg-transparent relative z-10 resize-none h-[100px] ${
-                        isContactPage
+                        isDarkPage
                           ? "placeholder:text-white/40"
                           : "placeholder:text-black/40"
                       }`}
@@ -103,7 +121,7 @@ export default function Form() {
                     <input
                       {...register(clean)}
                       className={`text-[3rem] outline-none bg-transparent relative z-10 ${
-                        isContactPage
+                        isDarkPage
                           ? "placeholder:text-white/40"
                           : "placeholder:text-black/40"
                       }`}
@@ -141,15 +159,15 @@ export default function Form() {
                   </p>
                   <div className="w-full h-full absolute top-[110%] left-0 flex items-center justify-center group-hover:top-0 transition-[top] duration-[.4s] ease-[cubic-bezier(.33,1,.68,1)]">
                     <p
-                      className={`absolute text-black font-[500] ${
-                        isContactPage ? "text-black" : "text-white"
+                      className={`absolute font-[500] ${
+                        isDarkPage ? "text-black" : "text-white"
                       }`}
                     >
                       Submit Request
                     </p>
                     <div
                       className={`${
-                        isContactPage ? "bg-white" : "bg-primary"
+                        isDarkPage ? "bg-white" : "bg-primary"
                       } w-[60%] h-full rounded-[50%] group-hover:w-full group-hover:rounded-[100px] transition-all duration-[.4s] ease-[cubic-bezier(.33,1,.68,1)]`}
                     />
                   </div>
@@ -158,14 +176,14 @@ export default function Form() {
             </button>
             <p
               className={`text-base w-[400px] pointer-events-none ${
-                isContactPage ? "text-white/70" : "text-black/70"
+                isDarkPage ? "text-white/70" : "text-black/70"
               }`}
             >
               By clicking the button, you accept the{" "}
               <Link
                 href="/legal/privacy-policy"
                 className={`font-bold underline pointer-events-auto ${
-                  isContactPage ? "text-white" : "text-black"
+                  isDarkPage ? "text-white" : "text-black"
                 }`}
               >
                 privacy policy
@@ -175,6 +193,6 @@ export default function Form() {
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 }

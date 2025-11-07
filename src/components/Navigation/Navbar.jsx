@@ -23,7 +23,8 @@ export default function Navbar() {
   const isLightPage =
     pathname.startsWith("/projects") ||
     ["/terms-of-service", "/privacy-policy"].includes(pathname);
-  const isContactPage = ["/contact"].includes(pathname);
+  const isContactPage = pathname === "/contact";
+  const isNonStickyPage = pathname === "/services" || isContactPage;
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -39,32 +40,32 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navClasses = `
-    fixed z-[99] px-[3%] w-full border-b transition-all duration-400
-    ${visible ? "translate-y-0" : "-translate-y-full"}
-    ${
-      atTop
-        ? "bg-transparent"
-        : "!bg-white !h-[65px] !text-black !border-black/10"
-    }
-    ${
-      isLightPage
-        ? "text-black border-black/10 h-[80px]"
-        : "text-white border-white/30 h-[75px]"
-    }
-  `;
+  const navBase = "px-[3%] w-full border-b transition-all duration-400";
+  const stickyStyles = isNonStickyPage
+    ? "!bg-primary"
+    : `fixed z-[99] ${visible ? "translate-y-0" : "-translate-y-full"}`;
+  const topStyles = atTop
+    ? "bg-transparent"
+    : "!bg-white !h-[65px] !text-black !border-black/10";
+  const themeStyles = isLightPage
+    ? "text-black border-black/10 h-[80px]"
+    : "text-white border-white/30 h-[75px]";
+  const navClasses = `${navBase} ${stickyStyles} ${topStyles} ${themeStyles}`;
 
   const phoneBg = isLightPage ? "bg-black/10" : "bg-[hsla(48,36%,95%,.1)]";
+  const logoSrc = atTop && !isLightPage ? whiteLogo : blackLogo;
 
   return (
     <nav className={navClasses}>
       <div className="relative flex items-center h-full max-w-[1600px]">
         <div
-          className={`flex items-center ${isLightPage || isContactPage ? "w-full" : "w-[75%]"}`}
+          className={`flex items-center ${
+            isLightPage || isContactPage ? "w-full" : "w-[75%]"
+          }`}
         >
           <Link href="/" prefetch>
             <Image
-              src={atTop && !isLightPage ? whiteLogo : blackLogo}
+              src={logoSrc}
               alt="Logo"
               width={100}
               height={50}

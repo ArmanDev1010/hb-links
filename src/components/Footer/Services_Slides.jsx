@@ -22,7 +22,7 @@ export default function Services_Slides({ isLightPage }) {
     <div
       className={`relative z-[1] py-3 mb-10 ${
         isLightPage
-          ? "bg-third text-white"
+          ? "bg-third text-white border-y-2 border-y-white"
           : "bg-white border-y-4 border-y-third text-black"
       }`}
     >

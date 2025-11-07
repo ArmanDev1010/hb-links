@@ -211,9 +211,9 @@ export default function LegalPage() {
       <div className="mx-auto pt-16 px-[3%] flex flex-col lg:flex-row gap-10">
         {/* Main Content */}
         <div className="w-[75%] pb-8 text-gray-200 pointer-events-none">
-          <h1 className="text-[6vw] uppercase mb-[7rem] text-white">
+          <h2 className="text-[6vw] uppercase mb-[7rem] text-white">
             {content.title}
-          </h1>
+          </h2>
           {content.sections.map(({ heading, body, list }, index) => (
             <div key={index} className="mb-6">
               <h2 className="text-3xl font-semibold mt-10 mb-4">{heading}</h2>
