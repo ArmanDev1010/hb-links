@@ -12,7 +12,7 @@ export default function Projects() {
 
   return (
     <div className="relative py-[50px] px-[5%]">
-      <h3 className="uppercase text-6xl mb-[40px] leading-[1.1] pointer-events-none">
+      <h3 className="uppercase text-7xl mb-[40px] leading-[1.1] pointer-events-none">
         Our Projects
       </h3>
       <div className="relative z-[1] grid grid-cols-2 gap-6">
@@ -33,7 +33,7 @@ export default function Projects() {
       </div>
       <div className="flex justify-center my-10">
         <Link href={"/projects"}>
-          <button className="group text-lg capitalize px-12 py-2 text-white rounded-full bg-secondary flex gap-2 cursor-pointer max-550:text-3xl">
+          <button className="group text-lg capitalize px-16 py-2 text-white rounded-full bg-primary flex gap-2 cursor-pointer max-550:text-3xl">
             <div className="relative overflow-hidden">
               <div className="group-hover:translate-y-[-110%] transition duration-300">
                 See more
