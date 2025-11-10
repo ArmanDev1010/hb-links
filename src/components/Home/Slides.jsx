@@ -104,12 +104,7 @@ export default function Slides() {
                 className="text-white text-[5vw] font-[400] uppercase leading-[1.2]"
               >
                 {slideTexts[activeIndex].map((line, i) => (
-                  <span
-                    key={i}
-                    className={`block w-full ${
-                      i === 1 ? "text-right" : "text-left"
-                    }`}
-                  >
+                  <span key={i} className="block w-full">
                     {line}
                   </span>
                 ))}

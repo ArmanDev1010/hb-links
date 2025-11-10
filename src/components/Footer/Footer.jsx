@@ -55,7 +55,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   const isLightPage =
-    pathname.startsWith("/legal") || ["/services"].includes(pathname);
+    pathname.startsWith("/legal") || pathname.startsWith("/services");
 
   return (
     <footer

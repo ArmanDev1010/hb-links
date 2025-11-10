@@ -27,7 +27,8 @@ export default function Form() {
     { place: "Message", clean: "message" },
   ];
 
-  const isDarkPage = ["/contact", "/services"].includes(pathname);
+  const isDarkPage =
+    ["/contact"].includes(pathname) || pathname.startsWith("/services");
   const isContactPage = ["/contact"].includes(pathname);
 
   const { register, handleSubmit, reset } = useForm();
@@ -97,18 +98,12 @@ export default function Form() {
               className="w-full pt-[15px] pb-[10px] px-[5%] font-medium border-t border-gray-200"
               key={clean}
             >
-              <div className="relative w-full grid grid-cols-8 text-base">
-                <p className="[grid-area:_span_1_/_span_2_/_span_1_/_span_2] pointer-events-none">
-                  0{key + 1}.
-                </p>
-                <p className="[grid-area:_span_1_/_span_2_/_span_1_/_span_2] pointer-events-none">
-                  {place}
-                </p>
-                <div className="[grid-area:_span_1_/_span_4_/_span_1_/_span_4]">
+              <div className="relative w-full flex text-base">
+                <div className="w-[70%] mx-auto max-w-[1000px]">
                   {clean === "message" ? (
                     <textarea
                       {...register(clean)}
-                      className={`text-[3rem] outline-none bg-transparent relative z-10 resize-none h-[100px] ${
+                      className={`text-[3rem] outline-none bg-transparent relative z-10 resize-none w-full h-[100px] ${
                         isDarkPage
                           ? "placeholder:text-white/40"
                           : "placeholder:text-black/40"

@@ -27,6 +27,7 @@ export default function ProjectPage() {
     title,
     images,
     background_image,
+    video,
     description,
     details,
     videos,
@@ -37,7 +38,12 @@ export default function ProjectPage() {
 
   return (
     <div>
-      <Intro title={title} bg_img={background_image} details={details} />
+      <Intro
+        title={title}
+        bg_img={background_image}
+        video={video}
+        details={details}
+      />
       <Description
         images={images}
         description={description}

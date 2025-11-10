@@ -4,14 +4,16 @@ import Link from "next/link";
 
 export default function ProjectPreview({
   title,
-  videos,
+  video,
+  bg_img,
   images,
   categories,
   isLoading,
+  isBlack,
 }) {
   return (
     <Link
-      href={`./projects/${title?.toLowerCase().replace(/\s+/g, "-")}`}
+      href={`/projects/${title?.toLowerCase().replace(/\s+/g, "-")}`}
       prefetch
     >
       <div
@@ -20,12 +22,12 @@ export default function ProjectPreview({
         }`}
       >
         {isLoading ? (
-          // Gray Placeholder Card
           <div className="w-full h-[400px] bg-gray-200 animate-pulse" />
         ) : (
           <HoverImageSwiper
             images={images}
-            video={videos ? videos[0] : null}
+            video={video}
+            bg_img={bg_img}
             alt={title}
           />
         )}
@@ -38,8 +40,15 @@ export default function ProjectPreview({
             </>
           ) : (
             <>
-              <h3 className="text-[2vw] font-semibold mb-1">{title}</h3>
-              <p className="text-base text-gray-400">{categories.join(", ")}</p>
+              <h3
+                className={`text-[2vw] font-semibold mb-1 ${
+                  isBlack && "text-white"
+                }`}
+              >
+                {title}
+              </h3>
+
+              <p className="text-lg text-gray-400">{categories.join(", ")}</p>
             </>
           )}
         </div>

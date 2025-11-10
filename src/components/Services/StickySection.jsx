@@ -20,15 +20,18 @@ export default function StickySection() {
       <h1 className="text-[6vw] text-center uppercase pt-10 mb-5 text-white pointer-events-none">
         All Services
       </h1>
-      {services?.map(({ title, background_image, paragraph, tags }, key) => (
-        <Service
-          key={key}
-          title={title}
-          bg_img={background_image}
-          paragraph={paragraph}
-          tags={tags}
-        />
-      ))}
+      {services?.map(
+        ({ title, background_image, description, link, aliases }, key) => (
+          <Service
+            key={key}
+            title={title}
+            bg_img={background_image}
+            description={description}
+            link={link}
+            aliases={aliases}
+          />
+        )
+      )}
     </div>
   );
 }

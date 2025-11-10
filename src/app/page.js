@@ -8,8 +8,8 @@ export default function HomePage() {
   return (
     <>
       <Slides />
-      {/* <Projects />
-      <Services /> */}
+      <Projects />
+      {/* <Services /> */}
     </>
   );
 }

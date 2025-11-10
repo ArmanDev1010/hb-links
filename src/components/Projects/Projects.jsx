@@ -2,8 +2,11 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 
-import { projects } from "@/data/projects";
 import ProjectPreview from "./ProjectPreview";
+
+import { projects } from "@/data/projects";
+import { services } from "@/data/services";
+import { normalizeCategory } from "../Services/utils/normalizeCategory";
 
 export default function Projects() {
   const [selectedFilter, setSelectedFilter] = useState("All");
@@ -11,23 +14,24 @@ export default function Projects() {
   const [isLoading, setIsLoading] = useState(false);
   const tabRefs = useRef({});
 
-  const filters = [
-    "All",
-    "Security Systems",
-    "CCTV",
-    "Access Control",
-    "Networking",
-    "AV Integration",
-    "Smart Home",
-  ];
-
   const filteredProjects = useMemo(() => {
-    return selectedFilter === "All"
-      ? projects
-      : projects.filter((project) =>
-          project.categories.includes(selectedFilter)
-        );
+    if (selectedFilter === "All") return projects;
+
+    return projects.filter((project) =>
+      project.categories.some(
+        (cat) => normalizeCategory(cat) === selectedFilter
+      )
+    );
   }, [selectedFilter, projects]);
+
+  const usedServiceTitles = new Set();
+  projects.forEach((project) => {
+    project.categories.forEach((cat) => {
+      usedServiceTitles.add(normalizeCategory(cat));
+    });
+  });
+  const activeServices = services.filter((s) => usedServiceTitles.has(s.title));
+  const filters = ["All", ...activeServices.map((s) => s.title)];
 
   useEffect(() => {
     const el = tabRefs.current[selectedFilter];
@@ -42,7 +46,7 @@ export default function Projects() {
     setSelectedFilter(filter);
     setTimeout(() => {
       setIsLoading(false);
-    }, 500); // Adjust duration to match animation
+    }, 500);
   };
 
   return (
@@ -84,12 +88,13 @@ export default function Projects() {
       {/* Project Grid */}
       <div className="grid grid-cols-2 gap-6">
         {filteredProjects.map(
-          ({ title, id, videos, images, categories }, key) => (
+          ({ title, id, video, background_image, images, categories }, key) => (
             <ProjectPreview
               key={key}
               title={title}
               id={id}
-              videos={videos}
+              video={video}
+              bg_img={background_image}
               images={images}
               categories={categories}
               isLoading={isLoading}
