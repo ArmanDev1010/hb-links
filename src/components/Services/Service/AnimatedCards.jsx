@@ -14,6 +14,8 @@ export default function AnimatedCards({ aliases }) {
 
   useGSAP(
     () => {
+      if (window.innerWidth < 1080) return;
+
       const cards = gsap.utils.toArray(".card");
 
       ScrollTrigger.create({
@@ -56,7 +58,7 @@ export default function AnimatedCards({ aliases }) {
   );
 
   return (
-    <div className="py-[60px]" ref={container}>
+    <div className="" ref={container}>
       <div className="intro"></div>
       <div className="cards">
         {aliases?.map(({ name, description }, key) => (
@@ -70,13 +72,14 @@ export default function AnimatedCards({ aliases }) {
 
 const Card = ({ name, description }) => {
   return (
-    <div className="card relative text-white h-[400px]">
-      <div className="border-y-4 border-y-third card-inner bg-secondary relative will-change-transform w-full h-full p-[2em] flex gap-[4em]">
+    <div className="card relative text-white h-[400px] max-1280:h-[350px] max-1080:h-[280px] max-800:h-fit">
+      <div className="card-inner border-t-6 border-t-third bg-secondary relative will-change-transform w-full h-full p-[2em] flex gap-[4em] max-800:py-12 max-550:px-[5%]">
         <div className="flex-[3] pointer-events-none">
-          <h2 className="text-[5vw] capitalize font-[600] leading-[1] mb-[0.5em]">
+          <h2 className="text-6xl capitalize font-[600] leading-[1] mb-[0.5em] max-1080:text-[6vw] max-800:text-5xl max-800:leading-[1.2]
+          max-550:text-[10vw] max-400:mb-7 max-400:text-[10vw]">
             {name}
           </h2>
-          <p className="text-[1.5vw] max-w-[900px] font-[500] max-_900:hidden">
+          <p className="text-[1.5vw] max-1280:text-xl max-w-[500px] font-[500] max-700:text-lg max-700:max-w-[400px] max-400:text-[4.5vw]">
             {description}
           </p>
         </div>

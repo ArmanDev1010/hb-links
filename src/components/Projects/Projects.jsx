@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useMemo } from "react";
 
 import ProjectPreview from "./ProjectPreview";
 
@@ -10,7 +10,6 @@ import { normalizeCategory } from "../Services/utils/normalizeCategory";
 
 export default function Projects() {
   const [selectedFilter, setSelectedFilter] = useState("All");
-  const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
   const [isLoading, setIsLoading] = useState(false);
   const tabRefs = useRef({});
 
@@ -33,14 +32,6 @@ export default function Projects() {
   const activeServices = services.filter((s) => usedServiceTitles.has(s.title));
   const filters = ["All", ...activeServices.map((s) => s.title)];
 
-  useEffect(() => {
-    const el = tabRefs.current[selectedFilter];
-    if (el) {
-      const { offsetLeft, offsetWidth } = el;
-      setUnderlineStyle({ left: offsetLeft, width: offsetWidth });
-    }
-  }, [selectedFilter]);
-
   const handleFilterChange = (filter) => {
     setIsLoading(true);
     setSelectedFilter(filter);
@@ -50,43 +41,37 @@ export default function Projects() {
   };
 
   return (
-    <div className="relative px-[3%] pt-[50px] pb-[50px]">
-      <h2 className="uppercase text-[max(3vw,5.5vw)] mb-[50px] leading-[1.1] pointer-events-none">
+    <div className="relative pt-[50px] max-400:py-[40px]">
+      <h3
+        className="uppercase text-7xl mb-[40px] leading-[1.1] pointer-events-none px-[3%] 
+      max-700:text-6xl max-700:mb-[40px] max-550:mb-[30px] max-400:text-5xl"
+      >
         Projects
-      </h2>
+      </h3>
 
       {/* Filter Tabs */}
       <div className="relative w-full mb-10 flex justify-center">
-        <div className="flex gap-8 overflow-x-auto whitespace-nowrap">
+        <div className="flex gap-5 flex-wrap px-[3%] max-550:gap-3">
           {filters.map((filter) => (
             <button
               key={filter}
               ref={(el) => (tabRefs.current[filter] = el)}
               onClick={() => handleFilterChange(filter)}
-              className={`pb-2 text-[16px] font-medium cursor-pointer ${
-                selectedFilter === filter
-                  ? "text-third"
-                  : "text-gray-500 hover:text-black"
-              }`}
+              className={`group cursor-pointer border border-gray-500 text-lg py-2 px-5 capitalize transition duration-[0.2s] hover:opacity-70
+                  max-900:text-base max-550:text-[15px] max-400:text-sm ${
+                    selectedFilter === filter ? "bg-third text-white" : ""
+                  }`}
             >
               {filter}
             </button>
           ))}
         </div>
 
-        {/* Sliding Underline */}
-        <div
-          className="absolute bottom-0 h-[2px] bg-third transition-all duration-300"
-          style={{
-            left: underlineStyle.left,
-            width: underlineStyle.width,
-          }}
-        />
-        <div className="absolute bottom-[-1px] h-[1px] bg-gray-300 w-[80%] max-w-[1400px]" />
+        <div className="absolute -bottom-5 h-[1px] bg-gray-300 w-[80%] max-w-[1400px] max-1080:w-full" />
       </div>
 
       {/* Project Grid */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-6 px-[3%] max-900:grid-cols-1">
         {filteredProjects.map(
           ({ title, id, video, background_image, images, categories }, key) => (
             <ProjectPreview

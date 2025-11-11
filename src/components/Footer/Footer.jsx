@@ -24,7 +24,7 @@ const contactInfo = [
   { type: "Area", label: "California, USA" },
 ];
 
-const pages = ["home", "projects", "services", "about", "contact"];
+const pages = ["home", "projects", "services", "contact"];
 
 const socials = [
   { type: "Instagram", href: "https://www.instagram.com/hb_links" },
@@ -38,7 +38,7 @@ const hasMoreProjects = projects.length > maxProjectsToShow;
 
 function Section({ title, isLightPage, children }) {
   return (
-    <div className="min-w-[200px] text-lg">
+    <div className="min-w-[200px] text-lg max-900:min-w-[150px]">
       <p
         className={`uppercase text-base mb-5 pointer-events-none ${
           isLightPage ? "text-white opacity-50" : "text-gray-500"
@@ -65,7 +65,7 @@ export default function Footer() {
     >
       <Services_Slides isLightPage={isLightPage} />
 
-      <div className="flex flex-wrap justify-between px-[3%] mb-10 gap-10">
+      <div className="flex flex-wrap justify-between px-[3%] mb-10 gap-x-16 gap-y-16 max-900:mb-0">
         <ul className="flex flex-col gap-9 min-w-[250px] text-2xl">
           {contactInfo.map(({ type, label, href }) => (
             <li key={type} className="w-fit">
@@ -149,26 +149,25 @@ export default function Footer() {
 
       {/* Footer Bottom */}
       <div
-        className={`mt-26 px-[3%] flex flex-wrap justify-between items-center gap-4 text-sm ${
-          isLightPage ? "text-white opacity-50" : "text-gray-500"
-        }`}
+        className={`mt-26 px-[3%] flex flex-wrap justify-between items-center gap-y-6 gap-x-20 text-sm 
+          max-900:flex-col max-900:mt-20 max-900:gap-y-10 ${
+            isLightPage ? "text-white opacity-50" : "text-gray-500"
+          }`}
       >
-        <div className="flex gap-36">
-          <p className="pointer-events-none">
-            © 2025 HB Links. All rights reserved.
-          </p>
-          <ul className="flex gap-10 capitalize">
-            {privacy_pages.map((page) => {
-              const slug = page.toLowerCase().replace(/\s+/g, "-");
-              return (
-                <li key={slug}>
-                  <Link href={`/legal/${slug}`}>{page}</Link>
-                </li>
-              );
-            })}
-          </ul>
+        <div className="pointer-events-none">
+          © 2025 HB Links. All rights reserved.
         </div>
-        <p className="pointer-events-none">
+        <ul className="flex gap-x-10 gap-y-5 capitalize flex-wrap justify-center">
+          {privacy_pages.map((page) => {
+            const slug = page.toLowerCase().replace(/\s+/g, "-");
+            return (
+              <li key={slug}>
+                <Link href={`/legal/${slug}`}>{page}</Link>
+              </li>
+            );
+          })}
+        </ul>
+        <div className="pointer-events-none">
           Made by{" "}
           <Link
             href="https://armanmanukyan.am/"
@@ -176,16 +175,15 @@ export default function Footer() {
           >
             Arman Manukyan
           </Link>
-        </p>
+        </div>
       </div>
 
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat opacity-10 z-[0]">
         <Image
           src={isLightPage ? whiteLine : blackLine}
-          layout="fill"
-          objectFit="cover"
-          quality={100}
+          fill
           alt=""
+          className="object-cover"
         />
       </div>
     </footer>

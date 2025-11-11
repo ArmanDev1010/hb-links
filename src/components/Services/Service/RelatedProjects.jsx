@@ -13,14 +13,18 @@ export default function RelatedProjects({ serviceTitle }) {
     project.categories.some((cat) => normalizeCategory(cat) === serviceTitle)
   );
 
-  if (relatedProjects.length === 0) return null;
+  if (relatedProjects.length === 0)
+    return <div className="pt-[70px] max-550:pt-[60px]"></div>;
 
   return (
-    <div className="relative pb-[50px] px-[5%]">
-      <h3 className="uppercase text-[max(3vw,5vw)] mb-[50px] leading-[1.1] pointer-events-none">
+    <div className="relative py-[50px] px-[5%]">
+      <h3
+        className="uppercase text-7xl mb-[40px] leading-[1.1] pointer-events-none max-700:text-6xl max-700:mb-[40px] 
+      max-550:text-[14vw] max-550:mb-[25px]"
+      >
         Related Projects
       </h3>
-      <div className="relative z-[1] grid grid-cols-2 gap-6">
+      <div className="relative z-[1] grid grid-cols-2 gap-6 max-900:grid-cols-1">
         {relatedProjects.map(
           ({ title, id, video, background_image, images, categories }, key) => (
             <ProjectPreview

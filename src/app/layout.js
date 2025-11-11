@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import Navbar from "@/components/Navigation/Navbar";
-import Consultation from "@/components/Navigation/Consultation_button";
+// import Consultation from "@/components/Navigation/Consultation_button";
 
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <Consultation />
+        {/* <Consultation /> */}
         <Toaster position="top-center" />
         {children}
         <ConditionalComponents />

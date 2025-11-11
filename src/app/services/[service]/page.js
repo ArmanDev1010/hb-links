@@ -37,7 +37,6 @@ export default function ServicePage() {
 
   return (
     <div className="relative !bg-primary text-white">
-      <div className="h-[75px]"></div>
       <Intro
         title={title}
         description={description}

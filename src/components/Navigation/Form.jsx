@@ -28,7 +28,9 @@ export default function Form() {
   ];
 
   const isDarkPage =
-    ["/contact"].includes(pathname) || pathname.startsWith("/services");
+    ["/contact"].includes(pathname) ||
+    pathname.startsWith("/services") ||
+    pathname.startsWith("/legal");
   const isContactPage = ["/contact"].includes(pathname);
 
   const { register, handleSubmit, reset } = useForm();
@@ -75,9 +77,10 @@ export default function Form() {
       }`}
     >
       <h2
-        className={`capitalize text-6xl mb-[60px] pointer-events-none px-[3%] ${
-          isDarkPage ? "text-white/70" : "text-black/70"
-        }`}
+        className={`capitalize text-6xl mb-[60px] pointer-events-none px-[3%] max-900:mb-[80px] max-700:text-[9vw] 
+          max-700:mb-[60px] max-550:text-[10vw] max-400:text-[10.5vw] max-400:mb-[50px] ${
+            isDarkPage ? "text-white/70" : "text-black/70"
+          }`}
       >
         Request{" "}
         <span
@@ -95,19 +98,20 @@ export default function Form() {
         <div className="flex flex-col">
           {fields.map(({ place, clean }, key) => (
             <div
-              className="w-full pt-[15px] pb-[10px] px-[5%] font-medium border-t border-gray-200"
-              key={clean}
+              className="w-full pt-[15px] pb-[50px] px-[5%] font-medium border-t border-gray-200 max-700:pb-[35px]"
+              key={key}
             >
               <div className="relative w-full flex text-base">
-                <div className="w-[70%] mx-auto max-w-[1000px]">
+                <div className="w-[70%] mx-auto max-w-[1000px] max-900:mx-0 max-700:w-full">
                   {clean === "message" ? (
                     <textarea
                       {...register(clean)}
-                      className={`text-[3rem] outline-none bg-transparent relative z-10 resize-none w-full h-[100px] ${
-                        isDarkPage
-                          ? "placeholder:text-white/40"
-                          : "placeholder:text-black/40"
-                      }`}
+                      className={`text-[3rem] outline-none bg-transparent relative z-10 resize-none w-full h-[100px] 
+                        max-900:text-[2.5rem] max-700:text-[2rem] max-400:text-[1.5rem] max-400:h-[70px] ${
+                          isDarkPage
+                            ? "placeholder:text-white/40"
+                            : "placeholder:text-black/40"
+                        }`}
                       required
                       maxLength={5000}
                       placeholder={`${place}*`}
@@ -115,11 +119,12 @@ export default function Form() {
                   ) : (
                     <input
                       {...register(clean)}
-                      className={`text-[3rem] outline-none bg-transparent relative z-10 ${
-                        isDarkPage
-                          ? "placeholder:text-white/40"
-                          : "placeholder:text-black/40"
-                      }`}
+                      className={`text-[3rem] outline-none bg-transparent relative z-10 
+                        max-900:text-[2.5rem] max-700:text-[2rem] max-700:w-full max-400:text-[1.5rem] ${
+                          isDarkPage
+                            ? "placeholder:text-white/40"
+                            : "placeholder:text-black/40"
+                        }`}
                       required
                       placeholder={`${place}*`}
                     />
@@ -129,16 +134,20 @@ export default function Form() {
             </div>
           ))}
         </div>
-        <div className="flex flex-col justify-center w-fit mx-auto">
+        <div className="flex flex-col justify-center w-fit mx-auto max-900:mx-0 max-900:px-[5%]">
           <ReCAPTCHA
             sitekey="6LfqoQMsAAAAAC9Z0X-kEDdB5VNAZAcVB-pIMeMb"
             ref={recaptchaRef}
             size="normal"
             onChange={(token) => setCaptchaToken(token)}
           />
-          <div className="flex items-center justify-center gap-10 mt-10 mb-20">
+          <div
+            className="flex items-center justify-center gap-10 mt-10 mb-20 
+          max-700:flex-col-reverse max-700:items-start max-700:mt-16 max-400:mt-10 max-400:mb-16 max-400:gap-7"
+          >
             <button
-              className="group bg-third py-[12px] px-[60px] text-lg border rounded-full relative cursor-pointer overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group bg-third py-[12px] px-[60px] text-lg border rounded-full relative cursor-pointer overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed
+              max-900:text-base max-900:px-[50px]"
               type="submit"
               disabled={isSubmitting}
             >
@@ -170,7 +179,7 @@ export default function Form() {
               )}
             </button>
             <p
-              className={`text-base w-[400px] pointer-events-none ${
+              className={`text-base w-[400px] pointer-events-none max-1080:text-sm max-1080:w-[300px] ${
                 isDarkPage ? "text-white/70" : "text-black/70"
               }`}
             >

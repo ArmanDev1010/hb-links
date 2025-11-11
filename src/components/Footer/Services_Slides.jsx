@@ -20,7 +20,7 @@ export default function Services_Slides({ isLightPage }) {
 
   return (
     <div
-      className={`relative z-[1] py-3 mb-10 ${
+      className={`relative z-[1] py-3 mb-10 max-550:text-sm ${
         isLightPage
           ? "bg-third text-white border-y-2 border-y-white"
           : "bg-white border-y-4 border-y-third text-black"
@@ -36,6 +36,26 @@ export default function Services_Slides({ isLightPage }) {
         }}
         speed={1500}
         modules={[Autoplay]}
+        breakpoints={{
+          1440: {
+            slidesPerView: 7,
+          },
+          1110: {
+            slidesPerView: 6,
+          },
+          850: {
+            slidesPerView: 4,
+          },
+          650: {
+            slidesPerView: 3,
+          },
+          400: {
+            slidesPerView: 2,
+          },
+          320: {
+            slidesPerView: 2,
+          },
+        }}
         className="services_swiper relative w-full h-full"
       >
         {duplicatedItems.map((text, key) => (

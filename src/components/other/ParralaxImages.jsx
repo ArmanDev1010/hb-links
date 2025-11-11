@@ -29,7 +29,7 @@ export default function ParralaxImages() {
   return (
     <div
       ref={container}
-      className="parallax_scroll relative mt-[10vh] min-h-[75vh] max-_700:mt-0 max-_550:min-h-[55vh]"
+      className="parallax_scroll !relative mt-[10vh] min-h-[75vh] max-700:mt-0 max-550:min-h-[45vh]"
     >
       <div className="flex w-full !h-full justify-center relative mt-[5vh]">
         {images_array.map(({ y, image }, key) => {
@@ -41,7 +41,7 @@ export default function ParralaxImages() {
             >
               <Image
                 src={image}
-                fill={true}
+                fill
                 alt="background image"
                 className="w-full h-full object-cover"
               />

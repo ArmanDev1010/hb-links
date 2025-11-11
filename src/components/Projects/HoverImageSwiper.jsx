@@ -28,7 +28,7 @@ export default function HoverImageSwiper({ images, alt, video }) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full h-[400px] overflow-hidden group"
+      className="relative w-full h-[400px] overflow-hidden group max-550:h-[300px]"
     >
       {/* Video Layer */}
       {video && (
@@ -50,6 +50,7 @@ export default function HoverImageSwiper({ images, alt, video }) {
           key={i}
           src={src}
           alt={`${alt} ${i + 1}`}
+          sizes="none"
           fill
           className={`object-cover transition-opacity duration-300 ease-in-out ${
             shouldShowImages && i === activeIndex

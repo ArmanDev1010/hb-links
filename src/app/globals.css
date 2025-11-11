@@ -8,6 +8,7 @@
   --breakpoint-1280: 1280px;
   --breakpoint-1080: 1080px;
   --breakpoint-900: 900px;
+  --breakpoint-800: 800px;
   --breakpoint-700: 700px;
   --breakpoint-550: 550px;
   --breakpoint-400: 400px;
@@ -143,6 +144,40 @@ body {
   height: 25vh;
   width: 20vh;
   z-index: 3;
+}
+
+.menu_btn::before,
+.menu_btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 35px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s ease;
+}
+
+.menu_btn::before {
+  top: 60%;
+}
+
+.menu_btn::after {
+  top: 40%;
+}
+
+.menu_btn_clicked::before {
+  transform: rotate(45deg);
+  top: 50%;
+  left: 0;
+  background-color: #fff;
+}
+
+.menu_btn_clicked::after {
+  transform: rotate(-45deg);
+  top: 50%;
+  left: 0;
+  background-color: #fff;
 }
 
 @media screen and (max-width: 900px) {

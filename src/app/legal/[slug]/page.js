@@ -208,23 +208,25 @@ export default function LegalPage() {
     <div className="relative min-h-screen bg-[#1f1f1f] text-white">
       <div className="h-[80px]"></div>
 
-      <div className="mx-auto pt-16 px-[3%] flex flex-col lg:flex-row gap-10">
-        {/* Main Content */}
-        <div className="w-[75%] pb-8 text-gray-200 pointer-events-none">
-          <h2 className="text-[6vw] uppercase mb-[7rem] text-white">
+      <div className="pt-16 px-[3%] flex gap-10 max-1080:gap-0">
+        <div className="flex-1 pb-8 text-gray-200 pointer-events-none max-1080:pr-[5%] max-550:!px-[3%]">
+          <h2 className="text-[6vw] leading-[1.4] uppercase mb-[7rem] text-white max-550:text-[7vw] max-550:mb-[5rem] max-400:text-[9vw]">
             {content.title}
           </h2>
           {content.sections.map(({ heading, body, list }, index) => (
             <div key={index} className="mb-6">
-              <h2 className="text-3xl font-semibold mt-10 mb-4">{heading}</h2>
-              <p className="mb-4 opacity-70 leading-[1.5] text-lg">{body}</p>
+              <h2 className="text-3xl font-semibold mt-10 mb-4 max-550:text-2xl">
+                {heading}
+              </h2>
+              <p className="mb-4 opacity-70 leading-[1.5] text-lg max-550:text-base">
+                {body}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* Sidebar Navigation */}
-        <aside className="w-[25%] px-5">
-          <ul className="flex lg:flex-col gap-3 text-lg font-medium">
+        <aside className="w-[25%] px-5 max-1080:w-[20%] max-1080:pr-0 max-900:hidden">
+          <ul className="w-full flex flex-col gap-3 text-lg font-medium max-1080:text-base">
             {privacyPages.map(({ label, slug: linkSlug }) => {
               const isActive = pathname.includes(linkSlug);
               return (
@@ -246,7 +248,7 @@ export default function LegalPage() {
         </aside>
       </div>
 
-      <div className="absolute top-[0px] left-[calc(75%-1.5%)] bg-white/30 h-[95%] w-[1px] z-[3]" />
+      <div className="absolute top-[0px] left-[calc(75%-1.5%)] bg-white/30 h-[95%] w-[1px] z-[3] max-1080:left-[calc(80%-1.5%)] max-900:hidden" />
     </div>
   );
 }

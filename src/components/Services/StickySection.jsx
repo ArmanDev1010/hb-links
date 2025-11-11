@@ -16,8 +16,9 @@ export default function StickySection() {
   }, []);
 
   return (
-    <div className="relative pb-10">
-      <h1 className="text-[6vw] text-center uppercase pt-10 mb-5 text-white pointer-events-none">
+    <div className="relative pb-10 max-700:pb-16">
+      <h1 className="text-[6vw] text-center uppercase pt-10 mb-5 text-white pointer-events-none 
+      max-900:text-7xl max-900:pt-14 max-900:mb-10 max-700:text-[9vw] max-400:text-[10vw] max-400:mb-8">
         All Services
       </h1>
       {services?.map(

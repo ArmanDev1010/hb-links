@@ -5,20 +5,51 @@ import Image from "next/image";
 
 export default function Service({ title, bg_img, description, link, aliases }) {
   return (
-    <div className="service sticky top-0 h-screen overflow-hidden flex">
-      <div className="absolute z-[2] top-0 left-0 w-full h-full mx-auto text-white bg-transparent flex gap-3 p-3">
-        <div className="relative w-1/2 bg-secondary rounded-l-[20px] overflow-hidden">
-          <div className="absolute top-[57%] left-0 -translate-y-1/2 z-[4] px-[5%]">
-            <h1 className="text-[5vw] font-[400] uppercase leading-[1.2] pointer-events-none mb-7">
-              {title}
-            </h1>
+    <div className="service sticky top-0 overflow-hidden bg-secondary text-white h-fit">
+      <div className="w-full h-full pt-10 pb-16 flex gap-10 max-700:py-12 max-550:pt-7 max-550:pb-20">
+        <div className="w-[30%] px-[3%] max-900:hidden">
+          <ul className="absolute top-1/2 -translate-y-1/2 flex flex-col justify-center gap-x-[5rem] gap-y-[2rem] pointer-events-none">
+            {aliases?.length > 0 && (
+              <>
+                {aliases.map(({ name }, key) => (
+                  <li key={key} className="flex items-center gap-5">
+                    <p className="bg-third w-3 h-3 max-1080:w-2 max-1080:h-2"></p>
+                    <p className="text-lg max-1080:text-base">{name}</p>
+                  </li>
+                ))}
+              </>
+            )}
+          </ul>
+        </div>
+        <div className="flex-1 relative px-[5%] min-w-0">
+          <h1
+            className="text-6xl font-[400] uppercase leading-[1.2] pointer-events-none mb-7 max-1280:text-[4.5vw] 
+          max-900:text-5xl max-700:text-[7vw] max-700:leading-[1.4] max-550:text-[8.5vw] max-400:text-[12vw] max-400:leading-[1.2] max-400:mb-4"
+          >
+            {title}
+          </h1>
+          <div className="relative max-w-[650px] bg-primary aspect-[16/8] mb-10 max-900:max-w-[500px] max-700:mb-6">
+            <Image
+              src={bg_img}
+              fill={true}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="flex justify-between gap-10 w-full max-w-[800px] max-900:flex-col max-700:gap-5">
+            <p className="text-lg max-w-[400px] w-full pointer-events-none max-1080:text-base max-400:text-sm">
+              {description}
+            </p>
             <Link
               href={`./services/${
                 link ? link : title?.toLowerCase().replace(/\s+/g, "-")
               }`}
               prefetch
             >
-              <button className="group bg-white py-[10px] px-[60px] text-base font-[500] border rounded-full relative cursor-pointer overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed">
+              <button
+                className="group bg-white py-[10px] min-w-[220px] text-lg font-[500] border rounded-full relative cursor-pointer overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed
+              max-900:text-base max-900:min-w-[200px] max-400:py-[5px]"
+              >
                 <p className="relative text-center text-black top-0 group-hover:top-[-40px] transition-[top] duration-[.4s] ease-[cubic-bezier(.33,1,.68,1)]">
                   Learn more
                 </p>
@@ -28,30 +59,7 @@ export default function Service({ title, bg_img, description, link, aliases }) {
                 </div>
               </button>
             </Link>
-            <ul className="mt-16 flex flex-wrap justify-center gap-x-[5rem] gap-y-[2rem] pointer-events-none">
-              {aliases?.length > 0 && (
-                <>
-                  {aliases.map(({ name }, key) => (
-                    <li key={key} className="flex items-center gap-5">
-                      <p className="bg-third min-w-3 min-h-3"></p>
-                      <p className="text-base">{name}</p>
-                    </li>
-                  ))}
-                </>
-              )}
-            </ul>
           </div>
-          <p className="absolute top-5 right-0 px-[3%] text-base w-[400px] pointer-events-none text-white/70">
-            {description}
-          </p>
-        </div>
-        <div className="relative w-1/2 bg-primary rounded-r-[20px] overflow-hidden">
-          <Image
-            src={bg_img}
-            fill={true}
-            alt="background image"
-            className="w-full h-full object-cover"
-          />
         </div>
       </div>
     </div>

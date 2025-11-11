@@ -11,11 +11,14 @@ export default function Projects() {
   const visibleProjects = projects.slice(0, 4);
 
   return (
-    <div className="relative py-[50px] px-[5%]">
-      <h3 className="uppercase text-7xl mb-[40px] leading-[1.1] pointer-events-none">
+    <div className="relative py-[50px] px-[5%] max-550:py-[40px]">
+      <h3
+        className="uppercase text-7xl mb-[40px] leading-[1.1] pointer-events-none max-700:text-6xl max-700:mb-[40px] 
+      max-550:text-[14vw] max-550:mb-[25px]"
+      >
         Our Projects
       </h3>
-      <div className="relative z-[1] grid grid-cols-2 gap-6">
+      <div className="relative z-[1] grid grid-cols-2 gap-6 max-900:grid-cols-1">
         {visibleProjects.map(
           ({ title, id, video, background_image, images, categories }, key) => (
             <ProjectPreview
@@ -33,7 +36,7 @@ export default function Projects() {
       </div>
       <div className="flex justify-center my-10">
         <Link href={"/projects"}>
-          <button className="group text-lg capitalize px-16 py-2 text-white rounded-full bg-primary flex gap-2 cursor-pointer max-550:text-3xl">
+          <button className="group text-lg capitalize px-16 py-2 text-white rounded-full bg-primary flex gap-2 cursor-pointer">
             <div className="relative overflow-hidden">
               <div className="group-hover:translate-y-[-110%] transition duration-300">
                 See more
@@ -45,13 +48,12 @@ export default function Projects() {
           </button>
         </Link>
       </div>
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat opacity-50">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat opacity-50 max-700:hidden">
         <Image
           src={greenLine}
-          layout="fill"
-          objectFit="cover"
-          quality={100}
+          fill
           alt=""
+          className="w-full h-full object-cover"
         />
       </div>
     </div>

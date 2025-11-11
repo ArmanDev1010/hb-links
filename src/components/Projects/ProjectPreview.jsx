@@ -22,7 +22,7 @@ export default function ProjectPreview({
         }`}
       >
         {isLoading ? (
-          <div className="w-full h-[400px] bg-gray-200 animate-pulse" />
+          <div className="w-full h-[400px] bg-gray-200 animate-pulse max-550:h-[300px]" />
         ) : (
           <HoverImageSwiper
             images={images}
@@ -41,14 +41,17 @@ export default function ProjectPreview({
           ) : (
             <>
               <h3
-                className={`text-[2vw] font-semibold mb-1 ${
-                  isBlack && "text-white"
-                }`}
+                className={`text-3xl font-semibold mb-1 max-1440:text-[2.5vw] max-900:text-3xl 
+                  max-700:text-[4.5vw] max-700:leading-[1.4] max-550:text-[5.5vw] max-400:text-[8vw] max-400:mb-2 ${
+                    isBlack && "text-white"
+                  }`}
               >
                 {title}
               </h3>
 
-              <p className="text-lg text-gray-400">{categories.join(", ")}</p>
+              <p className="text-lg text-gray-400 max-1080:text-base ">
+                {categories.join(", ")}
+              </p>
             </>
           )}
         </div>
