@@ -41,7 +41,7 @@ export default function Projects() {
   };
 
   return (
-    <div className="relative pt-[50px] max-400:py-[40px]">
+    <div className="relative py-[50px] max-400:py-[40px]">
       <h3
         className="uppercase text-7xl mb-[40px] leading-[1.1] pointer-events-none px-[3%] 
       max-700:text-6xl max-700:mb-[40px] max-550:mb-[30px] max-400:text-5xl"
