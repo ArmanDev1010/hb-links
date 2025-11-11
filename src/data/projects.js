@@ -36,7 +36,7 @@ export const projects = [
       "/projects/law-office-encino/1.jpg",
       "/projects/law-office-encino/2.jpg",
     ],
-    background_image: "/projects/law-office-encino/3.jpg",
+    background_image: "/projects/law-office-encino/1.jpg",
     details: [
       { name: "Location", value: "Encino, California, US" },
       { name: "Industry", value: "Legal Services" },

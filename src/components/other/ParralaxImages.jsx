@@ -18,11 +18,11 @@ export default function ParralaxImages() {
     },
     {
       y: lg,
-      image: "/projects/restaurant-parking-in-woodland-hills/1.jpg",
+      image: "/projects/restaurant-parking-woodland-hills/1.jpg",
     },
     {
       y: md,
-      image: "/projects/credit-union-in-glendale/1.jpg",
+      image: "/projects/credit-union-glendale/1.jpg",
     },
   ];
 
