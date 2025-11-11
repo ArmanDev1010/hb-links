@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Service({ title, bg_img, description, link, aliases }) {
   return (
     <div className="service sticky top-0 overflow-hidden bg-secondary text-white h-fit">
-      <div className="w-full h-full pt-10 pb-16 flex gap-10 max-700:py-12 max-550:pt-7 max-550:pb-20">
+      <div className="w-full h-full pt-10 pb-16 flex gap-10 max-700:py-12 max-550:pt-7 max-550:pb-20 max-550:border-t-4 max-550:border-t-third">
         <div className="w-[30%] px-[3%] max-900:hidden">
           <ul className="absolute top-1/2 -translate-y-1/2 flex flex-col justify-center gap-x-[5rem] gap-y-[2rem] pointer-events-none">
             {aliases?.length > 0 && (
@@ -28,7 +28,7 @@ export default function Service({ title, bg_img, description, link, aliases }) {
           >
             {title}
           </h1>
-          <div className="relative max-w-[650px] bg-primary aspect-[16/8] mb-10 max-900:max-w-[500px] max-700:mb-6">
+          <div className="relative max-w-[650px] bg-primary aspect-[16/8] mb-10 max-900:max-w-[500px] max-700:aspect-[16/9] max-700:mb-6 max-360:aspect-[16/8]">
             <Image
               src={bg_img}
               fill={true}
