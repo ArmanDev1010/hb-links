@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import Logo from "./Nav/Logo";
 import NavLinks from "./Nav/NavLinks";
 import PhoneLink from "./Nav/PhoneLink";
-import SocialLinks from "./Nav/SocialLinks";
 import ContactButton from "./Nav/ContactButton";
 
 import useMenu from "./hooks/useMenu";
@@ -23,7 +22,8 @@ export default function Navbar() {
 
   const isLightPage =
     pathname.startsWith("/projects") ||
-    ["/terms-of-service", "/privacy-policy"].includes(pathname);
+    pathname.startsWith("/services") ||
+    [("/terms-of-service", "/privacy-policy")].includes(pathname);
   const isContactPage = pathname === "/contact";
   const isNonStickyPage = pathname === "/services" || isContactPage;
 
@@ -53,7 +53,7 @@ export default function Navbar() {
   const navBase =
     "px-[3%] w-full border-b transition-all duration-400 !z-[999]";
   const stickyStyles = isNonStickyPage
-    ? "relative z-[999] !bg-primary"
+    ? "relative z-[999]"
     : `fixed ${visible ? "translate-y-0" : "-translate-y-full"}`;
   const topStyles =
     atTop || showMenu
@@ -65,8 +65,9 @@ export default function Navbar() {
   const mobileProjectStyles = isMobileProjectPage
     ? "text-white border-white/30"
     : "";
+  const isBlackNav = isContactPage ? "!bg-primary" : "";
 
-  const navClasses = `${navBase} ${stickyStyles} ${topStyles} ${themeStyles} ${mobileProjectStyles}`;
+  const navClasses = `${navBase} ${stickyStyles} ${topStyles} ${themeStyles} ${mobileProjectStyles} ${isBlackNav}`;
 
   return (
     <>
@@ -99,7 +100,7 @@ export default function Navbar() {
               isContactPage ? "w-fit" : "w-[25%]"
             }`}
           >
-            <SocialLinks />
+            <div className=""></div>
             {!isContactPage && <ContactButton />}
           </div>
         </div>

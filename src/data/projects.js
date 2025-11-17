@@ -9,7 +9,7 @@ export const projects = [
       "/projects/medical-office-manhattan-beach/1.jpg",
       "/projects/medical-office-manhattan-beach/2.jpg",
     ],
-    video: "/projects/medical-office-manhattan-beach/main.mp4",
+    background_image: "/projects/medical-office-manhattan-beach/1.jpg",
     details: [
       { name: "Location", value: "Manhattan Beach, California, US" },
       { name: "Industry", value: "Healthcare" },
@@ -20,10 +20,6 @@ export const projects = [
       "Installed 30 data outlets across examination rooms, offices, and administrative areas",
       "Deployed 6 UniFi wireless access points to provide seamless coverage throughout the facility",
       "Integrated secure cabling and network segmentation for patient data protection",
-    ],
-    infastructure: [
-      { name: "UniFi Access Points", number: "6" },
-      { name: "Data Outlets", number: "30" },
     ],
   },
   {
@@ -47,11 +43,6 @@ export const projects = [
       "Installed 20 data outlets across offices and meeting rooms to support reliable connectivity",
       "Deployed 4 UniFi wireless access points for seamless coverage throughout the facility",
       "Configured secure network segmentation to safeguard sensitive client data",
-    ],
-    infastructure: [
-      { name: "UniFi Access Points", number: "4" },
-      { name: "Data Outlets", number: "20" },
-      { name: "Hikvision Cameras", number: "12" },
     ],
   },
   {
@@ -78,11 +69,6 @@ export const projects = [
       "Configured 6 UniFi wireless access points for seamless and secure Wi-Fi performance",
       "Integrated secure network segmentation to protect sensitive financial and client data",
     ],
-    infastructure: [
-      { name: "UniFi Access Points", number: "6" },
-      { name: "Data Outlets", number: "24" },
-      { name: "Hikvision Cameras", number: "14" },
-    ],
   },
   {
     id: 4,
@@ -106,11 +92,6 @@ export const projects = [
       "Configured 4 UniFi wireless access points for seamless Wi-Fi performance",
       "Integrated secure cabling and network segmentation to protect sensitive client data",
     ],
-    infastructure: [
-      { name: "UniFi Access Points", number: "4" },
-      { name: "Data Outlets", number: "30" },
-      { name: "Hikvision Cameras", number: "10" },
-    ],
   },
   {
     id: 5,
@@ -131,7 +112,6 @@ export const projects = [
       "Integrated secure cabling and system setup for reliable performance",
       "Delivered a scalable solution adaptable to future security needs",
     ],
-    infastructure: [{ name: "Hikvision 360° Cameras", number: "6" }],
   },
   {
     id: 6,
@@ -151,10 +131,6 @@ export const projects = [
       "Integrated cameras into a secure UniFi Protect environment for centralized management",
       "Configured secure cabling and network segmentation to protect sensitive financial data",
       "Delivered a scalable solution adaptable to future surveillance and networking needs",
-    ],
-    infastructure: [
-      { name: "UniFi Cameras", number: "8" },
-      { name: "UniFi Protect Environment", number: "1" },
     ],
   },
 ];

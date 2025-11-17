@@ -30,9 +30,7 @@ export default function ProjectPage() {
     video,
     description,
     details,
-    videos,
     scope,
-    infastructure,
     categories,
   } = project;
 
@@ -47,9 +45,7 @@ export default function ProjectPage() {
       <Description
         images={images}
         description={description}
-        videos={videos}
         scope={scope}
-        infastructure={infastructure}
         categories={categories}
       />
     </div>

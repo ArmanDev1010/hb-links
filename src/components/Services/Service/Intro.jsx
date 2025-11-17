@@ -1,36 +1,57 @@
 import React from "react";
-import Image from "next/image";
 import TextFill from "@/components/other/TextFill";
+import ParralaxImages from "@/components/other/ParralaxImages";
 
-export default function Intro({ title, description, bg_img, bg_img_page }) {
+import greenLine from "@/../public/patterns/line_green.png";
+import Image from "next/image";
+
+export default function Intro({
+  title,
+  description,
+  mini_descriptions,
+  deliverables,
+}) {
   return (
-    <div className="relative">
-      <div className="relative w-full h-[90vh] px-[5%] max-550:h-[70vh]">
-        <div className="absolute inset-0 brightness-[40%] bg-secondary">
-          <Image
-            src={bg_img_page ? bg_img_page : bg_img}
-            fill={true}
-            alt="background image"
-            priority={true}
-            className="w-full h-full object-cover"
-          />
+    <div className="relative px-[5%]">
+      <div className="relative pt-[150px] max-700:pt-[130px]">
+        <div className="relative w-full">
+          <div className="relative z-[1] flex flex-col items-center justify-center h-full pointer-events-none uppercase">
+            <h1 className="text-[7.5vw] leading-[1.2] w-full max-700:hidden">
+              <TextFill title={title} />
+            </h1>
+            <h1 className="700:hidden text-[12vw] leading-[1.2] w-full">
+              {title}
+            </h1>
+          </div>
         </div>
-        <div className="relative z-[1] flex flex-col items-center justify-center h-full pointer-events-none text-white text-center uppercase">
-          <h1 className="text-[7.5vw] leading-[1.2] w-full max-550:hidden">
-            <TextFill title={title} />
-          </h1>
-          <h1 className="550:hidden text-[12vw] leading-[1.2] w-full">
-            {title}
-          </h1>
+        <ParralaxImages
+          mini_descriptions={mini_descriptions}
+          isServicePage={true}
+        />
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat bg-center opacity-30 z-[-1]">
+          <Image src={greenLine} layout="fill" objectFit="cover" alt="" />
         </div>
       </div>
-      <div className="px-[5%] mt-10 max-550:mt-5">
+      <div className="mb-[8vw] mt-16 max-1080:mb-24 max-700:mb-20 max-550:mt-3 max-550:mb-16">
         <h2
-          className="text-[4.4vw] tracking-[-0.035em] leading-[1.1] indent-[24vw] mb-[7vw] pointer-events-none 
-         max-1080:mb-24 max-900:text-[5vw] max-900:leading-[1.2] max-700:mb-20 max-700:text-3xl max-550:text-right max-550:mb-16 max-400:text-2xl"
+          className="text-[4.4vw] tracking-[-0.035em] leading-[1.1] indent-[24vw] mb-[5vw] pointer-events-none 
+         max-900:text-[5vw] max-900:leading-[1.2] max-900:mb-12 max-700:text-3xl max-550:text-[6vw] max-550:mb-16 max-550:text-right max-400:text-2xl"
         >
           {description}
         </h2>
+        <div className="flex flex-col items-center pointer-events-none">
+          <p className="mb-12 text-lg text-gray-400 font-[300] border rounded-full w-fit px-5 max-700:mb-8">
+            What We Deliver
+          </p>
+          <ul className="grid gap-y-[2rem] gap-x-[5rem] grid-cols-3 max-1080:grid-cols-2 max-700:gap-x-[3rem] max-550:grid-cols-1">
+            {deliverables?.map((text, key) => (
+              <li key={key} className="relative flex items-center gap-5">
+                <p className="bg-third min-w-3 min-h-3"></p>
+                <p className="text-lg max-700:text-base">{text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

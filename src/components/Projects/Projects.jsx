@@ -13,23 +13,58 @@ export default function Projects() {
   const [isLoading, setIsLoading] = useState(false);
   const tabRefs = useRef({});
 
+  // Filter projects by selected category (title or alias)
   const filteredProjects = useMemo(() => {
     if (selectedFilter === "All") return projects;
 
     return projects.filter((project) =>
-      project.categories.some(
-        (cat) => normalizeCategory(cat) === selectedFilter
-      )
-    );
-  }, [selectedFilter, projects]);
+      project.categories.some((cat) => {
+        const normalizedCat = normalizeCategory(cat);
 
+        // Check if selectedFilter matches category directly
+        if (normalizedCat === selectedFilter) return true;
+
+        // Check if selectedFilter matches a service alias
+        const service = services.find(
+          (s) =>
+            normalizeCategory(s.title) === selectedFilter ||
+            s.aliases.some(
+              (alias) => normalizeCategory(alias) === selectedFilter
+            )
+        );
+
+        if (!service) return false;
+
+        // Match project category against service title or aliases
+        return (
+          normalizeCategory(service.title) === normalizedCat ||
+          service.aliases.some(
+            (alias) => normalizeCategory(alias) === normalizedCat
+          )
+        );
+      })
+    );
+  }, [selectedFilter]);
+
+  // Collect all categories used in projects
   const usedServiceTitles = new Set();
   projects.forEach((project) => {
     project.categories.forEach((cat) => {
       usedServiceTitles.add(normalizeCategory(cat));
     });
   });
-  const activeServices = services.filter((s) => usedServiceTitles.has(s.title));
+
+  // Active services: match by title or alias
+  const activeServices = services.filter((s) => {
+    const normalizedTitle = normalizeCategory(s.title);
+    const normalizedAliases = s.aliases.map((a) => normalizeCategory(a));
+    return (
+      usedServiceTitles.has(normalizedTitle) ||
+      normalizedAliases.some((alias) => usedServiceTitles.has(alias))
+    );
+  });
+
+  // Filters = "All" + active service titles
   const filters = ["All", ...activeServices.map((s) => s.title)];
 
   const handleFilterChange = (filter) => {
@@ -73,12 +108,11 @@ export default function Projects() {
       {/* Project Grid */}
       <div className="grid grid-cols-2 gap-6 px-[3%] max-900:grid-cols-1">
         {filteredProjects.map(
-          ({ title, id, video, background_image, images, categories }, key) => (
+          ({ title, id, background_image, images, categories }, key) => (
             <ProjectPreview
               key={key}
               title={title}
               id={id}
-              video={video}
               bg_img={background_image}
               images={images}
               categories={categories}

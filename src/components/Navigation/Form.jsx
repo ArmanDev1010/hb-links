@@ -1,15 +1,10 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-
 import ReCAPTCHA from "react-google-recaptcha";
-
 import { usePathname } from "next/navigation";
-
 import { useForm } from "react-hook-form";
-
 import toast from "react-hot-toast";
-
 import Link from "next/link";
 
 export default function Form() {
@@ -24,13 +19,10 @@ export default function Form() {
     { place: "Phone Number", clean: "phone" },
     { place: "Email", clean: "mail" },
     { place: "Address", clean: "address" },
-    { place: "Message", clean: "message" },
   ];
 
   const isDarkPage =
-    ["/contact"].includes(pathname) ||
-    pathname.startsWith("/services") ||
-    pathname.startsWith("/legal");
+    ["/contact"].includes(pathname) || pathname.startsWith("/legal");
   const isContactPage = ["/contact"].includes(pathname);
 
   const { register, handleSubmit, reset } = useForm();
@@ -77,8 +69,8 @@ export default function Form() {
       }`}
     >
       <h2
-        className={`capitalize text-6xl mb-[60px] pointer-events-none px-[3%] max-900:mb-[80px] max-700:text-[9vw] 
-          max-700:mb-[60px] max-550:text-[10vw] max-400:text-[10.5vw] max-400:mb-[50px] ${
+        className={`capitalize text-7xl mb-[70px] pointer-events-none px-[3%] max-900:mb-[80px] max-700:text-[7.5vw] 
+          max-700:mb-[60px] max-550:text-[9vw] max-400:text-[10vw] max-400:mb-[50px] ${
             isDarkPage ? "text-white/70" : "text-black/70"
           }`}
       >
@@ -91,49 +83,58 @@ export default function Form() {
           Callback
         </span>
       </h2>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="relative h-full w-full"
       >
-        <div className="flex flex-col">
+        {/* Two-column grid for normal fields */}
+        <div className="grid grid-cols-2 gap-x-6 max-550:flex max-550:flex-col">
           {fields.map(({ place, clean }, key) => (
             <div
-              className="w-full pt-[15px] pb-[50px] px-[5%] font-medium border-t border-gray-200 max-700:pb-[35px]"
+              className="w-full pt-[15px] pb-[50px] font-medium border-t border-gray-200 max-1080:pb-[35px]"
               key={key}
             >
               <div className="relative w-full flex text-base">
-                <div className="w-[70%] mx-auto max-w-[1000px] max-900:mx-0 max-700:w-full">
-                  {clean === "message" ? (
-                    <textarea
-                      {...register(clean)}
-                      className={`text-[3rem] outline-none bg-transparent relative z-10 resize-none w-full h-[100px] 
-                        max-900:text-[2.5rem] max-700:text-[2rem] max-400:text-[1.5rem] max-400:h-[70px] ${
-                          isDarkPage
-                            ? "placeholder:text-white/40"
-                            : "placeholder:text-black/40"
-                        }`}
-                      required
-                      maxLength={5000}
-                      placeholder={`${place}*`}
-                    />
-                  ) : (
-                    <input
-                      {...register(clean)}
-                      className={`text-[3rem] outline-none bg-transparent relative z-10 
-                        max-900:text-[2.5rem] max-700:text-[2rem] max-700:w-full max-400:text-[1.5rem] ${
-                          isDarkPage
-                            ? "placeholder:text-white/40"
-                            : "placeholder:text-black/40"
-                        }`}
-                      required
-                      placeholder={`${place}*`}
-                    />
-                  )}
+                <div className="w-full px-[10%] max-700:px-[7.5%]">
+                  <input
+                    {...register(clean)}
+                    className={`text-[2.5rem] outline-none bg-transparent relative z-10 w-full
+                      max-1080:text-[2rem] max-700:text-[1.5rem] max-700:w-full max-400:text-[1.5rem] ${
+                        isDarkPage
+                          ? "placeholder:text-white/40"
+                          : "placeholder:text-black/40"
+                      }`}
+                    required
+                    placeholder={place}
+                  />
                 </div>
               </div>
             </div>
           ))}
+
+          {/* Full-width Message field */}
+          <div className="px-[5%] col-span-2 w-full pt-[15px] pb-[40px] font-medium border-t border-gray-200 max-700:pb-[35px] max-700:px-[3.5%] max-550:px-[7.5%]">
+            <div className="relative w-full flex text-base">
+              <div className="w-full">
+                <textarea
+                  {...register("message")}
+                  className={`text-[2.5rem] outline-none bg-transparent relative z-10 resize-none w-full h-[125px] 
+                    max-1080:h-[120px] max-1080:text-[2rem] max-700:text-[1.5rem] max-400:text-[1.5rem] max-550:h-[75px] ${
+                      isDarkPage
+                        ? "placeholder:text-white/40"
+                        : "placeholder:text-black/40"
+                    }`}
+                  required
+                  maxLength={5000}
+                  placeholder="Message"
+                />
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Captcha + Submit */}
         <div className="flex flex-col justify-center w-fit mx-auto max-900:mx-0 max-900:px-[5%]">
           <ReCAPTCHA
             sitekey="6LfqoQMsAAAAAC9Z0X-kEDdB5VNAZAcVB-pIMeMb"
@@ -143,11 +144,11 @@ export default function Form() {
           />
           <div
             className="flex items-center justify-center gap-10 mt-10 mb-20 
-          max-700:flex-col-reverse max-700:items-start max-700:mt-16 max-400:mt-10 max-400:mb-16 max-400:gap-7"
+              max-700:flex-col-reverse max-700:items-start max-700:mt-16 max-550:mt-10 max-400:mb-16 max-400:gap-7"
           >
             <button
               className="group bg-third py-[12px] px-[60px] text-lg border rounded-full relative cursor-pointer overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed
-              max-900:text-base max-900:px-[50px]"
+                max-900:text-base max-900:px-[50px]"
               type="submit"
               disabled={isSubmitting}
             >

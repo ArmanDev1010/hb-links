@@ -7,7 +7,6 @@ export default function Description({
   description,
   images,
   scope,
-  infastructure,
   categories,
 }) {
   return (
@@ -70,40 +69,6 @@ export default function Description({
               <li key={key} className="relative flex items-center gap-5">
                 <p className="bg-third min-w-3 min-h-3"></p>
                 <p className="text-lg max-700:text-base">{text}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex justify-center items-center flex-col">
-          <p className="mb-7 text-3xl w-fit px-5 max-700:text-2xl">
-            Infrastructure
-          </p>
-          <ul className="flex flex-wrap justify-center gap-x-[5rem] gap-y-[2rem] w-full">
-            {infastructure?.map(({ name, number }, key) => (
-              <li
-                key={key}
-                className="w-[220px] flex flex-col items-center justify-between border-[1px] border-black/10 rounded-[10px] p-3"
-              >
-                <div className="flex-1 flex items-center justify-center">
-                  <div className="w-[150px] h-[150px] flex items-center justify-center max-550:w-[120px] max-550:h-[120px]">
-                    <Image
-                      src={`/infastructure/${name
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}.png`}
-                      alt={name.toLowerCase().replace(/\s+/g, "-")}
-                      width={150}
-                      height={150}
-                      className="object-contain w-full h-full"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-center text-center gap-2 mt-4">
-                  <p className="text-sm font-semibold bg-third/20 py-1 px-2 border-2 border-third">
-                    {number}
-                  </p>
-                  <p className="text-black/70">{name}</p>
-                </div>
               </li>
             ))}
           </ul>

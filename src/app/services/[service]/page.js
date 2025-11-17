@@ -4,9 +4,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { services } from "@/data/services";
 import Intro from "@/components/Services/Service/Intro";
-import WhatWeDeliver from "@/components/Services/Service/WhatWeDeliver";
-import AnimatedCards from "@/components/Services/Service/AnimatedCards";
-import RelatedProjects from "@/components/Services/Service/RelatedProjects";
+import WhatWeOffer from "@/components/Services/Service/WhatWeOffer";
 
 export default function ServicePage() {
   const params = useParams();
@@ -26,26 +24,18 @@ export default function ServicePage() {
     );
   }
 
-  let {
-    title,
-    background_image,
-    background_image_page,
-    description,
-    aliases,
-    deliverables,
-  } = service;
+  let { title, description, aliases, deliverables, mini_descriptions } =
+    service;
 
   return (
-    <div className="relative !bg-primary text-white">
+    <div className="relative">
       <Intro
         title={title}
         description={description}
-        bg_img={background_image}
-        bg_img_page={background_image_page}
+        mini_descriptions={mini_descriptions}
+        deliverables={deliverables}
       />
-      <WhatWeDeliver deliverables={deliverables} />
-      <AnimatedCards aliases={aliases} />
-      <RelatedProjects serviceTitle={title} />
+      <WhatWeOffer aliases={aliases} />
     </div>
   );
 }

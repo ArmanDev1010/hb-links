@@ -1,13 +1,12 @@
 import "./globals.css";
 
 import Navbar from "@/components/Navigation/Navbar";
-// import Consultation from "@/components/Navigation/Consultation_button";
 
-import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ConditionalComponents from "@/components/other/ConditionalComponents";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -19,7 +18,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        {/* <Consultation /> */}
         <Toaster position="top-center" />
         {children}
         <ConditionalComponents />

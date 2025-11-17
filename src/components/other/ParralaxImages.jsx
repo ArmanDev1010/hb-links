@@ -2,7 +2,14 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
-export default function ParralaxImages() {
+import firstImage from "@/../public/projects/medical-office-manhattan-beach/1.jpg";
+import secondImage from "@/../public/projects/restaurant-parking-woodland-hills/1.jpg";
+import thirdImage from "@/../public/projects/credit-union-glendale/1.jpg";
+
+export default function ParralaxImages({
+  mini_descriptions = [],
+  isServicePage = false,
+}) {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -11,55 +18,57 @@ export default function ParralaxImages() {
   const md = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const lg = useTransform(scrollYProgress, [0, 1], [0, -250]);
 
-  const images_array = [
-    {
-      y: 0,
-      image: "/projects/medical-office-manhattan-beach/1.jpg",
-    },
-    {
-      y: lg,
-      image: "/projects/restaurant-parking-woodland-hills/1.jpg",
-    },
-    {
-      y: md,
-      image: "/projects/credit-union-glendale/1.jpg",
-    },
+  const defaultImages = [
+    { y: 0, image: firstImage },
+    { y: lg, image: secondImage },
+    { y: md, image: thirdImage },
   ];
+
+  const serviceImages = [
+    { y: 0, image: "" },
+    { y: lg, image: "" },
+    { y: md, image: "" },
+  ];
+
+  const images_array = isServicePage ? serviceImages : defaultImages;
+  const defaultTexts = [
+    "Our work connects, protects, and communicates. Whether it’s wiring, surveillance, or media integration, we deliver systems that perform reliably and look sharp.",
+    "From structured cabling to access control and AV integration. Every install is clean, scalable, and built to last.",
+  ];
+
+  const textsToRender =
+    isServicePage && mini_descriptions.length > 0
+      ? mini_descriptions
+      : defaultTexts;
 
   return (
     <div
       ref={container}
-      className="parallax_scroll !relative mt-[10vh] min-h-[75vh] max-700:mt-0 max-550:min-h-[45vh]"
+      className="parallax_scroll !relative mt-[10vh] min-h-[65vh] max-900:min-h-[65vh] max-550:min-h-[55vh]"
     >
       <div className="flex w-full !h-full justify-center relative mt-[5vh]">
-        {images_array.map(({ y, image }, key) => {
-          return (
-            <motion.div
-              style={{ y }}
-              key={key}
-              className="parralax_img absolute"
-            >
-              <Image
-                src={image}
-                fill
-                alt="background image"
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-          );
-        })}
+        {images_array.map(({ y, image }, key) => (
+          <motion.div style={{ y }} key={key} className="parralax_img absolute">
+            <Image
+              src={image}
+              fill
+              alt="background image"
+              className="w-full h-full object-cover bg-primary"
+            />
+          </motion.div>
+        ))}
       </div>
 
+      {/* Dynamic mini descriptions */}
       <div className="pointer-events-none text-[16px] text-gray-600 max-1280:hidden">
-        <p className="absolute top-0 left-0 w-[320px]">
-          Our work connects, protects, and communicates. Whether it’s wiring,
-          surveillance, or media integration, we deliver systems that perform
-          reliably and look sharp
-        </p>
-        <p className="absolute bottom-0 text-right right-0 w-[320px]">
-          From structured cabling to access control and AV integration. Every
-          install is clean, scalable, and built to last.
-        </p>
+        {textsToRender[0] && (
+          <p className="absolute top-0 left-0 w-[320px]">{textsToRender[0]}</p>
+        )}
+        {textsToRender[1] && (
+          <p className="absolute bottom-0 text-right right-0 w-[320px]">
+            {textsToRender[1]}
+          </p>
+        )}
       </div>
     </div>
   );

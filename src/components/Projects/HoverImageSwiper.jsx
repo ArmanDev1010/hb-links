@@ -30,20 +30,6 @@ export default function HoverImageSwiper({ images, alt, video }) {
       onMouseLeave={handleMouseLeave}
       className="relative w-full h-[400px] overflow-hidden group max-550:h-[300px]"
     >
-      {/* Video Layer */}
-      {video && (
-        <video
-          src={video}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out z-[10] ${
-            shouldShowImages ? "opacity-0 pointer-events-none" : "opacity-100"
-          }`}
-        />
-      )}
-
       {/* Image Layer */}
       {images.map((src, i) => (
         <Image

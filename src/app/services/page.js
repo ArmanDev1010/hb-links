@@ -4,7 +4,7 @@ import StickySection from "@/components/Services/StickySection";
 
 export default function ServicesPage() {
   return (
-    <div className="relative !bg-primary">
+    <div className="relative">
       <StickySection />
     </div>
   );

@@ -26,7 +26,6 @@ export default function ProjectPreview({
         ) : (
           <HoverImageSwiper
             images={images}
-            video={video}
             bg_img={bg_img}
             alt={title}
           />

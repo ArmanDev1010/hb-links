@@ -4,8 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { projects } from "@/data/projects";
-
 import whiteLine from "@/../public/patterns/line_white.png";
 import blackLine from "@/../public/patterns/line_black.png";
 import Image from "next/image";
@@ -26,36 +24,13 @@ const contactInfo = [
 
 const pages = ["home", "projects", "services", "contact"];
 
-const socials = [
-  { type: "Instagram", href: "https://www.instagram.com/hb_links" },
-];
-
 const privacy_pages = privacyPages.map((page) => page.label);
-
-const maxProjectsToShow = 4;
-const visibleProjects = projects.slice(0, maxProjectsToShow);
-const hasMoreProjects = projects.length > maxProjectsToShow;
-
-function Section({ title, isLightPage, children }) {
-  return (
-    <div className="min-w-[200px] text-lg max-900:min-w-[150px]">
-      <p
-        className={`uppercase text-base mb-5 pointer-events-none ${
-          isLightPage ? "text-white opacity-50" : "text-gray-500"
-        }`}
-      >
-        {title}
-      </p>
-      {children}
-    </div>
-  );
-}
 
 export default function Footer() {
   const pathname = usePathname();
 
   const isLightPage =
-    pathname.startsWith("/legal") || pathname.startsWith("/services");
+    pathname.startsWith("/legal");
 
   return (
     <footer
@@ -65,8 +40,9 @@ export default function Footer() {
     >
       <Services_Slides isLightPage={isLightPage} />
 
-      <div className="flex flex-wrap justify-between px-[3%] mb-10 gap-x-16 gap-y-16 max-900:mb-0">
-        <ul className="flex flex-col gap-9 min-w-[250px] text-2xl">
+      <div className="flex flex-wrap px-[3%] mb-10 gap-x-36 gap-y-16 max-900:mb-0">
+        <ul className="flex flex-wrap items-center justify-between w-full gap-16 text-2xl max-700:flex-col max-550:items-start max-550:gap-12">
+          <li className="opacity-70">CSLB #1144057</li>
           {contactInfo.map(({ type, label, href }) => (
             <li key={type} className="w-fit">
               <p
@@ -87,8 +63,15 @@ export default function Footer() {
           ))}
         </ul>
 
-        <Section title="Pages" isLightPage={isLightPage}>
-          <ul className="flex flex-col gap-5 capitalize">
+        <div className="min-w-[200px] max-900:min-w-[150px]">
+          <p
+            className={`uppercase text-lg mb-8 pointer-events-none ${
+              isLightPage ? "text-white opacity-50" : "text-gray-500"
+            }`}
+          >
+            Pages
+          </p>
+          <ul className="flex gap-16 capitalize text-xl max-700:flex-col max-700:gap-10">
             {pages.map((page) => (
               <li key={page}>
                 <Link
@@ -101,53 +84,9 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-        </Section>
-
-        <Section title="Projects" isLightPage={isLightPage}>
-          <ul className="flex flex-col gap-5 capitalize">
-            {visibleProjects.map(({ title, id }) => (
-              <li key={id}>
-                <Link
-                  href={`/projects/${title.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="bottom_line w-full truncate overflow-hidden text-ellipsis whitespace-nowrap"
-                  prefetch
-                >
-                  {title}
-                </Link>
-              </li>
-            ))}
-            {hasMoreProjects && (
-              <li>
-                <Link
-                  href="/projects"
-                  className={`bottom_line_reverse text-base ${
-                    isLightPage
-                      ? "text-white opacity-50 before:!bg-white/50"
-                      : "text-gray-500 before:!bg-gray-500"
-                  }`}
-                  prefetch
-                >
-                  View More
-                </Link>
-              </li>
-            )}
-          </ul>
-        </Section>
-
-        <Section title="Socials" isLightPage={isLightPage}>
-          <ul className="flex justify-start gap-5 font-medium uppercase text-xl">
-            {socials.map(({ type, href }) => (
-              <li key={type}>
-                <Link href={href} className="bottom_line_reverse">
-                  {type}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Section>
+        </div>
       </div>
 
-      {/* Footer Bottom */}
       <div
         className={`mt-26 px-[3%] flex flex-wrap justify-between items-center gap-y-6 gap-x-20 text-sm 
           max-900:flex-col max-900:mt-20 max-900:gap-y-10 ${

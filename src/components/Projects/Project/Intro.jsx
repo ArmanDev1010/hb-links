@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-export default function Intro({ title, bg_img, video, details }) {
+export default function Intro({ title, bg_img, details }) {
   const wrapper = useRef(null);
   const background = useRef(null);
   const introImage = useRef(null);
@@ -47,24 +47,13 @@ export default function Intro({ title, bg_img, video, details }) {
         className="absolute inset-0 brightness-[60%] -z-10 max-800:w-full max-800:h-full"
         ref={background}
       >
-        {bg_img ? (
-          <Image
-            src={bg_img}
-            fill={true}
-            alt="background image"
-            priority={true}
-            className="object-cover"
-          />
-        ) : (
-          <video
-            src={video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          />
-        )}
+        <Image
+          src={bg_img}
+          fill={true}
+          alt="background image"
+          priority={true}
+          className="object-cover"
+        />
       </div>
       <div
         ref={introImage}

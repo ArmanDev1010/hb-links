@@ -12,13 +12,7 @@ import SlideNavigation from "./SlideNavigation";
 import SlideCTA from "./SlideCTA";
 import Image from "next/image";
 
-const slideTexts = [
-  ["Low Voltage", "High Impact"],
-  ["Secure Access", "Smart Control"],
-  ["Clean Wiring", "Reliable Power"],
-  ["Control Every", "Connection"],
-  ["Integration", "Network", "Surveillance"],
-];
+import { services } from "@/data/services";
 
 export default function Slides() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -63,25 +57,23 @@ export default function Slides() {
         modules={[Autoplay, FreeMode, Thumbs]}
         className="hero_swiper w-full h-full text-white"
       >
-        {slideTexts.map((_, index) => (
+        {services.map(({ background_image }, index) => (
           <SwiperSlide key={index}>
             <div className="absolute top-0 left-0 w-full h-full brightness-[30%] bg-primary">
-              <Image
-                src={`/swipers/${index + 1}.jpg`}
+              {/* <Image
+                src={background_image}
                 alt={`Slide ${index + 1}`}
                 fill
                 priority={index === 0}
                 className="object-cover"
-              />
+              /> */}
             </div>
           </SwiperSlide>
         ))}
 
-        {/* Overlay Layout */}
         <div className="absolute inset-0 z-[3] px-[5%] py-[5%] flex flex-col justify-between">
-          {/* Top Section */}
-          <div className="flex flex-col md:flex-row justify-between items-start gap-6 mt-[15vh] max-1080:mt-[20vh] max-550:mt-[20vh]">
-            <SlideText activeIndex={activeIndex} slideTexts={slideTexts} />
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6 mt-[25vh] max-1080:mt-[20vh] max-550:mt-[20vh]">
+            <SlideText activeIndex={activeIndex} />
 
             <SlideNavigation
               activeIndex={activeIndex}
@@ -91,7 +83,7 @@ export default function Slides() {
               progressRef={progressRef}
             />
 
-            <SlideCTA />
+            <SlideCTA activeIndex={activeIndex} />
           </div>
         </div>
       </Swiper>

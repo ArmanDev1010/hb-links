@@ -1,21 +1,21 @@
 import Link from "next/link";
 import React from "react";
 
-export default function WhatWeDeliver({ deliverables }) {
+export default function WhatWeDeliver({ aliases }) {
   return (
-    <div className="my-[50px] max-550:mt-[20px]">
+    <div className="mt-[50px] mb-[90px] max-700:mb-[70px] max-550:mt-[20px]">
       <p
-        className="uppercase px-[5%] text-5xl text-white font-[600] border-b-[1px] border-b-white/50 pb-5 w-full pointer-events-none
-      max-900:text-4xl max-700:text-3xl max-550:text-2xl"
+        className="uppercase px-[5%] text-5xl font-[600] border-b-[1px] border-b-black/50 pb-5 w-full pointer-events-none
+      max-900:text-4xl max-700:text-3xl max-550:text-3xl"
       >
-        What we Deliver
+        What we Offer
       </p>
       <div className="flex flex-col items-end mb-[50px] max-550:mb-[40px]">
         <ul className="w-[70%] pointer-events-none max-700:w-[80%] max-550:w-full">
-          {deliverables.map((text, key) => (
+          {aliases.map((text, key) => (
             <li
               key={key}
-              className="py-4 pr-[5%] border-t-[1px] border-t-white/50 flex first:border-t-0 text-lg max-900:text-base max-550:px-[5%] max-550:text-[15px]"
+              className="py-4 pr-[5%] border-t-[1px] border-t-black/50 flex first:border-t-0 text-lg max-900:text-base max-550:px-[5%] max-550:text-[15px]"
             >
               <span>0{key + 1}</span>
               <span className="ml-16 max-550:ml-8 max-400:ml-6">{text}</span>

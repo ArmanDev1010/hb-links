@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Services() {
   return (
-    <div className="flex items-center px-[5%] py-[40px] flex-col bg-white text-black max-1280:px-[64px] max-700:px-0 max-550:pb-[30px]">
+    <div className="flex items-center px-[5%] pb-[40px] flex-col bg-white text-black max-1280:px-[64px] max-700:px-0 max-550:pb-[30px]">
       <div className="w-full flex flex-col items-center justify-center max-700:mb-0">
         {services.map(({ title, link }, key) => {
           return (
