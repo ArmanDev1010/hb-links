@@ -113,7 +113,7 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
-        <link rel="icon" type="image/png" href="logos/logo.png" />
+        <link rel="icon" type="image/png" href="logos/favicon.ico" />
       </head>
       <body className={inter.className}>
         <Navbar />
