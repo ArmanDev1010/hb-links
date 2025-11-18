@@ -17,7 +17,7 @@ export default function Intro({
           <h1 className="text-[7.5vw] leading-[1.2] w-full max-700:hidden">
             <TextFill title={title} />
           </h1>
-          <h1 className="700:hidden text-[12vw] leading-[1.2] w-full">
+          <h1 className="700:hidden text-[12vw] leading-[1.2] w-full max-400:text-[13.5vw]">
             {title}
           </h1>
         </div>
@@ -25,7 +25,7 @@ export default function Intro({
       <div className="mb-[7vw] mt-24 max-1080:mb-24 max-700:mb-20 max-550:!my-16">
         <h2
           className="px-[5%] text-[4vw] tracking-[-0.035em] leading-[1.1] indent-[24vw] mb-[5vw] pointer-events-none 
-         max-900:text-[5vw] max-900:leading-[1.2] max-900:mb-12 max-700:text-3xl max-550:text-[6vw] max-550:mb-16 max-550:text-right max-400:text-2xl"
+         max-900:text-[5vw] max-900:leading-[1.2] max-900:mb-12 max-700:text-3xl max-550:text-[6vw] max-550:mb-16 max-550:text-right max-400:indent-[0] max-400:text-2xl"
         >
           {description}
         </h2>
