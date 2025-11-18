@@ -49,7 +49,7 @@ export default function Slides() {
       <Swiper
         ref={swiperRef}
         slidesPerView={1}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
         loop
         speed={1200}
         onSlideChange={updateSlideData}

@@ -1,10 +1,6 @@
 export const services = [
   {
     title: "Structured Cabling",
-    mini_descriptions: [
-      "Reliable Cat5e, Cat6, and fiber cabling for seamless connectivity.",
-      "Organized patch panels and clean wiring for scalable networks.",
-    ],
     description:
       "We install Cat5e, Cat6, Cat6a, and fiber optic cabling with clean terminations for reliable, scalable connectivity.",
     background_image: "/services/structured-cabling/main.jpg",
@@ -26,10 +22,6 @@ export const services = [
   },
   {
     title: "Wiring and Rewiring",
-    mini_descriptions: [
-      "Safe, code‑compliant electrical wiring for commercial spaces.",
-      "Flexible layouts and upgraded panels for modern power needs.",
-    ],
     description:
       "We handle complete electrical wiring and rewiring for commercial spaces, ensuring safety and code compliance.",
     background_image: "/services/wiring-and-rewiring/main.jpg",
@@ -50,10 +42,6 @@ export const services = [
   },
   {
     title: "Security Cameras",
-    mini_descriptions: [
-      "CCTV and IP systems for 24/7 monitoring.",
-      "Smart motion detection and remote access for proactive security.",
-    ],
     description:
       "We install CCTV and IP camera systems with NVR configurations for 24/7 property monitoring and recording.",
     background_image: "/services/security-cameras/main.jpg",
@@ -75,10 +63,6 @@ export const services = [
   },
   {
     title: "Access Control",
-    mini_descriptions: [
-      "Keypads, cards, and biometrics for secure entry.",
-      "Custom zones with logs for accountability and control.",
-    ],
     description:
       "We install access control systems including keypads, card readers, maglocks, and biometric entry solutions.",
     background_image: "/services/access-control/main.jpg",
@@ -101,10 +85,6 @@ export const services = [
   },
   {
     title: "Intercoms",
-    mini_descriptions: [
-      "Clear voice and video communication across entry points.",
-      "Wi-Fi enabled systems for flexible installation and use.",
-    ],
     description:
       "We provide intercom systems, Wi-Fi setup, and internal networking for seamless communication and access control.",
     background_image: "/services/intercoms/main.jpg",
@@ -126,10 +106,6 @@ export const services = [
   },
   {
     title: "Audio / Video Integration",
-    mini_descriptions: [
-      "Immersive audio and video systems that bring clarity and impact to every environment.",
-      "From speakers and projectors to control panels and HDMI routing, we integrate clean, scalable solutions.",
-    ],
     description:
       "We integrate audio/video systems, racks, and control panels for immersive media and smart environments.",
     background_image: "/services/audio-video-integration/main.jpg",

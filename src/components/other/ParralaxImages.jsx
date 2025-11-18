@@ -6,10 +6,7 @@ import firstImage from "@/../public/projects/medical-office-manhattan-beach/1.jp
 import secondImage from "@/../public/projects/restaurant-parking-woodland-hills/1.jpg";
 import thirdImage from "@/../public/projects/credit-union-glendale/1.jpg";
 
-export default function ParralaxImages({
-  mini_descriptions = [],
-  isServicePage = false,
-}) {
+export default function ParralaxImages() {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -18,28 +15,16 @@ export default function ParralaxImages({
   const md = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const lg = useTransform(scrollYProgress, [0, 1], [0, -250]);
 
-  const defaultImages = [
+  const images_array = [
     { y: 0, image: firstImage },
     { y: lg, image: secondImage },
     { y: md, image: thirdImage },
   ];
 
-  const serviceImages = [
-    { y: 0, image: "" },
-    { y: lg, image: "" },
-    { y: md, image: "" },
-  ];
-
-  const images_array = isServicePage ? serviceImages : defaultImages;
-  const defaultTexts = [
+  const texts_array = [
     "Our work connects, protects, and communicates. Whether it’s wiring, surveillance, or media integration, we deliver systems that perform reliably and look sharp.",
     "From structured cabling to access control and AV integration. Every install is clean, scalable, and built to last.",
   ];
-
-  const textsToRender =
-    isServicePage && mini_descriptions.length > 0
-      ? mini_descriptions
-      : defaultTexts;
 
   return (
     <div
@@ -59,14 +44,13 @@ export default function ParralaxImages({
         ))}
       </div>
 
-      {/* Dynamic mini descriptions */}
       <div className="pointer-events-none text-[16px] text-gray-600 max-1280:hidden">
-        {textsToRender[0] && (
-          <p className="absolute top-0 left-0 w-[320px]">{textsToRender[0]}</p>
+        {texts_array[0] && (
+          <p className="absolute top-0 left-0 w-[320px]">{texts_array[0]}</p>
         )}
-        {textsToRender[1] && (
+        {texts_array[1] && (
           <p className="absolute bottom-0 text-right right-0 w-[320px]">
-            {textsToRender[1]}
+            {texts_array[1]}
           </p>
         )}
       </div>

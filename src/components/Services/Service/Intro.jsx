@@ -1,6 +1,5 @@
 import React from "react";
 import TextFill from "@/components/other/TextFill";
-import ParralaxImages from "@/components/other/ParralaxImages";
 
 import greenLine from "@/../public/patterns/line_green.png";
 import Image from "next/image";
@@ -8,38 +7,37 @@ import Image from "next/image";
 export default function Intro({
   title,
   description,
-  mini_descriptions,
+  background_image,
   deliverables,
 }) {
   return (
-    <div className="relative px-[5%]">
-      <div className="relative pt-[150px] max-700:pt-[130px]">
-        <div className="relative w-full">
-          <div className="relative z-[1] flex flex-col items-center justify-center h-full pointer-events-none uppercase">
-            <h1 className="text-[7.5vw] leading-[1.2] w-full max-700:hidden">
-              <TextFill title={title} />
-            </h1>
-            <h1 className="700:hidden text-[12vw] leading-[1.2] w-full">
-              {title}
-            </h1>
-          </div>
-        </div>
-        <ParralaxImages
-          mini_descriptions={mini_descriptions}
-          isServicePage={true}
-        />
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat bg-center opacity-30 z-[-1]">
-          <Image src={greenLine} layout="fill" objectFit="cover" alt="" />
+    <div className="relative">
+      <div className="relative px-[5%] w-full pt-[150px] max-700:pt-[130px]">
+        <div className="relative z-[1] flex flex-col items-center justify-center h-full pointer-events-none uppercase">
+          <h1 className="text-[7.5vw] leading-[1.2] w-full max-700:hidden">
+            <TextFill title={title} />
+          </h1>
+          <h1 className="700:hidden text-[12vw] leading-[1.2] w-full">
+            {title}
+          </h1>
         </div>
       </div>
-      <div className="mb-[8vw] mt-16 max-1080:mb-24 max-700:mb-20 max-550:mt-3 max-550:mb-16">
+      <div className="mb-[7vw] mt-24 max-1080:mb-24 max-700:mb-20 max-550:!my-16">
         <h2
-          className="text-[4.4vw] tracking-[-0.035em] leading-[1.1] indent-[24vw] mb-[5vw] pointer-events-none 
+          className="px-[5%] text-[4vw] tracking-[-0.035em] leading-[1.1] indent-[24vw] mb-[5vw] pointer-events-none 
          max-900:text-[5vw] max-900:leading-[1.2] max-900:mb-12 max-700:text-3xl max-550:text-[6vw] max-550:mb-16 max-550:text-right max-400:text-2xl"
         >
           {description}
         </h2>
-        <div className="flex flex-col items-center pointer-events-none">
+        <div className="relative h-[75vh] bg-primary mb-[5vw] max-900:mb-12 max-550:mb-16">
+          {/* <Image
+              src={bg_img}
+              fill={true}
+              alt=""
+              className="w-full h-full object-cover"
+            /> */}
+        </div>
+        <div className="px-[5%] flex flex-col items-center pointer-events-none">
           <p className="mb-12 text-lg text-gray-400 font-[300] border rounded-full w-fit px-5 max-700:mb-8">
             What We Deliver
           </p>
@@ -52,6 +50,9 @@ export default function Intro({
             ))}
           </ul>
         </div>
+      </div>
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat bg-center opacity-30 z-[-1]">
+        <Image src={greenLine} layout="fill" objectFit="cover" alt="" />
       </div>
     </div>
   );
