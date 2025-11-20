@@ -4,10 +4,10 @@ export default function ContactButton({ menu }) {
   return (
     <Link href="/contact" prefetch>
       <button
-        className={`group py-[10px] px-[60px] border relative cursor-pointer overflow-hidden ${
+        className={`group py-[10px] border relative cursor-pointer overflow-hidden min-w-[200px] ${
           menu
             ? "rounded-0 text-xl py-[12px] px-[70px] hover:bg-third transition-bg duration-300 ease max-700:px-[60px] max-400:text-base max-400:px-[60px] max-400:py-[10px]"
-            : "rounded-full"
+            : "rounded-full max-1080:hidden"
         }`}
       >
         <p className="relative text-center top-0 group-hover:top-[-40px] transition-[top] duration-[.4s] ease-[cubic-bezier(.33,1,.68,1)]">

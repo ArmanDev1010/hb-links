@@ -26,11 +26,11 @@ export default function ProjectPage() {
   let {
     title,
     images,
+    page_images,
     background_image,
     video,
     description,
     details,
-    scope,
     categories,
   } = project;
 
@@ -44,8 +44,8 @@ export default function ProjectPage() {
       />
       <Description
         images={images}
+        page_images={page_images}
         description={description}
-        scope={scope}
         categories={categories}
       />
     </div>

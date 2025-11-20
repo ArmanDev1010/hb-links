@@ -24,15 +24,17 @@ export default function ServicePage() {
     );
   }
 
-  let { title, description, aliases, deliverables, background_image } = service;
+  let { title, description, aliases, deliverables, images, page_image } =
+    service;
 
   return (
-    <div className="relative">
+    <div className="relative mb-14">
       <Intro
         title={title}
         description={description}
-        background_image={background_image}
         deliverables={deliverables}
+        images={images}
+        page_image={page_image}
       />
       <WhatWeOffer aliases={aliases} />
     </div>

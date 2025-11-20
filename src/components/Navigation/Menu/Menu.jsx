@@ -23,7 +23,7 @@ export default function Menu({ showMenu, handleClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <ul className="flex flex-col gap-8 text-center max-700:gap-10 max-400:gap-5">
+            <ul className="flex flex-col gap-8 text-center max-700:gap-10 max-400:gap-7">
               {navItems.map(({ label, href }) => {
                 const isActive =
                   pathname === href || pathname.startsWith(`${href}/`);
@@ -32,7 +32,7 @@ export default function Menu({ showMenu, handleClose }) {
                   <li key={label}>
                     <Link
                       href={href}
-                      className={`text-[32px] font-semibold transition-opacity duration-300 hover:opacity-50 max-700:text-3xl
+                      className={`text-[32px] font-semibold transition-opacity duration-300 hover:opacity-50 max-700:text-3xl max-550:text-2xl
                         max-400:text-xl ${
                           isActive ? "text-white" : "text-gray-400"
                         }`}
@@ -68,7 +68,7 @@ export default function Menu({ showMenu, handleClose }) {
                   <li key={key}>
                     <Link
                       href={href ? href : "/"}
-                      className="text-lg font-[500] transition-opacity duration-300 hover:opacity-50 max-700:text-base max-550:text-sm"
+                      className="text-lg font-[500] transition-opacity duration-300 hover:opacity-50 max-700:text-base max-550:text-[15px] max-400:text-sm"
                     >
                       {label}
                     </Link>

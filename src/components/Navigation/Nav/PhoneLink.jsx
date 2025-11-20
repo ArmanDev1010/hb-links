@@ -8,11 +8,13 @@ export default function PhoneLink({ isLightPage, menu, showMenu }) {
     <Link
       href="tel:+18183033555"
       className={`group text-sm flex items-center gap-3 ml-auto pr-8 max-1440:pr-0 max-1080:text-base max-900:ml-0 ${
-        menu ? "700:hidden max-700:text-base self-end max-550:text-sm" : "max-700:hidden"
+        menu
+          ? "700:hidden max-700:text-base self-end max-550:text-[15px] max-400:text-sm"
+          : "max-700:hidden"
       } ${showMenu && "text-white"}`}
     >
       <div
-        className={`!text-base backdrop-blur-[4px] p-2 rounded-full ${phoneBg} max-1440:hidden`}
+        className={`!text-base backdrop-blur-[4px] p-2 rounded-full ${phoneBg} max-900:hidden`}
       >
         <MdLocalPhone />
       </div>

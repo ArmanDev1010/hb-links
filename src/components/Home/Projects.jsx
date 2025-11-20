@@ -14,7 +14,7 @@ export default function Projects() {
     <div className="relative py-[50px] px-[5%] max-550:py-[40px]">
       <h3
         className="uppercase text-7xl mb-[40px] leading-[1.1] pointer-events-none max-700:text-6xl max-700:mb-[40px] 
-      max-550:text-[14vw] max-550:mb-[25px]"
+      max-550:text-[13vw] max-550:mb-[25px]"
       >
         Our Projects
       </h3>

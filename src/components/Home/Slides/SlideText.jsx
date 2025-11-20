@@ -25,7 +25,7 @@ export default function SlideText({ activeIndex }) {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="text-white text-[4.5vw] font-[400] uppercase leading-[1.2] pointer-events-none
+        className="text-white text-[5vw] font-[400] uppercase leading-[1.2] pointer-events-none
         max-1280:text-[5.5vw] max-700:text-[6.5vw] max-550:text-[7.5vw] max-550:leading-[1.4] max-400:text-[9vw]"
       >
         {services[activeIndex]?.title}

@@ -72,12 +72,8 @@ export default function Navbar() {
   return (
     <>
       <nav className={navClasses}>
-        <div className="relative flex items-center h-full max-w-[1600px] mx-auto">
-          <div
-            className={`flex items-center max-1440:!w-full max-900:justify-between ${
-              isLightPage || isContactPage ? "w-full" : "w-[75%]"
-            }`}
-          >
+        <div className="relative flex items-center justify-between h-full max-w-[1600px] mx-auto w-full">
+          <div className="flex items-center max-900:justify-between">
             <Logo
               atTop={atTop}
               isLightPage={isLightPage}
@@ -85,22 +81,18 @@ export default function Navbar() {
               isMobileProjectPage={isMobileProjectPage}
             />
             <NavLinks />
-            <MenuBtn
-              showMenu={showMenu}
-              setShowMenu={setShowMenu}
-              isLightPage={isLightPage}
-              atTop={atTop}
-              isMobileProjectPage={isMobileProjectPage}
-            />
-            <PhoneLink isLightPage={isLightPage} showMenu={showMenu} />
           </div>
 
-          <div
-            className={`flex items-center justify-between max-1440:justify-end max-1440:!w-fit max-1440:min-w-[230px] max-1080:hidden ${
-              isContactPage ? "w-fit" : "w-[25%]"
-            }`}
-          >
-            <div className=""></div>
+          <MenuBtn
+            showMenu={showMenu}
+            setShowMenu={setShowMenu}
+            isLightPage={isLightPage}
+            atTop={atTop}
+            isMobileProjectPage={isMobileProjectPage}
+          />
+
+          <div className="flex gap-7 max-1280:gap-5 max-700:hidden">
+            <PhoneLink isLightPage={isLightPage} showMenu={showMenu} />
             {!isContactPage && <ContactButton />}
           </div>
         </div>

@@ -57,16 +57,18 @@ export default function Slides() {
         modules={[Autoplay, FreeMode, Thumbs]}
         className="hero_swiper w-full h-full text-white"
       >
-        {services.map(({ background_image }, index) => (
+        {services.map(({ home_image }, index) => (
           <SwiperSlide key={index}>
             <div className="absolute top-0 left-0 w-full h-full brightness-[30%] bg-primary">
-              {/* <Image
-                src={background_image}
-                alt={`Slide ${index + 1}`}
-                fill
-                priority={index === 0}
-                className="object-cover"
-              /> */}
+              {home_image ? (
+                <Image
+                  src={home_image}
+                  alt={`Slide ${index + 1}`}
+                  fill
+                  priority={index === 0}
+                  className="object-cover filter grayscale"
+                />
+              ) : null}
             </div>
           </SwiperSlide>
         ))}
@@ -87,9 +89,6 @@ export default function Slides() {
           </div>
         </div>
       </Swiper>
-
-      {/* Divider */}
-      <div className="absolute top-0 left-[calc(75%-1.5%)] bg-white/30 h-full w-[1px] z-[3] max-1440:hidden" />
     </div>
   );
 }

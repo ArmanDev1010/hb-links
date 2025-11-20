@@ -4,6 +4,7 @@ import Navbar from "@/components/Navigation/Navbar";
 import { Open_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ConditionalComponents from "@/components/other/ConditionalComponents";
+import Footer from "@/components/Footer/Footer";
 
 const inter = Open_Sans({ subsets: ["latin"] });
 
@@ -120,6 +121,7 @@ export default function RootLayout({ children }) {
         <Toaster position="top-center" />
         {children}
         <ConditionalComponents />
+        <Footer />
       </body>
     </html>
   );

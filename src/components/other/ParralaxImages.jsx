@@ -2,9 +2,9 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
-import firstImage from "@/../public/projects/medical-office-manhattan-beach/1.jpg";
-import secondImage from "@/../public/projects/restaurant-parking-woodland-hills/1.jpg";
-import thirdImage from "@/../public/projects/credit-union-glendale/1.jpg";
+import firstImage from "@/../public/services/structured-cabling/images/2.jpg";
+import secondImage from "@/../public/services/wiring-rewiring/images/5.jpg";
+import thirdImage from "@/../public/services/security-cameras/images/2.jpg";
 
 export default function ParralaxImages() {
   const container = useRef(null);
@@ -33,12 +33,16 @@ export default function ParralaxImages() {
     >
       <div className="flex w-full !h-full justify-center relative mt-[5vh]">
         {images_array.map(({ y, image }, key) => (
-          <motion.div style={{ y }} key={key} className="parralax_img absolute">
+          <motion.div
+            style={{ y }}
+            key={key}
+            className="parralax_img absolute bg-primary"
+          >
             <Image
               src={image}
               fill
               alt="background image"
-              className="w-full h-full object-cover bg-primary"
+              className="w-full h-full object-cover bg-primary filter grayscale"
             />
           </motion.div>
         ))}

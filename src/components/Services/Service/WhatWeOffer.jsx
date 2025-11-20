@@ -3,7 +3,7 @@ import React from "react";
 
 export default function WhatWeDeliver({ aliases }) {
   return (
-    <div className="mt-[50px] mb-[90px] max-700:mb-[70px] max-550:mt-[20px]">
+    <div className="mt-[50px] mb-[75px] max-700:mb-[55px] max-550:mt-[20px]">
       <p
         className="uppercase px-[5%] text-5xl font-[600] border-b-[1px] border-b-black/50 pb-5 w-full pointer-events-none
       max-900:text-4xl max-700:text-3xl max-550:text-3xl"

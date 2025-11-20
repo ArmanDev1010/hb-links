@@ -23,18 +23,15 @@ export default function ServicesPage() {
       >
         Services
       </h1>
-      {services?.map(
-        ({ title, background_image, description, link, aliases }, key) => (
-          <Service
-            key={key}
-            title={title}
-            bg_img={background_image}
-            description={description}
-            link={link}
-            aliases={aliases}
-          />
-        )
-      )}
+      {services?.map(({ title, page_image, description, link }, key) => (
+        <Service
+          key={key}
+          title={title}
+          page_image={page_image}
+          description={description}
+          link={link}
+        />
+      ))}
     </div>
   );
 }

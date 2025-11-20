@@ -3,7 +3,18 @@ export const services = [
     title: "Structured Cabling",
     description:
       "We install Cat5e, Cat6, Cat6a, and fiber optic cabling with clean terminations for reliable, scalable connectivity.",
-    background_image: "/services/structured-cabling/main.jpg",
+    home_image: "/services/structured-cabling/home.jpg",
+    page_image: "/services/structured-cabling/images/3.jpg",
+    images: [
+      "/services/structured-cabling/images/1.jpg",
+      "/services/structured-cabling/images/2.jpg",
+      "/services/structured-cabling/images/3.jpg",
+      "/services/structured-cabling/images/4.jpg",
+      "/services/structured-cabling/images/5.jpg",
+      "/services/structured-cabling/images/6.jpg",
+      "/services/structured-cabling/images/7.jpg",
+      "/services/structured-cabling/images/8.jpg",
+    ],
     aliases: [
       "Networking",
       "Low-Voltage Infrastructure",
@@ -21,30 +32,18 @@ export const services = [
     ],
   },
   {
-    title: "Wiring and Rewiring",
-    description:
-      "We handle complete electrical wiring and rewiring for commercial spaces, ensuring safety and code compliance.",
-    background_image: "/services/wiring-and-rewiring/main.jpg",
-    aliases: [
-      "Electrical Wiring",
-      "Power Cabling",
-      "Outlet Installation",
-      "Circuit Setup",
-      "Panel Upgrades",
-    ],
-    deliverables: [
-      "Safe and compliant electrical systems for commercial environments",
-      "Optimized power distribution for lighting, outlets, and equipment",
-      "Upgraded panels to support modern electrical loads and expansion",
-      "Flexible wiring layouts tailored to your space and usage",
-      "Reliable circuits designed for long-term performance and protection",
-    ],
-  },
-  {
     title: "Security Cameras",
     description:
       "We install CCTV and IP camera systems with NVR configurations for 24/7 property monitoring and recording.",
-    background_image: "/services/security-cameras/main.jpg",
+    home_image: "/services/security-cameras/home.jpg",
+    page_image: "/services/security-cameras/images/3.jpg",
+    images: [
+      "/services/security-cameras/images/1.jpg",
+      "/services/security-cameras/images/2.jpg",
+      "/services/security-cameras/images/3.jpg",
+      "/services/security-cameras/images/4.jpg",
+      "/services/security-cameras/images/5.jpg",
+    ],
     aliases: [
       "CCTV",
       "Surveillance",
@@ -65,7 +64,15 @@ export const services = [
     title: "Access Control",
     description:
       "We install access control systems including keypads, card readers, maglocks, and biometric entry solutions.",
-    background_image: "/services/access-control/main.jpg",
+    home_image: "/services/access-control/home.jpg",
+    page_image: "/services/access-control/images/4.jpg",
+    images: [
+      "/services/access-control/images/1.jpg",
+      "/services/access-control/images/2.jpg",
+      "/services/access-control/images/3.jpg",
+      "/services/access-control/images/4.jpg",
+      "/services/access-control/images/5.jpg",
+    ],
     aliases: [
       "Door Entry",
       "RFID",
@@ -84,10 +91,40 @@ export const services = [
     ],
   },
   {
+    title: "Wiring and Rewiring",
+    description:
+      "We handle complete electrical wiring and rewiring for commercial spaces, ensuring safety and code compliance.",
+    home_image: "/services/wiring-rewiring/home.jpg",
+    page_image: "/services/wiring-rewiring/images/6.jpg",
+    images: [
+      "/services/wiring-rewiring/images/1.jpg",
+      "/services/wiring-rewiring/images/7.jpg",
+      "/services/wiring-rewiring/images/3.jpg",
+      "/services/wiring-rewiring/images/4.jpg",
+      "/services/wiring-rewiring/images/5.jpg",
+      "/services/wiring-rewiring/images/6.jpg",
+    ],
+    aliases: [
+      "Electrical Wiring",
+      "Power Cabling",
+      "Outlet Installation",
+      "Circuit Setup",
+      "Panel Upgrades",
+    ],
+    deliverables: [
+      "Safe and compliant electrical systems for commercial environments",
+      "Optimized power distribution for lighting, outlets, and equipment",
+      "Upgraded panels to support modern electrical loads and expansion",
+      "Flexible wiring layouts tailored to your space and usage",
+      "Reliable circuits designed for long-term performance and protection",
+    ],
+  },
+  {
     title: "Intercoms",
     description:
       "We provide intercom systems, Wi-Fi setup, and internal networking for seamless communication and access control.",
-    background_image: "/services/intercoms/main.jpg",
+    home_image: "/services/intercoms/home.jpg",
+    page_image: "/services/intercoms/page.jpg",
     aliases: [
       "Communication Systems",
       "Gate Access",
@@ -108,7 +145,8 @@ export const services = [
     title: "Audio / Video Integration",
     description:
       "We integrate audio/video systems, racks, and control panels for immersive media and smart environments.",
-    background_image: "/services/audio-video-integration/main.jpg",
+    home_image: "/services/audio-video/home.jpg",
+    page_image: "/services/audio-video/home.jpg",
     link: "audio-video",
     aliases: [
       "AV Integration",

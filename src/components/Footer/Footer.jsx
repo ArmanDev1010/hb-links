@@ -30,7 +30,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   const isLightPage =
-    pathname.startsWith("/legal");
+    pathname.startsWith("/legal") || pathname.startsWith("/contact");
 
   return (
     <footer
@@ -40,8 +40,8 @@ export default function Footer() {
     >
       <Services_Slides isLightPage={isLightPage} />
 
-      <div className="flex flex-wrap px-[3%] mb-10 gap-x-36 gap-y-16 max-900:mb-0">
-        <ul className="flex flex-wrap items-center justify-between w-full gap-16 text-2xl max-700:flex-col max-550:items-start max-550:gap-12">
+      <div className="flex flex-wrap px-[3%] mb-10 gap-x-36 gap-y-32 max-900:mb-0 max-700:gap-y-24">
+        <ul className="flex flex-wrap justify-between w-full gap-16 text-2xl max-700:flex-col max-550:items-start max-550:gap-12">
           <li className="opacity-70">CSLB #1144057</li>
           {contactInfo.map(({ type, label, href }) => (
             <li key={type} className="w-fit">
@@ -64,13 +64,6 @@ export default function Footer() {
         </ul>
 
         <div className="min-w-[200px] max-900:min-w-[150px]">
-          <p
-            className={`uppercase text-lg mb-8 pointer-events-none ${
-              isLightPage ? "text-white opacity-50" : "text-gray-500"
-            }`}
-          >
-            Pages
-          </p>
           <ul className="flex gap-16 capitalize text-xl max-700:flex-col max-700:gap-10">
             {pages.map((page) => (
               <li key={page}>
