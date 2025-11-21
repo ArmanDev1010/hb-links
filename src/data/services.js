@@ -4,7 +4,7 @@ export const services = [
     description:
       "We install Cat5e, Cat6, Cat6a, and fiber optic cabling with clean terminations for reliable, scalable connectivity.",
     home_image: "/services/structured-cabling/home.jpg",
-    page_image: "/services/structured-cabling/images/3.jpg",
+    page_image: "/services/structured-cabling/images/9.jpg",
     images: [
       "/services/structured-cabling/images/1.jpg",
       "/services/structured-cabling/images/2.jpg",
@@ -65,7 +65,7 @@ export const services = [
     description:
       "We install access control systems including keypads, card readers, maglocks, and biometric entry solutions.",
     home_image: "/services/access-control/home.jpg",
-    page_image: "/services/access-control/images/4.jpg",
+    page_image: "/services/access-control/images/3.jpg",
     images: [
       "/services/access-control/images/1.jpg",
       "/services/access-control/images/2.jpg",
@@ -95,7 +95,7 @@ export const services = [
     description:
       "We handle complete electrical wiring and rewiring for commercial spaces, ensuring safety and code compliance.",
     home_image: "/services/wiring-rewiring/home.jpg",
-    page_image: "/services/wiring-rewiring/images/6.jpg",
+    page_image: "/services/wiring-rewiring/images/4.jpg",
     images: [
       "/services/wiring-rewiring/images/1.jpg",
       "/services/wiring-rewiring/images/7.jpg",
@@ -124,7 +124,7 @@ export const services = [
     description:
       "We provide intercom systems, Wi-Fi setup, and internal networking for seamless communication and access control.",
     home_image: "/services/intercoms/home.jpg",
-    page_image: "/services/intercoms/page.jpg",
+    page_image: "/services/intercoms/home.jpg",
     aliases: [
       "Communication Systems",
       "Gate Access",
