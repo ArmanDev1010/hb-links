@@ -2,9 +2,9 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
-import firstImage from "@/../public/services/structured-cabling/images/2.jpg";
-import secondImage from "@/../public/services/wiring-rewiring/images/5.jpg";
-import thirdImage from "@/../public/services/security-cameras/images/2.jpg";
+import firstImage from "@/../public/services/structured-cabling/images/9.jpg";
+import secondImage from "@/../public/services/wiring-rewiring/images/4.jpg";
+import thirdImage from "@/../public/services/security-cameras/images/3.jpg";
 
 export default function ParralaxImages() {
   const container = useRef(null);
@@ -36,7 +36,7 @@ export default function ParralaxImages() {
           <motion.div
             style={{ y }}
             key={key}
-            className="parralax_img absolute bg-primary"
+            className="parralax_img absolute bg-primary brightness-[50%]"
           >
             <Image
               src={image}

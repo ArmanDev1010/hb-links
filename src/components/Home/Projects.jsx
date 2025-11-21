@@ -13,10 +13,11 @@ export default function Projects() {
   return (
     <div className="relative py-[50px] px-[5%] max-550:py-[40px]">
       <h3
-        className="uppercase text-7xl mb-[40px] leading-[1.1] pointer-events-none max-700:text-6xl max-700:mb-[40px] 
-      max-550:text-[13vw] max-550:mb-[25px]"
+        className="capitalize text-7xl mb-[55px] pointer-events-none max-900:text-[7.5vw] 
+          max-700:mb-[50px] max-550:text-[9vw] max-400:text-[10vw] max-400:mb-[40px] text-black/70"
       >
-        Our Projects
+        <span className="font-semibold text-black">Our</span>{" "}
+        <span className="italic">Projects</span>
       </h3>
       <div className="relative z-[1] grid grid-cols-2 gap-6 max-900:grid-cols-1">
         {visibleProjects.map(

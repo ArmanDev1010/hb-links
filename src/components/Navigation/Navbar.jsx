@@ -23,9 +23,10 @@ export default function Navbar() {
   const isLightPage =
     pathname.startsWith("/projects") ||
     pathname.startsWith("/services") ||
+    pathname.startsWith("/about") ||
     [("/terms-of-service", "/privacy-policy")].includes(pathname);
   const isContactPage = pathname === "/contact";
-  const isNonStickyPage = pathname === "/services" || isContactPage;
+  const isServicesPage = pathname === "/services";
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -50,24 +51,25 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", checkMobileProjectPage);
   }, [pathname]);
 
-  const navBase =
-    "px-[3%] w-full border-b transition-all duration-400 !z-[999]";
-  const stickyStyles = isNonStickyPage
-    ? "relative z-[999]"
-    : `fixed ${visible ? "translate-y-0" : "-translate-y-full"}`;
+  const navBase = "px-[3%] w-full transition-all duration-400 !z-[999]";
+  const stickyStyles =
+    isServicesPage || isContactPage
+      ? "relative z-[999] !border-b-0"
+      : `fixed ${visible ? "translate-y-0" : "-translate-y-full"}`;
+  const noBorderBottom = isServicesPage
+    ? "!border-b-0"
+    : `border-b-3 border-third`;
   const topStyles =
     atTop || showMenu
       ? "bg-transparent"
-      : "!bg-white !h-[65px] !text-black !border-black/10";
+      : "!bg-white !h-[65px] !text-black !border-b-1 !border-black/10";
   const themeStyles = isLightPage
-    ? "text-black border-black/10 h-[80px]"
-    : "text-white border-white/30 h-[75px]";
-  const mobileProjectStyles = isMobileProjectPage
-    ? "text-white border-white/30"
-    : "";
+    ? "text-black h-[80px]"
+    : "text-white h-[75px]";
+  const mobileProjectStyles = isMobileProjectPage ? "text-white" : "";
   const isBlackNav = isContactPage ? "!bg-primary" : "";
 
-  const navClasses = `${navBase} ${stickyStyles} ${topStyles} ${themeStyles} ${mobileProjectStyles} ${isBlackNav}`;
+  const navClasses = `${navBase} ${stickyStyles} ${topStyles} ${themeStyles} ${mobileProjectStyles} ${isBlackNav} ${noBorderBottom}`;
 
   return (
     <>

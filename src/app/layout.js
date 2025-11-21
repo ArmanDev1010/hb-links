@@ -58,27 +58,15 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              name: "Your Company Name",
-              url: "https://yourdomain.com",
+              name: "HB LINKS",
+              url: "https://hb-links.com",
               logo: "logos/white_vertical.png",
               image: "logos/white_vertical.png",
               description:
                 "We provide structured cabling, networking, CCTV, access control, and AV integration services across California.",
-              telephone: "+1-555-123-4567",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "123 Business St",
-                addressLocality: "Los Angeles",
-                addressRegion: "CA",
-                postalCode: "90001",
-                addressCountry: "US",
-              },
-              openingHours: "Mo-Fr 09:00-18:00",
-              sameAs: [
-                "https://www.facebook.com/yourcompany",
-                "https://www.linkedin.com/company/yourcompany",
-                "https://www.instagram.com/yourcompany",
-              ],
+              telephone: "+1 (818) 303-3555",
+              openingHours: "Mo-Su 09:00-18:00",
+              sameAs: ["https://www.instagram.com/hb_links/"],
               makesOffer: [
                 {
                   "@type": "Service",

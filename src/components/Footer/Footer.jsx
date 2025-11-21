@@ -22,7 +22,7 @@ const contactInfo = [
   { type: "Area", label: "California, USA" },
 ];
 
-const pages = ["home", "projects", "services", "contact"];
+const pages = ["home", "projects", "about", "services", "contact"];
 
 const privacy_pages = privacyPages.map((page) => page.label);
 

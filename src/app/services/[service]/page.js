@@ -24,8 +24,7 @@ export default function ServicePage() {
     );
   }
 
-  let { title, description, aliases, deliverables, images, page_image } =
-    service;
+  let { title, description, aliases, deliverables, page_image } = service;
 
   return (
     <div className="relative mb-14">
@@ -33,7 +32,6 @@ export default function ServicePage() {
         title={title}
         description={description}
         deliverables={deliverables}
-        images={images}
         page_image={page_image}
       />
       <WhatWeOffer aliases={aliases} />

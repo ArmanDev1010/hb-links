@@ -6,36 +6,45 @@ import Link from "next/link";
 
 export default function Services() {
   return (
-    <div className="flex items-center px-[5%] pb-[40px] flex-col bg-white text-black max-1280:px-[64px] max-700:px-0 max-550:pb-[30px]">
+    <div className="pb-[40px] bg-white text-black max-550:pb-[30px]">
+      <h3
+        className="capitalize text-7xl mb-[55px] pointer-events-none px-[3%] max-900:text-[7.5vw] 
+          max-700:mb-[50px] max-700:px-[5%] max-550:text-[9vw] max-400:text-[10vw] max-400:mb-[40px] text-black/70"
+      >
+        <span className="font-semibold text-black">Our</span>{" "}
+        <span className="italic">Expertise</span>
+      </h3>
       <div className="w-full flex flex-col items-center justify-center max-700:mb-0">
-        {services.map(({ title, link }, key) => {
+        {services.map(({ title, description, link }, key) => {
           return (
             <Link
               href={`./services/${
                 link ? link : title?.toLowerCase().replace(/\s+/g, "-")
               }`}
               key={key}
-              className="w-full border-t-[1px] border-t-[rgb(201,201,201)] last:border-b-[1px] last:border-b-[rgb(201,201,201)] max-700:px-[5%]"
+              className="px-[5%] w-full border-t-[1px] border-t-[rgb(201,201,201)] last:border-b-[1px] last:border-b-[rgb(201,201,201)]"
             >
               <div
-                className="group flex w-full justify-between items-center py-[50px] px-[100px] cursor-pointer transition-all duration-200
-                hover:opacity-50 max-1600:px-[70px] max-900:px-[50px] max-700:py-[40px] max-550:px-[10px]"
+                className="group grid grid-cols-[1fr_1fr_auto] gap-7 w-full items-center py-[50px] cursor-pointer transition-all duration-200
+                hover:opacity-50 max-1080:py-[35px] max-900:flex max-900:justify-between max-700:py-[40px]"
               >
                 <h2
-                  className="text-[35px] m-0 font-semibold text-[#222] whitespace-nowrap overflow-hidden text-ellipsis 
-                  transition-all duration-[0.4s] group-hover:-translate-x-[10px] 
-                  max-900:text-[35px] max-700:text-[28px] max-550:text-[24px] max-400:text-[20px]"
+                  className="text-[35px] m-0 font-semibold text-[#222] whitespace-nowrap overflow-hidden text-ellipsis transition-all duration-[0.4s] group-hover:-translate-x-[10px] 
+                  max-1080:text-[30px] max-700:text-[28px] max-550:text-[24px] max-400:text-[20px]"
                 >
                   {title}
                 </h2>
-                <p className="transition-all duration-[0.4s] font-medium group-hover:translate-x-[10px] pl-[20px]">
+                <p className="w-[400px] max-1080:w-[350px] max-900:hidden">
+                  {description}
+                </p>
+                <p className="transition-all duration-[0.4s] font-medium group-hover:translate-x-[10px]">
                   <svg
                     stroke="black"
                     fill="black"
                     strokeWidth="0"
                     viewBox="0 0 24 24"
                     className="pointer-events-none relative z-1 rotate-45 text-6xl text-black transition-all duration-[0.4s] ease-out group-hover:rotate-90
-                    max-700:text-6xl max-550:text-5xl max-400:text-4xl"
+                    max-1080:text-5xl max-900:text-6xl max-550:text-5xl max-400:text-4xl"
                     height="0.6em"
                     width="0.6em"
                     xmlns="http://www.w3.org/2000/svg"

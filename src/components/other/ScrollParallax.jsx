@@ -6,7 +6,9 @@ import { useTransform, useScroll, motion } from "framer-motion";
 import Image from "next/image";
 import Lenis from "@studio-freight/lenis";
 
-export default function ScrollParallax({ images }) {
+import { services } from "@/data/services";
+
+export default function ScrollParallax() {
   const gallery = useRef(null);
 
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
@@ -19,12 +21,11 @@ export default function ScrollParallax({ images }) {
 
   const { width, height } = dimension;
 
-  let factor1 = 1.75;
-  let factor2 = 3.05;
+  let factor1 = 1.25;
+  let factor2 = 2.5;
   let factor3 = 1;
-  let factor4 = 2;
+  let factor4 = 1.75;
 
-  // Adjust factors by breakpoints
   if (width <= 550) {
     factor1 = 0.5;
     factor2 = 1.25;
@@ -41,6 +42,7 @@ export default function ScrollParallax({ images }) {
     factor3 = 0.75;
     factor4 = 1.75;
   }
+  1;
 
   const y = useTransform(scrollYProgress, [0, 1], [0, height * factor1]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, height * factor2]);
@@ -71,13 +73,13 @@ export default function ScrollParallax({ images }) {
     };
   }, []);
 
-  const filledImages = fillImages(images, 12);
+  const filledImages = gatherServiceImages(services, 12);
 
   return (
     <main className="relative">
       <div
         ref={gallery}
-        className="h-[175vh] overflow-hidden bg-primary 
+        className="h-[100vh] overflow-hidden bg-primary 
         max-1080:h-[120vh] max-700:h-[100vh] max-550:h-[75vh]"
       >
         <div
@@ -106,13 +108,18 @@ export default function ScrollParallax({ images }) {
   );
 }
 
-function fillImages(images, targetLength = 12) {
-  if (!images || images.length === 0) return [];
+function gatherServiceImages(services, targetLength = 12) {
   const result = [];
-  let i = 0;
+  let index = 0;
   while (result.length < targetLength) {
-    result.push(images[i % images.length]);
-    i++;
+    for (const service of services) {
+      if (service.images && service.images[index]) {
+        result.push(service.images[index]);
+        if (result.length === targetLength) break;
+      }
+    }
+    index++;
+    if (services.every((s) => !s.images || !s.images[index])) break;
   }
   return result;
 }
@@ -126,13 +133,13 @@ const Column = ({ images, y }) => {
       {images.map((src, i) => (
         <div
           key={i}
-          className="relative h-1/3 w-full rounded-[1vw] overflow-hidden bg-secondary"
+          className="group relative h-1/3 w-full rounded-[1vw] overflow-hidden bg-secondary brightness-[50%]"
         >
           <Image
             src={src}
             alt="image"
             fill
-            className="object-cover filter grayscale hover:grayscale-0 transition duration-300"
+            className="object-cover filter grayscale"
           />
         </div>
       ))}

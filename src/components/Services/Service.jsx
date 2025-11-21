@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Service({ title, page_image, description, link }) {
   return (
     <div className="service sticky top-0 overflow-hidden bg-primary text-white h-screen max-900:h-[75vh]">
-      <div className="absolute top-0 h-2 w-full bg-third z-1"></div>
+      <div className="absolute top-0 h-[5px] w-full bg-third z-1"></div>
 
       <div className="flex flex-col justify-center w-full h-full max-900:py-24">
         <div className="relative px-[5%]">
