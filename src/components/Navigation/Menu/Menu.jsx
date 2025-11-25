@@ -10,7 +10,6 @@ export default function Menu({ showMenu, handleClose }) {
   const navItems = [
     { label: "Home", href: "/" },
     { label: "Projects", href: "/projects" },
-    { label: "About us", href: "/about" },
     { label: "Services", href: "/services" },
   ];
 
