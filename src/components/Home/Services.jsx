@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Services() {
   return (
-    <div className="pb-[40px] bg-white text-black max-550:pb-[30px]">
+    <div className="pb-[40px] text-black max-550:pb-[30px]">
       <h3
         className="capitalize text-7xl mb-[55px] pointer-events-none px-[3%] max-900:text-[7.5vw] 
           max-700:mb-[50px] max-700:px-[5%] max-550:text-[9vw] max-400:text-[10vw] max-400:mb-[40px] text-black/70"

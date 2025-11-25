@@ -24,8 +24,6 @@ const contactInfo = [
 
 const pages = ["home", "projects", "about", "services", "contact"];
 
-const privacy_pages = privacyPages.map((page) => page.label);
-
 export default function Footer() {
   const pathname = usePathname();
 
@@ -90,11 +88,10 @@ export default function Footer() {
           © 2025 HB Links. All rights reserved.
         </div>
         <ul className="flex gap-x-10 gap-y-5 capitalize flex-wrap justify-center">
-          {privacy_pages.map((page) => {
-            const slug = page.toLowerCase().replace(/\s+/g, "-");
+          {privacyPages.map(({ label, slug }) => {
             return (
               <li key={slug}>
-                <Link href={`/legal/${slug}`}>{page}</Link>
+                <Link href={`/legal/${slug}`}>{label}</Link>
               </li>
             );
           })}

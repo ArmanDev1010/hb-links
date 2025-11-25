@@ -3,7 +3,7 @@ import ParralaxImages from "../other/ParralaxImages";
 
 export default function About() {
   return (
-    <div className="px-[5%] my-10 mb-20 max-1280:mb-16 max-700:mb-14 max-550:mb-4">
+    <div className="px-[5%] my-10 mb-24 max-1280:mb-16 max-700:mb-14 max-550:mb-4">
       <div className="mb-[7vw]">
         <h2
           className="text-[3.5vw] tracking-[-0.035em] leading-[1.02] indent-[24vw] mb-16 pointer-events-none 

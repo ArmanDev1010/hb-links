@@ -2,14 +2,12 @@ import React from "react";
 
 import greenLine from "@/../public/patterns/line_green.png";
 import Image from "next/image";
-import ScrollParallax from "@/components/other/ScrollParallax";
 import BackgroundParallax from "@/components/other/BackgroundParallax";
 
 export default function Intro({
   title,
   description,
   deliverables,
-  images,
   page_image,
 }) {
   return (
@@ -27,7 +25,7 @@ export default function Intro({
         >
           {description}
         </h2>
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat bg-center opacity-30 z-[-1]">
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat bg-center opacity-10 z-[-1]">
           <Image src={greenLine} layout="fill" objectFit="cover" alt="" />
         </div>
       </div>
