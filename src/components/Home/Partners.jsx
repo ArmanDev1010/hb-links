@@ -12,7 +12,7 @@ export default function Partners() {
   const images_array = [firstImage, secondImage, thirdImage, fourthImage];
 
   return (
-    <div className="mb-24 max-1280:mb-16 max-700:mb-14">
+    <div className="mb-24 max-1280:mb-16 max-700:mb-20">
       <div className="px-[5%] mb-12">
         <h3
           className="text-[4.5vw] font-[500] pointer-events-none mb-7 

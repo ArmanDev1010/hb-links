@@ -56,9 +56,8 @@ export default function Navbar() {
     isServicesPage || isContactPage
       ? "relative z-[999] !border-b-0"
       : `fixed ${visible ? "translate-y-0" : "-translate-y-full"}`;
-  const noBorderBottom = isServicesPage
-    ? "!border-b-0"
-    : `border-b-3 border-third`;
+  const noBorderBottom =
+    isServicesPage || showMenu ? "!border-b-0" : `border-b-3 border-third`;
   const topStyles =
     atTop || showMenu
       ? "bg-transparent"
