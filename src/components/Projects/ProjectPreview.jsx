@@ -4,7 +4,6 @@ import Link from "next/link";
 
 export default function ProjectPreview({
   title,
-  video,
   bg_img,
   images,
   categories,

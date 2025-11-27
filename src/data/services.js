@@ -2,7 +2,7 @@ export const services = [
   {
     title: "Structured Cabling",
     description:
-      "We install Cat5e, Cat6, Cat6a, and fiber optic cabling with clean terminations for reliable, scalable connectivity.",
+      "Installation of Cat5e, Cat6, Cat6a, and fiber optic cabling with clean terminations for reliable, scalable connectivity.",
     home_image: "/services/structured-cabling/home.jpg",
     page_image: "/services/structured-cabling/images/9.jpg",
     images: [
@@ -34,7 +34,7 @@ export const services = [
   {
     title: "Security Cameras",
     description:
-      "We install CCTV and IP camera systems with NVR configurations for 24/7 property monitoring and recording.",
+      "CCTV and IP camera systems with NVR configurations for 24/7 property monitoring and recording.",
     home_image: "/services/security-cameras/home.jpg",
     page_image: "/services/security-cameras/images/3.jpg",
     images: [
@@ -63,7 +63,7 @@ export const services = [
   {
     title: "Access Control",
     description:
-      "We install access control systems including keypads, card readers, maglocks, and biometric entry solutions.",
+      "Access control systems including keypads, card readers, maglocks, and biometric entry solutions.",
     home_image: "/services/access-control/home.jpg",
     page_image: "/services/access-control/images/3.jpg",
     images: [
@@ -93,9 +93,9 @@ export const services = [
   {
     title: "Wiring and Rewiring",
     description:
-      "We handle complete electrical wiring and rewiring for commercial spaces, ensuring safety and code compliance.",
+      "Complete electrical wiring and rewiring for commercial spaces, ensuring safety and code compliance.",
     home_image: "/services/wiring-rewiring/home.jpg",
-    page_image: "/services/wiring-rewiring/images/4.jpg",
+    page_image: "/services/wiring-rewiring/images/7.jpg",
     images: [
       "/services/wiring-rewiring/images/1.jpg",
       "/services/wiring-rewiring/images/7.jpg",
@@ -122,9 +122,9 @@ export const services = [
   {
     title: "Intercoms",
     description:
-      "We provide intercom systems, Wi-Fi setup, and internal networking for seamless communication and access control.",
+      "Intercom systems, Wi‑Fi setup, and internal networking for seamless communication and access control.",
     home_image: "/services/intercoms/home.jpg",
-    page_image: "/services/intercoms/home.jpg",
+    page_image: "/services/intercoms/page.jpg",
     aliases: [
       "Communication Systems",
       "Gate Access",
@@ -144,7 +144,7 @@ export const services = [
   {
     title: "Audio / Video Integration",
     description:
-      "We integrate audio/video systems, racks, and control panels for immersive media and smart environments.",
+      "Audio/video systems, racks, and control panels for immersive media and smart environments.",
     home_image: "/services/audio-video/home.jpg",
     page_image: "/services/audio-video/home.jpg",
     link: "audio-video",

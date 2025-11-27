@@ -76,17 +76,10 @@ export default function Form() {
       <h3
         className={`capitalize text-7xl mb-[70px] pointer-events-none px-[3%] max-900:mb-[70px] max-900:text-[7.5vw] 
           max-700:mb-[50px] max-550:text-[9vw] max-400:text-[10vw] max-400:mb-[40px] ${
-            isDarkPage ? "text-white/70" : "text-black/70"
+            isDarkPage ? "text-white" : "text-black"
           }`}
       >
-        Request{" "}
-        <span
-          className={`font-semibold <span italic ${
-            isDarkPage ? "!text-white" : "!text-black"
-          }`}
-        >
-          Callback
-        </span>
+        Request Callback
       </h3>
 
       <form

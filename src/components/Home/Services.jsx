@@ -9,10 +9,9 @@ export default function Services() {
     <div className="pb-[40px] text-black max-550:pb-[30px]">
       <h3
         className="capitalize text-7xl mb-[55px] pointer-events-none px-[3%] max-900:text-[7.5vw] 
-          max-700:mb-[50px] max-700:px-[5%] max-550:text-[9vw] max-400:text-[10vw] max-400:mb-[40px] text-black/70"
+          max-700:mb-[50px] max-700:px-[5%] max-550:text-[9vw] max-400:text-[10vw] max-400:mb-[40px] text-black"
       >
-        <span className="font-semibold text-black">Our</span>{" "}
-        <span className="italic">Expertise</span>
+        Our Expertise
       </h3>
       <div className="w-full flex flex-col items-center justify-center max-700:mb-0">
         {services.map(({ title, description, link }, key) => {

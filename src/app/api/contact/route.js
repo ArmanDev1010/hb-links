@@ -6,11 +6,14 @@ export async function POST(req) {
   const { name, phone, mail, address, message, token } = body;
 
   // Verify reCAPTCHA token
-  const verifyRes = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `secret=${process.env.RECAPTCHA_SECRET}&response=${token}`,
-  });
+  const verifyRes = await fetch(
+    `https://www.google.com/recaptcha/api/siteverify`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `secret=${process.env.RECAPTCHA_SECRET}&response=${token}`,
+    }
+  );
 
   const verifyData = await verifyRes.json();
   if (!verifyData.success) {
@@ -29,7 +32,7 @@ export async function POST(req) {
     await transporter.sendMail({
       from: `"HB LINKS Contact Form" - ${mail}`,
       replyTo: mail,
-      to: process.env.RECEIVER_EMAIL,
+      to: "info@hb-links.com",
       subject: `Contact Form — ${mail}`,
       html: `
   <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 32px; border-radius: 12px; max-width: 600px; margin: auto; color: #333;">
@@ -55,7 +58,7 @@ export async function POST(req) {
       <p style="margin-top: 4px;">© ${new Date().getFullYear()} HB LINKS</p>
     </div>
   </div>
-  `
+  `,
     });
 
     return NextResponse.json({ success: true });

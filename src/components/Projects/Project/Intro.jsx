@@ -52,7 +52,7 @@ export default function Intro({ title, bg_img, details }) {
           fill={true}
           alt="background image"
           priority={true}
-          className="object-cover"
+          className="object-cover filter grayscale"
         />
       </div>
       <div

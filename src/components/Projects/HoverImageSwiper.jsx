@@ -28,7 +28,7 @@ export default function HoverImageSwiper({ images, alt, video }) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full h-[400px] overflow-hidden group max-550:h-[300px]"
+      className="relative w-full h-[400px] overflow-hidden group max-550:h-[300px] border-3 border-third"
     >
       {/* Image Layer */}
       {images.map((src, i) => (
@@ -38,7 +38,7 @@ export default function HoverImageSwiper({ images, alt, video }) {
           alt={`${alt} ${i + 1}`}
           sizes="none"
           fill
-          className={`object-cover transition-opacity duration-300 ease-in-out ${
+          className={`object-cover transition-opacity duration-300 ease-in-out filter grayscale hover:grayscale-0 ${
             shouldShowImages && i === activeIndex
               ? "opacity-100 z-20"
               : "opacity-0 z-0"

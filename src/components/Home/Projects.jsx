@@ -14,19 +14,17 @@ export default function Projects() {
     <div className="relative py-[50px] px-[5%] max-550:py-[40px]">
       <h3
         className="capitalize text-7xl mb-[55px] pointer-events-none max-900:text-[7.5vw] 
-          max-700:mb-[50px] max-550:text-[9vw] max-400:text-[10vw] max-400:mb-[40px] text-black/70"
+          max-700:mb-[50px] max-550:text-[9vw] max-400:text-[10vw] max-400:mb-[40px] text-black"
       >
-        <span className="font-semibold text-black">Our</span>{" "}
-        <span className="italic">Projects</span>
+        Our Projects
       </h3>
       <div className="relative z-[1] grid grid-cols-2 gap-6 max-900:grid-cols-1">
         {visibleProjects.map(
-          ({ title, id, video, background_image, images, categories }, key) => (
+          ({ title, id, background_image, images, categories }, key) => (
             <ProjectPreview
               key={key}
               title={title}
               id={id}
-              video={video}
               bg_img={background_image}
               images={images}
               categories={categories}
@@ -49,7 +47,7 @@ export default function Projects() {
           </button>
         </Link>
       </div>
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat opacity-50 max-700:hidden">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat opacity-30 max-700:hidden">
         <Image
           src={greenLine}
           fill

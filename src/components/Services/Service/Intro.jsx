@@ -12,9 +12,9 @@ export default function Intro({
 }) {
   return (
     <div className="relative">
-      <div className="relative flex justify-between gap-10 pointer-events-none px-[5%] w-full pt-[150px] pb-14 max-1280:pb-10 max-900:flex-col max-900:pt-[130px]">
+      <div className="relative flex flex-col gap-12 pointer-events-none px-[5%] w-full pt-[150px] pb-10 max-900:pt-[130px]">
         <h1
-          className="flex-1 text-[6.5vw] leading-[1.2] uppercase 
+          className="flex-1 text-[6vw] leading-[1.2] uppercase 
         max-1280:text-[7vw] max-900:text-[7.5vw] max-700:text-[9vw] max-550:text-[11.5vw] max-400:text-[12vw]"
         >
           {title}

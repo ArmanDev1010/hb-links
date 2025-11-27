@@ -13,9 +13,10 @@ import Services_Slides from "./Services_Slides";
 import { privacyPages } from "@/data/privacy";
 
 const contactInfo = [
+  { type: "License", label: "CSLB #1144057" },
   { type: "Phone", label: "+1 (818) 303-3555", href: "tel:+1 (818) 303-3555" },
   {
-    type: "Mail",
+    type: "E-Mail",
     label: "info@hb-links.com",
     href: "mailto:info@hb-links.com",
   },
@@ -40,7 +41,6 @@ export default function Footer() {
 
       <div className="flex flex-wrap px-[3%] mb-10 gap-x-36 gap-y-32 max-900:mb-0 max-700:gap-y-24">
         <ul className="flex flex-wrap justify-between w-full gap-16 text-2xl max-700:flex-col max-550:items-start max-550:gap-12">
-          <li className="opacity-70">CSLB #1144057</li>
           {contactInfo.map(({ type, label, href }) => (
             <li key={type} className="w-fit">
               <p
