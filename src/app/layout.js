@@ -101,7 +101,6 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
-        <link rel="icon" type="image/x-icon" href="/logos/favicon.ico" />
       </head>
       <body className={inter.className}>
         <Navbar />
