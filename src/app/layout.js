@@ -50,8 +50,8 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               name: "HB LINKS",
               url: "https://hb-links.com",
-              logo: "logos/favicon.ico",
-              image: "logos/favicon.ico",
+              logo: "/logos/favicon.ico",
+              image: "/logos/favicon.ico",
               description:
                 "We provide structured cabling, networking, CCTV, access control, and AV integration services across California.",
               telephone: "+1 (818) 303-3555",
@@ -92,7 +92,7 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
-        <link rel="icon" type="image/x-icon" href="logos/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/logos/favicon.ico" />
       </head>
       <body className={inter.className}>
         <Navbar />
