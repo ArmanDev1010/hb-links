@@ -32,14 +32,6 @@ export const metadata = {
       "Trusted partner for structured cabling, UniFi networking, CCTV, access control, and AV integration.",
     url: "https://hb-links.com",
     siteName: "HB LINKS",
-    images: [
-      {
-        url: "logos/logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Networking and Security Solutions",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -56,12 +48,10 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
               name: "HB LINKS",
               url: "https://hb-links.com",
-              logo: "logos/white_vertical.png",
-              image: "logos/white_vertical.png",
+              logo: "logos/favicon.ico",
+              image: "logos/favicon.ico",
               description:
                 "We provide structured cabling, networking, CCTV, access control, and AV integration services across California.",
               telephone: "+1 (818) 303-3555",
@@ -102,7 +92,7 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
-        <link rel="icon" type="image/png" href="logos/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="logos/favicon.ico" />
       </head>
       <body className={inter.className}>
         <Navbar />
