@@ -14,7 +14,13 @@ export const metadata = {
   description:
     "We design and install structured cabling, UniFi networking, CCTV, access control, and AV integration for businesses across California. Reliable infrastructure, seamless connectivity, and secure systems tailored to your industry.",
   icons: {
-    icon: "/logos/logo.png",
+    icon: "/logos/favicon.ico",
+    shortcut: "/logos/favicon.ico",
+    apple: "/logos/favicon.ico",
+    other: {
+      rel: "logo.png",
+      url: "/logos/logo.png",
+    },
   },
   keywords: [
     "structured cabling",
@@ -95,6 +101,7 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
+        <link rel="icon" type="image/x-icon" href="/logos/favicon.ico" />
       </head>
       <body className={inter.className}>
         <Navbar />
