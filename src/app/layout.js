@@ -15,12 +15,6 @@ export const metadata = {
     "We design and install structured cabling, UniFi networking, CCTV, access control, and AV integration for businesses across California. Reliable infrastructure, seamless connectivity, and secure systems tailored to your industry.",
   icons: {
     icon: "/logos/favicon.ico",
-    shortcut: "/logos/favicon.ico",
-    apple: "/logos/favicon.ico",
-    other: {
-      rel: "logo.png",
-      url: "/logos/logo.png",
-    },
   },
   keywords: [
     "structured cabling",

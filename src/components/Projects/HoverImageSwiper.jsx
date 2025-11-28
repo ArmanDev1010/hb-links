@@ -1,13 +1,26 @@
-import { useState, useRef } from "react";
+"use client";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 export default function HoverImageSwiper({ images, alt, video }) {
   const containerRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
+  // Detect if screen is tablet/mobile
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsTouchDevice(window.innerWidth <= 1024); // tablet breakpoint
+    };
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
+
+  // Desktop hover logic
   const handleMouseMove = (e) => {
-    if (!images || images.length === 0) return;
+    if (!images || images.length === 0 || isTouchDevice) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const zoneWidth = rect.width / images.length;
@@ -17,17 +30,36 @@ export default function HoverImageSwiper({ images, alt, video }) {
   };
 
   const handleMouseLeave = () => {
+    if (isTouchDevice) return;
     setActiveIndex(0);
     setIsHovering(false);
   };
 
-  const shouldShowImages = !video || isHovering;
+  // Mobile/tablet swipe logic
+  const touchStartX = useRef(0);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!images || images.length === 0) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.touches[0].clientX - rect.left;
+    const zoneWidth = rect.width / images.length;
+    const index = Math.min(images.length - 1, Math.floor(x / zoneWidth));
+    setActiveIndex(index);
+  };
+
+  const shouldShowImages = !video || isHovering || isTouchDevice;
 
   return (
     <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       className="relative w-full h-[400px] overflow-hidden group max-550:h-[300px] border-3 border-third"
     >
       {/* Image Layer */}
