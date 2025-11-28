@@ -52,56 +52,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              name: "HB LINKS",
-              url: "https://hb-links.com",
-              logo: "/logos/favicon.ico",
-              image: "/logos/favicon.ico",
-              description:
-                "We provide structured cabling, networking, CCTV, access control, and AV integration services across California.",
-              telephone: "+1 (818) 303-3555",
-              openingHours: "Mo-Su 09:00-18:00",
-              sameAs: ["https://www.instagram.com/hb_links/"],
-              makesOffer: [
-                {
-                  "@type": "Service",
-                  name: "Structured Cabling",
-                  description:
-                    "Cat5e, Cat6, and fiber optic cabling with clean terminations for reliable connectivity.",
-                },
-                {
-                  "@type": "Service",
-                  name: "Networking",
-                  description:
-                    "UniFi network design and installation for seamless connectivity and redundancy.",
-                },
-                {
-                  "@type": "Service",
-                  name: "Security Cameras",
-                  description:
-                    "CCTV and IP camera systems with NVR configurations for 24/7 monitoring.",
-                },
-                {
-                  "@type": "Service",
-                  name: "Access Control",
-                  description:
-                    "Keypads, card readers, maglocks, and biometric entry solutions for secure access.",
-                },
-                {
-                  "@type": "Service",
-                  name: "Audio / Video Integration",
-                  description:
-                    "Immersive audio/video systems with centralized control and HDMI routing.",
-                },
-              ],
-            }),
-          }}
-        />
-      </head>
       <body className={inter.className}>
         <Navbar />
         <Toaster position="top-center" />
