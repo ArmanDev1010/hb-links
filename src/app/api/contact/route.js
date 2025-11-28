@@ -11,7 +11,7 @@ export async function POST(req) {
     {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `secret=${process.env.RECAPTCHA_SECRET}&response=${token}`,
+      body: `secret=6LfqoQMsAAAAAA4sSxCVV_rioBGRJ4u6atj0Pagj&response=${token}`,
     }
   );
 
@@ -24,8 +24,8 @@ export async function POST(req) {
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: "arman.manukyan4.y@gmail.com",
+        pass: "cejd degy pigo wcjp",
       },
     });
 
