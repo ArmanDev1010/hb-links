@@ -8,11 +8,9 @@ export default function HoverImageSwiper({ images, alt, video }) {
   const [isHovering, setIsHovering] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-  // Detect if screen is tablet/mobile
+  // Detect tablet/mobile
   useEffect(() => {
-    const checkDevice = () => {
-      setIsTouchDevice(window.innerWidth <= 1024); // tablet breakpoint
-    };
+    const checkDevice = () => setIsTouchDevice(window.innerWidth <= 1024);
     checkDevice();
     window.addEventListener("resize", checkDevice);
     return () => window.removeEventListener("resize", checkDevice);
@@ -28,27 +26,33 @@ export default function HoverImageSwiper({ images, alt, video }) {
     setActiveIndex(index);
     setIsHovering(true);
   };
-
   const handleMouseLeave = () => {
     if (isTouchDevice) return;
     setActiveIndex(0);
     setIsHovering(false);
   };
 
-  // Mobile/tablet swipe logic
+  // Mobile swipe logic
   const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
-  const handleTouchMove = (e) => {
-    if (!images || images.length === 0) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.touches[0].clientX - rect.left;
-    const zoneWidth = rect.width / images.length;
-    const index = Math.min(images.length - 1, Math.floor(x / zoneWidth));
-    setActiveIndex(index);
+  const handleTouchEnd = (e) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const deltaX = touchEndX.current - touchStartX.current;
+
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX < 0 && activeIndex < images.length - 1) {
+        // swipe left → next image
+        setActiveIndex((prev) => prev + 1);
+      } else if (deltaX > 0 && activeIndex > 0) {
+        // swipe right → previous image
+        setActiveIndex((prev) => prev - 1);
+      }
+    }
   };
 
   const shouldShowImages = !video || isHovering || isTouchDevice;
@@ -59,7 +63,7 @@ export default function HoverImageSwiper({ images, alt, video }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       className="relative w-full h-[400px] overflow-hidden group max-550:h-[300px] border-3 border-third"
     >
       {/* Image Layer */}
