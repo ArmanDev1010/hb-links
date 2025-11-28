@@ -13,6 +13,9 @@ export const metadata = {
     "HB LINKS | Low Voltage, Security Systems, CCTV, AccessControl, Networking, AV Integration, AudioVideo, Surveillance Systems, SmartHome",
   description:
     "We design and install structured cabling, UniFi networking, CCTV, access control, and AV integration for businesses across California. Reliable infrastructure, seamless connectivity, and secure systems tailored to your industry.",
+  icons: {
+    icon: "/logos/favicon.ico",
+  },
   keywords: [
     "structured cabling",
     "networking",
@@ -92,7 +95,6 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
-        <link rel="icon" type="image/x-icon" href="/logos/favicon.ico" />
       </head>
       <body className={inter.className}>
         <Navbar />
