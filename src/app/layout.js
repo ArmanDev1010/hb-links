@@ -40,7 +40,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/services/structured-cabling/images/9.jpg",
+        url: "/services/structured-cabling/home.jpg",
         width: 1200,
         height: 630,
         alt: "HB LINKS Networking & Security Solutions",
