@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
 import firstImage from "@/../public/services/structured-cabling/images/9.jpg";
-import secondImage from "@/../public/services/wiring-rewiring/images/4.jpg";
+import secondImage from "@/../public/services/structured-cabling/images/1.jpg";
 import thirdImage from "@/../public/services/security-cameras/images/3.jpg";
 
 export default function ParralaxImages() {

@@ -7,7 +7,6 @@ export const projects = [
     categories: ["Networking", "AV Integration"],
     images: [
       "/projects/medical-office-manhattan-beach/1.jpg",
-      "/projects/medical-office-manhattan-beach/2.jpg",
     ],
     background_image: "/projects/medical-office-manhattan-beach/1.jpg",
     details: [
@@ -61,7 +60,7 @@ export const projects = [
     categories: ["Networking", "Security Systems", "CCTV"],
     images: [
       "/projects/law-office-glendale/1.jpg",
-      "/projects/law-office-glendale/3.JPG",
+      "/projects/law-office-glendale/2.JPG",
     ],
     background_image: "/projects/law-office-glendale/1.jpg",
     details: [
