@@ -1,10 +1,5 @@
-"use client";
-
-import React from "react";
-import { useParams } from "next/navigation";
 import { services } from "@/data/services";
-import Intro from "@/components/Services/Service/Intro";
-import WhatWeOffer from "@/components/Services/Service/WhatWeOffer";
+import ServicePageClient from "@/components/Services/Service/ServicePageClient";
 
 export async function generateMetadata({ params }) {
   const serviceId = params.service;
@@ -28,9 +23,6 @@ export async function generateMetadata({ params }) {
     title: `${service.title} | HB LINKS`,
     description: service.description,
     openGraph: {
-      title: service.title,
-      description: service.description,
-      url: `https://hb-links.com/services/${serviceId}`,
       images: [
         {
           url: service.page_image,
@@ -43,14 +35,12 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function ServicePage() {
-  const params = useParams();
-  const serviceId = params?.service;
-
-  const service = services.find((p) =>
-    p.link
-      ? p.link === serviceId
-      : p.title.toLowerCase().replace(/\s+/g, "-") === serviceId
+export default function ServicePage({ params }) {
+  const serviceId = params.service;
+  const service = services.find(
+    (p) =>
+      p.link === serviceId ||
+      p.title.toLowerCase().replace(/\s+/g, "-") === serviceId
   );
 
   if (!service) {
@@ -61,17 +51,5 @@ export default function ServicePage() {
     );
   }
 
-  let { title, description, aliases, deliverables, page_image } = service;
-
-  return (
-    <div className="relative mb-14">
-      <Intro
-        title={title}
-        description={description}
-        deliverables={deliverables}
-        page_image={page_image}
-      />
-      <WhatWeOffer aliases={aliases} />
-    </div>
-  );
+  return <ServicePageClient service={service} />;
 }

@@ -13,7 +13,7 @@ export default function BackgroundParallax({ page_image }) {
   return (
     <div
       ref={container}
-      className="relative flex items-center justify-center h-[75vh] overflow-hidden bg-primary max-900:h-[75vh] max-550:h-[50vh]"
+      className="relative flex items-center justify-center h-[75vh] overflow-hidden bg-primary max-900:h-[50vh]"
       style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
     >
       <div className="fixed top-[-10vh] left-0 h-[120vh] w-full">

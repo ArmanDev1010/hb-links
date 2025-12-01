@@ -26,7 +26,7 @@ export default function Intro({
           {description}
         </h2>
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat bg-center opacity-10 z-[-1]">
-          <Image src={greenLine} layout="fill" objectFit="cover" alt="" />
+          <Image src={greenLine} fill alt="" className="object-cover" />
         </div>
       </div>
       <BackgroundParallax page_image={page_image} />
