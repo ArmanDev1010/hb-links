@@ -7,14 +7,29 @@ import { projects } from "@/data/projects";
 import Intro from "@/components/Projects/Project/Intro";
 import Description from "@/components/Projects/Project/Description";
 
-export const metadata = ({ params }) => {
+export async function generateMetadata({ params }) {
+  const projectId = params.project;
   const project = projects.find(
-    (p) => p.title.toLowerCase().replace(/\s+/g, "-") === params.project
+    (p) => p.title.toLowerCase().replace(/\s+/g, "-") === projectId
   );
+
+  if (!project) {
+    return {
+      title: "Project Not Found | HB LINKS",
+      description: "Requested project does not exist.",
+      openGraph: {
+        images: [{ url: "/seo/main-og.png", width: 1200, height: 630 }],
+      },
+    };
+  }
+
   return {
     title: `${project.title} | HB LINKS`,
     description: project.description,
     openGraph: {
+      title: project.title,
+      description: project.description,
+      url: `https://hb-links.com/projects/${projectId}`,
       images: [
         {
           url: project.page_images?.[0] || project.background_image,
@@ -25,7 +40,7 @@ export const metadata = ({ params }) => {
       ],
     },
   };
-};
+}
 
 export default function ProjectPage() {
   const params = useParams();
