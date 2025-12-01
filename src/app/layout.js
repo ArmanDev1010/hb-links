@@ -37,9 +37,14 @@ export const metadata = {
     siteName: "HB LINKS",
     locale: "en_US",
     type: "website",
-  },
-  alternates: {
-    canonical: "https://hb-links.com",
+    images: [
+      {
+        url: "/services/structured-cabling/images/9.jpg",
+        width: 1200,
+        height: 630,
+        alt: "HB LINKS Networking & Security Solutions",
+      },
+    ],
   },
 };
 

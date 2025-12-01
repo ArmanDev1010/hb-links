@@ -7,6 +7,26 @@ import { projects } from "@/data/projects";
 import Intro from "@/components/Projects/Project/Intro";
 import Description from "@/components/Projects/Project/Description";
 
+export const metadata = ({ params }) => {
+  const project = projects.find(
+    (p) => p.title.toLowerCase().replace(/\s+/g, "-") === params.project
+  );
+  return {
+    title: `${project.title} | HB LINKS`,
+    description: project.description,
+    openGraph: {
+      images: [
+        {
+          url: project.page_images?.[0] || project.background_image,
+          width: 1200,
+          height: 630,
+          alt: `${project.title} - HB LINKS`,
+        },
+      ],
+    },
+  };
+};
+
 export default function ProjectPage() {
   const params = useParams();
   const projectId = params?.project;

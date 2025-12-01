@@ -22,7 +22,7 @@ export const projects = [
     categories: ["Networking", "Security Systems", "CCTV"],
     images: [
       "/projects/law-office-encino/1.jpg",
-      "/projects/law-office-encino/3.jpg",
+      "/projects/law-office-encino/2.jpg",
     ],
     page_images: [
       "/projects/law-office-encino/1.jpg",

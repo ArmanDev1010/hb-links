@@ -6,6 +6,24 @@ import { services } from "@/data/services";
 import Intro from "@/components/Services/Service/Intro";
 import WhatWeOffer from "@/components/Services/Service/WhatWeOffer";
 
+export const metadata = ({ params }) => {
+  const service = services.find((p) => p.link === params.service);
+  return {
+    title: `${service.title} | HB LINKS`,
+    description: service.description,
+    openGraph: {
+      images: [
+        {
+          url: service.page_image, // already in your data
+          width: 1200,
+          height: 630,
+          alt: `${service.title} - HB LINKS`,
+        },
+      ],
+    },
+  };
+};
+
 export default function ServicePage() {
   const params = useParams();
   const serviceId = params?.service;
