@@ -76,7 +76,7 @@ export default function HoverImageSwiper({ images, alt }) {
           ref={containerRef}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          className="relative w-full h-[400px] overflow-hidden max-550:h-[300px] border-3 border-third"
+          className="relative w-full h-[600px] overflow-hidden max-550:h-[300px] border-3 border-third"
         >
           <div
             className="flex transition-transform duration-500 ease-in-out h-full w-full"
@@ -121,7 +121,7 @@ export default function HoverImageSwiper({ images, alt }) {
           ref={containerRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="relative w-full h-[400px] overflow-hidden group max-550:h-[300px] border-3 border-third"
+          className="relative w-full h-[550px] overflow-hidden group max-550:h-[300px] border-3 border-third"
         >
           {images.map((src, i) => (
             <Image
