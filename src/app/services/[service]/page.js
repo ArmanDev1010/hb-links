@@ -2,14 +2,16 @@ import { services } from "@/data/services";
 import ServicePageClient from "@/components/Services/Service/ServicePageClient";
 
 export async function generateMetadata({ params }) {
-  const serviceId = params.service;
-  const service = services.find(
+  const { service } = await params;
+  const serviceId = service;
+
+  const serviceData = services.find(
     (p) =>
       p.link === serviceId ||
       p.title.toLowerCase().replace(/\s+/g, "-") === serviceId
   );
 
-  if (!service) {
+  if (!serviceData) {
     return {
       title: "Service Not Found | HB LINKS",
       description: "Requested service does not exist.",
@@ -20,36 +22,38 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${service.title} | HB LINKS`,
-    description: service.description,
+    title: `${serviceData.title} | HB LINKS`,
+    description: serviceData.description,
     openGraph: {
       images: [
         {
-          url: service.page_image,
+          url: serviceData.page_image,
           width: 1200,
           height: 630,
-          alt: `${service.title} - HB LINKS`,
+          alt: `${serviceData.title} - HB LINKS`,
         },
       ],
     },
   };
 }
 
-export default function ServicePage({ params }) {
-  const serviceId = params.service;
-  const service = services.find(
+export default async function ServicePage({ params }) {
+  const { service } = await params;
+  const serviceId = service;
+
+  const serviceData = services.find(
     (p) =>
       p.link === serviceId ||
       p.title.toLowerCase().replace(/\s+/g, "-") === serviceId
   );
 
-  if (!service) {
+  if (!serviceData) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <p className="text-xl text-gray-500">Services not found.</p>
+        <p className="text-xl text-gray-500">Service not found.</p>
       </div>
     );
   }
 
-  return <ServicePageClient service={service} />;
+  return <ServicePageClient service={serviceData} />;
 }

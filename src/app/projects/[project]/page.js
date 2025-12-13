@@ -2,12 +2,14 @@ import { projects } from "@/data/projects";
 import ProjectPageClient from "@/components/Projects/Project/ProjectPageClient";
 
 export async function generateMetadata({ params }) {
-  const projectId = params.project;
-  const project = projects.find(
+  const { project } = await params;
+  const projectId = project;
+
+  const projectData = projects.find(
     (p) => p.title.toLowerCase().replace(/\s+/g, "-") === projectId
   );
 
-  if (!project) {
+  if (!projectData) {
     return {
       title: "Project Not Found | HB LINKS",
       description: "Requested project does not exist.",
@@ -18,34 +20,38 @@ export async function generateMetadata({ params }) {
   }
 
   const previewImage =
-    project.page_images?.[0] || project.background_image || "/seo/main-og.jpg";
+    projectData.page_images?.[0] ||
+    projectData.background_image ||
+    "/seo/main-og.jpg";
 
   return {
-    title: `${project.title} | HB LINKS`,
-    description: project.description,
+    title: `${projectData.title} | HB LINKS`,
+    description: projectData.description,
     openGraph: {
-      title: project.title,
-      description: project.description,
+      title: projectData.title,
+      description: projectData.description,
       url: `https://hb-links.com/projects/${projectId}`,
       images: [
         {
           url: previewImage,
           width: 1200,
           height: 630,
-          alt: `${project.title} - HB LINKS`,
+          alt: `${projectData.title} - HB LINKS`,
         },
       ],
     },
   };
 }
 
-export default function ProjectPage({ params }) {
-  const projectId = params.project;
-  const project = projects.find(
+export default async function ProjectPage({ params }) {
+  const { project } = await params;
+  const projectId = project;
+
+  const projectData = projects.find(
     (p) => p.title.toLowerCase().replace(/\s+/g, "-") === projectId
   );
 
-  if (!project) {
+  if (!projectData) {
     return (
       <div className="h-screen flex items-center justify-center">
         <p className="text-xl text-gray-500">Project not found.</p>
@@ -53,5 +59,5 @@ export default function ProjectPage({ params }) {
     );
   }
 
-  return <ProjectPageClient project={project} />;
+  return <ProjectPageClient project={projectData} />;
 }

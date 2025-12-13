@@ -1,7 +1,5 @@
 import React from "react";
 
-import greenLine from "@/../public/patterns/line_green.png";
-import Image from "next/image";
 import BackgroundParallax from "@/components/other/BackgroundParallax";
 
 export default function Intro({
@@ -25,9 +23,6 @@ export default function Intro({
         >
           {description}
         </h2>
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat bg-center opacity-10 z-[-1]">
-          <Image src={greenLine} fill alt="" className="object-cover" />
-        </div>
       </div>
       <BackgroundParallax page_image={page_image} />
       <div className="mb-[7vw] mt-14 max-1080:mb-24 max-700:mb-20 max-550:mt-12 max-550:mb-16">
