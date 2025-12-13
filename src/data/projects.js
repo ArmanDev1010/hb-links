@@ -6,9 +6,9 @@ export const projects = [
       "The Medical Office in Manhattan Beach required a highly reliable and secure network to support critical medical systems. A fully redundant UniFi infrastructure was designed and installed, featuring dual network redundancy, 30 data outlets, and 6 UniFi wireless access points. This deployment ensured uninterrupted connectivity for patient care, medical staff, and administrative operations, delivering a seamless and resilient IT backbone for healthcare services.",
     categories: ["Networking", "AV Integration"],
     images: [
-      "/projects/medical-office-manhattan-beach/1.jpg",
+      "/projects/medical-office-manhattan-beach/main.jpg",
     ],
-    background_image: "/projects/medical-office-manhattan-beach/1.jpg",
+    background_image: "/projects/medical-office-manhattan-beach/main.jpg",
     details: [
       { name: "Location", value: "Manhattan Beach, California, US" },
       { name: "Industry", value: "Healthcare" },

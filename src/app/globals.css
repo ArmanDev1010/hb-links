@@ -195,15 +195,15 @@ body {
 
 @media screen and (max-width: 900px) {
   .parallax_scroll .parralax_img:nth-of-type(1) {
-    height: 60vh;
-    width: 60vw;
+    height: 50vh;
+    width: 50vw;
     z-index: 1;
   }
   .parallax_scroll .parralax_img:nth-of-type(2) {
-    left: 55vw;
+    left: 65vw;
     top: 20vh;
-    height: 35vh;
-    width: 30vw;
+    height: 30vh;
+    width: 25vw;
   }
   .parallax_scroll .parralax_img:nth-of-type(3) {
     left: 0vw;
@@ -216,15 +216,15 @@ body {
 @media screen and (max-width: 550px) {
   .parallax_scroll .parralax_img:nth-of-type(1) {
     height: 45vh;
-    width: 65vw;
+    width: 60vw;
     z-index: 1;
   }
   .parallax_scroll .parralax_img:nth-of-type(2) {
     right: 0vw;
     left: auto;
     top: 20vh;
-    height: 20vh;
-    width: 35vw;
+    height: 25vh;
+    width: 30vw;
   }
   .parallax_scroll .parralax_img:nth-of-type(3) {
     left: 0vw;
