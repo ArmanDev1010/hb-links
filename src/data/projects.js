@@ -8,7 +8,7 @@ export const projects = [
     images: [
       "/projects/medical-office-manhattan-beach/main.jpg",
     ],
-    background_image: "/projects/medical-office-manhattan-beach/1.jpg",
+    background_image: "/projects/medical-office-manhattan-beach/2.jpg",
     details: [
       { name: "Location", value: "Manhattan Beach, California, US" },
       { name: "Industry", value: "Healthcare" },
