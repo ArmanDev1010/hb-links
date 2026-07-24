@@ -1,19 +1,15 @@
 "use client";
 
+import Hero from "@/components/Home/Hero";
 import About from "@/components/Home/About";
-import Partners from "@/components/Home/Partners";
-import Projects from "@/components/Home/Projects";
-import Services from "@/components/Home/Services";
-import Slides from "@/components/Home/Slides/Slides";
+import Expertises from "@/components/Home/Expertises";
 
 export default function HomePage() {
   return (
     <>
-      <Slides />
+      <Hero />
       <About />
-      <Partners />
-      <Services />
-      <Projects />
+      <Expertises />
     </>
   );
 }

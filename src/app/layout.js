@@ -1,12 +1,9 @@
 import "./globals.css";
 
 import Navbar from "@/components/Navigation/Navbar";
-import { Open_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ConditionalComponents from "@/components/other/ConditionalComponents";
 import Footer from "@/components/Footer/Footer";
-
-const inter = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title:
@@ -52,11 +49,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-gt">
         <Navbar />
         <Toaster position="top-center" />
         {children}
-        <ConditionalComponents />
+        {/* <ConditionalComponents /> */}
         <Footer />
       </body>
     </html>

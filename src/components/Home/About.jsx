@@ -1,21 +1,34 @@
 import React from "react";
-import ParralaxImages from "../other/ParralaxImages";
+import Link from "next/link";
 
 export default function About() {
   return (
-    <div className="relative px-[5%] mt-3 py-10 pb-24 max-1280:pb-16 max-700:pb-14 max-550:pb-4">
-      <div className="mb-[7vw]">
-        <h2
-          className="text-[3.5vw] tracking-[-0.035em] leading-[1.02] indent-[24vw] mb-16 pointer-events-none 
-          max-800:text-[5vw] max-550:text-[6vw] max-550:mb-10 max-400:text-[7.5vw]"
-        >
-          We design and deliver low-voltage systems from structured cabling
-          and access control to surveillance, AV, and intercom integration.
-          Every solution is tailored, every wire intentional, and every project
-          backed by deep technical expertise and clean execution.
+    <div className="mt-3 py-10 pb-[40px] text-black max-550:pb-[30px]">
+      <div className="w-full lg:w-10/12 lg:mx-auto px-2 text-center">
+        <p className="ck-tagline text-sm uppercase font-xbold tracking-widest mb-4">
+          ABOUT
+        </p>
+        <h2 className="font-gt pb-1 font-semibold text-4xl lg:text-5xl leading-[1]">
+          Smart Infrastructure.{" "}
+          <span style={{ color: "#106b37" }}>Reliable Solutions.</span>
         </h2>
+        <p className="my-8 text-gray-700 only:mt-0 lg:mx-auto lg:max-w-2xl">
+          HB Links is a low-voltage and technology integration company
+          specializing in structured cabling, network infrastructure,
+          surveillance systems, access control, audio/video solutions, and smart
+          building technologies. The company focuses on delivering reliable,
+          scalable, and professionally installed systems for commercial,
+          industrial, and residential projects.
+        </p>
+        <Link
+          href="/about"
+          prefetch
+          className="relative uppercase font-bold text-lg hover:text-third transition-all duration-500 ease-in-out
+          before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-[#0d0c0c] hover:before:bg-third"
+        >
+          <span className="relative">About HB Links</span>
+        </Link>
       </div>
-      <ParralaxImages />
     </div>
   );
 }

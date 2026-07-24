@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import greenLine from "@/../public/patterns/line_green.png";
 
-import Form from "@/components/Navigation/Form";
+import Form from "@/components/other/Form";
 
 export default function ContactPage() {
   return (

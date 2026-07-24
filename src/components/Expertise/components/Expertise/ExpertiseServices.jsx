@@ -1,0 +1,64 @@
+import Link from "next/link";
+
+export default function ExpertiseServices({ services = [] }) {
+  if (!services.length) return null;
+
+  return (
+    <section className="pt-20 pb-12" id="expertise_services">
+      <div className="max-w-[1680px] 700:px-[1rem] mx-auto w-full px-[0.5rem]">
+        <div className="1440:mx-auto 1440:w-[83.333%] w-full">
+          <div className="w-full lg:w-10/12 lg:mx-auto px-2 text-center">
+            <p className="text-sm uppercase font-xbold tracking-widest mb-4">
+              Capabilities
+            </p>
+            <h2 className="font-gt pb-1 font-semibold text-3xl lg:text-4xl leading-[1]">
+              We offer a comprehensive array of services, tools, and knowledge
+              to provide value to our partners.
+            </h2>
+          </div>
+        </div>
+        <div className="relative overflow-hidden pt-20 lg:pt-24">
+          <ul className="px-2 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 items-stretch">
+            {services.map(({ label, href, description }, index) => (
+              <li key={index} className="group flex">
+                <Link
+                  href={href}
+                  className="relative flex flex-col h-full w-full no-child-pointers lg:mb-14 mb-6"
+                >
+                  <div className="h-full w-full flex flex-col">
+                    <div className="flex flex-col flex-grow pb-0.5 pl-6 pt-6 border-t border-l transition-colors border-black/25 group-hover:border-third">
+                      <p className="uppercase font-xbold tracking-widest mb-6">
+                        {index >= 9 ? "" : 0}
+                        {index + 1}
+                      </p>
+                      <div className="pointer-events-none mb-6">
+                        <h2 className="pb-1 font-bold text-3xl leading-tight transition-colors group-hover:text-third">
+                          {label}
+                        </h2>
+                        <p className="mt-6 max-w-xl">{description}</p>
+                      </div>
+                      <div className="mt-auto">
+                        <p className="relative w-fit uppercase font-bold text-base tracking-widest before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-white group-hover:before:bg-third before:transition-all before:duration-300 before:ease-in-out">
+                          Learn More
+                        </p>
+                      </div>
+                    </div>
+                    <div className="relative pb-[calc(2/3*100%)] aspect-h-2 mt-7">
+                      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-30 z-10 transition-opacity"></div>
+                      <div
+                        className="absolute top-0 left-0 w-full h-full overflow-hidden lazyloaded bg-cover bg-center bg-no-repeat bg-black"
+                        style={{
+                          backgroundImage: "url()",
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}

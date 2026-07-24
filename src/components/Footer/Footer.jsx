@@ -4,13 +4,11 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import whiteLine from "@/../public/patterns/line_white.png";
-import blackLine from "@/../public/patterns/line_black.png";
-import Image from "next/image";
-
-import Services_Slides from "./Services_Slides";
+import FooterColumn from "./components/FooterColumn";
+import Services_Slides from "./components/Services_Slides";
 
 import { privacyPages } from "@/data/privacy";
+import { pages } from "@/data/pages";
 
 const contactInfo = [
   { type: "License", label: "CSLB #1144057" },
@@ -23,13 +21,29 @@ const contactInfo = [
   { type: "Area", label: "California, USA" },
 ];
 
-const pages = ["home", "projects", "services", "contact"];
-
 export default function Footer() {
   const pathname = usePathname();
 
   const isLightPage =
     pathname.startsWith("/legal") || pathname.startsWith("/contact");
+
+  const expertiseColumns = [pages[1], pages[2], pages[3], pages[4]].map(
+    ({ title, href, dropdown }) => ({
+      title,
+      href,
+      links: dropdown,
+    }),
+  );
+
+  const pageColumn = {
+    linkVariant: "title",
+    links: [pages[0], pages[5], pages[6], pages[7]].map(({ title, href }) => ({
+      label: title,
+      href,
+    })),
+  };
+
+  const footerColumns = [...expertiseColumns, pageColumn];
 
   return (
     <footer
@@ -39,45 +53,35 @@ export default function Footer() {
     >
       <Services_Slides isLightPage={isLightPage} />
 
-      <div className="flex flex-wrap px-[3%] mb-10 gap-x-36 gap-y-32 max-900:mb-0 max-700:gap-y-24">
-        <ul className="flex flex-wrap justify-between w-full gap-16 text-2xl max-700:flex-col max-550:items-start max-550:gap-12">
-          {contactInfo.map(({ type, label, href }) => (
-            <li key={type} className="w-fit">
-              <p
-                className={`uppercase text-base mb-2 pointer-events-none ${
-                  isLightPage ? "text-white opacity-50" : "text-gray-500"
-                }`}
-              >
-                {type}
-              </p>
-              {href ? (
-                <Link href={href} className="bottom_line">
-                  {label}
-                </Link>
-              ) : (
-                <p className="">{label}</p>
-              )}
-            </li>
-          ))}
-        </ul>
-
-        <div className="min-w-[200px] max-900:min-w-[150px]">
-          <ul className="flex gap-16 capitalize text-xl max-700:flex-col max-700:gap-10">
-            {pages.map((page) => (
-              <li key={page}>
-                <Link
-                  href={page === "home" ? "/" : `/${page}`}
-                  className="bottom_line"
-                  prefetch
+      <div className="mx-auto w-full 900:px-[1.5rem] max-w-[1680px]">
+        <div className="flex flex-col gap-y-4">
+          <ul
+            className="w-full px-4 w-full flex flex-wrap mb-4 justify-center gap-x-20 max-1080:gap-x-12 max-xl:text-center max-400:flex-col max-400:!text-left"
+          >
+            {contactInfo.map(({ type, label, href }, key) => (
+              <li className="pr-4 my-4 text-lg" key={key}>
+                <p
+                  className={`uppercase !text-sm mb-2 pointer-events-none ${
+                    isLightPage ? "text-white opacity-50" : "text-gray-500"
+                  }`}
                 >
-                  {page}
-                </Link>
+                  {type}
+                </p>
+                {href ? (
+                  <Link href={href}>{label}</Link>
+                ) : (
+                  <p className="pointer-events-none">{label}</p>
+                )}
               </li>
+            ))}
+          </ul>
+          <ul className="w-full px-2 grow flex max-xl:!grid max-xl:grid-cols-2 max-xl:gap-y-4 max-900:!grid-cols-1">
+            {footerColumns.map((column, key) => (
+              <FooterColumn {...column} key={column.href || key} />
             ))}
           </ul>
         </div>
       </div>
-
       <div
         className={`mt-26 px-[3%] flex flex-wrap justify-between items-center gap-y-6 gap-x-20 text-sm 
           max-900:flex-col max-900:mt-20 max-900:gap-y-10 ${
@@ -105,15 +109,6 @@ export default function Footer() {
             Arman Manukyan
           </Link>
         </div>
-      </div>
-
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-cover bg-no-repeat opacity-10 z-[0]">
-        <Image
-          src={isLightPage ? whiteLine : blackLine}
-          fill
-          alt=""
-          className="object-cover"
-        />
       </div>
     </footer>
   );
