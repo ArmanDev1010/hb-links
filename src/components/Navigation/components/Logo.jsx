@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-import whiteLogo from "@/../public/logos/white_horizontal.png";
-import blackLogo from "@/../public/logos/black_horizontal.png";
-import onlyWhiteLogo from "@/../public/logos/only_white_horizontal.png";
+import whiteLogo from "@/../public/Logos/white_horizontal.png";
+import blackLogo from "@/../public/Logos/black_horizontal.png";
+import onlyWhiteLogo from "@/../public/Logos/only_white_horizontal.png";
 
 export default function Logo({
   atTop,
