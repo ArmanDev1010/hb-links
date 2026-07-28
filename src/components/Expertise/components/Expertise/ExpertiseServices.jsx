@@ -18,7 +18,7 @@ export default function ExpertiseServices({ services = [] }) {
           </div>
         </div>
         <div className="relative overflow-hidden pt-20 lg:pt-24">
-          <ul className="px-2 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 items-stretch">
+          <ul className="px-2 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-10 items-stretch">
             {services.map(({ label, href, description }, index) => (
               <li key={index} className="group flex">
                 <Link
@@ -27,7 +27,7 @@ export default function ExpertiseServices({ services = [] }) {
                 >
                   <div className="h-full w-full flex flex-col">
                     <div className="flex flex-col flex-grow pb-0.5 pl-6 pt-6 border-t border-l transition-colors border-black/25 group-hover:border-third">
-                      <p className="uppercase font-xbold tracking-widest mb-6">
+                      <p className="uppercase font-xbold tracking-widest mb-6 text-gray-500">
                         {index >= 9 ? "" : 0}
                         {index + 1}
                       </p>
@@ -35,22 +35,13 @@ export default function ExpertiseServices({ services = [] }) {
                         <h2 className="pb-1 font-bold text-3xl leading-tight transition-colors group-hover:text-third">
                           {label}
                         </h2>
-                        <p className="mt-6 max-w-xl">{description}</p>
+                        <p className="mt-6 max-w-xl text-gray-600">{description}</p>
                       </div>
                       <div className="mt-auto">
                         <p className="relative w-fit uppercase font-bold text-base tracking-widest before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-white group-hover:before:bg-third before:transition-all before:duration-300 before:ease-in-out">
                           Learn More
                         </p>
                       </div>
-                    </div>
-                    <div className="relative pb-[calc(2/3*100%)] aspect-h-2 mt-7">
-                      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-30 z-10 transition-opacity"></div>
-                      <div
-                        className="absolute top-0 left-0 w-full h-full overflow-hidden lazyloaded bg-cover bg-center bg-no-repeat bg-black"
-                        style={{
-                          backgroundImage: "url()",
-                        }}
-                      ></div>
                     </div>
                   </div>
                 </Link>

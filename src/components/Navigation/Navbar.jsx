@@ -16,27 +16,16 @@ export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkScreen = () => {
-      setIsMobile(window.innerWidth <= 1080);
-    };
-
+    const checkScreen = () => setIsMobile(window.innerWidth <= 1080);
     checkScreen();
     window.addEventListener("resize", checkScreen);
-
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
-  const navlinks = isMobile
-    ? pages
-    : [pages[1], pages[2], pages[3], pages[4], pages[7]];
+  const navlinks = isMobile ? pages : [pages[1], pages[2], pages[3], pages[4]];
 
   useEffect(() => {
-    if (menuActive) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
+    document.body.style.overflow = menuActive ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -58,7 +47,6 @@ export default function Navbar() {
       setAtTop(currentY < 10);
       setVisible(currentY < lastScrollY || currentY < 10);
       lastScrollY = currentY;
-
       if (activeDropdown) setActiveDropdown(null);
     };
     window.addEventListener("scroll", handleScroll);
@@ -81,22 +69,26 @@ export default function Navbar() {
 
   const navClasses = `${navBase} ${stickyStyles} ${topStyles} ${themeStyles} ${isBlackNav}`;
 
+  const activeDropdownLength =
+    pages.find((link) => link.title === activeDropdown)?.dropdown?.length ?? 0;
+
   return (
     <nav className={navClasses}>
       <div
         className="relative px-[3%] z-[11] flex items-center justify-between h-full max-w-[1600px] max-1080:px-[1rem] mx-auto w-full border-b-2 transition-[border] duration-500 ease-in-out"
         style={{
-          borderBottomColor: activeDropdown ? "#f6f4ee66" : "transparent",
+          borderBottomColor:
+            activeDropdown && !isMobile ? "#f6f4ee66" : "transparent",
         }}
       >
         <Logo
           atTop={atTop}
-          isLightPage={isLightPage}
-          setActiveDropdown={setActiveDropdown}
           activeDropdown={activeDropdown}
-          setMenuActive={setMenuActive}
+          setActiveDropdown={setActiveDropdown}
           menuActive={menuActive}
+          setMenuActive={setMenuActive}
         />
+
         <NavLinks
           navlinks={navlinks}
           pathname={pathname}
@@ -106,34 +98,29 @@ export default function Navbar() {
           isLightPage={isLightPage}
           menuActive={menuActive}
           setMenuActive={setMenuActive}
+          isMobile={isMobile}
         />
         <MenuBtn
-          setMenuActive={setMenuActive}
           menuActive={menuActive}
+          setMenuActive={setMenuActive}
           atTop={atTop}
           isLightPage={isLightPage}
         />
       </div>
+
       <div
         className="max-1080:hidden absolute top-0 left-0 w-full h-0 z-[10] bg-third/80 backdrop-blur-sm transition-[height] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
         style={{
           height: activeDropdown
-            ? `${
-                41 *
-                  (pages.find((link) => link.title === activeDropdown)?.dropdown
-                    ?.length > 10
-                    ? 10
-                    : pages.find((link) => link.title === activeDropdown)
-                        ?.dropdown?.length) +
-                194
-              }px`
+            ? `${41 * (activeDropdownLength > 10 ? 10 : activeDropdownLength) + 194}px`
             : "0",
         }}
-      ></div>
+      />
+
       <div
         className="1080:hidden absolute top-0 left-0 w-full z-[10] bg-third/80 backdrop-blur-sm transition-[height] duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]"
         style={{ height: menuActive ? "100vh" : "0" }}
-      ></div>
+      />
     </nav>
   );
 }

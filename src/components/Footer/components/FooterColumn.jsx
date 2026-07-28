@@ -22,7 +22,7 @@ export default function FooterColumn({
         )}
 
         <ul className="columns-1 max-550:!columns-1">
-          {links.slice(0, 5).map(({ label, href }) => (
+          {links.slice(0, 7).map(({ label, href }) => (
             <li
               className="max-w-full overflow-hidden leading-tight block has-hover:hover:opacity-70 transition-opacity [&:not(:first-child)]:mt-5"
               key={href}
@@ -39,7 +39,7 @@ export default function FooterColumn({
               ) : (
                 <Link
                   href={href}
-                  className="text-base no-child-pointers block truncate max-w-full"
+                  className="text-base no-child-pointers block max-w-full"
                 >
                   {label}
                 </Link>
@@ -47,7 +47,7 @@ export default function FooterColumn({
             </li>
           ))}
 
-          {links.length > 5 && (
+          {links.length > 7 && (
             <li className="my-5">
               <Link
                 href={href}

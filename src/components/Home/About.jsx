@@ -13,12 +13,12 @@ export default function About() {
           <span style={{ color: "#106b37" }}>Reliable Solutions.</span>
         </h2>
         <p className="my-8 text-gray-700 only:mt-0 lg:mx-auto lg:max-w-2xl">
-          HB Links is a low-voltage and technology integration company
-          specializing in structured cabling, network infrastructure,
-          surveillance systems, access control, audio/video solutions, and smart
-          building technologies. The company focuses on delivering reliable,
-          scalable, and professionally installed systems for commercial,
-          industrial, and residential projects.
+          HB Links is a general contracting company based in Los Angeles,
+          providing renovation, electrical, plumbing, and low-voltage services
+          under one roof. Holding B (General Building), C-10 (Electrical), and
+          C-36 (Plumbing) licenses, we're equipped to handle every trade a
+          project needs, from full home renovations and additions to standalone
+          electrical and plumbing work.
         </p>
         <Link
           href="/about"

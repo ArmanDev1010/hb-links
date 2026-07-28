@@ -1,18 +1,28 @@
+"use client";
+
 import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
 
+const DESKTOP_GAP_PX = 93;
+const ITEMS_PER_COLUMN = 10;
+
 export default function DropdownMenu({
+  title,
+  href,
   dropdown,
   setActiveDropdown,
   active,
   pathname,
   setMenuActive,
   menuActive,
+  isMobile,
+  onMouseEnter,
+  onMouseLeave,
 }) {
   const ref = useRef(null);
   const [height, setHeight] = useState(0);
-  const isCurrentPage = (href) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+
+  const isCurrentPage = (h) => pathname === h || pathname.startsWith(`${h}/`);
 
   const getMenuActiveClasses = (active) =>
     menuActive
@@ -23,65 +33,82 @@ export default function DropdownMenu({
 
   useLayoutEffect(() => {
     if (!ref.current) return;
-
-    setHeight(active ? ref.current.scrollHeight : 0);
-  }, [active, dropdown]);
-
-  const ITEMS_PER_COLUMN = 10;
+    const isDesktop = window.innerWidth >= 1080;
+    const gap = isDesktop ? DESKTOP_GAP_PX : 0;
+    setHeight(active ? ref.current.scrollHeight + gap : 0);
+  }, [active, dropdown, isMobile]);
 
   const columns = [];
   for (let i = 0; i < dropdown.length; i += ITEMS_PER_COLUMN) {
     columns.push(dropdown.slice(i, i + ITEMS_PER_COLUMN));
   }
 
+  const linkClasses = (isActive) =>
+    `block text-lg py-3 1080:py-2.5 1080:text-sm 1080:whitespace-nowrap max-700:text-base max-550:text-[15px] font-xbold transition-opacity duration-300 hover:opacity-70 ${getMenuActiveClasses(
+      isActive,
+    )}`;
+
+  const handleClick = () => {
+    setMenuActive(false);
+    setActiveDropdown(null);
+  };
+
   return (
     <div
-      className={`overflow-hidden px-6 transition-[height] duration-300 ease-[cubic-bezier(0,0,0.2,1)]
-        1080:px-0 1080:absolute 1080:top-0 1080:left-1/2 1080:-translate-x-1/2 1080:w-auto 1080:mt-[5.8rem] 1080:text-right
-        ${active ? "pointer-event-auto" : "pointer-events-none"}`}
+      className={`overflow-hidden px-6 transition-[height] duration-300 ease-[cubic-bezier(0,0,0.2,1)] 1080:px-0 1080:absolute 1080:top-0 1080:right-0 1080:z-10 1080:w-auto 1080:min-w-full 1080:pt-[calc(5.8rem+40px)] 1080:text-left ${
+        active ? "pointer-events-auto" : "pointer-events-none"
+      }`}
       style={{ height }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <div
-        className={`transition-opacity duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        className={`transition-opacity duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] flex flex-col 1080:flex-row gap-x-8 ${
           active
-            ? "opacity-100 pointer-event-auto"
+            ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
         ref={ref}
       >
-        <ul className="max-1080:pt-5 max-700:pt-2">
-          <div
-            className="
-    1080:flex
-    1080:items-start
-    1080:justify-center
-    1080:gap-10
-  "
-          >
-            {columns.map((column, columnIndex) => (
-              <div key={columnIndex}>
-                {column.map(({ label, href }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={`block text-lg py-3 1080:py-2.5 1080:text-sm 1080:whitespace-nowrap max-700:text-base max-550:text-[15px] font-xbold transition-opacity duration-300 hover:opacity-70 ${getMenuActiveClasses(
-                      isCurrentPage(href),
-                    )}`}
-                    prefetch
-                    onClick={() => {
-                      if (typeof menuActive !== "undefined") {
-                        setMenuActive(false);
-                      }
-                      setActiveDropdown(null);
-                    }}
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </div>
+        <Link
+          href={href}
+          prefetch
+          className="1080:hidden text-lg pt-8 pb-3 block font-bold transition-opacity duration-300 hover:opacity-70"
+          onClick={handleClick}
+        >
+          Overview
+        </Link>
+        {isMobile ? (
+          <div className="flex flex-col">
+            {dropdown.map(({ label, href: subHref }) => (
+              <Link
+                key={subHref}
+                href={subHref}
+                className={linkClasses(isCurrentPage(subHref))}
+                prefetch
+                onClick={handleClick}
+              >
+                {label}
+              </Link>
             ))}
           </div>
-        </ul>
+        ) : (
+          columns.map((column, columnIndex) => (
+            <div key={columnIndex} className="flex flex-col">
+              {column.map(({ label, href: subHref }) => (
+                <Link
+                  key={subHref}
+                  href={subHref}
+                  className={linkClasses(isCurrentPage(subHref))}
+                  prefetch
+                  onClick={handleClick}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

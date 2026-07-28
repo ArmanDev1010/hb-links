@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import whiteLogo from "@/../public/Logos/white_horizontal.png";
 import blackLogo from "@/../public/Logos/black_horizontal.png";
 import onlyWhiteLogo from "@/../public/Logos/only_white_horizontal.png";
+
+const FADE_DURATION_MS = 200;
 
 export default function Logo({
   atTop,
@@ -16,24 +18,36 @@ export default function Logo({
 }) {
   const [currentLogo, setCurrentLogo] = useState(whiteLogo);
   const [fade, setFade] = useState(false);
+  const pendingLogoRef = useRef(null);
+  const fadeTimeoutRef = useRef(null);
 
   const newLogo =
-    atTop && !isLightPage && !activeDropdown && !menuActive
-      ? whiteLogo
-      : activeDropdown || menuActive
-        ? onlyWhiteLogo
+    activeDropdown || menuActive
+      ? onlyWhiteLogo
+      : atTop
+        ? whiteLogo
         : blackLogo;
 
   useEffect(() => {
-    if (newLogo !== currentLogo) {
-      setFade(true);
-      const timeout = setTimeout(() => {
-        setCurrentLogo(newLogo);
-        setFade(false);
-      }, 200);
-      return () => clearTimeout(timeout);
-    }
+    pendingLogoRef.current = newLogo;
+
+    if (newLogo === currentLogo) return;
+
+    if (fadeTimeoutRef.current) return;
+
+    setFade(true);
+    fadeTimeoutRef.current = setTimeout(() => {
+      setCurrentLogo(pendingLogoRef.current);
+      setFade(false);
+      fadeTimeoutRef.current = null;
+    }, FADE_DURATION_MS);
   }, [newLogo, currentLogo]);
+
+  useEffect(() => {
+    return () => {
+      if (fadeTimeoutRef.current) clearTimeout(fadeTimeoutRef.current);
+    };
+  }, []);
 
   return (
     <Link
