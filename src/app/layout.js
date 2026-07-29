@@ -2,7 +2,6 @@ import "./globals.css";
 
 import Navbar from "@/components/Navigation/Navbar";
 import { Toaster } from "react-hot-toast";
-import ConditionalComponents from "@/components/other/ConditionalComponents";
 import Footer from "@/components/Footer/Footer";
 
 export const metadata = {
@@ -53,7 +52,6 @@ export default function RootLayout({ children }) {
         <Navbar />
         <Toaster position="top-center" />
         {children}
-        {/* <ConditionalComponents /> */}
         <Footer />
       </body>
     </html>

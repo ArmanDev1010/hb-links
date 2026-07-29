@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import DropdownMenu from "./DropdownMenu";
+import RequestBtn from "../Form/RequestBtn";
 
 const CLOSE_DELAY_MS = 0;
 
@@ -16,6 +17,7 @@ export default function NavLinks({
   menuActive,
   setMenuActive,
   isMobile,
+  toggleModal,
 }) {
   const closeTimeout = useRef(null);
 
@@ -61,7 +63,7 @@ export default function NavLinks({
       onMouseLeave={scheduleClose}
     >
       <div className="max-1080:pointer-events-auto max-1080:h-[calc(100%-3rem)] max-1080:overflow-auto max-1080:border-t-[1px] max-1080:border-l-[1px] max-1080:border-[#f6f4ee40] max-1080:mx-[1rem]">
-        <ul className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full gap-x-[2.2rem] max-1080:gap-y-5 max-1080:pt-[2rem] h-full">
+        <ul className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full 1440:gap-x-[2.2rem] gap-x-[18px] max-1080:gap-y-5 max-1080:pt-[2rem] h-full">
           {navlinks.map(({ title, href, dropdown }, key) => {
             const linkActive = isCurrentPage(href);
 
@@ -103,7 +105,7 @@ export default function NavLinks({
                     href={href}
                     prefetch
                     className={`transition-opacity duration-200 hover:opacity-70 uppercase cursor-pointer
-                  text-sm font-medium max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-xl max-700:text-lg max-550:text-base 
+                  1280:text-sm text-[12px] font-medium max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-xl max-700:text-lg max-550:text-base 
                   relative top-[1.5px] flex items-center ${getMenuActiveClasses(linkActive)} ${atTop && !isMobile ? "h-[95px]" : !atTop && !isMobile ? "h-[100px]" : "h-auto"}`}
                     onClick={(e) => {
                       if (isMobile) {
@@ -172,7 +174,11 @@ export default function NavLinks({
             );
           })}
 
-          <li className="1080:hidden mt-auto flex justify-between flex-wrap gap-x-5 gap-y-7 transition-opacity duration-200 hover:opacity-70 font-bold text-lg pt-16 p-6 max-550:pr-0 max-550:pt-10">
+          <li className="700:hidden px-6 py-3">
+            <RequestBtn toggleModal={toggleModal} atTop={true} />
+          </li>
+
+          <li className="1080:hidden mt-auto flex justify-between flex-wrap gap-x-5 gap-y-7 transition-opacity duration-200 hover:opacity-70 font-bold text-xl pt-16 p-6 max-550:pr-0 max-550:pt-10">
             <Link href="tel:+18183033555">+1 (818) 303-3555</Link>
           </li>
         </ul>

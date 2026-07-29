@@ -37,7 +37,7 @@ export default function Footer() {
 
   const pageColumn = {
     linkVariant: "title",
-    links: [pages[0], pages[5], pages[6]].map(({ title, href }) => ({
+    links: [pages[0], pages[5]].map(({ title, href }) => ({
       label: title,
       href,
     })),

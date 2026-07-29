@@ -10,8 +10,4 @@ export const pages = [
     title: "About",
     href: "/about",
   },
-  {
-    title: "Contact",
-    href: "/contact",
-  },
 ];

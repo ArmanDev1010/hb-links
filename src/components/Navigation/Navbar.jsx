@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import Logo from "./components/Logo";
-import NavLinks from "./components/NavLinks";
-import MenuBtn from "./components/MenuBtn";
+import { AnimatePresence } from "framer-motion";
+import Logo from "./components/Nav/Logo";
+import NavLinks from "./components/Nav/NavLinks";
+import MenuBtn from "./components/Nav/MenuBtn";
+import RequestBtn from "./components/Form/RequestBtn";
+import RequestModal from "./components/Form/RequestModal";
 import { pages } from "@/data/pages";
 
 export default function Navbar() {
@@ -14,6 +17,7 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [menuActive, setMenuActive] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const checkScreen = () => setIsMobile(window.innerWidth <= 1080);
@@ -25,11 +29,11 @@ export default function Navbar() {
   const navlinks = isMobile ? pages : [pages[1], pages[2], pages[3], pages[4]];
 
   useEffect(() => {
-    document.body.style.overflow = menuActive ? "hidden" : "";
+    document.body.style.overflow = menuActive || showModal ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [menuActive]);
+  }, [menuActive, showModal]);
 
   const isLightPage =
     pathname.startsWith("/projects") ||
@@ -72,55 +76,76 @@ export default function Navbar() {
   const activeDropdownLength =
     pages.find((link) => link.title === activeDropdown)?.dropdown?.length ?? 0;
 
+  const toggleModal = () => {
+    setMenuActive(false);
+    setShowModal((prev) => !prev);
+  };
+
   return (
-    <nav className={navClasses}>
-      <div
-        className="relative px-[3%] z-[11] flex items-center justify-between h-full max-w-[1600px] max-1080:px-[1rem] mx-auto w-full border-b-2 transition-[border] duration-500 ease-in-out"
-        style={{
-          borderBottomColor:
-            activeDropdown && !isMobile ? "#f6f4ee66" : "transparent",
-        }}
-      >
-        <Logo
-          atTop={atTop}
-          activeDropdown={activeDropdown}
-          setActiveDropdown={setActiveDropdown}
-          menuActive={menuActive}
-          setMenuActive={setMenuActive}
+    <>
+      <nav className={navClasses}>
+        <div
+          className="relative 1440:px-[3%] 1080:px-[1.2rem] 700:px-[1.5rem] px-[1rem] z-[11] flex items-center justify-between h-full max-w-[1600px] mx-auto w-full border-b-2 transition-[border] duration-500 ease-in-out"
+          style={{
+            borderBottomColor:
+              activeDropdown && !isMobile ? "#f6f4ee66" : "transparent",
+          }}
+        >
+          <Logo
+            atTop={atTop}
+            activeDropdown={activeDropdown}
+            setActiveDropdown={setActiveDropdown}
+            menuActive={menuActive}
+            setMenuActive={setMenuActive}
+          />
+          <div className="flex items-center 1440:gap-x-[47.2px] gap-x-[30px]">
+            <NavLinks
+              navlinks={navlinks}
+              pathname={pathname}
+              activeDropdown={activeDropdown}
+              setActiveDropdown={setActiveDropdown}
+              atTop={atTop}
+              isLightPage={isLightPage}
+              menuActive={menuActive}
+              setMenuActive={setMenuActive}
+              isMobile={isMobile}
+              toggleModal={toggleModal}
+            />
+
+            <div className="flex items-center gap-4">
+              <div className="max-700:hidden">
+                <RequestBtn toggleModal={toggleModal} atTop={atTop} />
+              </div>
+              <MenuBtn
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                atTop={atTop}
+                isLightPage={isLightPage}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="max-1080:hidden absolute top-0 left-0 w-full h-0 z-[10] bg-third/80 backdrop-blur-sm transition-[height] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
+          style={{
+            height: activeDropdown
+              ? `${41 * (activeDropdownLength > 10 ? 10 : activeDropdownLength) + 194}px`
+              : "0",
+          }}
         />
 
-        <NavLinks
-          navlinks={navlinks}
-          pathname={pathname}
-          activeDropdown={activeDropdown}
-          setActiveDropdown={setActiveDropdown}
-          atTop={atTop}
-          isLightPage={isLightPage}
-          menuActive={menuActive}
-          setMenuActive={setMenuActive}
-          isMobile={isMobile}
+        <div
+          className="1080:hidden absolute top-0 left-0 w-full z-[10] bg-third/80 backdrop-blur-sm transition-[height] duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]"
+          style={{ height: menuActive ? "100vh" : "0" }}
         />
-        <MenuBtn
-          menuActive={menuActive}
-          setMenuActive={setMenuActive}
-          atTop={atTop}
-          isLightPage={isLightPage}
-        />
-      </div>
+      </nav>
 
-      <div
-        className="max-1080:hidden absolute top-0 left-0 w-full h-0 z-[10] bg-third/80 backdrop-blur-sm transition-[height] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
-        style={{
-          height: activeDropdown
-            ? `${41 * (activeDropdownLength > 10 ? 10 : activeDropdownLength) + 194}px`
-            : "0",
-        }}
-      />
-
-      <div
-        className="1080:hidden absolute top-0 left-0 w-full z-[10] bg-third/80 backdrop-blur-sm transition-[height] duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]"
-        style={{ height: menuActive ? "100vh" : "0" }}
-      />
-    </nav>
+      <AnimatePresence>
+        {showModal && (
+          <RequestModal key="request-modal" handleClose={toggleModal} />
+        )}
+      </AnimatePresence>
+    </>
   );
 }

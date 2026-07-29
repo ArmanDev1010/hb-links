@@ -16,15 +16,15 @@ export default function Hero() {
         <div className="overflow-hidden max-w-4xl">
           <h2
             className="px-2 uppercase w-fit font-compressed tracking-tight leading-[1] font-bold pointer-events-none text-transparent bg-clip-text
-    1600:text-[5rem] 1080:text-[4rem] 800:text-[3.5rem] 550:text-[3rem] max-550:text-[10vw]"
+    1600:text-[5rem] 1080:text-[4rem] 800:text-[3.5rem] 550:text-[3rem] text-[9vw]"
             style={{
               backgroundImage:
                 "linear-gradient(135deg, #ffffff 50%, #0b8540 50%)",
               WebkitBackgroundClip: "text",
             }}
           >
-            General Building. <br /> Electrical. <br /> Low Voltage. <br />
-            Plumbing.
+            General Building. <br /> Electrical. <br /> Plumbing. <br /> Low
+            Voltage.
           </h2>
         </div>
       </div>

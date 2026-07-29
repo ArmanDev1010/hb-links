@@ -8,7 +8,7 @@ export default function MenuBtn({
 }) {
   return (
     <button
-      className="1080:hidden relative z-[100] p-[15px] cursor-pointer"
+      className="1080:hidden relative z-[100] p-[15px] pr-0 cursor-pointer"
       onClick={() => setMenuActive(!menuActive)}
     >
       <div className="relative w-[40px] h-[20px] max-550:w-[30px] max-550:h-[15px]">
