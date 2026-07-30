@@ -5,14 +5,14 @@ export default function About() {
   return (
     <div className="mt-3 py-10 pb-[40px] text-black max-550:pb-[30px]">
       <div className="w-full lg:w-10/12 lg:mx-auto px-2 text-center">
-        <p className="ck-tagline text-sm uppercase font-xbold tracking-widest mb-4">
-          ABOUT
+        <p className="ck-tagline text-sm uppercase font-xbold tracking-widest mb-4 pointer-events-none">
+          ABOUT US
         </p>
-        <h2 className="font-gt pb-1 font-semibold text-4xl lg:text-5xl leading-[1]">
+        <h2 className="font-gt pb-1 font-semibold text-4xl lg:text-5xl leading-[1] pointer-events-none">
           Smart Infrastructure.{" "}
           <span style={{ color: "#106b37" }}>Reliable Solutions.</span>
         </h2>
-        <p className="my-8 text-gray-700 only:mt-0 lg:mx-auto lg:max-w-2xl">
+        <p className="my-8 text-gray-700 only:mt-0 lg:mx-auto lg:max-w-2xl pointer-events-none">
           HB Links is a general contracting company based in Los Angeles,
           providing renovation, electrical, plumbing, and low-voltage services
           under one roof. Holding B (General Building), C-10 (Electrical), and

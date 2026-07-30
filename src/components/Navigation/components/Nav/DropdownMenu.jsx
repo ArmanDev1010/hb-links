@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
 
 const DESKTOP_GAP_PX = 93;
-const ITEMS_PER_COLUMN = 10;
+const ITEMS_PER_COLUMN = 12;
 
 export default function DropdownMenu({
   title,
@@ -55,7 +55,7 @@ export default function DropdownMenu({
 
   return (
     <div
-      className={`overflow-hidden px-6 transition-[height] duration-300 ease-[cubic-bezier(0,0,0.2,1)] 1080:px-0 1080:absolute 1080:top-0 1080:right-0 1080:z-10 1080:w-auto 1080:min-w-full 1080:pt-[calc(5.8rem+40px)] 1080:text-left ${
+      className={`overflow-hidden px-6 transition-[height] duration-300 ease-[cubic-bezier(0,0,0.2,1)] 1080:px-0 1080:absolute 1080:top-0 1080:left-1/2 1080:-translate-x-1/2 1080:z-10 1080:w-auto 1080:min-w-full 1080:pt-[calc(5.8rem+40px)] 1080:text-left ${
         active ? "pointer-events-auto" : "pointer-events-none"
       }`}
       style={{ height }}

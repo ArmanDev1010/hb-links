@@ -8,7 +8,7 @@ import FooterColumn from "./components/FooterColumn";
 import Services_Slides from "./components/Services_Slides";
 
 import { privacyPages } from "@/data/privacy";
-import { pages } from "@/data/pages";
+import { services } from "@/data/services/index";
 
 const contactInfo = [
   { type: "License", label: "CSLB #1144057" },
@@ -27,23 +27,11 @@ export default function Footer() {
   const isLightPage =
     pathname.startsWith("/legal") || pathname.startsWith("/contact");
 
-  const expertiseColumns = [pages[1], pages[2], pages[3], pages[4]].map(
-    ({ title, href, dropdown }) => ({
-      title,
-      href,
-      links: dropdown,
-    }),
-  );
-
-  const pageColumn = {
-    linkVariant: "title",
-    links: [pages[0], pages[5]].map(({ title, href }) => ({
-      label: title,
-      href,
-    })),
-  };
-
-  const footerColumns = [...expertiseColumns, pageColumn];
+  const expertiseColumns = services.map(({ title, href, dropdown }) => ({
+    title,
+    href,
+    links: dropdown,
+  }));
 
   return (
     <footer
@@ -55,9 +43,7 @@ export default function Footer() {
 
       <div className="mx-auto w-full 900:px-[1.5rem] max-w-[1680px]">
         <div className="flex flex-col gap-y-4">
-          <ul
-            className="w-full px-4 w-full flex flex-wrap mb-4 justify-center gap-x-20 max-1080:gap-x-12 max-xl:text-center max-400:flex-col max-400:!text-left"
-          >
+          <ul className="w-full px-4 w-full flex flex-wrap mb-4 justify-center gap-x-20 max-1080:gap-x-12 max-xl:text-center max-400:flex-col max-400:!text-left">
             {contactInfo.map(({ type, label, href }, key) => (
               <li className="pr-4 my-4 text-lg" key={key}>
                 <p
@@ -76,7 +62,7 @@ export default function Footer() {
             ))}
           </ul>
           <ul className="w-full px-2 grow flex max-xl:!grid max-xl:grid-cols-2 max-xl:gap-y-4 max-900:!grid-cols-1">
-            {footerColumns.map((column, key) => (
+            {expertiseColumns.map((column, key) => (
               <FooterColumn {...column} key={column.href || key} />
             ))}
           </ul>

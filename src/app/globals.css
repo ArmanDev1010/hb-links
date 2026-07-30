@@ -3,6 +3,7 @@
 @theme {
   /* Breakpoints */
   --breakpoint-1920: 1920px;
+  --breakpoint-1800: 1800px;
   --breakpoint-1600: 1600px;
   --breakpoint-1440: 1440px;
   --breakpoint-1280: 1280px;
@@ -105,4 +106,27 @@ body {
 .request__close:after {
   -webkit-transform: translate(-50%, -50%) rotate(45deg);
   transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.services_swiper .swiper-wrapper {
+  -webkit-transition-timing-function: linear !important;
+  -o-transition-timing-function: linear !important;
+  transition-timing-function: linear !important;
+}
+
+.services_swiper .swiper-slide {
+  position: relative;
+  display: grid;
+  place-content: center;
+}
+
+.services_swiper .swiper-slide::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  height: 50%;
+  width: 1px;
+  background: #ccc;
 }

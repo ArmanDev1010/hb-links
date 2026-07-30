@@ -3,24 +3,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
+import { services } from "@/data/services/index";
+
 export default function Services_Slides({ isLightPage }) {
-  const items = [
-    "Low Voltage",
-    "Security Systems",
-    "CCTV",
-    "Access Control",
-    "Networking",
-    "AV Integration",
-    "Audio / Video",
-    "Surveillance Systems",
-    "Smart Home",
-  ];
+  const items = services.map(({ title }) => title);
 
   const duplicatedItems = [...items, ...items, ...items];
 
   return (
     <div
-      className={`relative z-[1] py-3 mb-10 max-550:text-sm ${
+      className={`relative z-[1] py-3 mb-10 max-550:text-sm pointer-events-none ${
         isLightPage
           ? "bg-third text-white border-y-2 border-y-white"
           : "bg-white border-y-4 border-y-third text-black"

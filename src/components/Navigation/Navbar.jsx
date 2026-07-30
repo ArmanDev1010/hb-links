@@ -61,7 +61,7 @@ export default function Navbar() {
   const stickyStyles =
     isServicesPage || isContactPage
       ? "relative z-[999] !border-b-0"
-      : `fixed ${visible ? "translate-y-0" : "-translate-y-full"}`;
+      : "fixed translate-y-0";
   const topStyles = atTop
     ? "bg-transparent !h-[95px]"
     : !atTop && activeDropdown
@@ -85,7 +85,7 @@ export default function Navbar() {
     <>
       <nav className={navClasses}>
         <div
-          className="relative 1440:px-[3%] 1080:px-[1.2rem] 700:px-[1.5rem] px-[1rem] z-[11] flex items-center justify-between h-full max-w-[1600px] mx-auto w-full border-b-2 transition-[border] duration-500 ease-in-out"
+          className="relative 1800:px-[1rem] 1440:px-[3%] 1080:px-[1.2rem] 700:px-[1.5rem] px-[1rem] z-[11] flex items-center justify-between h-full max-w-[1680px] mx-auto w-full border-b-2 transition-[border] duration-500 ease-in-out"
           style={{
             borderBottomColor:
               activeDropdown && !isMobile ? "#f6f4ee66" : "transparent",
@@ -114,7 +114,11 @@ export default function Navbar() {
 
             <div className="flex items-center gap-4">
               <div className="max-700:hidden">
-                <RequestBtn toggleModal={toggleModal} atTop={atTop} />
+                <RequestBtn
+                  toggleModal={toggleModal}
+                  atTop={atTop}
+                  activeDropdown={activeDropdown}
+                />
               </div>
               <MenuBtn
                 menuActive={menuActive}
