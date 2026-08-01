@@ -1,74 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+
 import ReCAPTCHA from "react-google-recaptcha";
-import toast from "react-hot-toast";
+
+import { useContactForm } from "@/hooks/useContactForm";
+
+import { fields } from "@/data/fields";
 
 export default function RequestModal({ handleClose }) {
-  const recaptchaRef = useRef();
-  const [captchaToken, setCaptchaToken] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const {
     register,
-    handleSubmit,
-    reset,
+    handleFormSubmit,
+    setCaptchaToken,
+    recaptchaRef,
+    isSubmitting,
     formState: { errors },
-  } = useForm();
-
-  const fields = [
-    { place: "Full Name", clean: "name" },
-    { place: "Phone Number", clean: "phone" },
-    { place: "Email", clean: "mail" },
-    { place: "Address / General Location", clean: "address" },
-  ];
-
-  const fieldStyle = (clean) => ({
-    borderBottom: errors[clean]
-      ? "1px solid red"
-      : "1px solid hsla(0, 0%, 83.9%, .3)",
-  });
-
-  const onSubmit = async (data) => {
-    if (!captchaToken) {
-      toast.error("Please complete the CAPTCHA before submitting.");
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, token: captchaToken }),
-      });
-
-      if (res.ok) {
-        toast.success("Delivered successfully!");
-        reset();
-        setCaptchaToken(null);
-        recaptchaRef.current.reset();
-        handleClose();
-      } else {
-        toast.error("Delivery failed. Please try again.");
-      }
-    } catch (err) {
-      console.error("Submission error:", err);
-      toast.error("Something went wrong. Try again later.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const onInvalid = (formErrors) => {
-    const firstError = Object.values(formErrors)[0];
-    toast.error(
-      firstError?.message || "Please fill out all required fields correctly.",
-    );
-  };
+    fieldStyle,
+  } = useContactForm();
 
   return (
     <div className="modal fixed top-0 left-0 w-full h-full z-[1000] text-[#3a3e4b]">
@@ -80,10 +29,10 @@ export default function RequestModal({ handleClose }) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <form onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate>
+        <form onSubmit={handleFormSubmit} noValidate>
           <div className="p-[44px_70px] pb-[43px] mb-[6px] bg-white border border-[rgba(0,0,0,.04)] max-1280:p-[46px_53px_42px_53px] max-550:p-[33px_30px]">
             <p className="text-[22px] font-[600] text-center mb-[25px] pointer-events-none uppercase">
-              Schedule a Consultation
+              Schedule a Free Consultation
             </p>
             <div className="grid grid-cols-2 gap-x-[36px] gap-y-[26px] max-900:flex max-900:flex-col">
               {fields.map(({ place, clean }, key) => (

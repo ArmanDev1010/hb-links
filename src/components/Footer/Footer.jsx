@@ -9,23 +9,12 @@ import Services_Slides from "./components/Services_Slides";
 
 import { privacyPages } from "@/data/privacy";
 import { services } from "@/data/services/index";
-
-const contactInfo = [
-  { type: "License", label: "CSLB #1144057" },
-  { type: "Phone", label: "+1 (818) 303-3555", href: "tel:+1 (818) 303-3555" },
-  {
-    type: "E-Mail",
-    label: "info@hb-links.com",
-    href: "mailto:info@hb-links.com",
-  },
-  { type: "Area", label: "California, USA" },
-];
+import { contactInfo } from "@/data/contact";
 
 export default function Footer() {
   const pathname = usePathname();
 
-  const isLightPage =
-    pathname.startsWith("/legal") || pathname.startsWith("/contact");
+  const isLightPage = pathname.startsWith("/legal");
 
   const expertiseColumns = services.map(({ title, href, dropdown }) => ({
     title,

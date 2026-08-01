@@ -35,18 +35,14 @@ export default function Navbar() {
     };
   }, [menuActive, showModal]);
 
-  const isLightPage =
-    pathname.startsWith("/projects") ||
-    pathname.startsWith("/services") ||
-    pathname.startsWith("/about") ||
-    ["/terms-of-service", "/privacy-policy"].includes(pathname);
-
   const isSubTradePage = pages.some((page) =>
     page.dropdown?.some((sub) => sub.href === pathname),
   );
 
-  const isContactPage = pathname === "/contact";
-  const isServicesPage = pathname === "/services";
+  const isLightPage =
+    pathname.startsWith("/contact") ||
+    ["/terms-of-service", "/privacy-policy"].includes(pathname) ||
+    isSubTradePage;
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -62,22 +58,16 @@ export default function Navbar() {
   }, [activeDropdown]);
 
   const navBase = "w-full transition-all duration-400 !z-[999]";
-  const stickyStyles =
-    isServicesPage || isContactPage
-      ? "relative z-[999] !border-b-0"
-      : "fixed translate-y-0";
+
   const topStyles = atTop
     ? "bg-transparent !h-[95px]"
     : !atTop && activeDropdown
       ? "!bg-white !h-[75px] !text-white"
       : "!bg-white !h-[75px] !text-black";
   const themeStyles =
-    (isLightPage && !activeDropdown) || (isSubTradePage && !activeDropdown)
-      ? "text-black"
-      : "text-white";
-  const isBlackNav = isContactPage ? "!bg-primary" : "";
+    isLightPage && !activeDropdown ? "text-black" : "text-white";
 
-  const navClasses = `${navBase} ${stickyStyles} ${topStyles} ${themeStyles} ${isBlackNav}`;
+  const navClasses = `fixed translate-y-0 ${navBase} ${topStyles} ${themeStyles}`;
 
   const activeDropdownLength =
     pages.find((link) => link.title === activeDropdown)?.dropdown?.length ?? 0;
@@ -103,7 +93,7 @@ export default function Navbar() {
             setActiveDropdown={setActiveDropdown}
             menuActive={menuActive}
             setMenuActive={setMenuActive}
-            forceBlack={isSubTradePage && !activeDropdown && !menuActive}
+            forceBlack={isLightPage && !activeDropdown && !menuActive}
           />
           <div className="flex items-center 1440:gap-x-[47.2px] gap-x-[30px]">
             <NavLinks
@@ -113,7 +103,6 @@ export default function Navbar() {
               setActiveDropdown={setActiveDropdown}
               atTop={atTop}
               isLightPage={isLightPage}
-              isSubTradePage={isSubTradePage}
               menuActive={menuActive}
               setMenuActive={setMenuActive}
               isMobile={isMobile}
@@ -126,7 +115,7 @@ export default function Navbar() {
                   toggleModal={toggleModal}
                   atTop={atTop}
                   activeDropdown={activeDropdown}
-                  forceBlackBorder={isSubTradePage && !activeDropdown}
+                  forceBlackBorder={isLightPage && !activeDropdown}
                 />
               </div>
               <MenuBtn
@@ -134,7 +123,6 @@ export default function Navbar() {
                 setMenuActive={setMenuActive}
                 atTop={atTop}
                 isLightPage={isLightPage}
-                isSubTradePage={isSubTradePage}
               />
             </div>
           </div>

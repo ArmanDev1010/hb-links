@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import SubService from "@/components/Expertise/SubService";
 import { pages } from "@/data/pages";
+import { buildServiceMetadata, buildServiceSchema } from "@/lib/seo";
 
 function getTrade(trade) {
   return pages.find(
@@ -32,10 +33,7 @@ export async function generateMetadata({ params }) {
 
   if (!currentService) return {};
 
-  return {
-    title: `${currentService.label} | HB LINKS`,
-    description: currentService.description,
-  };
+  return buildServiceMetadata(category, currentService);
 }
 
 export default async function ServicePage({ params }) {
@@ -51,13 +49,24 @@ export default async function ServicePage({ params }) {
 
   if (!currentService) notFound();
 
+  const serviceSchema = buildServiceSchema({
+    trade: category,
+    service: currentService,
+  });
+
   return (
-    <SubService
-      category={category}
-      service={{
-        ...currentService,
-        title: currentService.label,
-      }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <SubService
+        category={category}
+        service={{
+          ...currentService,
+          title: currentService.label,
+        }}
+      />
+    </>
   );
 }
