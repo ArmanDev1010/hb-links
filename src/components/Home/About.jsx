@@ -12,7 +12,7 @@ export default function About() {
           Smart Infrastructure.{" "}
           <span style={{ color: "#106b37" }}>Reliable Solutions.</span>
         </h2>
-        <p className="my-8 text-gray-700 only:mt-0 lg:mx-auto lg:max-w-2xl pointer-events-none">
+        <p className="mt-8 text-gray-700 only:mt-0 lg:mx-auto lg:max-w-2xl pointer-events-none">
           HB Links is a general contracting company based in Los Angeles,
           providing renovation, electrical, plumbing, and low-voltage services
           under one roof. Holding B (General Building), C-10 (Electrical), and
@@ -20,14 +20,14 @@ export default function About() {
           project needs, from full home renovations and additions to standalone
           electrical and plumbing work.
         </p>
-        <Link
+        {/* <Link
           href="/about"
           prefetch
           className="relative uppercase font-bold text-lg hover:text-third transition-all duration-500 ease-in-out
           before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-[#0d0c0c] hover:before:bg-third"
         >
           <span className="relative">About HB Links</span>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

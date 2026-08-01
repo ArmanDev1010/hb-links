@@ -6,8 +6,4 @@ export const pages = [
     href: "/",
   },
   ...services,
-  {
-    title: "About",
-    href: "/about",
-  },
 ];

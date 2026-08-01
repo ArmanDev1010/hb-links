@@ -17,9 +17,9 @@ function groupCitiesByLetter(cityList) {
   }, {});
 }
 
-export default function ServiceAreasList({ onSelectCounty }) {
+export default function ServiceAreasList() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="grid grid-cols-1 1080:grid-cols-2 gap-x-10 gap-y-6 pointer-events-none">
       {counties.map((county) => {
         const countyCities =
           cities.find((item) => item.county === county.fips)?.cities || [];
@@ -29,7 +29,6 @@ export default function ServiceAreasList({ onSelectCounty }) {
         return (
           <div
             key={county.fips}
-            onMouseEnter={() => onSelectCounty(county.county)}
             className="border-t border-l p-5 transition-opacity duration-300 border-black/25 hover:border-third"
           >
             <h3 className="font-bold text-xl uppercase tracking-wide mb-6 pointer-events-none">

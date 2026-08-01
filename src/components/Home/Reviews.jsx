@@ -153,7 +153,7 @@ export default function Reviews() {
   const total = reviews.length;
 
   return (
-    <section className="relative pt-[60px] pb-[100px] overflow-hidden">
+    <section className="relative pt-[60px] 1080:pb-[100px] pb-[60px] overflow-hidden">
       <div className="w-full lg:w-10/12 lg:mx-auto px-2 550:mb-30 mb-20 text-center">
         <p className="ck-tagline text-sm uppercase font-xbold tracking-widest mb-4 pointer-events-none">
           Testimonials
@@ -239,8 +239,9 @@ export default function Reviews() {
                           review.avatar ? review.avatar : "/reviews/avatar.png"
                         }
                         fill
+                        sizes="(max-width: 1080px) 56px, 56px"
                         alt="background image"
-                        className="w-full h-full object-cover bg-black"
+                        className="object-cover bg-black"
                       />
                     </div>
                   </span>
