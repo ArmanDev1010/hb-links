@@ -23,14 +23,14 @@ export const reviews = [
   },
   {
     name: "Raphael",
-    rating: 4.9,
+    rating: 5,
     date: "30 Jan, 2026",
     quote:
       "Tom was superb in every possible way… truly committed to excellence, incredibly skilled, wonderfully knowledgeable, dedicated to problem solving with me, and doing everything in his power to ensure that the services rendered during my home installation were remarkable in every way. His installation technician Matt is just as incredible, truly going above and beyond, and both even followed up to make sure everything was indeed proper and legit  afterwards. Much appreciated and kudos all around!",
   },
   {
     name: "Kevin",
-    rating: 4.9,
+    rating: 5,
     date: "27 July, 2026",
     avatar: "/reviews/Kevin/avatar.png",
     quote:

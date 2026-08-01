@@ -8,7 +8,7 @@ export default function About() {
         <p className="ck-tagline text-sm uppercase font-xbold tracking-widest mb-4 pointer-events-none">
           ABOUT US
         </p>
-        <h2 className="font-gt pb-1 font-semibold text-4xl lg:text-5xl leading-[1] pointer-events-none">
+        <h2 className="font-gt pb-1 font-semibold text-4xl 1080:text-5xl leading-[1] pointer-events-none">
           Smart Infrastructure.{" "}
           <span style={{ color: "#106b37" }}>Reliable Solutions.</span>
         </h2>

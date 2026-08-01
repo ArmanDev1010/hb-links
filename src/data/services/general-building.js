@@ -213,27 +213,6 @@ const generalBuilding = {
       ],
     },
   ],
-  page: {
-    description:
-      "Our General Building services cover the full lifecycle of residential and light‑commercial projects. From structural foundations to finish carpentry, we coordinate trades, manage permits, and deliver workmanship that stands the test of time.",
-    cards: [
-      {
-        title: "Built to Last",
-        description:
-          "We prioritize structural integrity and code compliance so every project performs reliably for years.",
-      },
-      {
-        title: "Finish Matters",
-        description:
-          "Attention to detail in trim, paint, and flooring ensures the final result looks as good as it functions.",
-      },
-      {
-        title: "Single Point Accountability",
-        description:
-          "We self‑perform core trades and coordinate specialists to simplify communication and deliver consistent quality.",
-      },
-    ],
-  },
 };
 
 export default generalBuilding;

@@ -156,27 +156,6 @@ const plumbing = {
       ],
     },
   ],
-  page: {
-    description:
-      "Our plumbing team delivers reliable water, drainage, and gas systems with careful testing and documentation. We prioritize leak‑free installations and long‑term serviceability.",
-    cards: [
-      {
-        title: "Dependable Performance",
-        description:
-          "We install systems that minimize maintenance and deliver consistent performance.",
-      },
-      {
-        title: "Code and Safety Focused",
-        description:
-          "All work follows local plumbing codes and industry best practices for safety and reliability.",
-      },
-      {
-        title: "Service and Support",
-        description:
-          "We provide clear documentation and guidance so homeowners and contractors know how systems operate and are maintained.",
-      },
-    ],
-  },
 };
 
 export default plumbing;

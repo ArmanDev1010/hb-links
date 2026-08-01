@@ -14,6 +14,7 @@ export default function NavLinks({
   setActiveDropdown,
   atTop,
   isLightPage,
+  isSubTradePage,
   menuActive,
   setMenuActive,
   isMobile,
@@ -135,7 +136,8 @@ export default function NavLinks({
                      max-1080:h-[2px]
                     ${activeDropdown === title ? "rotate-90 opacity-0" : ""} 
                     ${
-                      !atTop && !activeDropdown && !menuActive
+                      (!atTop && !activeDropdown && !menuActive) ||
+                      (isSubTradePage && !activeDropdown && !menuActive)
                         ? "bg-black"
                         : atTop && isLightPage && !activeDropdown && !menuActive
                           ? "bg-black"
@@ -147,7 +149,8 @@ export default function NavLinks({
                     max-1080:w-[2px] 
                     ${activeDropdown === title ? "rotate-90" : ""} 
                     ${
-                      !atTop && !activeDropdown && !menuActive
+                      (!atTop && !activeDropdown && !menuActive) ||
+                      (isSubTradePage && !activeDropdown && !menuActive)
                         ? "bg-black"
                         : atTop && isLightPage && !activeDropdown && !menuActive
                           ? "bg-black"

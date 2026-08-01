@@ -41,6 +41,10 @@ export default function Navbar() {
     pathname.startsWith("/about") ||
     ["/terms-of-service", "/privacy-policy"].includes(pathname);
 
+  const isSubTradePage = pages.some((page) =>
+    page.dropdown?.some((sub) => sub.href === pathname),
+  );
+
   const isContactPage = pathname === "/contact";
   const isServicesPage = pathname === "/services";
 
@@ -68,7 +72,9 @@ export default function Navbar() {
       ? "!bg-white !h-[75px] !text-white"
       : "!bg-white !h-[75px] !text-black";
   const themeStyles =
-    isLightPage && !activeDropdown ? "text-black" : "text-white";
+    (isLightPage && !activeDropdown) || (isSubTradePage && !activeDropdown)
+      ? "text-black"
+      : "text-white";
   const isBlackNav = isContactPage ? "!bg-primary" : "";
 
   const navClasses = `${navBase} ${stickyStyles} ${topStyles} ${themeStyles} ${isBlackNav}`;
@@ -97,6 +103,7 @@ export default function Navbar() {
             setActiveDropdown={setActiveDropdown}
             menuActive={menuActive}
             setMenuActive={setMenuActive}
+            forceBlack={isSubTradePage && !activeDropdown && !menuActive}
           />
           <div className="flex items-center 1440:gap-x-[47.2px] gap-x-[30px]">
             <NavLinks
@@ -106,6 +113,7 @@ export default function Navbar() {
               setActiveDropdown={setActiveDropdown}
               atTop={atTop}
               isLightPage={isLightPage}
+              isSubTradePage={isSubTradePage}
               menuActive={menuActive}
               setMenuActive={setMenuActive}
               isMobile={isMobile}
@@ -118,6 +126,7 @@ export default function Navbar() {
                   toggleModal={toggleModal}
                   atTop={atTop}
                   activeDropdown={activeDropdown}
+                  forceBlackBorder={isSubTradePage && !activeDropdown}
                 />
               </div>
               <MenuBtn
@@ -125,6 +134,7 @@ export default function Navbar() {
                 setMenuActive={setMenuActive}
                 atTop={atTop}
                 isLightPage={isLightPage}
+                isSubTradePage={isSubTradePage}
               />
             </div>
           </div>

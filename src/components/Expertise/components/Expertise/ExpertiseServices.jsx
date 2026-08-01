@@ -32,10 +32,10 @@ export default function ExpertiseServices({ services = [] }) {
                         {index + 1}
                       </p>
                       <div className="pointer-events-none mb-6">
-                        <h2 className="pb-1 font-bold text-3xl leading-tight transition-colors group-hover:text-third">
+                        <h2 className="pb-1 h-[120px] font-bold text-3xl leading-tight transition-colors group-hover:text-third">
                           {label}
                         </h2>
-                        <p className="mt-6 max-w-xl text-gray-600">{description}</p>
+                        <p className="max-w-xl text-gray-600">{description}</p>
                       </div>
                       <div className="mt-auto">
                         <p className="relative w-fit uppercase font-bold text-base tracking-widest before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-white group-hover:before:bg-third before:transition-all before:duration-300 before:ease-in-out">

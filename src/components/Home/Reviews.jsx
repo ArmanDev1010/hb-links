@@ -104,7 +104,7 @@ export default function Reviews() {
 
   useEffect(() => {
     if (!trackRef.current) return;
-    const measure = () => setTrackWidth(trackRef.current.offsetWidth);
+    const measure = () => setTrackWidth(trackRef.current?.offsetWidth);
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(trackRef.current);
@@ -153,8 +153,8 @@ export default function Reviews() {
   const total = reviews.length;
 
   return (
-    <section className="relative pt-[60px] pb-36 overflow-hidden">
-      <div className="w-full lg:w-10/12 lg:mx-auto px-2 mb-30 text-center">
+    <section className="relative pt-[60px] pb-[100px] overflow-hidden">
+      <div className="w-full lg:w-10/12 lg:mx-auto px-2 550:mb-30 mb-20 text-center">
         <p className="ck-tagline text-sm uppercase font-xbold tracking-widest mb-4 pointer-events-none">
           Testimonials
         </p>

@@ -1,47 +1,36 @@
 import Link from "next/link";
 
 export default function SubService({ category, service }) {
-  let { title, image, deliverables = [], capabilities = [] } = service;
+  let { title, description, deliverables = [], capabilities = [] } = service;
 
   return (
     <div>
       <section
-        className="relative overflow-hidden h-full flex items-center justify-center min-h-[80vh] py-20 lg:py-30 bg-neutral-800 text-neutral-50"
+        className="relative overflow-hidden h-full flex items-center justify-center pt-30 bg-white"
         id="subservice_hero"
       >
         <div className="max-800:hidden absolute top-36 left-10 z-[100]">
           <Link
             href={category.href}
-            className="text-sm font-medium uppercase tracking-[0.14em] text-white hover:text-third transition-text duration-200 ease-in-out"
+            className="text-sm font-medium uppercase tracking-[0.14em] hover:text-third transition-text duration-200 ease-in-out"
           >
             ← {category.title}
           </Link>
         </div>
-        <div className="max-w-[1680px] w-full mx-auto px-[0.5rem] 700:px-[1rem] relative z-20 py-20 lg:py-30">
+        <div className="max-w-[1680px] w-full mx-auto px-[0.5rem] 700:px-[1rem] relative z-20 pt-30 pb-30 max-900:pb-20">
           <div className="mx-auto 1440:w-[83.333%] w-full">
-            <div className="overflow-hidden w-full flex flex-wrap justify-center">
-              <h2 className="px-2 uppercase font-bold tracking-tight 700:text-6xl 550:text-5xl text-4xl pointer-events-none text-center">
+            <div className="overflow-hidden w-full flex flex-wrap justify-center 700:text-center">
+              <h2 className="px-2 uppercase font-bold tracking-tight 1280:text-6xl 700:text-5xl 550:text-4xl text-3xl pointer-events-none">
                 {title}
               </h2>
+              <p className="my-8 text-lg text-gray-700 only:mt-0 lg:mx-auto lg:max-w-2xl pointer-events-none">
+                {description}
+              </p>
             </div>
           </div>
         </div>
-        <div className="absolute top-0 left-0 w-full h-full z-10">
-          <div className="absolute top-0 left-0 w-full h-1/2 z-20 opacity-30 bg-gradient-to-b from-black"></div>
-          <div className="absolute bottom-0 left-0 w-full h-3/4 z-20 opacity-80 bg-gradient-to-t from-black"></div>
-          <div
-            className="absolute top-0 left-0 w-full h-full overflow-hidden lazyloaded !bg-black"
-            style={{
-              background:
-                "url()",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
-            }}
-          ></div>
-        </div>
       </section>
-      <section className="pt-16" id="subservice_delivery">
+      <section className="900:pt-10" id="subservice_delivery">
         <div className="px-[5%] flex flex-col items-center pointer-events-none">
           <p className="mb-12 text-xl text-gray-400 font-medium border rounded-full w-fit px-10 max-700:text-lg">
             What We Deliver

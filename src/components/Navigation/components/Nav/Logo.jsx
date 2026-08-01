@@ -10,11 +10,11 @@ const FADE_DURATION_MS = 200;
 
 export default function Logo({
   atTop,
-  isLightPage,
   setActiveDropdown,
   activeDropdown,
   setMenuActive,
   menuActive,
+  forceBlack,
 }) {
   const [currentLogo, setCurrentLogo] = useState(whiteLogo);
   const [fade, setFade] = useState(false);
@@ -24,9 +24,11 @@ export default function Logo({
   const newLogo =
     activeDropdown || menuActive
       ? onlyWhiteLogo
-      : atTop
-        ? whiteLogo
-        : blackLogo;
+      : forceBlack
+        ? blackLogo
+        : atTop
+          ? whiteLogo
+          : blackLogo;
 
   useEffect(() => {
     pendingLogoRef.current = newLogo;

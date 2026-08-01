@@ -258,28 +258,6 @@ const electrical = {
       ],
     },
   ],
-  page: {
-    description:
-      "Our electrical team provides reliable solutions for residential and light-commercial projects, from complete wiring systems and upgrades to remodel electrical work. We focus on safety, code compliance, and installations built for long-term performance.",
-
-    cards: [
-      {
-        title: "Safe & Code-Compliant",
-        description:
-          "Every electrical installation is completed with safety, proper documentation, and industry standards as a priority.",
-      },
-      {
-        title: "Integrated With Your Project",
-        description:
-          "We coordinate electrical work with construction, plumbing, and low-voltage systems for smoother project execution.",
-      },
-      {
-        title: "Built For The Future",
-        description:
-          "We design electrical systems with enough capacity and flexibility for modern technology and future upgrades.",
-      },
-    ],
-  },
 };
 
 export default electrical;

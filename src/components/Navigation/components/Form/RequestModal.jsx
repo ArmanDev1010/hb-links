@@ -83,7 +83,7 @@ export default function RequestModal({ handleClose }) {
         <form onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate>
           <div className="p-[44px_70px] pb-[43px] mb-[6px] bg-white border border-[rgba(0,0,0,.04)] max-1280:p-[46px_53px_42px_53px] max-550:p-[33px_30px]">
             <p className="text-[22px] font-[600] text-center mb-[25px] pointer-events-none uppercase">
-              Get A Free Estimate
+              Schedule a Consultation
             </p>
             <div className="grid grid-cols-2 gap-x-[36px] gap-y-[26px] max-900:flex max-900:flex-col">
               {fields.map(({ place, clean }, key) => (

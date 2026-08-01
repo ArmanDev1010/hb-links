@@ -197,27 +197,6 @@ const lowVoltage = {
       ],
     },
   ],
-  page: {
-    description:
-      "Technology performs best when the infrastructure behind it is planned correctly. Our low-voltage team designs and installs organized cabling, networking, security, and communication systems that are reliable, scalable, and built to support future upgrades without unnecessary rework.",
-    cards: [
-      {
-        title: "Built for Growth",
-        description:
-          "Every installation is planned with future expansion in mind, making upgrades easier as technology evolves.",
-      },
-      {
-        title: "Organized Infrastructure",
-        description:
-          "Clean cable routing, professional labeling, and documented installations simplify maintenance and troubleshooting.",
-      },
-      {
-        title: "Reliable Connectivity",
-        description:
-          "We deliver dependable network and low-voltage systems that keep homes and businesses connected every day.",
-      },
-    ],
-  },
 };
 
 export default lowVoltage;
