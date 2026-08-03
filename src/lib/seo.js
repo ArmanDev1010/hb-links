@@ -25,7 +25,7 @@ export const ALL_CITIES = cities.flatMap((county) => county.cities);
 // parent trade's image until real per-sub-trade photos exist — swap a
 // path here and every page under that trade picks it up automatically.
 export const TRADE_IMAGES = {
-  "/general-building": "/seo/general-building.jpg",
+  "/general-building": "/seo/general-building.png",
   "/electrical": "/seo/electrical.jpg",
   "/low-voltage": "/seo/low-voltage.jpg",
   "/plumbing": "/seo/plumbing.jpg",

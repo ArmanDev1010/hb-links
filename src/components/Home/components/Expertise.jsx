@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function Expertise({ text, reverse }) {
-  let { title, href, paragraph } = text;
+  let { title, href, paragraph, image } = text;
 
   return (
     <div
@@ -20,7 +20,9 @@ export default function Expertise({ text, reverse }) {
             <h2 className="pb-1 font-bold text-4xl lg:text-5xl leading-[1.2] lg:max-w-md mb-12 lg:mb-auto">
               {title}
             </h2>
-            <p className="lg:mt-12 lg:pr-30 max-w-xl text-gray-700">{paragraph}</p>
+            <p className="lg:mt-12 lg:pr-30 max-w-xl text-gray-700">
+              {paragraph}
+            </p>
           </div>
           <Link href={href}>
             <div
@@ -36,9 +38,12 @@ export default function Expertise({ text, reverse }) {
         <div className="relative w-full h-full px-2">
           <div className="relative w-full h-full">
             <div
-              className="w-full h-full overflow-hidden bg-cover bg-center bg-no-repeat bg-black"
+              className="w-full h-full overflow-hidden bg-black"
               style={{
-                backgroundImage: "url()",
+                backgroundImage: `url(${image})`,
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
               }}
             ></div>
           </div>

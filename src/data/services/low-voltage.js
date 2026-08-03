@@ -1,6 +1,7 @@
 const lowVoltage = {
   title: "Low-Voltage",
   href: "/low-voltage",
+  image: "/seo/low-voltage.png",
   paragraph:
     "HB LINKS designs and installs low-voltage systems for residential and commercial projects throughout Los Angeles. From structured cabling and network infrastructure to security, access control, AV, and smart technology, we deliver organized, scalable systems that integrate seamlessly with new construction, renovations, and tenant improvements.",
   dropdown: [

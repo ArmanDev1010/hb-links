@@ -1,6 +1,7 @@
 const electrical = {
   title: "Electrical",
   href: "/electrical",
+  image: "/seo/electrical.png",
   paragraph:
     "HB LINKS provides complete electrical services across Los Angeles — from new construction wiring and service upgrades to remodels, lighting, and specialty systems. We coordinate electrical work alongside other trades to deliver safe, code-compliant, and future-ready systems.",
   dropdown: [

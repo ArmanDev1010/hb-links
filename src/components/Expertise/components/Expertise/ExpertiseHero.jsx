@@ -1,9 +1,9 @@
-export default function ExpertiseHero({ title }) {
+export default function ExpertiseHero({ title, image }) {
   return (
     <section
       className="relative overflow-hidden h-full flex min-h-screen items-end pt-28 sm:pt-22 !bg-black text-neutral-50"
       style={{
-        background: "url()",
+        background: `url(${image})`,
         backgroundPosition: "left",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
