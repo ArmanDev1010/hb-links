@@ -29,8 +29,8 @@ export default function Hero() {
         </div>
       </div>
       <div className="absolute top-0 left-0 w-full h-full z-10">
-        <div className="absolute top-0 left-0 w-full h-1/2 z-20 opacity-70 bg-gradient-to-b from-black"></div>
-        <div className="absolute bottom-0 left-0 w-full h-[80%] z-20 opacity-70 bg-gradient-to-t from-black"></div>
+        <div className="absolute top-0 left-0 w-full h-[30%] z-20 opacity-70 bg-gradient-to-b from-black"></div>
+        <div className="absolute bottom-0 left-0 w-full h-[50%] z-20 opacity-70 bg-gradient-to-t from-black"></div>
       </div>
     </section>
   );
