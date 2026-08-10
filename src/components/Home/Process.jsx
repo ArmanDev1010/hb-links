@@ -59,10 +59,10 @@ export default function Process() {
             <div className="w-full 900:w-1/2 px-2 900:pl-4 900:self-end flex flex-col">
               <Link href={"/contact"} className="900:self-end cursor-pointer">
                 <div
-                  className="w-fit bg-third text-white border-black border-[2.5px] 700:px-[2.5rem] px-[2rem] py-[0.75rem] 700:text-base text-sm font-[500] uppercase tracking-[0.1em] 
+                  className="w-fit bg-third text-white border-black border-[2.5px] 700:px-[2.5rem] px-[2rem] py-[0.75rem] 550:text-sm text-xs font-[500] uppercase tracking-[0.1em] 
               hover:bg-white hover:text-black transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-400"
                 >
-                  Get In Touch
+                  Schedule a Free Consultation
                 </div>
               </Link>
             </div>

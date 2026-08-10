@@ -70,7 +70,7 @@ function QuoteText({ quote, href }) {
     : quote;
 
   return (
-    <p className="italic text-lg text-gray-700 leading-relaxed max-w-xl">
+    <p className="italic text-lg text-gray-700 leading-relaxed max-w-xl pointer-events-none">
       {displayText}
       {isLong && (
         <>
@@ -79,7 +79,7 @@ function QuoteText({ quote, href }) {
             href={
               "https://www.google.com/maps/place/HB+Links/@33.786671,-118.2990476,352820m/data=!3m1!1e3!4m8!3m7!1s0x641cd639313d13b9:0xf7b403aff7a5bf6d!8m2!3d33.786671!4d-118.2990476!9m1!1b1!16s%2Fg%2F11mrpgwyyc?hl=en&entry=ttu&g_ep=EgoyMDI2MDcyOC4wIKXMDSoASAFQAw%3D%3D"
             }
-            className="not-italic font-bold text-black hover:underline"
+            className="pointer-events-auto not-italic font-bold text-black hover:underline"
           >
             Read More
           </Link>
@@ -154,13 +154,86 @@ export default function Reviews() {
 
   return (
     <section className="relative pt-[60px] 1080:pb-[100px] pb-[60px] overflow-hidden">
-      <div className="w-full lg:w-10/12 lg:mx-auto px-2 550:mb-30 mb-20 text-center">
+      <div className="w-full lg:w-10/12 lg:mx-auto 700:px-5 px-3 550:mb-30 mb-20 text-center">
         <p className="ck-tagline text-sm uppercase font-xbold tracking-widest mb-4 pointer-events-none">
           Testimonials
         </p>
         <h2 className="font-gt pb-1 font-semibold text-4xl lg:text-5xl leading-[1] pointer-events-none">
           What our clients have to say about us
         </h2>
+        <div className="inline-flex my-8 items-center pointer-events-none gap-3 rounded-full border border-black/20 px-4 py-2.5 backdrop-blur-sm">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="shrink-0"
+          >
+            {" "}
+            <path
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              fill="#4285F4"
+            ></path>{" "}
+            <path
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              fill="#34A853"
+            ></path>{" "}
+            <path
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
+              fill="#FBBC05"
+            ></path>{" "}
+            <path
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              fill="#EA4335"
+            ></path>{" "}
+          </svg>
+          <div className="flex items-center gap-[3px]">
+            {Array.from({ length: 5 }).map((_, key) => (
+              <div key={key}>
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  style={{ fill: "oklch(75% 0.18 80)" }}
+                >
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>{" "}
+                </svg>
+              </div>
+            ))}
+          </div>
+          <span className="text-[1rem] font-bold leading-none">5</span>
+          <span className="h-3.5 w-px shrink-0 bg-black/25"></span>
+          <span className="text-[0.8125rem] leading-none text-gray-600">
+            7+ Google reviews
+          </span>
+        </div>
+        <div className="flex flex-col 700:self-end items-center gap-2">
+          <p className="700:text-xs text-[0.8125rem] 700:font-semibold uppercase tracking-[0.1em] text-gray-400 m-0 pointer-events-none">
+            Worked with us?
+          </p>
+          <Link href={"https://g.page/r/CW2_pfevA7T3EAE/review"} className="">
+            <div
+              className="flex items-center gap-4 rounded-md w-fit border-[1.5px] px-[1.5rem] py-[0.75rem] text-[15px] font-[500] bg-third text-white tracking-[0.1em] 
+              hover:bg-white hover:text-black transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-400"
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>{" "}
+              </svg>
+              Leave a Review
+            </div>
+          </Link>
+        </div>
       </div>
       <div className="max-w-[1200px] mx-auto w-full px-[3%] grid grid-cols-1 1080:grid-cols-[340px_1fr] 1080:gap-20 550:gap-16 gap-10 items-center">
         {/* Left: curved avatar track */}
