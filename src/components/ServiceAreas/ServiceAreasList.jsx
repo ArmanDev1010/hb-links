@@ -40,30 +40,12 @@ export default function ServiceAreasList() {
                 <div key={letter}>
                   <h4 className="font-bold text-sm mb-2">{letter}</h4>
 
-                  <div
-                    className="
-                      grid 
-                      grid-cols-1 
-                      sm:grid-cols-2
-                      gap-x-6 
-                      gap-y-2
-                    "
-                  >
+                  <div className="flex flex-wrap gap-3">
                     {cities.map((city) => (
                       <div
                         key={city}
-                        className="flex items-center gap-2 text-gray-600 text-base"
+                        className="px-3 py-1 bg-[#f5f4f1] border border-[#e5e1db] rounded-full text-base text-[#4a3f36]"
                       >
-                        <span
-                          className="
-                              w-1.5 
-                              h-1.5 
-                              bg-black/50 
-                              rounded-[1px]
-                              flex-shrink-0
-                            "
-                        />
-
                         {city}
                       </div>
                     ))}
