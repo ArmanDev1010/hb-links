@@ -22,16 +22,10 @@ const process = [
     icon: <LiaUserFriendsSolid />,
   },
   {
-    label: "Custom Design & Proposal",
+    label: "Custom Proposal & Agreement",
     description:
-      "Our team builds a tailored proposal, complete with design recommendations and a detailed breakdown of the full scope of work — so you know exactly what to expect.",
+      "Our team creates a tailored proposal with design recommendations and a detailed scope of work. Once approved, we finalize the contract covering the timeline, scope, and process before work begins.",
     icon: <BiMoneyWithdraw />,
-  },
-  {
-    label: "Agreement & Contract",
-    description:
-      "Once you approve the proposal, we finalize a clear, comprehensive contract covering every detail — timeline, scope, and process — before any work begins.",
-    icon: <BiCheckCircle />,
   },
   {
     label: "Expert Execution",
@@ -59,7 +53,7 @@ export default function Process() {
             <div className="w-full 900:w-1/2 px-2 900:pl-4 900:self-end flex flex-col">
               <Link href={"/contact"} className="900:self-end cursor-pointer">
                 <div
-                  className="w-fit bg-third text-white border-black border-[2.5px] 700:px-[2.5rem] px-[2rem] py-[0.75rem] 550:text-sm text-xs font-[500] uppercase tracking-[0.1em] 
+                  className="w-fit bg-third text-white border-black border-[1.5px] 700:px-[2.5rem] px-[2rem] py-[0.75rem] 550:text-sm text-xs font-[500] uppercase tracking-[0.1em] 
               hover:bg-white hover:text-black transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-400"
                 >
                   Schedule a Free Consultation
@@ -69,14 +63,14 @@ export default function Process() {
           </div>
         </div>
         <div className="relative 900:pt-10 pt-12 px-[8px]">
-          <ul className="process-list flex flex-wrap justify-center gap-6">
+          <ul className="grid grid-cols-1 900:grid-cols-2 1280:grid-cols-4 gap-8 items-stretch">
             {process.map(({ label, description, icon }, index) => (
               <li
                 key={index}
-                className="w-full 1280:w-[calc((100%-48px)/3)] 900:w-[calc((100%-24px)/2)] group flex flex-col h-full border-t border-l p-5 transition-colors border-black/25 hover:border-third"
+                className="w-full group flex flex-col h-full border-t border-l p-5 transition-colors border-black/25 hover:border-third"
               >
-                <div className="flex justify-between items-center mb-8">
-                  <p className="font-bold 900:text-4xl text-3xl">
+                <div className="flex justify-between items-center mb-8 pointer-events-none">
+                  <p className="font-bold text-4xl">
                     {index >= 9 ? "" : "0"}
                     {index + 1}
                   </p>
@@ -85,11 +79,13 @@ export default function Process() {
                   </div>
                 </div>
 
-                <span className="900:h-[150px] h-[120px] pointer-events-none uppercase font-bold 1280:text-3xl 900:text-2xl 550:text-3xl text-2xl text-third transition-colors group-hover:text-third">
+                <span className="text-2xl 900:h-[150px] h-[120px] pointer-events-none uppercase font-bold text-third transition-colors group-hover:text-third">
                   {label}
                 </span>
 
-                <p className="text-gray-700">{description}</p>
+                <p className="text-gray-700 pointer-events-none">
+                  {description}
+                </p>
               </li>
             ))}
           </ul>
