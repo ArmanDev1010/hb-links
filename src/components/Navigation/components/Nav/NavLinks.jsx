@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRef } from "react";
 import DropdownMenu from "./DropdownMenu";
-import RequestBtn from "../Form/RequestBtn";
 
 const CLOSE_DELAY_MS = 0;
 
@@ -17,7 +16,6 @@ export default function NavLinks({
   menuActive,
   setMenuActive,
   isMobile,
-  toggleModal,
 }) {
   const closeTimeout = useRef(null);
 
@@ -63,7 +61,7 @@ export default function NavLinks({
       onMouseLeave={scheduleClose}
     >
       <div className="max-1080:pointer-events-auto max-1080:h-[calc(100%-3rem)] max-1080:overflow-auto max-1080:border-t-[1px] max-1080:border-l-[1px] max-1080:border-[#f6f4ee40] max-1080:mx-[1rem]">
-        <ul className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full 1440:gap-x-[2.2rem] gap-x-[18px] max-1080:gap-y-5 max-1080:pt-[2rem] h-full">
+        <ul className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full 1600:gap-x-[1.5rem] 1440:gap-x-[35px] gap-x-[28px] max-1080:gap-y-5 max-1080:pt-[2rem] h-full">
           {navlinks.map(({ title, href, dropdown }, key) => {
             const linkActive = isCurrentPage(href);
 
@@ -100,7 +98,7 @@ export default function NavLinks({
                 key={key}
                 onMouseEnter={() => openDropdown(title)}
               >
-                <div className="flex gap-2 1080:justify-center items-center max-1080:py-3 max-1080:px-6 1080:h-full 1080:px-3 relative z-20">
+                <div className="flex gap-2 1080:justify-center items-center max-1080:py-3 1080:h-full 1600:px-3 max-1080:px-6 relative z-20">
                   <Link
                     href={href}
                     prefetch
@@ -175,14 +173,6 @@ export default function NavLinks({
               </li>
             );
           })}
-
-          <li className="700:hidden px-6 py-3">
-            <RequestBtn toggleModal={toggleModal} atTop={true} />
-          </li>
-
-          <li className="1080:hidden mt-auto flex justify-between flex-wrap gap-x-5 gap-y-7 transition-opacity duration-200 hover:opacity-70 font-bold text-xl pt-16 p-6 max-550:pr-0 max-550:pt-10">
-            <Link href="tel:+18183033555">+1 (818) 303-3555</Link>
-          </li>
         </ul>
       </div>
     </div>

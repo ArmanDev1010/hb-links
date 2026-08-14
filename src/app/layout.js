@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/Navigation/Navbar";
 import { Toaster } from "react-hot-toast";
 import Footer from "@/components/Footer/Footer";
+import { ModalProvider } from "@/context/ModalContext";
+import FloatingRequestBtn from "@/components/Navigation/components/Nav/FloatingRequestBtn";
 import {
   ALL_CITIES,
   FEATURED_CITIES,
@@ -97,10 +99,13 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify(localBusinessSchema),
           }}
         />
-        <Navbar />
-        <Toaster position="top-center" />
-        {children}
-        <Footer />
+        <ModalProvider>
+          <Navbar />
+          <FloatingRequestBtn />
+          <Toaster position="top-center" />
+          {children}
+          <Footer />
+        </ModalProvider>
       </body>
     </html>
   );

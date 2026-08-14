@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
 
 const DESKTOP_GAP_PX = 93;
-const ITEMS_PER_COLUMN = 12;
+const ITEMS_PER_COLUMN = 10;
 
 export default function DropdownMenu({
   title,

@@ -1,4 +1,5 @@
-import { BsTelephone, BsEnvelope, BsGeoAlt } from "react-icons/bs";
+import { BsEnvelope, BsGeoAlt } from "react-icons/bs";
+import { MdOutlineLocalPhone } from "react-icons/md";
 
 export const contactInfo = [
   { type: "License", label: "CSLB #1144057" },
@@ -6,7 +7,7 @@ export const contactInfo = [
     type: "Phone",
     label: "+1 (818) 303-3555",
     href: "tel:+1 (818) 303-3555",
-    icon: <BsTelephone />,
+    icon: <MdOutlineLocalPhone />,
   },
   {
     type: "E-Mail",

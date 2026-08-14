@@ -34,7 +34,7 @@ export default function ContactSection({ tradesPage = false }) {
             <h3 className="pb-1 font-bold 1080:text-5xl text-4xl leading-none">
               {tradesPage ? (
                 <span>
-                  Got a Project in Mind? <br></br> Let us Know
+                  Got a Project in Mind <br></br> Let us Know
                 </span>
               ) : (
                 "Let's Get In Touch"

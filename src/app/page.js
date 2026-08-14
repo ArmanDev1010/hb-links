@@ -13,8 +13,8 @@ export default function HomePage() {
       <Hero />
       <About />
       <Expertises />
-      <Process />
       <Reviews />
+      <Process />
       <ServiceAreas />
     </>
   );

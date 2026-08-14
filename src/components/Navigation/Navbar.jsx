@@ -8,16 +8,18 @@ import NavLinks from "./components/Nav/NavLinks";
 import MenuBtn from "./components/Nav/MenuBtn";
 import RequestBtn from "./components/Form/RequestBtn";
 import RequestModal from "./components/Form/RequestModal";
+import PhoneBtn from "./components/Nav/PhoneBtn";
 import { pages } from "@/data/pages";
+import { useModal } from "@/context/ModalContext";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [visible, setVisible] = useState(true);
   const [atTop, setAtTop] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [menuActive, setMenuActive] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+
+  const { showModal, toggleModal, menuActive, setMenuActive } = useModal();
 
   useEffect(() => {
     const checkScreen = () => setIsMobile(window.innerWidth <= 1080);
@@ -72,16 +74,11 @@ export default function Navbar() {
   const activeDropdownLength =
     pages.find((link) => link.title === activeDropdown)?.dropdown?.length ?? 0;
 
-  const toggleModal = () => {
-    setMenuActive(false);
-    setShowModal((prev) => !prev);
-  };
-
   return (
     <>
       <nav className={navClasses}>
         <div
-          className="relative 1800:px-[1rem] 1440:px-[3%] 1080:px-[1.2rem] 700:px-[1.5rem] px-[1rem] z-[11] flex items-center justify-between h-full max-w-[1680px] mx-auto w-full border-b-2 transition-[border] duration-500 ease-in-out"
+          className="relative 1800:px-[1rem] 1600:px-[3%] 1080:px-[24px] 700:px-[1.5rem] px-[1rem] z-[11] flex items-center justify-between h-full max-w-[1680px] mx-auto w-full border-b-2 transition-[border] duration-500 ease-in-out"
           style={{
             borderBottomColor:
               activeDropdown && !isMobile ? "#f6f4ee66" : "transparent",
@@ -95,7 +92,7 @@ export default function Navbar() {
             setMenuActive={setMenuActive}
             forceBlack={isLightPage && !activeDropdown && !menuActive}
           />
-          <div className="flex items-center 1440:gap-x-[47.2px] gap-x-[30px]">
+          <div className="flex items-center 1440:gap-x-[40px] gap-x-[30px]">
             <NavLinks
               navlinks={navlinks}
               pathname={pathname}
@@ -106,16 +103,23 @@ export default function Navbar() {
               menuActive={menuActive}
               setMenuActive={setMenuActive}
               isMobile={isMobile}
-              toggleModal={toggleModal}
             />
 
-            <div className="flex items-center gap-4">
-              <div className="max-700:hidden">
+            <div className="flex items-center items-stretch gap-4">
+              <PhoneBtn
+                atTop={atTop}
+                activeDropdown={activeDropdown}
+                menuActive={menuActive}
+                isLightPage={isLightPage}
+              />
+
+              <div className="max-1440:hidden">
                 <RequestBtn
                   toggleModal={toggleModal}
                   atTop={atTop}
                   activeDropdown={activeDropdown}
                   forceBlackBorder={isLightPage && !activeDropdown}
+                  menuActive={menuActive}
                 />
               </div>
               <MenuBtn
@@ -138,7 +142,7 @@ export default function Navbar() {
         />
 
         <div
-          className="1080:hidden absolute top-0 left-0 w-full z-[10] bg-third/80 backdrop-blur-sm transition-[height] duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]"
+          className="1080:hidden absolute top-0 left-0 w-full z-[10] bg-third/90 backdrop-blur-sm transition-[height] duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]"
           style={{ height: menuActive ? "100vh" : "0" }}
         />
       </nav>

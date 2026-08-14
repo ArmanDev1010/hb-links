@@ -20,7 +20,7 @@ export default function RequestModal({ handleClose }) {
   } = useContactForm();
 
   return (
-    <div className="modal fixed top-0 left-0 w-full h-full z-[1000] text-[#3a3e4b]">
+    <div className="modal fixed top-0 left-0 w-full h-full z-[100000] text-[#3a3e4b]">
       <motion.div
         className="absolute top-[75px] left-[197px] w-[calc(100%-394px)] h-[calc(100vh-150px)] py-[56px] px-[123px] overflow-auto bg-[#f2f2f2] shadow-[0_2px_24px_rgba(0,0,0,.04)] z-[1]
         max-1280:w-[calc(100%-216px)] max-1280:h-[calc(100vh-86px)] max-1280:top-[43px] max-1280:left-[105px] max-1280:p-[32px_50px]

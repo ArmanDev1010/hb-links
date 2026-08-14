@@ -1,26 +1,24 @@
-"use client";
-
 export default function RequestBtn({
   toggleModal,
   atTop,
   activeDropdown,
   forceBlackBorder,
+  menuActive,
 }) {
   const borderColor = forceBlackBorder
     ? "border-black"
-    : atTop || activeDropdown
+    : atTop || activeDropdown || menuActive
       ? "border-white"
       : "border-black";
+
   return (
     <button
       onClick={toggleModal}
-      className={`relative group ${borderColor} z-[9999] max-w-[300px] border-[2px] cursor-pointer 
-      1280:px-[50px] 1080:px-[30px] 700:px-[50px] 550:px-[70px] px-[50px] py-3 outline-none transition duration-200 hover:bg-third hover:!text-white`}
+      className={`relative group ${borderColor} ${atTop ? "hover:bg-transparent" : "hover:bg-white hover:!text-black"}
+       z-[9999] max-w-[300px] border-[2px] bg-third cursor-pointer px-6 py-[0.8125rem] rounded-md
+outline-none transition duration-200 !text-white`}
     >
-      <div
-        className="pointer-events-none relative overflow-hidden text-center 1280:text-[14px] 700:text-[12px] 550:text-lg text-base
-       uppercase font-[600]"
-      >
+      <div className="text-[14px] pointer-events-none relative overflow-hidden text-center uppercase font-[600]">
         <div className="group-hover:-translate-y-[110%] transition duration-300">
           Free Consultation
         </div>
