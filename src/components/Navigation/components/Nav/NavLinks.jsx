@@ -103,7 +103,7 @@ export default function NavLinks({
                     href={href}
                     prefetch
                     className={`transition-opacity duration-200 hover:opacity-70 uppercase cursor-pointer
-                  1280:text-sm text-[12px] font-medium max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-xl max-700:text-lg max-550:text-base 
+                  1080:text-sm font-medium max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-xl max-700:text-lg max-550:text-base 
                   relative top-[1.5px] flex items-center ${getMenuActiveClasses(linkActive)} ${atTop && !isMobile ? "h-[95px]" : !atTop && !isMobile ? "h-[100px]" : "h-auto"}`}
                     onClick={(e) => {
                       if (isMobile) {
