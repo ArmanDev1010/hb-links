@@ -8,7 +8,12 @@ import fourthImage from "@/../public/partners/salient.png";
 import Image from "next/image";
 
 export default function Partners() {
-  const images_array = [firstImage, secondImage, thirdImage, fourthImage];
+  const images_array = [
+    { image: firstImage, name: "ADI" },
+    { image: secondImage, name: "KOA" },
+    { image: thirdImage, name: "Axis Communications" },
+    { image: fourthImage, name: "Salient Systems" },
+  ];
 
   return (
     <div className="mb-16 max-700:mb-12">
@@ -22,7 +27,7 @@ export default function Partners() {
       </div>
       <div className="border-y-1 border-black/10 max-700:border-y-0 max-700:border-b-1 max-700:border-b-black/10">
         <div className="px-[5%] grid justify-center items-center grid-cols-4 max-700:grid-cols-2 max-700:px-0">
-          {images_array.map((image, key) => (
+          {images_array.map(({ image, name }, key) => (
             <div
               className="border-r-1 border-black/10 last:border-r-0 h-full relative flex justify-center max-700:border-r-0
               max-700:border-t-1 max-700:border-t-black/10"
@@ -30,8 +35,8 @@ export default function Partners() {
             >
               <Image
                 src={image}
-                alt="background image"
-                className="w-[125px] h-auto object-contain filter grayscale 
+                alt={`${name} logo`}
+                className="w-[125px] h-auto object-contain filter grayscale
                 max-1080:w-[100px] max-700:h-[100px] max-550:w-[85px]"
               />
             </div>

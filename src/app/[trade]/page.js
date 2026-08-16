@@ -1,7 +1,11 @@
 import { notFound } from "next/navigation";
 import ServicesOverview from "@/components/Expertise/Expertise";
 import { pages } from "@/data/pages";
-import { buildTradeMetadata, buildTradeSchema } from "@/lib/seo";
+import {
+  buildTradeMetadata,
+  buildTradeSchema,
+  buildTradeBreadcrumbs,
+} from "@/lib/seo";
 
 export async function generateStaticParams() {
   return pages.map((page) => ({
@@ -27,12 +31,17 @@ export default async function TradePage({ params }) {
   if (!page) notFound();
 
   const tradeSchema = buildTradeSchema(page);
+  const breadcrumbs = buildTradeBreadcrumbs(page);
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(tradeSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
       />
       <ServicesOverview {...page} services={page.dropdown} />
     </>

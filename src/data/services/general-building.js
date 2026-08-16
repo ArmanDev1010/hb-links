@@ -1,7 +1,7 @@
 const generalBuilding = {
   title: "General Building",
   href: "/general-building",
-  image: "/seo/general-building.png",
+  image: "/seo/general-building.jpg",
   paragraph:
     "HB Links provides general building services across Los Angeles — from full renovations to structural additions, we handle the coordination and craftsmanship a multi-trade project requires, with one team overseeing the work from start to finish.",
   dropdown: [

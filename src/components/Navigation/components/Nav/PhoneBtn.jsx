@@ -21,7 +21,7 @@ export default function PhoneBtn({
         }`}
     >
       <div
-        className={`relative overflow-hidden text-center ${(atTop && !isLightPage) || menuActive ? "text-white" : "text-black"}`}
+        className={`relative overflow-hidden text-center ${(atTop && !isLightPage) || menuActive || activeDropdown ? "text-white" : "text-black"}`}
       >
         <div className="group-hover:-translate-y-[110%] flex items-center gap-2.5 transition duration-300">
           <MdOutlineLocalPhone className="max-1280:hidden w-[20px] h-[20px]" />

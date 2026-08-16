@@ -3,6 +3,7 @@ export default function RequestBtn({
   atTop,
   activeDropdown,
   forceBlackBorder,
+  isLightPage,
   menuActive,
 }) {
   const borderColor = forceBlackBorder
@@ -14,9 +15,10 @@ export default function RequestBtn({
   return (
     <button
       onClick={toggleModal}
-      className={`relative group ${borderColor} ${atTop ? "hover:bg-transparent" : "hover:bg-white hover:!text-black"}
-       z-[9999] max-w-[300px] border-[2px] bg-third cursor-pointer px-6 py-[0.8125rem] rounded-md
-outline-none transition duration-200 !text-white`}
+      className={`relative group ${borderColor} 
+      ${atTop && !isLightPage ? "hover:bg-transparent hover:text-white" : "hover:bg-white hover:text-black"}
+       z-[9999] max-w-[300px] border-[2px] bg-third cursor-pointer px-6 py-[0.8125rem] rounded-md text-white
+outline-none transition duration-200`}
     >
       <div className="text-[14px] pointer-events-none relative overflow-hidden text-center uppercase font-[600]">
         <div className="group-hover:-translate-y-[110%] transition duration-300">

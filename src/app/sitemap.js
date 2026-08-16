@@ -1,11 +1,15 @@
 import { pages } from "@/data/pages";
-
-const BASE_URL = "https://hb-links.com";
+import { privacyPages } from "@/data/privacy";
+import { BASE_URL } from "@/lib/seo";
 
 export default function sitemap() {
   const staticRoutes = [
     { url: "", priority: 1 },
     { url: "/contact", priority: 0.8 },
+    ...privacyPages.map(({ slug }) => ({
+      url: `/legal/${slug}`,
+      priority: 0.3,
+    })),
   ].map(({ url, priority }) => ({
     url: `${BASE_URL}${url}`,
     lastModified: new Date(),

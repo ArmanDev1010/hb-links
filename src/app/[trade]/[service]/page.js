@@ -1,7 +1,11 @@
 import { notFound } from "next/navigation";
-import SubService from "@/components/Expertise/SubService";
+import SubTrade from "@/components/Expertise/SubTrade";
 import { pages } from "@/data/pages";
-import { buildServiceMetadata, buildServiceSchema } from "@/lib/seo";
+import {
+  buildServiceMetadata,
+  buildServiceSchema,
+  buildServiceBreadcrumbs,
+} from "@/lib/seo";
 
 function getTrade(trade) {
   return pages.find(
@@ -53,6 +57,10 @@ export default async function ServicePage({ params }) {
     trade: category,
     service: currentService,
   });
+  const breadcrumbs = buildServiceBreadcrumbs({
+    trade: category,
+    service: currentService,
+  });
 
   return (
     <>
@@ -60,7 +68,11 @@ export default async function ServicePage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
-      <SubService
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
+      <SubTrade
         category={category}
         service={{
           ...currentService,

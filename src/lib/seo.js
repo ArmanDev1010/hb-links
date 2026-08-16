@@ -25,15 +25,21 @@ export const ALL_CITIES = cities.flatMap((county) => county.cities);
 // parent trade's image until real per-sub-trade photos exist — swap a
 // path here and every page under that trade picks it up automatically.
 export const TRADE_IMAGES = {
-  "/general-building": "/seo/general-building.png",
-  "/electrical": "/seo/electrical.jpg",
-  "/low-voltage": "/seo/low-voltage.jpg",
-  "/plumbing": "/seo/plumbing.jpg",
+  "/general-building": "/seo/general-building.jpg",
+  "/electrical": "/seo/electrical.png",
+  "/low-voltage": "/seo/low-voltage.png",
+  "/plumbing": "/seo/plumbing.png",
 };
 
 // Used anywhere no trade-specific image is available yet (e.g. the
 // homepage, or if a trade is ever missing from TRADE_IMAGES above).
-export const DEFAULT_OG_IMAGE = "/seo/logo.png";
+// Sized to the 1200x630 OG/Twitter card spec — unlike the square logo,
+// this won't get stretched or cropped in link previews.
+export const DEFAULT_OG_IMAGE = "/seo/main-og.png";
+
+// Square mark for structured data's `logo` field, distinct from the
+// wide `image`/OG photo above.
+export const LOGO_IMAGE = "/seo/logo.png";
 
 function getTradeImage(trade) {
   return TRADE_IMAGES[trade?.href] || DEFAULT_OG_IMAGE;
@@ -112,6 +118,46 @@ export function buildTradeSchema(trade) {
       "@type": "City",
       name: `${city}, CA`,
     })),
+  };
+}
+
+// BreadcrumbList structured data — surfaces Home > Trade > Service as a
+// clickable trail directly in Google search results instead of a raw URL.
+export function buildTradeBreadcrumbs(trade) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: trade.title,
+        item: `${BASE_URL}${trade.href}`,
+      },
+    ],
+  };
+}
+
+export function buildServiceBreadcrumbs({ trade, service }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: trade.title,
+        item: `${BASE_URL}${trade.href}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.label,
+        item: `${BASE_URL}${service.href}`,
+      },
+    ],
   };
 }
 

@@ -119,6 +119,7 @@ export default function Navbar() {
                   atTop={atTop}
                   activeDropdown={activeDropdown}
                   forceBlackBorder={isLightPage && !activeDropdown}
+                  isLightPage={isLightPage}
                   menuActive={menuActive}
                 />
               </div>

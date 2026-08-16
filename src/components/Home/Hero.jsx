@@ -5,8 +5,8 @@ export default function Hero() {
     <section
       className="relative overflow-hidden h-full flex min-h-screen items-end pt-28 sm:pt-22 !bg-black text-neutral-50"
       style={{
-        background: "url(/seo/main.png)",
-        backgroundPosition: "center",
+        background: "url(/seo/main.jpg)",
+        backgroundPosition: "50%",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
@@ -14,7 +14,7 @@ export default function Hero() {
     >
       <div className="relative z-20 700:pb-20 pb-32 mx-auto w-full 700:px-[1rem] ">
         <div className="overflow-hidden max-w-4xl">
-          <h2
+          <h1
             className="px-2 uppercase w-fit font-compressed tracking-tight leading-[1] font-bold pointer-events-none text-transparent bg-clip-text
     1600:text-[5rem] 1080:text-[4rem] 800:text-[3.5rem] 550:text-[3rem] text-[9vw]"
             style={{
@@ -25,7 +25,7 @@ export default function Hero() {
           >
             General Building. <br /> Electrical. <br /> Plumbing. <br /> Low
             Voltage.
-          </h2>
+          </h1>
         </div>
       </div>
       <div className="absolute top-0 left-0 w-full h-full z-10">

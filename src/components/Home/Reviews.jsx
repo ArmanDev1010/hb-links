@@ -279,7 +279,7 @@ export default function Reviews() {
                         }
                         fill
                         sizes="(max-width: 1080px) 56px, 56px"
-                        alt="background image"
+                        alt={`${review.name} avatar`}
                         className="object-cover bg-black"
                       />
                     </div>
