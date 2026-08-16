@@ -1,7 +1,7 @@
 const plumbing = {
   title: "Plumbing",
   href: "/plumbing",
-  image: "/seo/plumbing.png",
+  image: "/seo/plumbing.jpg",
   paragraph:
     "HB LINKS provides residential and commercial plumbing services throughout Los Angeles, supporting renovations, additions, tenant improvements, and new construction. From rough-in plumbing and water supply systems to fixture installation and water heaters, we deliver dependable, code-compliant plumbing solutions coordinated with every stage of the project.",
   dropdown: [

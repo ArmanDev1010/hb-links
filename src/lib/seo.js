@@ -26,16 +26,16 @@ export const ALL_CITIES = cities.flatMap((county) => county.cities);
 // path here and every page under that trade picks it up automatically.
 export const TRADE_IMAGES = {
   "/general-building": "/seo/general-building.jpg",
-  "/electrical": "/seo/electrical.png",
-  "/low-voltage": "/seo/low-voltage.png",
-  "/plumbing": "/seo/plumbing.png",
+  "/electrical": "/seo/electrical.jpg",
+  "/low-voltage": "/seo/low-voltage.jpg",
+  "/plumbing": "/seo/plumbing.jpg",
 };
 
 // Used anywhere no trade-specific image is available yet (e.g. the
 // homepage, or if a trade is ever missing from TRADE_IMAGES above).
 // Sized to the 1200x630 OG/Twitter card spec — unlike the square logo,
 // this won't get stretched or cropped in link previews.
-export const DEFAULT_OG_IMAGE = "/seo/main-og.png";
+export const DEFAULT_OG_IMAGE = "/seo/logo.png";
 
 // Square mark for structured data's `logo` field, distinct from the
 // wide `image`/OG photo above.
@@ -45,28 +45,51 @@ function getTradeImage(trade) {
   return TRADE_IMAGES[trade?.href] || DEFAULT_OG_IMAGE;
 }
 
+// og:image needs an explicit MIME type for crawlers that don't sniff the
+// file — keeps this correct regardless of which extension a given image uses.
+function getImageType(image) {
+  return image.endsWith(".png") ? "image/png" : "image/jpeg";
+}
+
+// openGraph/twitter are objects, and Next.js metadata does NOT deep-merge
+// nested objects between layout and page — a page-level `openGraph` fully
+// replaces the root layout's, and a missing `twitter` block falls back to
+// the root's (generic, wrong-image) one. Every field a link preview needs
+// is set explicitly here so trade/service pages never silently inherit —
+// or drop — the wrong title, siteName, or image.
 export function buildTradeMetadata(trade) {
   const image = getTradeImage(trade);
   const description =
     trade.paragraph ||
     `Professional ${trade.title.toLowerCase()} services across Los Angeles and Ventura County.`;
+  const ogTitle = `${trade.title} | HB LINKS`;
 
   return {
     title: `${trade.title} Services in Los Angeles & Ventura County`,
     description,
     alternates: { canonical: `${BASE_URL}${trade.href}` },
     openGraph: {
-      title: `${trade.title} | HB LINKS`,
+      title: ogTitle,
       description,
       url: `${BASE_URL}${trade.href}`,
+      siteName: "HB LINKS",
+      locale: "en_US",
+      type: "website",
       images: [
         {
           url: image,
           width: 1200,
           height: 630,
+          type: getImageType(image),
           alt: `${trade.title} | HB LINKS`,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description,
+      images: [image],
     },
   };
 }
@@ -76,23 +99,34 @@ export function buildServiceMetadata(trade, service) {
   const description =
     service.description ||
     `Professional ${service.label.toLowerCase()} services across Los Angeles and Ventura County.`;
+  const ogTitle = `${service.label} | HB LINKS`;
 
   return {
     title: `${service.label} in Los Angeles & Ventura County`,
     description,
     alternates: { canonical: `${BASE_URL}${service.href}` },
     openGraph: {
-      title: `${service.label} | HB LINKS`,
+      title: ogTitle,
       description,
       url: `${BASE_URL}${service.href}`,
+      siteName: "HB LINKS",
+      locale: "en_US",
+      type: "website",
       images: [
         {
           url: image,
           width: 1200,
           height: 630,
+          type: getImageType(image),
           alt: `${service.label} | HB LINKS`,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description,
+      images: [image],
     },
   };
 }

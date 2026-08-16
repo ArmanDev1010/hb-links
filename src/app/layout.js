@@ -18,10 +18,11 @@ export const metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
     default:
-      "HB LINKS | General Building, Electrical, Low-Voltage & Plumbing in Los Angeles",
+      "HB LINKS | General Building, Electrical, Low-Voltage & Plumbing",
     template: "%s | HB LINKS",
   },
-  description: `HB LINKS provides general building, electrical, low-voltage, and plumbing services across ${FEATURED_CITIES.slice(0, 4).join(", ")}, and the greater Los Angeles and Ventura County area. Licensed, insured, and locally trusted.`,
+  description:
+    "HB LINKS provides general building, electrical, low-voltage, and plumbing services across Los Angeles and Ventura County. Licensed, insured, and locally trusted.",
   alternates: { canonical: BASE_URL },
   icons: {
     icon: LOGO_IMAGE,
@@ -32,15 +33,17 @@ export const metadata = {
     "general building services",
     "renovation and remodeling contractor",
     "room additions and ADU builder",
+    "design-build contractor Los Angeles",
     "electrical contractor Los Angeles",
     "panel upgrades and EV charger installation",
-    "low voltage contractor",
+    "low voltage contractor Los Angeles",
     "structured cabling installation",
     "security camera installation",
     "access control systems",
     "plumbing contractor Los Angeles",
     "water heater installation",
     "kitchen and bathroom remodeling",
+    "Ventura County general contractor",
   ],
   authors: [{ name: "HB LINKS" }],
   robots: {
@@ -60,7 +63,8 @@ export const metadata = {
         url: DEFAULT_OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "HB LINKS General Contracting & Low-Voltage Solutions",
+        type: "image/jpeg",
+        alt: "HB LINKS | General Building, Electrical, Low-Voltage & Plumbing",
       },
     ],
   },
