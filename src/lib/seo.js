@@ -95,7 +95,7 @@ export function buildTradeMetadata(trade) {
 }
 
 export function buildServiceMetadata(trade, service) {
-  const image = getTradeImage(trade);
+  const image = service.image || getTradeImage(trade);
   const description =
     service.description ||
     `Professional ${service.label.toLowerCase()} services across Los Angeles and Ventura County.`;
@@ -192,6 +192,22 @@ export function buildServiceBreadcrumbs({ trade, service }) {
         item: `${BASE_URL}${service.href}`,
       },
     ],
+  };
+}
+
+// FAQPage structured data — only emitted when a service defines FAQs,
+// so pages without any never render an empty/invalid FAQPage block.
+export function buildServiceFAQSchema(service) {
+  if (!service.faqs?.length) return null;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: service.faqs.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
   };
 }
 

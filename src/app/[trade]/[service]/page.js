@@ -5,6 +5,7 @@ import {
   buildServiceMetadata,
   buildServiceSchema,
   buildServiceBreadcrumbs,
+  buildServiceFAQSchema,
 } from "@/lib/seo";
 
 function getTrade(trade) {
@@ -61,6 +62,7 @@ export default async function ServicePage({ params }) {
     trade: category,
     service: currentService,
   });
+  const faqSchema = buildServiceFAQSchema(currentService);
 
   return (
     <>
@@ -72,6 +74,12 @@ export default async function ServicePage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <SubTrade
         category={category}
         service={{

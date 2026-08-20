@@ -1,11 +1,49 @@
 import SubTradeHero from "./components/SubTrade/SubTradeHero";
+import SubTradeOverview from "./components/SubTrade/SubTradeOverview";
+import SubTradeScope from "./components/SubTrade/SubTradeScope";
+import SubTradeBenefits from "./components/SubTrade/SubTradeBenefits";
+import SubTradeFAQ from "./components/SubTrade/SubTradeFAQ";
+import SubTradeRelated from "./components/SubTrade/SubTradeRelated";
+import SubTradeCTA from "./components/SubTrade/SubTradeCTA";
+import ContactSection from "../Contact/ContactSection";
+import ServiceAreas from "../ServiceAreas/ServiceAreas";
 
-export default function SubService({ category, service }) {
-  let { title, description, deliverables = [], capabilities = [] } = service;
+export default function SubTrade({ category, service }) {
+  const {
+    title,
+    description,
+    intro,
+    scope = [],
+    benefits = [],
+    faqs = [],
+    image: serviceImage,
+  } = service;
+
+  // Sub-trades rarely have a dedicated photo — fall back to the parent
+  // trade's image until one is added directly on the dropdown entry.
+  const image = serviceImage || category.image;
+
+  const related = (category.dropdown || [])
+    .filter((item) => item.href !== service.href)
+    .slice(0, 3);
 
   return (
     <>
-      <SubTradeHero />
+      <SubTradeHero
+        trade={category}
+        title={title}
+        description={description}
+        image={image}
+        benefits={benefits}
+      />
+      <SubTradeOverview title={title} intro={intro} />
+      <SubTradeScope scope={scope} />
+      <SubTradeBenefits benefits={benefits} />
+      <SubTradeFAQ faqs={faqs} />
+      <SubTradeRelated trade={category} services={related} />
+      <SubTradeCTA title={title} />
+      <ContactSection tradesPage />
+      <ServiceAreas compact />
     </>
   );
 }

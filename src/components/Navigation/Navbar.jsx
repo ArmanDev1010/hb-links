@@ -37,14 +37,9 @@ export default function Navbar() {
     };
   }, [menuActive, showModal]);
 
-  const isSubTradePage = pages.some((page) =>
-    page.dropdown?.some((sub) => sub.href === pathname),
-  );
-
   const isLightPage =
     pathname.startsWith("/contact") ||
-    ["/terms-of-service", "/privacy-policy"].includes(pathname) ||
-    isSubTradePage;
+    ["/terms-of-service", "/privacy-policy"].includes(pathname);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
