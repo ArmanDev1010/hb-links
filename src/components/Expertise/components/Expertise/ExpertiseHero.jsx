@@ -4,7 +4,7 @@ export default function ExpertiseHero({ title, image }) {
       className="relative overflow-hidden h-full flex min-h-screen items-end pt-28 sm:pt-22 !bg-black text-neutral-50"
       style={{
         background: `url(${image})`,
-        backgroundPosition: "left",
+        backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
@@ -14,7 +14,7 @@ export default function ExpertiseHero({ title, image }) {
         <div className="mx-auto 1080:w-[83.333%]">
           <h1
             className="px-2 uppercase font-compressed tracking-tight leading-[1] font-bold pointer-events-none
-    max-1080:px-5 1080:text-[5rem] 800:text-[3.5rem] 550:text-[3rem] max-550:text-[10vw]"
+    max-1080:px-5 1080:text-[5rem] 800:text-[3.5rem] 550:text-[3rem] max-550:text-[10vw] max-400:text-[12vw]"
           >
             {title}
           </h1>

@@ -63,13 +63,15 @@ const opacityForDiff = (diff) => Math.max(0, 1 - Math.abs(diff) * 0.5);
 const scaleForDiff = (diff) =>
   diff === 0 ? 1 : Math.max(0.6, 1 - Math.abs(diff) * 0.2);
 
-const QUOTE_CHAR_LIMIT = 260;
+const QUOTE_CHAR_LIMIT_WITH_IMAGES = 260;
+// Reviews without images have no image row (~150px + gap) taking up space,
+// so they show more of the quote to fill that space with real content
+// instead of leaving it blank — keeps the card height roughly constant.
+const QUOTE_CHAR_LIMIT_NO_IMAGES = 480;
 
-function QuoteText({ quote, href }) {
-  const isLong = quote.length > QUOTE_CHAR_LIMIT;
-  const displayText = isLong
-    ? quote.slice(0, QUOTE_CHAR_LIMIT).trimEnd()
-    : quote;
+function QuoteText({ quote, charLimit }) {
+  const isLong = quote.length > charLimit;
+  const displayText = isLong ? quote.slice(0, charLimit).trimEnd() : quote;
 
   return (
     <p className="italic text-lg text-gray-700 leading-relaxed max-w-xl pointer-events-none">
@@ -91,7 +93,7 @@ function QuoteText({ quote, href }) {
   );
 }
 
-export default function Reviews() {
+export default function Reviews({ noBtn = false }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [trackWidth, setTrackWidth] = useState(0);
@@ -160,7 +162,7 @@ export default function Reviews() {
         <p className="ck-tagline text-sm uppercase font-xbold tracking-widest mb-4 pointer-events-none">
           Testimonials
         </p>
-        <h2 className="font-gt pb-1 font-semibold text-4xl lg:text-5xl leading-[1] pointer-events-none">
+        <h2 className="font-gt pb-1 font-semibold text-3xl 400:text-4xl lg:text-5xl leading-[1] pointer-events-none">
           What our clients have to say about us
         </h2>
         <div className="inline-flex my-8 items-center pointer-events-none gap-3 rounded-full border border-black/20 px-4 py-2.5 backdrop-blur-sm">
@@ -186,20 +188,22 @@ export default function Reviews() {
             7+ Google reviews
           </span>
         </div>
-        <div className="flex flex-col 700:self-end items-center gap-2">
-          <p className="700:text-xs text-[0.8125rem] 700:font-semibold uppercase tracking-[0.1em] text-gray-400 m-0 pointer-events-none">
-            Worked with us?
-          </p>
-          <Link href={"https://g.page/r/CW2_pfevA7T3EAE/review"} className="">
-            <div
-              className="flex items-center gap-4 rounded-md w-fit border-[1.5px] px-[1.5rem] py-[0.75rem] text-[15px] font-[500] bg-third text-white tracking-[0.1em] 
+        {noBtn ? null : (
+          <div className="flex flex-col 700:self-end items-center gap-2">
+            <p className="700:text-xs text-[0.8125rem] 700:font-semibold uppercase tracking-[0.1em] text-gray-400 m-0 pointer-events-none">
+              Worked with us?
+            </p>
+            <Link href={"https://g.page/r/CW2_pfevA7T3EAE/review"} className="">
+              <div
+                className="flex items-center gap-4 rounded-md w-fit border-[1.5px] px-[1.5rem] py-[0.75rem] text-[15px] font-[500] bg-third text-white tracking-[0.1em] 
               hover:bg-white hover:text-black transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-400"
-            >
-              <FaRegStar className="w-[15px] h-[15px]" />
-              Leave a Review
-            </div>
-          </Link>
-        </div>
+              >
+                <FaRegStar className="w-[15px] h-[15px]" />
+                Leave a Review
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
       <div className="max-w-[1200px] mx-auto w-full px-[3%] grid grid-cols-1 1080:grid-cols-[340px_1fr] 1080:gap-20 550:gap-16 gap-10 items-center">
         {/* Left: curved avatar track */}
@@ -322,7 +326,11 @@ export default function Reviews() {
         </div>
 
         {/* Right: active quote */}
-        <div className="relative min-h-[160px] max-1080:mx-auto">
+        <motion.div
+          layout
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="relative min-h-[160px] max-1080:mx-auto"
+        >
           <span className="block text-6xl font-serif text-third/30 leading-none mb-2 pointer-events-none">
             "
           </span>
@@ -335,7 +343,14 @@ export default function Reviews() {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col gap-5"
             >
-              <QuoteText quote={reviews[activeIndex].quote} />
+              <QuoteText
+                quote={reviews[activeIndex].quote}
+                charLimit={
+                  reviews[activeIndex].images
+                    ? QUOTE_CHAR_LIMIT_WITH_IMAGES
+                    : QUOTE_CHAR_LIMIT_NO_IMAGES
+                }
+              />
 
               {reviews[activeIndex].images ? (
                 <div
@@ -354,7 +369,7 @@ export default function Reviews() {
               ) : null}
             </motion.div>
           </AnimatePresence>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

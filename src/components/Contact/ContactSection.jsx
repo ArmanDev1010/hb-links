@@ -24,21 +24,15 @@ export default function ContactSection({ tradesPage = false }) {
   } = useContactForm();
 
   return (
-    <section className={`${tradesPage ? "pt-20 pb-[68px]" : "pt-40 pb-20"}`}>
+    <section className="py-20">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[1rem] px-[0.5rem]">
         <div className="mx-auto 1280:w-[83.33%] w-full">
           <div className="w-full px-2 pointer-events-none">
             <p className="text-sm uppercase font-xbold tracking-widest mb-4 text-gray-700">
               Contact us
             </p>
-            <h3 className="pb-1 font-bold 1080:text-5xl text-4xl leading-none">
-              {tradesPage ? (
-                <span>
-                  Got a Project in Mind <br></br> Let us Know
-                </span>
-              ) : (
-                "Let's Get In Touch"
-              )}
+            <h3 className="pb-1 font-bold lg:text-5xl text-4xl leading-none">
+              Let's Get In Touch
             </h3>
           </div>
 

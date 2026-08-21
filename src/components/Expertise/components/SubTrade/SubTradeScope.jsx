@@ -2,7 +2,7 @@ export default function SubTradeScope({ scope = [] }) {
   if (!scope.length) return null;
 
   return (
-    <section className="pt-12 pb-12" id="subtrade_scope">
+    <section className="pt-12 550:pb-12 pb-10" id="subtrade_scope">
       <div className="max-w-[1680px] 700:px-[1rem] mx-auto w-full px-[0.5rem]">
         <div className="1440:mx-auto 1440:w-[83.333%] w-full">
           <div className="w-full px-2 pointer-events-none">
@@ -19,16 +19,18 @@ export default function SubTradeScope({ scope = [] }) {
             {scope.map(({ title, description }, index) => (
               <li
                 key={index}
-                className="group flex flex-col h-full border-t border-l p-5 transition-colors border-black/25 hover:border-third pointer-events-none"
+                className="group flex flex-col h-full border-t border-l p-5 transition-colors border-black/25 hover:border-third"
               >
-                <p className="uppercase font-xbold tracking-widest mb-4 text-gray-500">
+                <p className="uppercase font-xbold tracking-widest mb-4 text-gray-500 pointer-events-none">
                   {index >= 9 ? "" : "0"}
                   {index + 1}
                 </p>
-                <h3 className="pb-1 font-bold text-2xl leading-tight mb-2">
+                <h3 className="pb-1 font-bold text-2xl leading-tight mb-2 pointer-events-none">
                   {title}
                 </h3>
-                <p className="text-gray-600">{description}</p>
+                <p className="text-gray-600 pointer-events-none">
+                  {description}
+                </p>
               </li>
             ))}
           </ul>

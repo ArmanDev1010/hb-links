@@ -14,7 +14,7 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
   }, [isOpen]);
 
   return (
-    <div className="border-t border-black/25 last:border-b">
+    <div className="border-t border-black/25 last:border-b transition-colors hover:border-t-third">
       <button
         type="button"
         onClick={onToggle}
@@ -48,10 +48,10 @@ export default function SubTradeFAQ({ faqs = [] }) {
   if (!faqs.length) return null;
 
   return (
-    <section className="relative py-[60px]" id="subtrade_faq">
+    <section className="relative py-12" id="subtrade_faq">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[1rem] px-[0.5rem]">
         <div className="mx-auto 1280:w-[83.33%] w-full mb-10 pointer-events-none">
-          <p className="1280:text-sm text-xs uppercase font-xbold tracking-widest mb-4 text-gray-700">
+          <p className="text-sm uppercase font-xbold tracking-widest mb-4 text-gray-700">
             FAQ
           </p>
           <h3 className="pb-1 font-bold text-4xl lg:text-5xl leading-none">

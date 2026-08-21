@@ -8,7 +8,7 @@ export default function Expertise({ title, services, image }) {
     <>
       <ExpertiseHero title={title} image={image} />
       <ExpertiseServices services={services} />
-      <ContactSection tradesPage />
+      <ContactSection />
       <ServiceAreas />
     </>
   );

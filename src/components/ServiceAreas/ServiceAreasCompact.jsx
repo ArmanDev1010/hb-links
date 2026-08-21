@@ -1,23 +1,34 @@
-import { ALL_CITIES, FEATURED_CITIES } from "@/lib/seo";
+import { counties } from "@/data/citys/counties";
+import { cities } from "@/data/citys/cities";
 
 export default function ServiceAreasCompact() {
-  const remaining = ALL_CITIES.length - FEATURED_CITIES.length;
-
   return (
-    <div className="flex flex-wrap gap-3 pointer-events-none">
-      {FEATURED_CITIES.map((city) => (
-        <div
-          key={city}
-          className="px-4 py-2 bg-[#f5f4f1] border border-[#e5e1db] rounded-full text-sm text-[#4a3f36]"
-        >
-          {city}
-        </div>
-      ))}
-      {remaining > 0 && (
-        <div className="px-4 py-2 bg-third/10 border border-third/30 rounded-full text-sm font-bold text-third">
-          +{remaining} more cities across LA &amp; Ventura County
-        </div>
-      )}
+    <div className="flex flex-col gap-6 pointer-events-none">
+      {counties.map((county) => {
+        const countyCities =
+          cities.find((item) => item.county === county.fips)?.cities || [];
+
+        return (
+          <div key={county.fips}>
+            <p className="font-bold text-sm uppercase tracking-wide mb-3 text-gray-500">
+              {county.county}{" "}
+              <span className="text-gray-400 font-normal normal-case">
+                ({countyCities.length} cities)
+              </span>
+            </p>
+            <div className="flex flex-wrap gap-2 border-t border-l p-5 border-black/25">
+              {countyCities.map((city) => (
+                <span
+                  key={city}
+                  className="px-3 py-1 bg-[#f5f4f1] border border-[#e5e1db] rounded-full text-xs 700:text-sm text-[#4a3f36]"
+                >
+                  {city}
+                </span>
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

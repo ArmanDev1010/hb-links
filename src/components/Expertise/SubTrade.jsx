@@ -1,10 +1,10 @@
 import SubTradeHero from "./components/SubTrade/SubTradeHero";
 import SubTradeOverview from "./components/SubTrade/SubTradeOverview";
 import SubTradeScope from "./components/SubTrade/SubTradeScope";
-import SubTradeBenefits from "./components/SubTrade/SubTradeBenefits";
 import SubTradeFAQ from "./components/SubTrade/SubTradeFAQ";
 import SubTradeRelated from "./components/SubTrade/SubTradeRelated";
 import SubTradeCTA from "./components/SubTrade/SubTradeCTA";
+import Reviews from "../Home/Reviews";
 import ContactSection from "../Contact/ContactSection";
 import ServiceAreas from "../ServiceAreas/ServiceAreas";
 
@@ -38,12 +38,12 @@ export default function SubTrade({ category, service }) {
       />
       <SubTradeOverview title={title} intro={intro} />
       <SubTradeScope scope={scope} />
-      <SubTradeBenefits benefits={benefits} />
-      <SubTradeFAQ faqs={faqs} />
-      <SubTradeRelated trade={category} services={related} />
+      <Reviews noBtn />
       <SubTradeCTA title={title} />
-      <ContactSection tradesPage />
+      <SubTradeFAQ faqs={faqs} />
       <ServiceAreas compact />
+      <SubTradeRelated trade={category} services={related} />
+      <ContactSection tradesPage />
     </>
   );
 }

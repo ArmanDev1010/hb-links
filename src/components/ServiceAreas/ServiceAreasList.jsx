@@ -27,31 +27,32 @@ export default function ServiceAreasList() {
         const groupedCities = groupCitiesByLetter(countyCities);
 
         return (
-          <div
-            key={county.fips}
-            className="border-t border-l p-5 transition-opacity duration-300 border-black/25 hover:border-third"
-          >
-            <h3 className="font-bold text-xl uppercase tracking-wide mb-6 pointer-events-none">
-              {county.county}
-            </h3>
+          <div className="" key={county.fips}>
+            <p className="font-bold 550:text-base text-sm uppercase tracking-wide mb-3 text-gray-500">
+              {county.county}{" "}
+              <span className="text-gray-400 font-normal normal-case">
+                ({countyCities.length} cities)
+              </span>
+            </p>
+            <div className="border-t border-l p-5 transition-opacity duration-300 border-black/25 hover:border-third">
+              <div className="flex flex-col gap-5 pointer-events-none">
+                {Object.entries(groupedCities).map(([letter, cities]) => (
+                  <div key={letter}>
+                    <h4 className="font-bold text-sm mb-2">{letter}</h4>
 
-            <div className="flex flex-col gap-5 pointer-events-none">
-              {Object.entries(groupedCities).map(([letter, cities]) => (
-                <div key={letter}>
-                  <h4 className="font-bold text-sm mb-2">{letter}</h4>
-
-                  <div className="flex flex-wrap gap-3">
-                    {cities.map((city) => (
-                      <div
-                        key={city}
-                        className="px-3 py-1 bg-[#f5f4f1] border border-[#e5e1db] rounded-full text-base text-[#4a3f36]"
-                      >
-                        {city}
-                      </div>
-                    ))}
+                    <div className="flex flex-wrap gap-3">
+                      {cities.map((city) => (
+                        <div
+                          key={city}
+                          className="px-3 py-1 bg-[#f5f4f1] border border-[#e5e1db] rounded-full text-base text-[#4a3f36]"
+                        >
+                          {city}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         );

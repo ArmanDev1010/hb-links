@@ -8,16 +8,15 @@ export default function SubTradeCTA({ title }) {
   const { toggleModal } = useModal();
 
   return (
-    <section className="relative bg-primary text-white" id="subtrade_cta">
-      <div className="max-w-[1680px] mx-auto w-full 700:px-[1rem] px-[0.5rem] py-16 lg:py-20">
+    <section className="relative bg-primary text-white mt-[20px] mb-8" id="subtrade_cta">
+      <div className="max-w-[1680px] mx-auto w-full px-[1rem] py-14">
         <div className="mx-auto 1280:w-[83.33%] w-full flex flex-wrap items-center justify-between gap-x-10 gap-y-8">
           <div className="pointer-events-none">
             <p className="text-sm uppercase font-xbold tracking-widest mb-4 text-white/60">
               Ready To Get Started?
             </p>
-            <h3 className="font-bold text-3xl lg:text-4xl leading-tight max-w-xl">
-              Seen the work? Let&apos;s talk about your {title.toLowerCase()}{" "}
-              project.
+            <h3 className="font-bold text-2xl 700:text-3xl leading-tight max-w-xl">
+              Seen the work. Ready to <br></br> talk about your project?
             </h3>
           </div>
           <div className="flex flex-wrap items-center gap-4">

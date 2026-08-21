@@ -17,9 +17,9 @@ export default function Expertise({ text, reverse }) {
           }`}
         >
           <div className="flex flex-col justify-between flex-grow pointer-events-none">
-            <h2 className="pb-1 font-bold text-4xl lg:text-5xl leading-[1.2] lg:max-w-md mb-12 lg:mb-auto">
+            <h1 className="pb-1 font-bold text-3xl 400:text-4xl lg:text-5xl leading-[1.2] lg:max-w-md mb-12 lg:mb-auto">
               {title}
-            </h2>
+            </h1>
             <p className="lg:mt-12 lg:pr-30 max-w-xl text-gray-700">
               {paragraph}
             </p>

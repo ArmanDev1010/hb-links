@@ -4,20 +4,20 @@ export default function ExpertiseServices({ services = [] }) {
   if (!services.length) return null;
 
   return (
-    <section className="pt-20 pb-12" id="expertise_services">
+    <section className="pt-20 550:pb-12 pb-8" id="expertise_services">
       <div className="max-w-[1680px] 700:px-[1rem] mx-auto w-full px-[0.5rem]">
         <div className="1440:mx-auto 1440:w-[83.333%] w-full">
-          <div className="w-full lg:w-10/12 lg:mx-auto px-2 text-center">
+          <div className="w-full lg:w-10/12 lg:mx-auto text-center pointer-events-none">
             <p className="text-sm uppercase font-xbold tracking-widest mb-4">
               Capabilities
             </p>
-            <h2 className="font-gt pb-1 font-semibold text-3xl lg:text-4xl leading-[1]">
+            <h2 className="font-gt pb-1 font-semibold text-2xl 550:text-3xl lg:text-4xl leading-[1]">
               We offer a comprehensive array of services, tools, and knowledge
               to provide value to our partners.
             </h2>
           </div>
         </div>
-        <div className="relative overflow-hidden pt-20 lg:pt-24">
+        <div className="relative overflow-hidden pt-16 550:pt-20 lg:pt-24">
           <ul className="px-2 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-10 items-stretch">
             {services.map(({ label, href, description }, index) => (
               <li key={index} className="group flex">
@@ -38,7 +38,7 @@ export default function ExpertiseServices({ services = [] }) {
                         <p className="max-w-xl text-gray-600">{description}</p>
                       </div>
                       <div className="mt-auto">
-                        <p className="relative w-fit uppercase font-bold text-base tracking-widest before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-white group-hover:before:bg-third before:transition-all before:duration-300 before:ease-in-out">
+                        <p className="relative w-fit uppercase font-bold text-base tracking-widest before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-black group-hover:before:bg-third before:transition-all before:duration-300 before:ease-in-out">
                           Learn More
                         </p>
                       </div>

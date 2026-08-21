@@ -37,7 +37,7 @@ const process = [
 
 export default function Process() {
   return (
-    <section className="relative overflow-hidden py-[60px]" id="process">
+    <section className="relative overflow-hidden pt-[40px] pb-[60px]" id="process">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[1rem] px-[0.5rem]">
         <div className="mx-auto 1280:w-[83.33%] w-full">
           <div className="flex relative w-full max-900:flex-col max-900:gap-8">
@@ -45,7 +45,7 @@ export default function Process() {
               <p className="text-sm uppercase font-xbold tracking-widest mb-4 text-gray-700">
                 Our Process
               </p>
-              <h3 className="pb-1 font-bold 1080:text-5xl text-4xl leading-none">
+              <h3 className="pb-1 font-bold 1080:text-5xl 400:text-4xl text-3xl leading-none">
                 What working with us <br className="max-550:hidden"></br> looks
                 like
               </h3>
