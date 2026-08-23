@@ -41,6 +41,16 @@ export const DEFAULT_OG_IMAGE = "/seo/logo.png";
 // wide `image`/OG photo above.
 export const LOGO_IMAGE = "/seo/logo.png";
 
+// No per-city photography exists yet. Rather than repeat one static image
+// across every city page, deterministically pick one of the 4 trade photos
+// per city (stable across builds, no extra data needed beyond the slug) so
+// pages don't look visually identical to a crawler or a user comparing tabs.
+export function getCityImage(city) {
+  const images = Object.values(TRADE_IMAGES);
+  const hash = [...city.slug].reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+  return images[hash % images.length];
+}
+
 function getTradeImage(trade) {
   return TRADE_IMAGES[trade?.href] || DEFAULT_OG_IMAGE;
 }
@@ -208,6 +218,87 @@ export function buildServiceFAQSchema(service) {
       name: question,
       acceptedAnswer: { "@type": "Answer", text: answer },
     })),
+  };
+}
+
+// City-level metadata for /service-areas/[city] pages. Follows the same
+// shape/conventions as buildServiceMetadata above.
+export function buildCityMetadata(city) {
+  const image = getCityImage(city);
+  const description = `Licensed general contractor serving ${city.name}, CA — general building, electrical, plumbing, and low-voltage services with no extra travel fee within ${city.name}.`;
+  const ogTitle = `${city.name} | HB LINKS`;
+  const href = `/service-areas/${city.slug}`;
+
+  return {
+    title: `General Contractor in ${city.name}, CA | HB LINKS`,
+    description,
+    alternates: { canonical: `${BASE_URL}${href}` },
+    openGraph: {
+      title: ogTitle,
+      description,
+      url: `${BASE_URL}${href}`,
+      siteName: "HB LINKS",
+      locale: "en_US",
+      type: "website",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          type: getImageType(image),
+          alt: ogTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description,
+      images: [image],
+    },
+  };
+}
+
+// City-level structured data — scoped to just this city (unlike
+// buildTradeSchema/buildServiceSchema, which broadcast across every city a
+// trade serves), since a city page is specifically about that one area.
+export function buildCitySchema(city) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "General Contracting",
+    name: `HB LINKS — ${city.name}, CA`,
+    description: `General building, electrical, plumbing, and low-voltage contracting services in ${city.name}, CA.`,
+    url: `${BASE_URL}/service-areas/${city.slug}`,
+    provider: {
+      "@type": "GeneralContractor",
+      name: "HB LINKS",
+      url: BASE_URL,
+      telephone: "+1-818-303-3555",
+    },
+    areaServed: { "@type": "City", name: `${city.name}, CA` },
+  };
+}
+
+export function buildCityBreadcrumbs(city) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Service Areas",
+        item: `${BASE_URL}/service-areas`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: city.name,
+        item: `${BASE_URL}/service-areas/${city.slug}`,
+      },
+    ],
   };
 }
 

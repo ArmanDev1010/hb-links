@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { counties } from "@/data/citys/counties";
 import { cities } from "@/data/citys/cities";
+import { isPriorityCity, cityHref } from "@/lib/cities";
 
 function groupCitiesByLetter(cityList) {
   return cityList.reduce((acc, city) => {
@@ -15,6 +17,24 @@ function groupCitiesByLetter(cityList) {
 
     return acc;
   }, {});
+}
+
+// Priority cities link out to their page; the rest render as identical-
+// looking plain text — no visual "highlight" distinguishing them, so the
+// list doesn't read as if some areas are served less than others.
+function CityPill({ city }) {
+  const pillClasses =
+    "px-3 py-1 bg-[#f5f4f1] border border-[#e5e1db] rounded-full text-base text-[#4a3f36]";
+
+  if (isPriorityCity(city)) {
+    return (
+      <Link href={cityHref(city)} className={`pointer-events-auto ${pillClasses}`}>
+        {city}
+      </Link>
+    );
+  }
+
+  return <div className={pillClasses}>{city}</div>;
 }
 
 export default function ServiceAreasList() {
@@ -42,12 +62,7 @@ export default function ServiceAreasList() {
 
                     <div className="flex flex-wrap gap-3">
                       {cities.map((city) => (
-                        <div
-                          key={city}
-                          className="px-3 py-1 bg-[#f5f4f1] border border-[#e5e1db] rounded-full text-base text-[#4a3f36]"
-                        >
-                          {city}
-                        </div>
+                        <CityPill city={city} key={city} />
                       ))}
                     </div>
                   </div>

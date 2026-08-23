@@ -1,11 +1,13 @@
 import { pages } from "@/data/pages";
 import { privacyPages } from "@/data/privacy";
 import { BASE_URL } from "@/lib/seo";
+import { PRIORITY_CITY_RECORDS } from "@/lib/cities";
 
 export default function sitemap() {
   const staticRoutes = [
     { url: "", priority: 1 },
     { url: "/contact", priority: 0.8 },
+    { url: "/service-areas", priority: 0.6 },
     ...privacyPages.map(({ slug }) => ({
       url: `/legal/${slug}`,
       priority: 0.3,
@@ -15,6 +17,13 @@ export default function sitemap() {
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority,
+  }));
+
+  const cityRoutes = PRIORITY_CITY_RECORDS.map((city) => ({
+    url: `${BASE_URL}/service-areas/${city.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
   }));
 
   const tradeRoutes = pages.flatMap((page) => {
@@ -37,5 +46,5 @@ export default function sitemap() {
     return [tradeRoute, ...subTradeRoutes];
   });
 
-  return [...staticRoutes, ...tradeRoutes];
+  return [...staticRoutes, ...tradeRoutes, ...cityRoutes];
 }

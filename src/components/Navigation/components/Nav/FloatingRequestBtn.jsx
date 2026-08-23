@@ -10,7 +10,7 @@ export default function FloatingRequestBtn() {
   const { toggleModal } = useModal();
 
   return (
-    <div className="1440:hidden fixed bottom-5 700:right-[24px] right-[1rem] z-[9998] flex items-center gap-3">
+    <div className="900:hidden fixed bottom-5 700:right-[24px] right-[1rem] z-[9998] flex items-center gap-3">
       <button
         onClick={toggleModal}
         className="group flex items-center gap-4 px-7 py-3 rounded-full bg-white border-[1.5px] border-[#e5e1db] 

@@ -2,9 +2,20 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import DropdownMenu from "./DropdownMenu";
+import DropdownShell from "./DropdownShell";
+import ServicesMegaMenuContent from "./ServicesMegaMenuContent";
+import ServiceAreasMenuContent from "./ServiceAreasMenuContent";
 
-const CLOSE_DELAY_MS = 0;
+// Non-zero on purpose: the dropdown panel starts a few px below the nav's
+// own box (see DropdownShell's gutter comment), so moving from a trigger
+// straight down into the open panel briefly crosses a strip that belongs
+// to neither's hover area. With a 0ms delay that strip instantly closed
+// the dropdown, which then had to reopen a beat later. This delay is a
+// buffer for that crossing; it never affects *opening*, which only ever
+// happens via a specific trigger's onMouseEnter. (Switching between two
+// triggers doesn't rely on this delay at all — see the `<ul>`'s
+// onMouseLeave below.)
+const CLOSE_DELAY_MS = 250;
 
 export default function NavLinks({
   navlinks,
@@ -18,6 +29,13 @@ export default function NavLinks({
   isMobile,
 }) {
   const closeTimeout = useRef(null);
+
+  // Any open dropdown means the green mega-menu bar is showing (it's
+  // `position: fixed`, so it paints above the nav's background at any
+  // scroll position, not just at the top), so the toggle icon needs to go
+  // white regardless of isLightPage — matches the same rule Navbar uses
+  // for the logo/nav text.
+  const dropdownOverlay = !!activeDropdown && !isMobile;
 
   const isCurrentPage = (href) =>
     href === "/"
@@ -45,9 +63,9 @@ export default function NavLinks({
     }, CLOSE_DELAY_MS);
   };
 
-  const cancelClose = () => {
-    if (isMobile) return;
-    clearTimeout(closeTimeout.current);
+  const handleLinkClick = () => {
+    setMenuActive(false);
+    setActiveDropdown(null);
   };
 
   return (
@@ -57,15 +75,16 @@ export default function NavLinks({
           ? "max-1080:opacity-100 max-1080:pointer-event-auto max-1080:visible text-white"
           : "max-1080:opacity-0 max-1080:pointer-events-none max-1080:invisible"
       }`}
-      onMouseEnter={cancelClose}
-      onMouseLeave={scheduleClose}
     >
       <div className="max-1080:pointer-events-auto max-1080:h-[calc(100%-3rem)] max-1080:overflow-auto max-1080:border-t-[1px] max-1080:border-l-[1px] max-1080:border-[#f6f4ee40] max-1080:mx-[1rem]">
-        <ul className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full 1600:gap-x-[1.5rem] 1440:gap-x-[35px] gap-x-[28px] max-1080:gap-y-5 max-1080:pt-[2rem] h-full">
-          {navlinks.map(({ title, href, dropdown }, key) => {
+        <ul
+          className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full 1600:gap-x-[1.5rem] 1440:gap-x-[35px] gap-x-[28px] max-1080:gap-y-7 max-1080:pt-[2rem] h-full"
+          onMouseLeave={scheduleClose}
+        >
+          {navlinks.map(({ title, href, type, ...item }, key) => {
             const linkActive = isCurrentPage(href);
 
-            if (!dropdown) {
+            if (!type) {
               return (
                 <li
                   className={`max-1080:py-3 1080:h-full 1080:flex 1080:items-center ${
@@ -76,8 +95,8 @@ export default function NavLinks({
                 >
                   <Link
                     href={href}
-                    className={`transition-opacity duration-200 hover:opacity-70 uppercase 
-                  max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-xl max-1080:px-6 max-700:text-lg max-550:text-base ${getMenuActiveClasses(
+                    className={`transition-opacity duration-200 hover:opacity-70 uppercase
+                  max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-lg max-1080:px-6 ${getMenuActiveClasses(
                     linkActive,
                   )}`}
                     prefetch
@@ -91,10 +110,7 @@ export default function NavLinks({
 
             return (
               <li
-                className={`relative 1080:h-full max-1080:after:hidden after:content-[''] after:absolute after:left-0 after:w-full after:h-[3px] 
-              after:bg-white after:opacity-0 after:transition-opacity after:duration-200 ${
-                activeDropdown === title ? "after:opacity-100" : ""
-              } ${atTop ? "after:bottom-[0rem]" : "after:bottom-[0.75rem]"}`}
+                className={`relative 1080:h-full `}
                 key={key}
                 onMouseEnter={() => openDropdown(title)}
               >
@@ -103,7 +119,7 @@ export default function NavLinks({
                     href={href}
                     prefetch
                     className={`transition-opacity duration-200 hover:opacity-70 uppercase cursor-pointer
-                  1080:text-sm font-medium max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-xl max-700:text-lg max-550:text-base 
+                  1080:text-sm font-medium max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-lg
                   relative top-[1.5px] flex items-center ${getMenuActiveClasses(linkActive)} ${atTop && !isMobile ? "h-[95px]" : !atTop && !isMobile ? "h-[100px]" : "h-auto"}`}
                     onClick={(e) => {
                       if (isMobile) {
@@ -131,49 +147,94 @@ export default function NavLinks({
                     <div
                       className={`absolute w-full h-[1.5px] top-1/2 -translate-y-1/2 transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-500
                      max-1080:h-[2px]
-                    ${activeDropdown === title ? "rotate-90 opacity-0" : ""} 
+                    ${activeDropdown === title ? "rotate-90 opacity-0" : ""}
                     ${
-                      (!atTop && !activeDropdown && !menuActive) ||
-                      (isLightPage && !activeDropdown && !menuActive)
+                      !menuActive && !dropdownOverlay && (!atTop || isLightPage)
                         ? "bg-black"
-                        : atTop && isLightPage && !activeDropdown && !menuActive
-                          ? "bg-black"
-                          : "bg-white"
+                        : "bg-white"
                     }`}
                     />
                     <div
                       className={`absolute h-full w-[1.5px] top-0 left-1/2 -translate-x-1/2 transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-500
-                    max-1080:w-[2px] 
-                    ${activeDropdown === title ? "rotate-90" : ""} 
+                    max-1080:w-[2px]
+                    ${activeDropdown === title ? "rotate-90" : ""}
                     ${
-                      (!atTop && !activeDropdown && !menuActive) ||
-                      (isLightPage && !activeDropdown && !menuActive)
+                      !menuActive && !dropdownOverlay && (!atTop || isLightPage)
                         ? "bg-black"
-                        : atTop && isLightPage && !activeDropdown && !menuActive
-                          ? "bg-black"
-                          : "bg-white"
+                        : "bg-white"
                     }`}
                     />
                   </button>
                 </div>
 
-                <DropdownMenu
-                  title={title}
-                  href={href}
-                  dropdown={dropdown}
-                  setActiveDropdown={setActiveDropdown}
-                  active={activeDropdown === title}
-                  pathname={pathname}
-                  setMenuActive={setMenuActive}
-                  menuActive={menuActive}
-                  isMobile={isMobile}
-                  onMouseEnter={cancelClose}
-                  onMouseLeave={scheduleClose}
-                />
+                <div
+                  className={`max-1080:hidden content-[''] absolute left-0 w-full h-[3px]
+              bg-white opacity-0 transition-opacity duration-100 z-[100] ${
+                activeDropdown === title ? "opacity-100" : ""
+              } ${atTop ? "bottom-[0rem]" : "bottom-[0.75rem]"}`}
+                ></div>
+
+                {isMobile && (
+                  <DropdownShell
+                    active={activeDropdown === title}
+                    isMobile={isMobile}
+                  >
+                    {type === "services" && (
+                      <ServicesMegaMenuContent
+                        trades={item.trades}
+                        pathname={pathname}
+                        menuActive={menuActive}
+                        onLinkClick={handleLinkClick}
+                      />
+                    )}
+                    {type === "service-areas" && (
+                      <ServiceAreasMenuContent
+                        featured={item.featured}
+                        viewAllHref={item.viewAllHref}
+                        pathname={pathname}
+                        menuActive={menuActive}
+                        onLinkClick={handleLinkClick}
+                      />
+                    )}
+                  </DropdownShell>
+                )}
               </li>
             );
           })}
         </ul>
+
+        {!isMobile &&
+          navlinks
+            .filter((l) => l.type)
+            .map((item) => (
+              <DropdownShell
+                key={item.title}
+                active={activeDropdown === item.title}
+                isMobile={isMobile}
+              >
+                {item.type === "services" && (
+                  <ServicesMegaMenuContent
+                    trades={item.trades}
+                    pathname={pathname}
+                    menuActive={menuActive}
+                    onLinkClick={handleLinkClick}
+                    onMouseEnter={() => openDropdown(item.title)}
+                    onMouseLeave={scheduleClose}
+                  />
+                )}
+                {item.type === "service-areas" && (
+                  <ServiceAreasMenuContent
+                    featured={item.featured}
+                    viewAllHref={item.viewAllHref}
+                    pathname={pathname}
+                    menuActive={menuActive}
+                    onLinkClick={handleLinkClick}
+                    onMouseEnter={() => openDropdown(item.title)}
+                    onMouseLeave={scheduleClose}
+                  />
+                )}
+              </DropdownShell>
+            ))}
       </div>
     </div>
   );

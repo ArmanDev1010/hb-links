@@ -11,18 +11,24 @@ const FADE_DURATION_MS = 200;
 export default function Logo({
   atTop,
   setActiveDropdown,
-  activeDropdown,
   setMenuActive,
   menuActive,
   forceBlack,
+  forceWhite,
 }) {
   const [currentLogo, setCurrentLogo] = useState(whiteLogo);
   const [fade, setFade] = useState(false);
   const pendingLogoRef = useRef(null);
   const fadeTimeoutRef = useRef(null);
 
+  // menuActive (mobile full-screen menu) and forceWhite (desktop dropdown's
+  // green backdrop — see Navbar's dropdownOverlay) both need the all-white
+  // mark unconditionally. This has to be checked before the atTop fallback
+  // below, not folded into forceBlack: forceBlack merely stays false while
+  // a dropdown is open, but atTop alone still resolves to blackLogo once
+  // scrolled, even though the green bar is visible then too.
   const newLogo =
-    activeDropdown || menuActive
+    menuActive || forceWhite
       ? onlyWhiteLogo
       : forceBlack
         ? blackLogo

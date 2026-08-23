@@ -9,7 +9,7 @@ import MenuBtn from "./components/Nav/MenuBtn";
 import RequestBtn from "./components/Form/RequestBtn";
 import RequestModal from "./components/Form/RequestModal";
 import PhoneBtn from "./components/Nav/PhoneBtn";
-import { pages } from "@/data/pages";
+import { desktopNavlinks, mobileNavlinks } from "@/data/navigation";
 import { useModal } from "@/context/ModalContext";
 
 export default function Navbar() {
@@ -28,7 +28,7 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
-  const navlinks = isMobile ? pages : [pages[1], pages[2], pages[3], pages[4]];
+  const navlinks = isMobile ? mobileNavlinks : desktopNavlinks;
 
   useEffect(() => {
     document.body.style.overflow = menuActive || showModal ? "hidden" : "";
@@ -39,6 +39,7 @@ export default function Navbar() {
 
   const isLightPage =
     pathname.startsWith("/contact") ||
+    pathname === "/service-areas" ||
     ["/terms-of-service", "/privacy-policy"].includes(pathname);
 
   useEffect(() => {
@@ -54,38 +55,41 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [activeDropdown]);
 
+  // True while the green mega-menu bar is open — the nav itself needs to
+  // go white regardless of isLightPage or scroll position. The bar is
+  // `position: fixed`, so it always paints above the nav's own background
+  // (fixed elements out-stack a static background fill regardless of
+  // z-index), meaning it shows through even once scrolled/opaque, not
+  // just at the top of the page. Mobile dropdowns only ever open inside
+  // the already-dark full-screen menu, so this only matters on desktop.
+  const dropdownOverlay = !!activeDropdown && !isMobile;
+
   const navBase = "w-full transition-all duration-400 !z-[999]";
 
   const topStyles = atTop
     ? "bg-transparent !h-[95px]"
-    : !atTop && activeDropdown
+    : dropdownOverlay
       ? "!bg-white !h-[75px] !text-white"
       : "!bg-white !h-[75px] !text-black";
-  const themeStyles =
-    isLightPage && !activeDropdown ? "text-black" : "text-white";
+  const themeStyles = dropdownOverlay
+    ? "text-white"
+    : isLightPage
+      ? "text-black"
+      : "text-white";
 
   const navClasses = `fixed translate-y-0 ${navBase} ${topStyles} ${themeStyles}`;
-
-  const activeDropdownLength =
-    pages.find((link) => link.title === activeDropdown)?.dropdown?.length ?? 0;
 
   return (
     <>
       <nav className={navClasses}>
-        <div
-          className="relative 1800:px-[1rem] 1600:px-[3%] 1080:px-[24px] 700:px-[1.5rem] px-[1rem] z-[11] flex items-center justify-between h-full max-w-[1680px] mx-auto w-full border-b-2 transition-[border] duration-500 ease-in-out"
-          style={{
-            borderBottomColor:
-              activeDropdown && !isMobile ? "#f6f4ee66" : "transparent",
-          }}
-        >
+        <div className="relative 1800:px-[1rem] 1600:px-[3%] 1080:px-[24px] 700:px-[1.5rem] px-[1rem] z-[11] flex items-center justify-between h-full max-w-[1680px] mx-auto w-full">
           <Logo
             atTop={atTop}
-            activeDropdown={activeDropdown}
             setActiveDropdown={setActiveDropdown}
             menuActive={menuActive}
             setMenuActive={setMenuActive}
-            forceBlack={isLightPage && !activeDropdown && !menuActive}
+            forceBlack={isLightPage && !menuActive && !dropdownOverlay}
+            forceWhite={dropdownOverlay}
           />
           <div className="flex items-center 1440:gap-x-[40px] gap-x-[30px]">
             <NavLinks
@@ -100,20 +104,20 @@ export default function Navbar() {
               isMobile={isMobile}
             />
 
-            <div className="flex items-center items-stretch gap-4">
+            <div className="relative z-20 flex items-center items-stretch gap-4">
               <PhoneBtn
                 atTop={atTop}
-                activeDropdown={activeDropdown}
                 menuActive={menuActive}
                 isLightPage={isLightPage}
+                dropdownOverlay={dropdownOverlay}
               />
 
-              <div className="max-1440:hidden">
+              <div className="max-900:hidden">
                 <RequestBtn
                   toggleModal={toggleModal}
                   atTop={atTop}
-                  activeDropdown={activeDropdown}
-                  forceBlackBorder={isLightPage && !activeDropdown}
+                  forceBlackBorder={isLightPage}
+                  forceWhiteBorder={dropdownOverlay}
                   isLightPage={isLightPage}
                   menuActive={menuActive}
                 />
@@ -129,13 +133,13 @@ export default function Navbar() {
         </div>
 
         <div
-          className="max-1080:hidden absolute top-0 left-0 w-full h-0 z-[10] bg-third/80 backdrop-blur-sm transition-[height] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
+          className="absolute top-[95px] left-0 w-full h-[2px] z-[999]"
           style={{
-            height: activeDropdown
-              ? `${41 * (activeDropdownLength > 10 ? 10 : activeDropdownLength) + 194}px`
-              : "0",
+            background:
+              activeDropdown && !isMobile ? "#f6f4ee66" : "transparent",
+            top: atTop ? "95px" : "75px",
           }}
-        />
+        ></div>
 
         <div
           className="1080:hidden absolute top-0 left-0 w-full z-[10] bg-third/90 backdrop-blur-sm transition-[height] duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]"

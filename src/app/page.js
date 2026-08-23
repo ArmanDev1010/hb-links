@@ -15,7 +15,7 @@ export default function HomePage() {
       <Expertises />
       <Process />
       <Reviews />
-      <ServiceAreas />
+      <ServiceAreas compact />
     </>
   );
 }

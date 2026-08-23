@@ -1,16 +1,22 @@
 export default function RequestBtn({
   toggleModal,
   atTop,
-  activeDropdown,
   forceBlackBorder,
+  forceWhiteBorder,
   isLightPage,
   menuActive,
 }) {
-  const borderColor = forceBlackBorder
-    ? "border-black"
-    : atTop || activeDropdown || menuActive
-      ? "border-white"
-      : "border-black";
+  // forceWhiteBorder (the dropdown's green backdrop) has to win over
+  // everything else, checked before forceBlackBorder/atTop: those two only
+  // ever resolve to black once scrolled, even while the green bar is still
+  // showing behind the nav.
+  const borderColor = forceWhiteBorder
+    ? "border-white"
+    : forceBlackBorder
+      ? "border-black"
+      : atTop || menuActive
+        ? "border-white"
+        : "border-black";
 
   return (
     <button
