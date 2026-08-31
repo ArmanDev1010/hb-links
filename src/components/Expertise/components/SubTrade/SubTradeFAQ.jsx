@@ -19,7 +19,7 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="w-full flex cursor-pointer items-center justify-between gap-6 py-6 text-left font-bold text-lg lg:text-xl"
+        className="w-full flex cursor-pointer items-center justify-between gap-6 py-6 text-left font-medium text-base lg:text-xl"
       >
         <span>{question}</span>
         <span
@@ -34,7 +34,7 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
         className="overflow-hidden transition-[height] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
         style={{ height }}
       >
-        <p ref={contentRef} className="pb-6 text-gray-700 max-w-3xl">
+        <p ref={contentRef} className="pb-6 text-gray-700 max-w-3xl max-550:text-sm">
           {answer}
         </p>
       </div>
@@ -42,7 +42,7 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
   );
 }
 
-export default function SubTradeFAQ({ faqs = [] }) {
+export default function SubTradeFAQ({ title, faqs = [] }) {
   const [openIndex, setOpenIndex] = useState(null);
 
   if (!faqs.length) return null;
@@ -54,8 +54,10 @@ export default function SubTradeFAQ({ faqs = [] }) {
           <p className="text-sm uppercase font-xbold tracking-widest mb-4 text-gray-700">
             FAQ
           </p>
-          <h3 className="pb-1 font-bold text-4xl lg:text-5xl leading-none">
-            Common Questions
+          <h3 className="pb-1 font-bold text-3xl 700:text-4xl 1080:text-5xl leading-[1.2]">
+            Common Questions {title && "about"} <br className="max-550:hidden"></br>
+            {title && title}
+            <br className="1080:hidden"></br> {title && "in Los Angeles, CA"}
           </h3>
         </div>
         <div className="mx-auto 1280:w-[83.33%] w-full px-2">
@@ -81,13 +83,13 @@ export default function SubTradeFAQ({ faqs = [] }) {
               <div className="pointer-events-none">
                 <p className="font-bold text-lg">Still have questions?</p>
                 <p className="text-gray-600 text-sm">
-                  Call us directly. Real answers, no scripts.
+                  Call us directly
                 </p>
               </div>
             </div>
             <Link
               href="tel:+1 (818) 303-3555"
-              className="bg-third text-white border-[1.5px] border-third px-[2rem] py-[0.9rem] text-sm font-[500] uppercase tracking-[0.1em] hover:bg-white hover:text-third transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-400"
+              className="bg-third text-white border-[1.5px] border-third px-[2rem] py-[0.9rem] 550:text-sm text-xs font-[500] uppercase tracking-[0.1em] hover:bg-white hover:text-third transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-400"
             >
               Call (818) 303-3555
             </Link>

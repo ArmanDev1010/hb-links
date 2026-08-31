@@ -75,7 +75,7 @@ export function buildTradeMetadata(trade) {
   const ogTitle = `${trade.title} | HB LINKS`;
 
   return {
-    title: `${trade.title} Services in Los Angeles & Ventura County`,
+    title: `${trade.title} in Los Angeles, CA`,
     description,
     alternates: { canonical: `${BASE_URL}${trade.href}` },
     openGraph: {

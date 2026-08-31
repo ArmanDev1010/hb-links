@@ -30,7 +30,7 @@ export default function SubTradeHero({
 
       <div className="relative z-20 mx-auto w-full 700:px-[1rem] px-[0.5rem]">
         <div className="mx-auto 1080:w-[83.333%] px-2 1080:px-0">
-          <nav className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest text-white/60 550:mb-8 mb-12">
+          <nav className="flex flex-wrap items-center gap-2 550:text-xs text-[10px] uppercase tracking-widest text-white/60 550:mb-8 mb-12">
             <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>

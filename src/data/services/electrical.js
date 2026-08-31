@@ -4,6 +4,35 @@ const electrical = {
   image: "/seo/electrical.jpg",
   paragraph:
     "HB LINKS provides complete electrical services across Los Angeles — from new construction wiring and service upgrades to remodels, lighting, and specialty systems. We coordinate electrical work alongside other trades to deliver safe, code-compliant, and future-ready systems.",
+  servicesHeadline: "Ways We Power Your Project",
+  faqs: [
+    {
+      question: "What's included under HB Links' electrical services?",
+      answer:
+        "Our electrical scope covers panel upgrades and subpanel installation, service upgrades, lighting, switches and outlets, EV charger installation, kitchen and bathroom electrical, generator and backup power, smoke and CO detector wiring, and outdoor and landscape electrical, among other services — as a standalone job or part of a larger renovation.",
+    },
+    {
+      question:
+        "Can electrical work be scheduled around a renovation or addition already in progress?",
+      answer:
+        "Yes — when it's part of a general building project, electrical rough-in and inspections are scheduled alongside the other trades so they don't hold up the finish work.",
+    },
+    {
+      question: "What license do you hold for electrical work?",
+      answer:
+        "HB Links holds a C-10 electrical contractor license under CSLB #1144057, covering electrical work throughout California.",
+    },
+    {
+      question: "Do older homes need special consideration for electrical work?",
+      answer:
+        "Often, yes. Many older Los Angeles homes have outdated wiring, undersized panels, or ungrounded circuits that aren't visible until walls are opened. We flag what we find and the cost and code implications before proceeding.",
+    },
+    {
+      question: "What areas does HB Links serve for electrical work?",
+      answer:
+        "We work throughout Los Angeles and Ventura County. Check our service areas page for the full list of cities we cover.",
+    },
+  ],
   dropdown: [
     {
       label: "Panel Upgrades & Subpanel Installation",

@@ -3,7 +3,7 @@ import { BsArrowRight } from "react-icons/bs";
 
 export default function CityServices({ city, trades }) {
   return (
-    <section className="relative overflow-hidden pt-16 pb-20" id="city_services">
+    <section className="relative overflow-hidden py-16" id="city_services">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[1rem] px-[0.5rem]">
         <div className="w-full lg:w-10/12 lg:mx-auto text-center pointer-events-none mb-14">
           <p className="text-sm uppercase font-xbold tracking-widest mb-4">

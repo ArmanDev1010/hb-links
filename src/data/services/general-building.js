@@ -4,6 +4,36 @@ const generalBuilding = {
   image: "/seo/general-building.jpg",
   paragraph:
     "HB Links provides general building services across Los Angeles — from full renovations to structural additions, we handle the coordination and craftsmanship a multi-trade project requires, with one team overseeing the work from start to finish.",
+  servicesHeadline: "Ways We Build",
+  faqs: [
+    {
+      question: "What's included under general building services?",
+      answer:
+        "General building covers everything from single-room remodels to ground-up construction — renovation and remodeling, room additions and ADUs, design-build delivery, framing and carpentry, full-scope renovations, new construction, interior finishes, demolition and site prep, and outdoor living and hardscaping. Each is available as a standalone service or folded into a larger project.",
+    },
+    {
+      question:
+        "Do you handle electrical and plumbing on a general building project, or do I need to hire separately?",
+      answer:
+        "We hold licenses for general building (B), electrical (C-10), and plumbing (C-36), so those trades are scheduled and managed in-house under one contract instead of being handed off to separate subcontractors.",
+    },
+    {
+      question:
+        "How do I know whether my project is a remodel, an addition, or new construction?",
+      answer:
+        "That's what the on-site evaluation is for — we walk the property with you, review any existing architectural plans, and scope the project into the right category before pricing it.",
+    },
+    {
+      question: "What areas does HB Links serve for general building work?",
+      answer:
+        "We work throughout Los Angeles and Ventura County. Check our service areas page for the full list of cities we cover.",
+    },
+    {
+      question: "Is general building work covered under warranty?",
+      answer:
+        "Yes, workmanship across every trade we manage is covered under our standard warranty. Manufacturer warranties apply separately to installed materials and systems.",
+    },
+  ],
   dropdown: [
     {
       label: "Renovation & Remodeling",

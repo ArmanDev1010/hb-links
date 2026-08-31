@@ -4,6 +4,35 @@ const lowVoltage = {
   image: "/seo/low-voltage.jpg",
   paragraph:
     "HB LINKS designs and installs low-voltage systems for residential and commercial projects throughout Los Angeles. From structured cabling and network infrastructure to security, access control, AV, and smart technology, we deliver organized, scalable systems that integrate seamlessly with new construction, renovations, and tenant improvements.",
+  servicesHeadline: "Ways We Wire What's Next",
+  faqs: [
+    {
+      question: "What's included under HB Links' low-voltage services?",
+      answer:
+        "Our low-voltage scope covers structured cabling, network racks and patch panels, WiFi network design, cable certification and testing, security cameras, access control, AV wiring and speaker pre-wiring, video doorbell and intercom wiring, and low-voltage lighting control — as a standalone job or part of a larger build.",
+    },
+    {
+      question:
+        "Can low-voltage systems be planned into a renovation or new construction project?",
+      answer:
+        "Yes — structured cabling and other low-voltage infrastructure are easiest to run before walls close in, so we coordinate this work alongside electrical and framing on any project that's already underway.",
+    },
+    {
+      question: "Do you design the system, or just install what I already have planned?",
+      answer:
+        "Both. We can design a system around your equipment and bandwidth needs from scratch, or install to a spec you or your integrator already has.",
+    },
+    {
+      question: "Is low-voltage work available for both residential and commercial projects?",
+      answer:
+        "Yes, we install structured cabling, security, AV, and network infrastructure for residential, commercial, and tenant improvement projects.",
+    },
+    {
+      question: "What areas does HB Links serve for low-voltage work?",
+      answer:
+        "We work throughout Los Angeles and Ventura County. Check our service areas page for the full list of cities we cover.",
+    },
+  ],
   dropdown: [
     {
       label: "Structured Cabling (Cat6, Cat6A & Fiber)",

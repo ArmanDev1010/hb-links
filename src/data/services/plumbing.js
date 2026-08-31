@@ -4,6 +4,36 @@ const plumbing = {
   image: "/seo/plumbing.jpg",
   paragraph:
     "HB LINKS provides residential and commercial plumbing services throughout Los Angeles, supporting renovations, additions, tenant improvements, and new construction. From rough-in plumbing and water supply systems to fixture installation and water heaters, we deliver dependable, code-compliant plumbing solutions coordinated with every stage of the project.",
+  servicesHeadline: "Ways We Keep It Flowing",
+  faqs: [
+    {
+      question: "What's included under HB Links' plumbing services?",
+      answer:
+        "Our plumbing scope covers rough-in plumbing for remodels, finish plumbing and fixture installation, sink, toilet, tub, and shower installation, water line and drain line installation and repair, water heater installation and replacement, and shutoff and fixture valve work — as a standalone job or part of a larger renovation.",
+    },
+    {
+      question:
+        "Can plumbing work be scheduled around a renovation or addition already in progress?",
+      answer:
+        "Yes — when it's part of a general building project, plumbing rough-in and inspections are scheduled alongside the other trades so they don't hold up the finish work.",
+    },
+    {
+      question: "What license do you hold for plumbing work?",
+      answer:
+        "HB Links holds a C-36 plumbing contractor license under CSLB #1144057, covering plumbing work throughout California.",
+    },
+    {
+      question:
+        "What happens if you find corroded or outdated pipe once work is opened up?",
+      answer:
+        "Older Los Angeles homes sometimes have galvanized or cast iron pipe that isn't visible until walls or slabs are opened. We stop and walk you through what was found and the cost and schedule impact before continuing.",
+    },
+    {
+      question: "What areas does HB Links serve for plumbing work?",
+      answer:
+        "We work throughout Los Angeles and Ventura County. Check our service areas page for the full list of cities we cover.",
+    },
+  ],
   dropdown: [
     {
       label: "Rough-In Plumbing (Kitchen & Bathroom Remodels)",

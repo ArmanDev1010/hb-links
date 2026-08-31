@@ -79,9 +79,9 @@ export default function Process() {
                   </div>
                 </div>
 
-                <span className="text-2xl 900:h-[150px] h-[120px] pointer-events-none uppercase font-bold text-third transition-colors group-hover:text-third">
+                <h3 className="text-2xl 900:h-[150px] h-[120px] pointer-events-none uppercase font-bold text-third transition-colors group-hover:text-third">
                   {label}
-                </span>
+                </h3>
 
                 <p className="text-gray-700 pointer-events-none">
                   {description}

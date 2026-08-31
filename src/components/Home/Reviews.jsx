@@ -162,7 +162,7 @@ export default function Reviews({ noBtn = false }) {
         <p className="ck-tagline text-sm uppercase font-xbold tracking-widest mb-4 pointer-events-none">
           Testimonials
         </p>
-        <h2 className="font-gt pb-1 font-semibold text-3xl 400:text-4xl lg:text-5xl leading-[1] pointer-events-none">
+        <h2 className="font-gt pb-1 font-semibold text-3xl 700:text-4xl 1080:text-5xl leading-[1] pointer-events-none">
           What our clients have to say about us
         </h2>
         <div className="inline-flex my-8 items-center pointer-events-none gap-3 rounded-full border border-black/20 px-4 py-2.5 backdrop-blur-sm">

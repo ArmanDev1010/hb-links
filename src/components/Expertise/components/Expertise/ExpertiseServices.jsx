@@ -1,19 +1,23 @@
 import Link from "next/link";
 
-export default function ExpertiseServices({ services = [] }) {
+export default function ExpertiseServices({
+  title,
+  services = [],
+  servicesHeadline,
+}) {
   if (!services.length) return null;
 
   return (
-    <section className="pt-20 550:pb-12 pb-8" id="expertise_services">
+    <section className="pt-20 pb-12" id="expertise_services">
       <div className="max-w-[1680px] 700:px-[1rem] mx-auto w-full px-[0.5rem]">
         <div className="1440:mx-auto 1440:w-[83.333%] w-full">
           <div className="w-full lg:w-10/12 lg:mx-auto text-center pointer-events-none">
             <p className="text-sm uppercase font-xbold tracking-widest mb-4">
               Capabilities
             </p>
-            <h2 className="font-gt pb-1 font-semibold text-2xl 550:text-3xl lg:text-4xl leading-[1]">
-              We offer a comprehensive array of services, tools, and knowledge
-              to provide value to our partners.
+            <h2 className="font-gt pb-1 font-semibold text-3xl 700:text-4xl 1080:text-5xl leading-[1.2]">
+              {services.length} {servicesHeadline || `Ways We Handle ${title}`}{" "}
+              in <br className="550:hidden"></br> Los Angeles
             </h2>
           </div>
         </div>
@@ -32,7 +36,7 @@ export default function ExpertiseServices({ services = [] }) {
                         {index + 1}
                       </p>
                       <div className="pointer-events-none mb-6">
-                        <h2 className="pb-1 h-[120px] font-bold text-3xl leading-tight transition-colors group-hover:text-third">
+                        <h2 className="pb-1 h-[120px] font-bold 550:text-3xl text-2xl leading-tight transition-colors group-hover:text-third">
                           {label}
                         </h2>
                         <p className="max-w-xl text-gray-600">{description}</p>

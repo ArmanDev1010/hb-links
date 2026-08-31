@@ -10,7 +10,7 @@ export default function ServiceAreas({ compact = false }) {
       id="service_areas"
     >
       <div
-        className={`max-w-[1680px] mx-auto w-full ${compact ? "700:px-[1rem] px-[0.5rem]" : "700:pl-[24px] pl-0 max-700:px-[16px]"}`}
+        className={`max-w-[1680px] mx-auto w-full ${compact ? "px-[1rem]" : "700:pl-[24px] pl-0 max-700:px-[16px]"}`}
       >
         <div className="mx-auto 1280:w-[83.33%] w-full mb-10 pointer-events-none">
           <p className="1280:text-sm text-xs uppercase font-xbold tracking-widest mb-4 text-gray-700">
@@ -18,7 +18,7 @@ export default function ServiceAreas({ compact = false }) {
           </p>
 
           <h3
-            className={`pb-1 font-bold leading-none text-3xl 400:text-4xl lg:text-5xl 1280:text-6xl`}
+            className={`pb-1 font-bold leading-none text-3xl 700:text-4xl 1080:text-5xl`}
           >
             Where We Work
           </h3>

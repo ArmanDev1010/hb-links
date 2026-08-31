@@ -8,7 +8,6 @@ import { BsChatLeftText } from "react-icons/bs";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import { fields } from "@/data/fields";
-import { span } from "framer-motion/client";
 
 const inputClasses =
   "w-full bg-transparent outline-none text-base placeholder:text-gray-400";
@@ -24,14 +23,14 @@ export default function ContactSection({ tradesPage = false }) {
   } = useContactForm();
 
   return (
-    <section className="py-20">
+    <section className="pt-12 pb-20">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[1rem] px-[0.5rem]">
         <div className="mx-auto 1280:w-[83.33%] w-full">
           <div className="w-full px-2 pointer-events-none">
             <p className="text-sm uppercase font-xbold tracking-widest mb-4 text-gray-700">
               Contact us
             </p>
-            <h3 className="pb-1 font-bold lg:text-5xl text-4xl leading-none">
+            <h3 className="pb-1 font-bold 1080:text-5xl 550:text-4xl text-3xl leading-none">
               Let's Get In Touch
             </h3>
           </div>
@@ -42,7 +41,7 @@ export default function ContactSection({ tradesPage = false }) {
 
           <div className="h-px bg-black/10 my-10" />
 
-          <h2 className="font-bold text-2xl mb-8 pointer-events-none">
+          <h2 className="font-bold 550:text-2xl text-xl mb-8 pointer-events-none">
             Or fill out the form below
           </h2>
 

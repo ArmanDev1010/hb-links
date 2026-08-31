@@ -5,6 +5,7 @@ import {
   buildTradeMetadata,
   buildTradeSchema,
   buildTradeBreadcrumbs,
+  buildServiceFAQSchema,
 } from "@/lib/seo";
 
 export async function generateStaticParams() {
@@ -32,6 +33,7 @@ export default async function TradePage({ params }) {
 
   const tradeSchema = buildTradeSchema(page);
   const breadcrumbs = buildTradeBreadcrumbs(page);
+  const faqSchema = buildServiceFAQSchema(page);
 
   return (
     <>
@@ -43,6 +45,12 @@ export default async function TradePage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <ServicesOverview {...page} services={page.dropdown} />
     </>
   );

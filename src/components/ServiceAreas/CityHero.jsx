@@ -8,8 +8,9 @@ import { getCityImage } from "@/lib/seo";
 import { getNearbyCities } from "@/lib/cities";
 
 const TRUST_BADGES = [
-  "Free On-Site Estimate",
   "Licensed & Insured",
+  "Serving Los Angeles & Ventura County",
+  "Free On-Site Estimate",
   "Workmanship Guaranteed",
 ];
 
@@ -60,9 +61,9 @@ export default function CityHero({ city }) {
             </h1>
             <p className="mt-6 text-white/80 max-w-xl text-base 700:text-lg pointer-events-none">
               HB Links provides general building, electrical, plumbing, and
-              low-voltage services to homeowners throughout {city.name} and
-              the surrounding {city.countyName}, all under one contract and
-              one point of contact.
+              low-voltage services to homeowners throughout {city.name} and the
+              surrounding {city.countyName}, all under one contract and one
+              point of contact.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
