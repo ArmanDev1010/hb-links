@@ -1,15 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useModal } from "@/context/ModalContext";
 
-export function useContactForm() {
-  const recaptchaRef = useRef();
-  const [captchaToken, setCaptchaToken] = useState(null);
+// `extraData` is sent along with the form's own fields (the estimate form's
+// answers, which aren't inputs); `onSuccess` runs after a successful send.
+export function useContactForm({ defaultValues, extraData, onSuccess } = {}) {
+  const { openThanks } = useModal();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm();
+  const form = useForm({ defaultValues });
   const {
     handleSubmit,
     reset,
@@ -17,25 +19,19 @@ export function useContactForm() {
   } = form;
 
   const onSubmit = async (data) => {
-    if (!captchaToken) {
-      toast.error("Please complete the CAPTCHA before submitting.");
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, token: captchaToken }),
+        body: JSON.stringify({ ...data, ...extraData }),
       });
 
       if (res.ok) {
-        toast.success("Delivered successfully!");
         reset();
-        setCaptchaToken(null);
-        recaptchaRef.current?.reset();
+        onSuccess?.();
+        openThanks(data.name);
       } else {
         toast.error("Delivery failed. Please try again.");
       }
@@ -62,8 +58,6 @@ export function useContactForm() {
 
   return {
     ...form,
-    recaptchaRef,
-    setCaptchaToken,
     isSubmitting,
     handleFormSubmit: handleSubmit(onSubmit, onInvalid),
     fieldStyle,

@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# hero AI timelapses (scripts/hero-ai/<sequence>): raw generated images
+/scripts/hero-ai/*/frames
+/scripts/hero-ai/*/keys
+/scripts/hero-ai/*/aligned

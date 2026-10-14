@@ -1,48 +1,29 @@
-import { services } from "@/data/services";
-import { FEATURED_CITIES } from "@/lib/seo";
-import { cityHref } from "@/lib/cities";
+import { servicePages } from "@/data/service-pages";
+import { SERVICE_AREAS } from "@/lib/cities";
 
-// References the existing trade/sub-trade data (services/index.js) instead
-// of duplicating it, so the sitemap, footer, and homepage — which all read
-// that data directly — are unaffected by how the navbar chooses to group it.
-// No standalone "/services" page — the trigger just jumps to the services
-// section on the homepage instead.
+// Flat list of "Services" nav rows — one per service page, all equal weight
+// and prefixed with a short dash in the dropdown. There's no standalone
+// directory page — the label itself lands on the homepage's services section.
 export const servicesNavItem = {
   title: "Services",
-  href: "/#expertise",
+  href: "/#services",
   type: "services",
-  trades: services,
+  rows: servicePages.map(({ navLabel, href }) => ({ title: navLabel, href })),
 };
 
+// Los Angeles links to the homepage (its area page); every other area to
+// its /home-builder-<area> page. There's no standalone directory page —
+// "view all" lands on the homepage's service-areas section.
 export const serviceAreasNavItem = {
   title: "Service Areas",
-  href: "/service-areas",
+  href: "/#service_areas",
   type: "service-areas",
-  featured: FEATURED_CITIES.map((name) => ({ name, href: cityHref(name) })),
-  viewAllHref: "/service-areas",
+  featured: SERVICE_AREAS.map(({ name, href }) => ({ name, href })),
+  viewAllHref: "/#service_areas",
 };
 
 export const homeNavItem = { title: "Home", href: "/" };
 
-// Desktop: Home renders separately via Logo, so it's excluded here — this
-// replaces the old hardcoded `[pages[1], pages[2], pages[3], pages[4]]`.
-export const desktopNavlinks = [servicesNavItem, serviceAreasNavItem];
+export const desktopNavlinks = [homeNavItem, servicesNavItem, serviceAreasNavItem];
 
-// Mobile keeps the original per-trade layout (4 separate expandable items,
-// each with just its own sub-trades) rather than the grouped "Services"
-// mega-menu — there's no column-width pressure on mobile, so there's no
-// benefit to merging them, and it matches what the site had before. Each
-// item reuses ServicesMegaMenuContent with a single-trade array, which
-// renders identically to the old flat per-trade dropdown.
-const mobileTradeNavItems = services.map((trade) => ({
-  title: trade.title,
-  href: trade.href,
-  type: "services",
-  trades: [trade],
-}));
-
-export const mobileNavlinks = [
-  homeNavItem,
-  ...mobileTradeNavItems,
-  serviceAreasNavItem,
-];
+export const mobileNavlinks = [homeNavItem, servicesNavItem, serviceAreasNavItem];

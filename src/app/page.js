@@ -1,21 +1,9 @@
-"use client";
+import HomePage from "@/components/Home/HomePage";
+import { PRIMARY_AREA } from "@/lib/cities";
+import { buildAreaMetadata } from "@/lib/seo";
 
-import Hero from "@/components/Home/Hero";
-import About from "@/components/Home/About";
-import Expertises from "@/components/Home/Expertises";
-import Process from "@/components/Home/Process";
-import Reviews from "@/components/Home/Reviews";
-import ServiceAreas from "@/components/ServiceAreas/ServiceAreas";
+export const metadata = buildAreaMetadata(PRIMARY_AREA);
 
-export default function HomePage() {
-  return (
-    <>
-      <Hero />
-      <About />
-      <Expertises />
-      <Process />
-      <Reviews />
-      <ServiceAreas compact />
-    </>
-  );
+export default function Home() {
+  return <HomePage area={PRIMARY_AREA} />;
 }

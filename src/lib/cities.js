@@ -1,5 +1,5 @@
-import { cities } from "@/data/citys/cities";
-import { counties } from "@/data/citys/counties";
+import { FEATURED_CITIES, PRIMARY } from "@/lib/seo";
+import { areaFAQs } from "@/data/areas";
 
 // URL-safe slug for a city name, e.g. "La Cañada Flintridge" -> "la-canada-flintridge".
 export function slugifyCity(name) {
@@ -12,121 +12,52 @@ export function slugifyCity(name) {
     .replace(/(^-|-$)/g, "");
 }
 
-// Every city we service, flattened with its county attached — used for the
-// full directory listing and for schema.org areaServed (via ALL_CITIES in
-// lib/seo.js), never for routing directly.
-export const ALL_CITY_RECORDS = cities.flatMap(({ county, cities: names }) => {
-  const countyMeta = counties.find((c) => c.fips === county);
-  return names.map((name) => ({
+// The nine service areas the site targets (FEATURED_CITIES). Los Angeles is
+// the primary area and its page IS the homepage; every other area gets a
+// copy of the homepage at /home-builder-<slug> with its own name swapped in
+// (see components/Home/HomePage). `badge` and `coverage` are the location
+// phrases those sections drop in. `badge` is always "<area>, CA"; for
+// `coverage` the primary area pairs the city with the Valley ("Los Angeles
+// and the San Fernando Valley" — "Los Angeles and Los Angeles County" would
+// repeat itself), every other area names itself first ("Encino and greater
+// Los Angeles"). `preposition` is for headings that place work in the area:
+// "across Los Angeles" spans the whole city and Valley, but every other area
+// is a single neighborhood or small city, so it's "in Woodland Hills" — and
+// "in Calabasas" too, which is its own city but reads as a neighborhood.
+// `faq` is the area's own FAQ (data/areas.js), null for the primary.
+export const SERVICE_AREAS = FEATURED_CITIES.map((name) => {
+  const isPrimary = name === PRIMARY.city;
+  const slug = slugifyCity(name);
+
+  return {
     name,
-    slug: slugifyCity(name),
-    countyFips: county,
-    countyName: countyMeta?.county ?? "",
-    countyLabel: countyMeta?.label ?? "",
-  }));
+    slug,
+    isPrimary,
+    href: isPrimary ? "/" : `/home-builder-${slug}`,
+    badge: `${name}, CA`,
+    coverage: isPrimary
+      ? `${name} County`
+      : `${name} and ${PRIMARY.city} County`,
+    coverageServices: isPrimary
+      ? `${name} and the San Fernando Valley`
+      : `${name} and greater ${PRIMARY.city}`,
+    preposition: isPrimary ? "across" : "in",
+    faq: areaFAQs[name] ?? null,
+  };
 });
 
-// A curated subset of cities that get a real, fully-built landing page.
-// Building all ~94 cities as near-identical templated pages risks Google
-// treating them as thin/doorway content — this list is the business's
-// actual service core (the San Fernando Valley, where the 818 area code
-// operates) plus the highest-value cities already identified for SEO in
-// FEATURED_CITIES (lib/seo.js). Every other city still appears in the
-// directory listing and in areaServed schema, just without its own page.
-export const PRIORITY_CITIES = [
-  "Los Angeles",
-  "Beverly Hills",
-  "Santa Monica",
-  "West Hollywood",
-  "Culver City",
-  "Pasadena",
-  "Burbank",
-  "Glendale",
-  "Encino",
-  "Sherman Oaks",
-  "Van Nuys",
-  "North Hollywood",
-  "Studio City",
-  "Woodland Hills",
-  "Tarzana",
-  "Northridge",
-  "Reseda",
-  "Canoga Park",
-  "Chatsworth",
-  "Granada Hills",
-  "Calabasas",
-  "Thousand Oaks",
-  "Ventura",
-];
+export const PRIMARY_AREA = SERVICE_AREAS.find((area) => area.isPrimary);
 
-export const PRIORITY_CITY_RECORDS = ALL_CITY_RECORDS.filter((c) =>
-  PRIORITY_CITIES.includes(c.name),
-);
+// The areas that get their own /home-builder-<slug> page.
+export const AREA_PAGES = SERVICE_AREAS.filter((area) => !area.isPrimary);
 
-export function isPriorityCity(name) {
-  return PRIORITY_CITIES.includes(name);
+export function getAreaBySlug(slug) {
+  return AREA_PAGES.find((area) => area.slug === slug) ?? null;
 }
 
-export function getCityBySlug(slug) {
-  return PRIORITY_CITY_RECORDS.find((c) => c.slug === slug) ?? null;
-}
-
-// Real href only for cities that have a page — callers use this to decide
-// whether a city should render as a link or plain text.
-export function cityHref(name) {
-  return isPriorityCity(name) ? `/service-areas/${slugifyCity(name)}` : null;
-}
-
-// Deterministic same-county neighbors (alphabetically adjacent, wrapping
-// around) — a simple proxy for proximity since no per-city coordinates
-// exist. By default draws only from the priority tier (so every result is
-// a real link, e.g. for the hero sidebar's short list); pass `allCities:
-// true` to draw from the full 94-city roster instead (e.g. for a long
-// "also serving" list, where most entries won't have their own page and
-// render as plain text). Naturally caps out below `count` for Ventura
-// County cities, which only has 15 cities total to draw from.
-export function getNearbyCities(cityName, count = 4, { allCities = false } = {}) {
-  const pool = allCities ? ALL_CITY_RECORDS : PRIORITY_CITY_RECORDS;
-  const record = pool.find((c) => c.name === cityName) ??
-    ALL_CITY_RECORDS.find((c) => c.name === cityName);
-  if (!record) return [];
-
-  const sameCounty = pool.filter(
-    (c) => c.countyFips === record.countyFips && c.name !== cityName,
-  );
-  if (!sameCounty.length) return [];
-
-  const startIndex = sameCounty.findIndex((c) => c.slug > record.slug);
-  const from = startIndex === -1 ? 0 : startIndex;
-  const rotated = [...sameCounty.slice(from), ...sameCounty.slice(0, from)];
-
-  return rotated.slice(0, count);
-}
-
-// Templated, per-city FAQ copy — a functional first draft, not final
-// marketing copy. Generated from the same fields for every city so it
-// scales to the full priority tier without hand-authoring.
-export function buildCityFAQs(city) {
-  const nearby = getNearbyCities(city.name, 3)
-    .map((c) => c.name)
-    .join(", ");
-
-  return [
-    {
-      question: `Do you provide services in ${city.name}?`,
-      answer: `Yes — HB Links regularly works throughout ${city.name} and the surrounding ${city.countyName}, covering general building, electrical, plumbing, and low-voltage projects.`,
-    },
-    {
-      question: `How far do you travel within ${city.name}?`,
-      answer: `There's no extra travel fee anywhere within ${city.name}.${nearby ? ` We also serve nearby communities including ${nearby}.` : ""}`,
-    },
-    {
-      question: `Are you licensed to work in ${city.name}?`,
-      answer: `Yes — HB Links holds California CSLB license #1144057, valid for work throughout ${city.name} and all of California.`,
-    },
-    {
-      question: `How quickly can you start a project in ${city.name}?`,
-      answer: `Scheduling depends on project scope, but most ${city.name} consultations can be booked within a few business days — call (818) 303-3555 or request a consultation online.`,
-    },
-  ];
+// Public URL of a service page — /<service>-<primary city>, e.g.
+// /adu-builder-los-angeles. Served by src/app/services/[service] through the
+// rewrite in next.config.mjs, the same way the area pages are.
+export function servicePageHref(slug) {
+  return `/${slug}-${slugifyCity(PRIMARY.city)}`;
 }

@@ -2,52 +2,62 @@
 
 import Link from "next/link";
 import { useRef } from "react";
+import { BsInstagram } from "react-icons/bs";
+import { useModal } from "@/context/ModalContext";
 import DropdownShell from "./DropdownShell";
+import PhoneChip from "./PhoneChip";
+import RequestBtn from "../Form/RequestBtn";
 import ServicesMegaMenuContent from "./ServicesMegaMenuContent";
 import ServiceAreasMenuContent from "./ServiceAreasMenuContent";
 
-// Non-zero on purpose: the dropdown panel starts a few px below the nav's
-// own box (see DropdownShell's gutter comment), so moving from a trigger
-// straight down into the open panel briefly crosses a strip that belongs
-// to neither's hover area. With a 0ms delay that strip instantly closed
-// the dropdown, which then had to reopen a beat later. This delay is a
-// buffer for that crossing; it never affects *opening*, which only ever
-// happens via a specific trigger's onMouseEnter. (Switching between two
-// triggers doesn't rely on this delay at all — see the `<ul>`'s
-// onMouseLeave below.)
-const CLOSE_DELAY_MS = 250;
+// Small buffer so moving the cursor from a trigger to its panel (or between
+// two triggers) doesn't flicker the menu closed. Opening is instant and only
+// ever happens via a trigger's own onMouseEnter.
+const CLOSE_DELAY_MS = 100;
+
+function Chevron({ open, className = "" }) {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      aria-hidden="true"
+      className={`transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        open ? "rotate-180" : ""
+      } ${className}`}
+    >
+      <path
+        d="M2 4.5 L6 8.5 L10 4.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export default function NavLinks({
   navlinks,
   pathname,
+  light,
   activeDropdown,
   setActiveDropdown,
-  atTop,
-  isLightPage,
   menuActive,
   setMenuActive,
   isMobile,
 }) {
   const closeTimeout = useRef(null);
+  const triggerEls = useRef({});
+  const { toggleModal } = useModal();
 
-  // Any open dropdown means the green mega-menu bar is showing (it's
-  // `position: fixed`, so it paints above the nav's background at any
-  // scroll position, not just at the top), so the toggle icon needs to go
-  // white regardless of isLightPage — matches the same rule Navbar uses
-  // for the logo/nav text.
-  const dropdownOverlay = !!activeDropdown && !isMobile;
+  const deskText = light ? "1080:text-white" : "1080:text-black";
 
-  const isCurrentPage = (href) =>
-    href === "/"
-      ? pathname === "/"
-      : pathname === href || pathname.startsWith(`${href}/`);
-
-  const getMenuActiveClasses = (active) =>
-    menuActive
-      ? active
-        ? "max-1080:text-white max-1080:opacity-100"
-        : "max-1080:text-gray-200 max-1080:opacity-70"
-      : "";
+  const openCta = () => {
+    setMenuActive(false);
+    toggleModal();
+  };
 
   const openDropdown = (title) => {
     if (isMobile) return;
@@ -58,9 +68,10 @@ export default function NavLinks({
   const scheduleClose = () => {
     if (isMobile) return;
     clearTimeout(closeTimeout.current);
-    closeTimeout.current = setTimeout(() => {
-      setActiveDropdown(null);
-    }, CLOSE_DELAY_MS);
+    closeTimeout.current = setTimeout(
+      () => setActiveDropdown(null),
+      CLOSE_DELAY_MS,
+    );
   };
 
   const handleLinkClick = () => {
@@ -70,36 +81,36 @@ export default function NavLinks({
 
   return (
     <div
-      className={`max-1080:h-[100dvh] max-1080:overflow-y-auto max-1080:pt-[6rem] max-1080:absolute max-1080:top-0 max-1080:left-0 max-1080:w-full transition-opacity duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        menuActive
-          ? "max-1080:opacity-100 max-1080:pointer-event-auto max-1080:visible text-white"
-          : "max-1080:opacity-0 max-1080:pointer-events-none max-1080:invisible"
-      }`}
+      className={`1080:flex-1 1080:flex 1080:justify-center 1080:h-full
+        max-1080:absolute max-1080:top-full max-1080:left-0 max-1080:w-full max-1080:pt-3
+        max-1080:transition-all max-1080:duration-300 max-1080:ease-[cubic-bezier(0,0,.2,1)] ${
+          menuActive
+            ? "max-1080:opacity-100 max-1080:translate-y-0 max-1080:pointer-events-auto"
+            : "max-1080:opacity-0 max-1080:-translate-y-4 max-1080:pointer-events-none max-1080:invisible"
+        }`}
     >
-      <div className="max-1080:pointer-events-auto max-1080:h-[calc(100%-3rem)] max-1080:overflow-auto max-1080:border-t-[1px] max-1080:border-l-[1px] max-1080:border-[#f6f4ee40] max-1080:mx-[1rem]">
-        <ul
-          className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full 1600:gap-x-[1.5rem] 1440:gap-x-[35px] gap-x-[28px] max-1080:gap-y-7 max-1080:pt-[2rem] h-full"
-          onMouseLeave={scheduleClose}
-        >
+      <div
+        className="1080:h-full
+        max-1080:bg-white/85 max-1080:backdrop-blur-xl max-1080:backdrop-saturate-150
+        max-1080:border max-1080:border-black/10 max-1080:overflow-y-auto max-1080:overscroll-contain
+        max-1080:max-h-[calc(100dvh-150px)]"
+      >
+        <ul className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full 1600:gap-x-[2rem] 1440:gap-x-[34px] 1280:gap-x-[26px] 1080:gap-x-[22px]">
           {navlinks.map(({ title, href, type, ...item }, key) => {
-            const linkActive = isCurrentPage(href);
-
             if (!type) {
               return (
                 <li
-                  className={`max-1080:py-3 1080:h-full 1080:flex 1080:items-center ${
-                    title === "Home" ? "1080:hidden" : ""
-                  }`}
+                  className="1080:h-full 1080:flex 1080:items-center max-1080:border-b max-1080:border-black/10"
                   key={key}
                   onMouseEnter={() => openDropdown(null)}
                 >
                   <Link
                     href={href}
-                    className={`transition-opacity duration-200 hover:opacity-70 uppercase
-                  max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-lg max-1080:px-6 ${getMenuActiveClasses(
-                    linkActive,
-                  )}`}
                     prefetch
+                    className={`uppercase transition-opacity duration-200 hover:opacity-60 text-black ${deskText}
+                      1280:text-[12px] 1080:text-[11px] 700:text-base 400:text-[15px] text-sm 1080:tracking-[0.14em] 
+                      1080:font-semibold font-medium
+                      max-1080:block max-1080:w-full 1080:px-0 700:px-7 px-5 max-1080:py-[22px] max-1080:tracking-[0.18em]`}
                     onClick={() => setMenuActive(false)}
                   >
                     {title}
@@ -108,25 +119,30 @@ export default function NavLinks({
               );
             }
 
+            const open = activeDropdown === title;
+
             return (
               <li
-                className={`relative 1080:h-full `}
+                className="relative 1080:h-[95%] max-1080:border-b max-1080:border-black/10"
                 key={key}
+                ref={(el) => {
+                  triggerEls.current[key] = el;
+                }}
                 onMouseEnter={() => openDropdown(title)}
+                onMouseLeave={scheduleClose}
               >
-                <div className="flex gap-2 1080:justify-center items-center max-1080:py-3 1080:h-full 1600:px-3 max-1080:px-6 relative z-20">
+                <div className="flex items-center 1080:gap-2 1080:justify-center 1080:h-full relative z-20 max-1080:pr-5">
                   <Link
                     href={href}
                     prefetch
-                    className={`transition-opacity duration-200 hover:opacity-70 uppercase cursor-pointer
-                  1080:text-sm font-medium max-1080:tracking-[0.1em] max-1080:font-bold max-1080:text-lg
-                  relative top-[1.5px] flex items-center ${getMenuActiveClasses(linkActive)} ${atTop && !isMobile ? "h-[95px]" : !atTop && !isMobile ? "h-[100px]" : "h-auto"}`}
+                    className={`uppercase transition-opacity duration-200 hover:opacity-60 cursor-pointer text-black ${deskText}
+                      1280:text-[12px] 1080:text-[11px] 700:text-base 400:text-[15px] text-sm 1080:font-semibold font-medium
+                      1080:tracking-[0.14em] 1080:h-full 1080:flex 1080:items-center
+                      max-1080:flex-1 1080:px-0 700:px-7 px-5 max-1080:py-[22px] max-1080:tracking-[0.18em]`}
                     onClick={(e) => {
                       if (isMobile) {
                         e.preventDefault();
-                        setActiveDropdown(
-                          activeDropdown === title ? null : title,
-                        );
+                        setActiveDropdown(open ? null : title);
                         return;
                       }
                       setMenuActive(false);
@@ -139,102 +155,74 @@ export default function NavLinks({
                   <button
                     type="button"
                     aria-label={`Toggle ${title} submenu`}
-                    className="relative w-[12px] h-[12px] max-1280:w-[10px] max-1280:h-[10px] max-1080:w-[15px] max-1080:h-[15px] max-550:w-[12px] max-550:h-[12px] cursor-pointer"
-                    onClick={() =>
-                      setActiveDropdown(activeDropdown === title ? null : title)
-                    }
+                    className={`cursor-pointer flex items-center text-black ${deskText} max-1080:p-2`}
+                    onClick={() => setActiveDropdown(open ? null : title)}
                   >
-                    <div
-                      className={`absolute w-full h-[1.5px] top-1/2 -translate-y-1/2 transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-500
-                     max-1080:h-[2px]
-                    ${activeDropdown === title ? "rotate-90 opacity-0" : ""}
-                    ${
-                      !menuActive && !dropdownOverlay && (!atTop || isLightPage)
-                        ? "bg-black"
-                        : "bg-white"
-                    }`}
-                    />
-                    <div
-                      className={`absolute h-full w-[1.5px] top-0 left-1/2 -translate-x-1/2 transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-500
-                    max-1080:w-[2px]
-                    ${activeDropdown === title ? "rotate-90" : ""}
-                    ${
-                      !menuActive && !dropdownOverlay && (!atTop || isLightPage)
-                        ? "bg-black"
-                        : "bg-white"
-                    }`}
+                    <Chevron
+                      open={open}
+                      className="1080:w-[10px] 1080:h-[10px]"
                     />
                   </button>
                 </div>
 
+                {/* underline indicator (desktop) */}
                 <div
-                  className={`max-1080:hidden content-[''] absolute left-0 w-full h-[3px]
-              bg-white opacity-0 transition-opacity duration-100 z-[100] ${
-                activeDropdown === title ? "opacity-100" : ""
-              } ${atTop ? "bottom-[0rem]" : "bottom-[0.75rem]"}`}
-                ></div>
+                  className={`max-1080:hidden absolute left-0 w-full h-[2px] bottom-0 transition-opacity duration-150 z-[100] ${
+                    light ? "bg-white" : "bg-black"
+                  } ${open ? "opacity-100" : "opacity-0"}`}
+                />
 
-                {isMobile && (
-                  <DropdownShell
-                    active={activeDropdown === title}
-                    isMobile={isMobile}
-                  >
-                    {type === "services" && (
-                      <ServicesMegaMenuContent
-                        trades={item.trades}
-                        pathname={pathname}
-                        menuActive={menuActive}
-                        onLinkClick={handleLinkClick}
-                      />
-                    )}
-                    {type === "service-areas" && (
-                      <ServiceAreasMenuContent
-                        featured={item.featured}
-                        viewAllHref={item.viewAllHref}
-                        pathname={pathname}
-                        menuActive={menuActive}
-                        onLinkClick={handleLinkClick}
-                      />
-                    )}
-                  </DropdownShell>
-                )}
+                <DropdownShell
+                  active={open}
+                  isMobile={isMobile}
+                  triggerEl={triggerEls.current[key]}
+                >
+                  {type === "services" && (
+                    <ServicesMegaMenuContent
+                      rows={item.rows}
+                      pathname={pathname}
+                      menuActive={menuActive}
+                      onLinkClick={handleLinkClick}
+                      onMouseEnter={() => openDropdown(title)}
+                      onMouseLeave={scheduleClose}
+                    />
+                  )}
+                  {type === "service-areas" && (
+                    <ServiceAreasMenuContent
+                      featured={item.featured}
+                      viewAllHref={item.viewAllHref}
+                      pathname={pathname}
+                      menuActive={menuActive}
+                      onLinkClick={handleLinkClick}
+                      onMouseEnter={() => openDropdown(title)}
+                      onMouseLeave={scheduleClose}
+                    />
+                  )}
+                </DropdownShell>
               </li>
             );
           })}
         </ul>
 
-        {!isMobile &&
-          navlinks
-            .filter((l) => l.type)
-            .map((item) => (
-              <DropdownShell
-                key={item.title}
-                active={activeDropdown === item.title}
-                isMobile={isMobile}
-              >
-                {item.type === "services" && (
-                  <ServicesMegaMenuContent
-                    trades={item.trades}
-                    pathname={pathname}
-                    menuActive={menuActive}
-                    onLinkClick={handleLinkClick}
-                    onMouseEnter={() => openDropdown(item.title)}
-                    onMouseLeave={scheduleClose}
-                  />
-                )}
-                {item.type === "service-areas" && (
-                  <ServiceAreasMenuContent
-                    featured={item.featured}
-                    viewAllHref={item.viewAllHref}
-                    pathname={pathname}
-                    menuActive={menuActive}
-                    onLinkClick={handleLinkClick}
-                    onMouseEnter={() => openDropdown(item.title)}
-                    onMouseLeave={scheduleClose}
-                  />
-                )}
-              </DropdownShell>
-            ))}
+        {/* Mobile menu footer — socials, call, and the primary CTA */}
+        <div className="1080:hidden flex flex-col gap-4 px-6 pt-6 pb-9">
+          <div className="flex gap-3 max-800:flex-col">
+            <Link
+              href="https://www.instagram.com/hb_links/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="HB Links on Instagram"
+              className="w-11 h-11 grid place-items-center border border-black/25 text-black shrink-0 transition-colors duration-200 hover:bg-black hover:text-white"
+            >
+              <BsInstagram className="w-[17px] h-[17px]" />
+            </Link>
+            <PhoneChip
+              icon
+              className="flex-[0.5] !font-bold 550:!text-base !text-[14px] !gap-4 max-800:min-h-[44px]"
+            />
+            <RequestBtn toggleModal={openCta} solid className="flex-[0.5]" />
+          </div>
+        </div>
       </div>
     </div>
   );

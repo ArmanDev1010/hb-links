@@ -8,21 +8,35 @@ import NavLinks from "./components/Nav/NavLinks";
 import MenuBtn from "./components/Nav/MenuBtn";
 import RequestBtn from "./components/Form/RequestBtn";
 import RequestModal from "./components/Form/RequestModal";
-import PhoneBtn from "./components/Nav/PhoneBtn";
+import ThanksModal from "./components/Form/ThanksModal";
+import InstagramBtn from "./components/Nav/InstagramBtn";
+import PhoneChip from "./components/Nav/PhoneChip";
 import { desktopNavlinks, mobileNavlinks } from "@/data/navigation";
+import { privacyPages } from "@/data/privacy";
 import { useModal } from "@/context/ModalContext";
+
+// White pages with no dark hero behind the navbar, so it's solid with dark
+// text from the top instead of transparent with white text.
+const LIGHT_PAGES = ["/contact", ...privacyPages.map(({ slug }) => `/${slug}`)];
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [visible, setVisible] = useState(true);
   const [atTop, setAtTop] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  const { showModal, toggleModal, menuActive, setMenuActive } = useModal();
+  const {
+    showModal,
+    toggleModal,
+    menuActive,
+    setMenuActive,
+    thanksName,
+    closeThanks,
+  } = useModal();
+  const showThanks = thanksName !== null;
 
   useEffect(() => {
-    const checkScreen = () => setIsMobile(window.innerWidth <= 1080);
+    const checkScreen = () => setIsMobile(window.innerWidth < 1080);
     checkScreen();
     window.addEventListener("resize", checkScreen);
     return () => window.removeEventListener("resize", checkScreen);
@@ -31,125 +45,110 @@ export default function Navbar() {
   const navlinks = isMobile ? mobileNavlinks : desktopNavlinks;
 
   useEffect(() => {
-    document.body.style.overflow = menuActive || showModal ? "hidden" : "";
+    document.body.style.overflow =
+      menuActive || showModal || showThanks ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [menuActive, showModal]);
-
-  const isLightPage =
-    pathname.startsWith("/contact") ||
-    pathname === "/service-areas" ||
-    ["/terms-of-service", "/privacy-policy"].includes(pathname);
+  }, [menuActive, showModal, showThanks]);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
     const handleScroll = () => {
-      const currentY = window.scrollY;
-      setAtTop(currentY < 10);
-      setVisible(currentY < lastScrollY || currentY < 10);
-      lastScrollY = currentY;
-      if (activeDropdown) setActiveDropdown(null);
+      // The homepage hero stays pinned under the bar while its tour plays
+      // (Home/HeroBuildSequence), so the bar stays clear over it until the
+      // tour ends — the hero puts how far into it that is in
+      // data-nav-overlay-end — or, when it shows a still instead, until it
+      // has scrolled out from under the bar.
+      const hero = document.querySelector("[data-nav-overlay]");
+      let overHero = false;
+      if (hero) {
+        const { top, bottom } = hero.getBoundingClientRect();
+        const tourEnd = Number(hero.dataset.navOverlayEnd);
+        overHero = tourEnd ? -top < tourEnd : bottom > 100;
+      }
+      setAtTop(window.scrollY < 10 || overHero);
+      setActiveDropdown((d) => (d ? null : d));
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeDropdown]);
+  }, []);
 
-  // True while the green mega-menu bar is open — the nav itself needs to
-  // go white regardless of isLightPage or scroll position. The bar is
-  // `position: fixed`, so it always paints above the nav's own background
-  // (fixed elements out-stack a static background fill regardless of
-  // z-index), meaning it shows through even once scrolled/opaque, not
-  // just at the top of the page. Mobile dropdowns only ever open inside
-  // the already-dark full-screen menu, so this only matters on desktop.
-  const dropdownOverlay = !!activeDropdown && !isMobile;
-
-  const navBase = "w-full transition-all duration-400 !z-[999]";
-
-  const topStyles = atTop
-    ? "bg-transparent !h-[95px]"
-    : dropdownOverlay
-      ? "!bg-white !h-[75px] !text-white"
-      : "!bg-white !h-[75px] !text-black";
-  const themeStyles = dropdownOverlay
-    ? "text-white"
-    : isLightPage
-      ? "text-black"
-      : "text-white";
-
-  const navClasses = `fixed translate-y-0 ${navBase} ${topStyles} ${themeStyles}`;
+  const isLightPage = LIGHT_PAGES.includes(pathname);
+  const solid = !atTop || isLightPage || menuActive;
+  const light = !solid;
 
   return (
     <>
-      <nav className={navClasses}>
-        <div className="relative 1800:px-[1rem] 1600:px-[3%] 1080:px-[24px] 700:px-[1.5rem] px-[1rem] z-[11] flex items-center justify-between h-full max-w-[1680px] mx-auto w-full">
-          <Logo
-            atTop={atTop}
-            setActiveDropdown={setActiveDropdown}
-            menuActive={menuActive}
-            setMenuActive={setMenuActive}
-            forceBlack={isLightPage && !menuActive && !dropdownOverlay}
-            forceWhite={dropdownOverlay}
-          />
-          <div className="flex items-center 1440:gap-x-[40px] gap-x-[30px]">
-            <NavLinks
-              navlinks={navlinks}
-              pathname={pathname}
-              activeDropdown={activeDropdown}
-              setActiveDropdown={setActiveDropdown}
-              atTop={atTop}
-              isLightPage={isLightPage}
-              menuActive={menuActive}
-              setMenuActive={setMenuActive}
-              isMobile={isMobile}
-            />
+      <nav className="fixed top-0 left-0 w-full z-[999]">
+        <div
+          className={`1080:hidden fixed inset-0 bg-[#111111]/40 backdrop-blur-sm transition-all duration-300 ${
+            menuActive ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+          onClick={() => setMenuActive(false)}
+        />
 
-            <div className="relative z-20 flex items-center items-stretch gap-4">
-              <PhoneBtn
-                atTop={atTop}
-                menuActive={menuActive}
-                isLightPage={isLightPage}
-                dropdownOverlay={dropdownOverlay}
-              />
-
-              <div className="max-900:hidden">
-                <RequestBtn
-                  toggleModal={toggleModal}
-                  atTop={atTop}
-                  forceBlackBorder={isLightPage}
-                  forceWhiteBorder={dropdownOverlay}
-                  isLightPage={isLightPage}
-                  menuActive={menuActive}
-                />
-              </div>
-              <MenuBtn
+        <div
+          className={`transition-all duration-300 ${solid ? "p-3 400:px-[24px] 700:px-[32px]" : ""}`}
+        >
+          <div
+            className={`relative z-[11] mx-auto w-full max-w-[1680px]
+              transition-all duration-300 ${
+                solid
+                  ? "1080:h-[75px] h-[70px] border bg-white/85 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/85 border-b border-black/10"
+                  : "bg-transparent 1080:h-[100px] h-[95px]"
+              }`}
+          >
+            <div
+              className={`relative z-[12] 1600:!px-[3%] px-[24px]
+                flex items-center justify-between h-full w-full transition-[padding] duration-300 ${
+                  solid ? "1080:!px-[20px]" : "700:!px-[32px]"
+                }`}
+            >
+              <Logo
+                light={light}
+                setActiveDropdown={setActiveDropdown}
                 menuActive={menuActive}
                 setMenuActive={setMenuActive}
-                atTop={atTop}
-                isLightPage={isLightPage}
               />
+
+              <NavLinks
+                navlinks={navlinks}
+                pathname={pathname}
+                light={light}
+                activeDropdown={activeDropdown}
+                setActiveDropdown={setActiveDropdown}
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                isMobile={isMobile}
+              />
+
+              <div className="relative z-20 flex items-center gap-3">
+                <InstagramBtn light={light} />
+                <PhoneChip light={light} className="!px-7 max-550:hidden" />
+                <RequestBtn toggleModal={toggleModal} solid={solid} main />
+                <MenuBtn
+                  light={light}
+                  menuActive={menuActive}
+                  setMenuActive={setMenuActive}
+                />
+              </div>
             </div>
           </div>
         </div>
-
-        <div
-          className="absolute top-[95px] left-0 w-full h-[2px] z-[999]"
-          style={{
-            background:
-              activeDropdown && !isMobile ? "#f6f4ee66" : "transparent",
-            top: atTop ? "95px" : "75px",
-          }}
-        ></div>
-
-        <div
-          className="1080:hidden absolute top-0 left-0 w-full z-[10] bg-third/90 backdrop-blur-sm transition-[height] duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]"
-          style={{ height: menuActive ? "100vh" : "0" }}
-        />
       </nav>
 
-      <AnimatePresence>
+      {/* "wait" lets the request modal finish closing before the thank-you
+          modal opens in its place. */}
+      <AnimatePresence mode="wait">
         {showModal && (
           <RequestModal key="request-modal" handleClose={toggleModal} />
+        )}
+        {showThanks && (
+          <ThanksModal
+            key="thanks-modal"
+            name={thanksName}
+            handleClose={closeThanks}
+          />
         )}
       </AnimatePresence>
     </>

@@ -1,50 +1,41 @@
-import { pages } from "@/data/pages";
+import { servicePages } from "@/data/service-pages";
 import { privacyPages } from "@/data/privacy";
 import { BASE_URL } from "@/lib/seo";
-import { PRIORITY_CITY_RECORDS } from "@/lib/cities";
+import { AREA_PAGES } from "@/lib/cities";
+
+// `lastModified` defaults to the build, and `images` lists the page's main
+// photo so Google Images can find it.
+function route(url, priority, { lastModified = new Date(), images } = {}) {
+  return {
+    url: `${BASE_URL}${url}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority,
+    ...(images && { images: images.map((src) => `${BASE_URL}${src}`) }),
+  };
+}
 
 export default function sitemap() {
   const staticRoutes = [
-    { url: "", priority: 1 },
-    { url: "/contact", priority: 0.8 },
-    { url: "/service-areas", priority: 0.6 },
-    ...privacyPages.map(({ slug }) => ({
-      url: `/legal/${slug}`,
-      priority: 0.3,
-    })),
-  ].map(({ url, priority }) => ({
-    url: `${BASE_URL}${url}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority,
-  }));
+    route("", 1),
+    route("/contact", 0.8),
+    // The legal pages carry their own "Last updated" date — a real one is
+    // worth more to crawlers than the build's.
+    ...privacyPages.map(({ slug, updated }) =>
+      route(`/${slug}`, 0.3, { lastModified: new Date(`${updated}T00:00:00Z`) }),
+    ),
+  ];
 
-  const cityRoutes = PRIORITY_CITY_RECORDS.map((city) => ({
-    url: `${BASE_URL}/service-areas/${city.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.5,
-  }));
+  // The /home-builder-<area> pages — homepage copies for each service area,
+  // so they sit just under the homepage itself.
+  const areaRoutes = AREA_PAGES.map((area) => route(area.href, 0.9));
 
-  const tradeRoutes = pages.flatMap((page) => {
-    if (!page.href) return [];
+  // The /<service>-los-angeles service pages. ADU is the primary SEO focus
+  // and gets the highest priority after Home; the rest are strong secondary
+  // services.
+  const servicePageRoutes = servicePages.map((page) =>
+    route(page.href, page.featured ? 0.95 : 0.8, { images: [page.image.src] }),
+  );
 
-    const tradeRoute = {
-      url: `${BASE_URL}${page.href}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    };
-
-    const subTradeRoutes = (page.dropdown ?? []).map((sub) => ({
-      url: `${BASE_URL}${sub.href}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    }));
-
-    return [tradeRoute, ...subTradeRoutes];
-  });
-
-  return [...staticRoutes, ...tradeRoutes, ...cityRoutes];
+  return [...staticRoutes, ...servicePageRoutes, ...areaRoutes];
 }

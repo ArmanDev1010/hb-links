@@ -1,12 +1,13 @@
-import ContactSection from "@/components/Contact/ContactSection";
+import EstimatePage from "@/components/Contact/Estimate/EstimatePage";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Contact Us | HB LINKS",
+export const metadata = buildPageMetadata({
+  title: "Contact HB LINKS | Free On-Site Estimates in Los Angeles",
   description:
-    "Get in touch with HB LINKS for general building, electrical, low-voltage, and plumbing services across Los Angeles and Ventura County.",
-  alternates: { canonical: "https://hb-links.com/contact" },
-};
+    "Request a free on-site estimate from HB LINKS for ADUs, remodels, home additions, and outdoor living across Los Angeles and the San Fernando Valley.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
-  return <ContactSection />;
+  return <EstimatePage />;
 }

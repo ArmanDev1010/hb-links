@@ -29,7 +29,6 @@ export const cities = [
       "La Cañada Flintridge",
       "La Crescenta",
       "Lake Balboa",
-      "Lakewood",
       "Lancaster",
       "Leona Valley",
       "Los Angeles",
@@ -84,26 +83,15 @@ export const cities = [
       "Woodland Hills",
     ],
   },
-
-  // Ventura County
+  // Ventura County — only the eastern communities next to the west Valley
   {
     county: "06111",
     cities: [
-      "Bell Canyon",
-      "Camarillo",
-      "Fillmore",
       "Moorpark",
       "Newbury Park",
       "Oak Park",
-      "Oak View",
-      "Ojai",
-      "Oxnard",
-      "Port Hueneme",
-      "Santa Paula",
-      "Santa Rosa Valley",
       "Simi Valley",
       "Thousand Oaks",
-      "Ventura",
     ],
   },
 ];

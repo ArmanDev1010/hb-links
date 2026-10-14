@@ -8,6 +8,7 @@
   --breakpoint-1440: 1440px;
   --breakpoint-1280: 1280px;
   --breakpoint-1080: 1080px;
+  --breakpoint-1079: 1079px;
   --breakpoint-900: 900px;
   --breakpoint-800: 800px;
   --breakpoint-700: 700px;
@@ -18,8 +19,14 @@
   /* Colors */
 
   --color-primary: #1f1f1f;
-  --color-secondary: #3c454a;
+  --color-secondary: #111111;
   --color-third: #106b37;
+  --color-fourth: #6B6B6B;
+
+  /* Nav — warm cream bar + angular black CTA (see Navigation/*) */
+  --color-sand: #f1ece2;
+  --color-sand-hover: #e7e1d3;
+  --color-ink: #1c1a17;
 
   /* Animation */
 
@@ -35,43 +42,105 @@
   }
 
   /* Fonts */
-  
-  --font-gt: "GT America", sans-serif;
+
+  --font-gt: "Gomme Sans", sans-serif;
+}
+
+@theme inline {
+  --font-montserrat: var(--next-font-montserrat), sans-serif;
+}
+
+/* The scroll-timelapse heroes (components/Home/HeroBuildSequence.jsx) show a
+   still of the finished job instead on phones held sideways (too short to pin
+   the hero). Keep in step with STATIC_QUERY there. */
+@custom-variant hero-static {
+  @media (max-height: 500px) and (orientation: landscape) {
+    @slot;
+  }
 }
 
 @font-face {
-  font-family: "GT America";
-  src: url("/fonts/GT-America/GT-America-Standard-Light-Trial.otf") format("opentype");
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_ExtraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_ExtraLight_Italic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_Light.otf") format("opentype");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GT America";
-  src: url("/fonts/GT-America/GT-America-Standard-Regular-Trial.otf") format("opentype");
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_Light_Italic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GT America";
-  src: url("/fonts/GT-America/GT-America-Standard-Medium-Trial.otf") format("opentype");
-  font-weight: 500;
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_SemiBold.otf") format("opentype");
+  font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GT America";
-  src: url("/fonts/GT-America/GT-America-Standard-Bold-Trial.otf") format("opentype");
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_SemiBold_Italic.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GT America";
-  src: url("/fonts/GT-America/GT-America-Standard-Black-Trial.otf") format("opentype");
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_Bold_Italic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_ExtraBold.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
+}
+
+@font-face {
+  font-family: "Gomme Sans";
+  src: url("/fonts/fonnts.com-Gomme_Sans_ExtraBold_Italic.otf") format("opentype");
+  font-weight: 800;
+  font-style: italic;
 }
 
 *,
@@ -81,12 +150,100 @@
   box-sizing: border-box;
 }
 
+/* "Reduce motion" turns smooth scrolling into a plain jump. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::after,
+  *::before {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   background: white;
   color: #222;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+/* The body text of the /legal pages (components/Legal/LegalContent.jsx).
+   The documents in data/legal are plain <p>, <h3>, <ul>, <strong> and <a>
+   markup, styled here so they stay easy to edit. In the components layer, so
+   utility classes still win where a page needs them to. */
+@layer components {
+  .legal-prose {
+    color: rgb(0 0 0 / 0.78);
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+  .legal-prose > * + * {
+    margin-top: 1rem;
+  }
+  .legal-prose h3 {
+    margin-top: 1.75rem;
+    color: #111;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .legal-prose h3:first-child {
+    margin-top: 0;
+  }
+  .legal-prose ul {
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+  .legal-prose li + li {
+    margin-top: 0.5rem;
+  }
+  .legal-prose li::marker {
+    color: var(--color-third);
+  }
+  .legal-prose strong {
+    color: #111;
+    font-weight: 600;
+  }
+  .legal-prose a {
+    color: var(--color-third);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+  .legal-prose a:hover {
+    color: #111;
+  }
+  @media (min-width: 700px) {
+    .legal-prose {
+      font-size: 16.5px;
+    }
+  }
+}
+
+/* Thin, unobtrusive scrollbar for the request modal's scrollable body —
+   Firefox via `scrollbar-*`, WebKit/Chromium via the pseudo-elements below. */
+.modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+.modal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+/* The same on a dark dialog (the thank-you modal). */
+.modal-scroll.modal-scroll-dark {
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+.modal-scroll.modal-scroll-dark::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .request__close:after,

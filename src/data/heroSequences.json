@@ -1,0 +1,122 @@
+{
+  "adu": {
+    "ext": "avif",
+    "fallback": "webp",
+    "desktop": {
+      "count": 23,
+      "width": 1376,
+      "height": 768
+    },
+    "mobile": {
+      "count": 23,
+      "width": 768,
+      "height": 768,
+      "focus": 0.77
+    }
+  },
+  "design-build": {
+    "ext": "avif",
+    "fallback": "webp",
+    "desktop": {
+      "count": 12,
+      "width": 1600,
+      "height": 900
+    },
+    "mobile": {
+      "count": 12,
+      "width": 768,
+      "height": 768,
+      "focus": 0.7
+    }
+  },
+  "kitchen-remodel": {
+    "ext": "avif",
+    "fallback": "webp",
+    "desktop": {
+      "count": 9,
+      "width": 1376,
+      "height": 768
+    },
+    "mobile": {
+      "count": 9,
+      "width": 768,
+      "height": 768,
+      "focus": 0.5
+    }
+  },
+  "bathroom-remodel": {
+    "ext": "avif",
+    "fallback": "webp",
+    "desktop": {
+      "count": 9,
+      "width": 1376,
+      "height": 768
+    },
+    "mobile": {
+      "count": 9,
+      "width": 768,
+      "height": 768,
+      "focus": 0.5
+    }
+  },
+  "deck-and-patio": {
+    "ext": "avif",
+    "fallback": "webp",
+    "desktop": {
+      "count": 9,
+      "width": 1376,
+      "height": 768
+    },
+    "mobile": {
+      "count": 9,
+      "width": 768,
+      "height": 768,
+      "focus": 0.5
+    }
+  },
+  "home-remodel": {
+    "ext": "avif",
+    "fallback": "webp",
+    "desktop": {
+      "count": 11,
+      "width": 1376,
+      "height": 768
+    },
+    "mobile": {
+      "count": 11,
+      "width": 768,
+      "height": 768,
+      "focus": 0.5
+    }
+  },
+  "home-additions": {
+    "ext": "avif",
+    "fallback": "webp",
+    "desktop": {
+      "count": 12,
+      "width": 1376,
+      "height": 768
+    },
+    "mobile": {
+      "count": 12,
+      "width": 768,
+      "height": 768,
+      "focus": 0.5
+    }
+  },
+  "garage-conversion": {
+    "ext": "avif",
+    "fallback": "webp",
+    "desktop": {
+      "count": 10,
+      "width": 1376,
+      "height": 768
+    },
+    "mobile": {
+      "count": 10,
+      "width": 768,
+      "height": 768,
+      "focus": 0.5
+    }
+  }
+}
