@@ -51,10 +51,12 @@
 }
 
 /* The scroll-timelapse heroes (components/Home/HeroBuildSequence.jsx) show a
-   still of the finished job instead on phones held sideways (too short to pin
-   the hero). Keep in step with STATIC_QUERY there. */
+   still of the finished job instead on touch screens — phones and tablets,
+   scrolled with a finger, where scrubbing the timelapse felt off — and on
+   anything held sideways too short to pin the hero. Keep in step with
+   STATIC_QUERY there. */
 @custom-variant hero-static {
-  @media (max-height: 500px) and (orientation: landscape) {
+  @media (max-height: 500px) and (orientation: landscape), (hover: none) and (pointer: coarse) {
     @slot;
   }
 }
@@ -156,6 +158,134 @@
   *::after,
   *::before {
     scroll-behavior: auto;
+  }
+}
+
+/* The scroll reveals (components/UI/Reveal): hidden until marked revealed,
+   then they rise and fade in. A CSS animation of opacity and transform only,
+   which the browser runs on its compositor, off the main thread, so it stays
+   smooth on a phone while the page scrolls (Framer Motion's `y` ran in
+   JavaScript and stuttered there). It names only its first frame and fills
+   backwards, so it never holds a transform or a transition over the
+   element's own. With "reduce motion" the rise is a third as far: calmer,
+   but the same reveal (the user's iPhone has it on). */
+[data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+[data-revealed] {
+  animation: reveal-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1)
+    var(--reveal-delay, 0s) backwards;
+}
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+}
+@keyframes reveal-rise-calm {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+}
+
+/* How We Work's gold bar on each step (components/Home/Process), drawn in
+   once its card has risen (the card's --reveal-delay, plus a beat). With
+   "reduce motion" it's simply there. */
+[data-reveal] .reveal-bar {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+[data-revealed] .reveal-bar {
+  transform: none;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)
+    calc(var(--reveal-delay, 0s) + 0.35s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-revealed] {
+    animation-name: reveal-rise-calm;
+  }
+  [data-reveal] .reveal-bar {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* A service card shown by its tab (components/Home/ServiceTabs) and an FAQ
+   answer as it opens (components/Home/FAQ) rise in briefly; with "reduce
+   motion" they only fade. The animation starts each time the selector
+   starts matching, i.e. each time one is shown. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.tab-panel:not([hidden]),
+details[open] > .faq-answer {
+  animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab-panel:not([hidden]),
+  details[open] > .faq-answer {
+    animation-name: fade-in;
+  }
+}
+
+/* The page transition's wall (components/UI/PageTransition). Its "laser
+   level" line draws across, then slides off — with "reduce motion" it pulses
+   — in CSS, so it already runs on the wall the site opens on, before the
+   page's script does. That opening wall fades by itself if the script never
+   takes it over. */
+.laser-line {
+  transform-origin: left;
+  animation: laser-sweep 1.1s ease-in-out infinite;
+}
+@keyframes laser-sweep {
+  0% {
+    transform: translateX(0) scaleX(0);
+  }
+  50% {
+    transform: translateX(0) scaleX(1);
+  }
+  100% {
+    transform: translateX(100%) scaleX(1);
+  }
+}
+@keyframes laser-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.intro-wall[data-intro] {
+  animation: intro-failsafe 0.4s 10s forwards;
+}
+@keyframes intro-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .laser-line {
+    animation-name: laser-pulse;
   }
 }
 

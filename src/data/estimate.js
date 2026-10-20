@@ -62,13 +62,13 @@ const projectOptions = [
   notSureOption,
 ];
 
-// One-tap picks for the location step: six of the service areas with their
-// own pages (FEATURED_CITIES in lib/seo) — the West Valley neighborhoods most
-// of our ADU, remodel and addition work comes from. "Los Angeles" is left
-// out (it'd cover everyone, so it tells us nothing); for everywhere else
-// there's an "Other area" pick that opens a box to type it in. A pick is
-// sent as "<name>, CA".
+// One-tap picks for the location step: Los Angeles, then six of the service
+// areas with their own pages (FEATURED_CITIES in lib/seo) — the West Valley
+// neighborhoods most of our ADU, remodel and addition work comes from. For
+// everywhere else there's an "Other area" pick that opens a box to type it
+// in. A pick is sent as "<name>, CA".
 export const LOCATION_AREAS = [
+  "Los Angeles",
   "Woodland Hills",
   "Encino",
   "Sherman Oaks",

@@ -4,8 +4,8 @@
     "fallback": "webp",
     "desktop": {
       "count": 23,
-      "width": 1376,
-      "height": 768
+      "width": 2752,
+      "height": 1536
     },
     "mobile": {
       "count": 23,

@@ -5,6 +5,7 @@ import { VscWorkspaceTrusted } from "react-icons/vsc";
 import EstimateForm from "./EstimateForm";
 import ReachUsDirect from "./ReachUsDirect";
 import { ESTIMATE_STEPS } from "@/data/estimate";
+import Reveal from "@/components/UI/Reveal";
 
 function Stars() {
   return (
@@ -25,6 +26,12 @@ function Stars() {
   );
 }
 
+// Reveal's stand-in where the intro shouldn't fade in: the /contact page's
+// own intro is the first thing it paints, so it's there at once.
+function Static({ as: Tag = "div", delay, ...props }) {
+  return <Tag {...props} />;
+}
+
 // The estimate section — label, heading and intro, the estimate
 // form card, then Reach Us Direct — shared by the homepage (`dark`, on the
 // footer's #111) and the /contact page (light, on #f5f4f1). The page also
@@ -32,7 +39,12 @@ function Stars() {
 // `showTrust` for the Google-reviews / licence line under the intro;
 // `className` carries each one's own padding. Service pages pass their own
 // `heading` — { firstLine, secondLine, italic }, e.g. "Ready to Build" /
-// "Your" + italic "ADU?" — in place of the default one.
+// "Your" + "ADU?" in green italic, like the other sections' headings — in
+// place of the default one.
+//
+// Further down a page it rises in as it scrolls into view (UI/Reveal): the
+// intro, then the form and Reach Us Direct. As the /contact page's top
+// (`headingAs="h1"`) only the form and Reach Us Direct do.
 export default function EstimateSection({
   dark = false,
   headingAs: Heading = "h2",
@@ -41,9 +53,7 @@ export default function EstimateSection({
   id,
   className = "",
 }) {
-  const softItalic = `font-light italic ${
-    dark ? "text-white/45" : "text-black/45"
-  }`;
+  const Intro = Heading === "h1" ? Static : Reveal;
 
   return (
     <section
@@ -53,7 +63,10 @@ export default function EstimateSection({
       } ${className}`}
     >
       <div className="max-w-[1680px] mx-auto w-full px-[24px] 700:px-[32px]">
-        <p className="max-400:hidden flex items-center gap-4 pointer-events-none mb-8">
+        <Intro
+          as="p"
+          className="max-400:hidden flex items-center gap-4 pointer-events-none mb-8"
+        >
           <span className="block h-2 w-2 flex-shrink-0 bg-third"></span>
           <span
             className={`550:text-[13px] text-[12.5px] uppercase font-light tracking-[0.3em] ${
@@ -62,16 +75,20 @@ export default function EstimateSection({
           >
             Free Estimate - {ESTIMATE_STEPS.length} Quick Steps
           </span>
-        </p>
+        </Intro>
 
         <div className="pointer-events-none">
-          <Heading className="font-gt font-semibold tracking-tight leading-[1.2] text-[28px] 700:text-[34px] 1280:text-[42px]">
+          <Intro
+            as={Heading}
+            delay={0.05}
+            className="font-gt font-semibold tracking-tight leading-[1.2] text-[28px] 700:text-[34px] 1280:text-[42px]"
+          >
             {heading ? (
               <>
                 {heading.firstLine}
                 <br />
                 {heading.secondLine}{" "}
-                <span className={softItalic}>{heading.italic}</span>
+                <span className="italic text-third">{heading.italic}</span>
               </>
             ) : (
               <>
@@ -84,8 +101,10 @@ export default function EstimateSection({
                 <span className={softItalic}>quoted honestly.</span> */}
               </>
             )}
-          </Heading>
-          <p
+          </Intro>
+          <Intro
+            as="p"
+            delay={0.1}
             className={`mt-6 max-w-xl text-[14.5px] 550:text-[15.5px] leading-relaxed ${
               dark ? "text-white/65" : "text-fourth"
             }`}
@@ -93,10 +112,13 @@ export default function EstimateSection({
             Tell us about your project and we&apos;ll come out for a free
             on-site estimate, then give you one fixed, written price. No
             pressure, no pushy sales visit.
-          </p>
+          </Intro>
 
           {showTrust && (
-            <div className="mt-6 flex flex-wrap max-700:flex-col 700:items-center gap-4 gap-y-3 text-[12.5px] text-fourth">
+            <Intro
+              delay={0.15}
+              className="mt-6 flex flex-wrap max-700:flex-col 700:items-center gap-4 gap-y-3 text-[12.5px] text-fourth"
+            >
               <span className="flex items-center gap-2">
                 <Stars /> <span className="font-semibold text-black">5.0 </span>
                 <span>from 10+ Google reviews</span>
@@ -106,13 +128,17 @@ export default function EstimateSection({
                 <VscWorkspaceTrusted className="font-semibold text-black text-base" />
                 <span>Licensed &amp; insured · CSLB #1144057</span>
               </span>
-            </div>
+            </Intro>
           )}
         </div>
 
-        <EstimateForm shadow={false} className="mt-10 1080:mt-12" />
+        <Reveal delay={0.1} className="mt-10 1080:mt-12">
+          <EstimateForm shadow={false} />
+        </Reveal>
 
-        <ReachUsDirect dark={dark} className="mt-10 1080:mt-12" />
+        <Reveal delay={0.1} className="mt-10 1080:mt-12">
+          <ReachUsDirect dark={dark} />
+        </Reveal>
       </div>
     </section>
   );

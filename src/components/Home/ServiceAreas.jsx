@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ALL_CITIES } from "@/lib/seo";
 import { SERVICE_AREAS } from "@/lib/cities";
+import Reveal from "@/components/UI/Reveal";
 
 function AreaPill({ area, active }) {
   return (
@@ -25,7 +26,9 @@ function AreaPill({ area, active }) {
 
 // `area` is the service area whose page this is (highlighted in the list).
 // Service pages pass their own `heading` (its lines, e.g. ["ADUs Built",
-// "Across Los Angeles"]) and `description`.
+// "Across Los Angeles"]) and `description`. The heading, the areas and the map
+// rise in as they scroll into view (UI/Reveal). Jumped to ("Service Areas" in
+// the navbar and footer), it stops clear of the fixed navbar.
 export default function ServiceAreas({
   area,
   heading = ["Where We Work"],
@@ -34,33 +37,44 @@ export default function ServiceAreas({
   const moreCities = ALL_CITIES.length - SERVICE_AREAS.length;
 
   return (
-    <section className="relative bg-white" id="service_areas">
+    <section className="relative bg-white scroll-mt-28" id="service_areas">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px] pb-[60px] 1080:pb-[80px]">
         <div className="relative overflow-hidden border border-black/10 bg-[#fafafa] py-10 px-6 700:p-10 1080:p-14">
           <div className="flex flex-wrap max-1080:flex-col justify-between gap-x-10 gap-y-6 pb-8 mb-8 border-b border-black/15 pointer-events-none">
             <div className="flex-[1]">
-              <div className="flex items-center gap-4">
+              <Reveal className="flex items-center gap-4">
                 <span className="block h-2 w-2 shrink-0 bg-third" />
                 <span className="550:text-[13px] text-[12.5px] uppercase font-light tracking-[0.3em]">
                   Areas We Service
                 </span>
                 <span className="h-px flex-1 bg-gradient-to-r from-fourth/20 to-transparent"></span>
-              </div>
+              </Reveal>
 
-              <h2 className="font-gt uppercase mt-6 text-[28px] 800:text-[36px] font-semibold leading-[1.2] tracking-tight">
+              <Reveal
+                as="h2"
+                delay={0.05}
+                className="font-gt uppercase mt-6 text-[28px] 800:text-[36px] font-semibold leading-[1.2] tracking-tight"
+              >
                 {heading.map((line) => (
                   <span key={line} className="block">
                     {line}
                   </span>
                 ))}
-              </h2>
+              </Reveal>
             </div>
-            <p className="1080:self-end text-[15px] 550:text-base text-fourth max-w-3xl 1080:max-w-sm 1280:max-w-lg">
+            <Reveal
+              as="p"
+              delay={0.1}
+              className="1080:self-end text-[15px] 550:text-base text-fourth max-w-3xl 1080:max-w-sm 1280:max-w-lg"
+            >
               {description}
-            </p>
+            </Reveal>
           </div>
 
-          <div className="grid grid-cols-1 400:grid-cols-2 800:grid-cols-3 1080:grid-cols-5 gap-3 mb-8">
+          <Reveal
+            delay={0.1}
+            className="grid grid-cols-1 400:grid-cols-2 800:grid-cols-3 1080:grid-cols-5 gap-3 mb-8"
+          >
             {SERVICE_AREAS.map((serviceArea) => (
               <AreaPill
                 key={serviceArea.slug}
@@ -73,8 +87,8 @@ export default function ServiceAreas({
                 + {moreCities} More
               </span>
             </div>
-          </div>
-          <div className="border border-black/10">
+          </Reveal>
+          <Reveal delay={0.15} className="border border-black/10">
             <div className="flex items-center gap-4 bg-white px-6 py-3.5 800:px-8">
               <div className="flex items-center justify-center gap-2.5">
                 <span className="w-1.5 h-1.5 bg-third inline-block shrink-0" />
@@ -99,7 +113,7 @@ export default function ServiceAreas({
                 />
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

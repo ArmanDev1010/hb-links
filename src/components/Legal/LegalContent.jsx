@@ -1,14 +1,21 @@
-import Link from "next/link";
 import { privacyPages } from "@/data/privacy";
 import { legalDocuments } from "@/data/legal";
 import { contactInfo } from "@/data/contact";
 import { SITE_NAME, buildPageMetadata } from "@/lib/seo";
+import { LegalTabs, SectionLinks } from "./LegalNav";
 
 const license = contactInfo.find((item) => item.type === "License")?.label;
 const phone = contactInfo.find((item) => item.type === "Phone");
 const email = contactInfo.find((item) => item.type === "E-Mail");
 
 const CONTACT_ID = "contact-us";
+
+// A section jumped to from "On this page" stops below the navbar and the
+// stuck switcher (LegalTabs), whose foot is 144px down (149px from 1080px).
+const SCROLL_MARGIN = "scroll-mt-[165px] 1080:scroll-mt-[175px]";
+
+// the switcher's tabs: just the labels and slugs cross to the browser
+const tabs = privacyPages.map(({ label, slug }) => ({ label, slug }));
 
 const pad = (number) => String(number).padStart(2, "0");
 
@@ -33,35 +40,6 @@ function Eyebrow({ children, className = "" }) {
   );
 }
 
-// The document's sections as numbered anchor links, then "Contact us".
-function SectionLinks({ sections }) {
-  return (
-    <ol className="flex flex-col">
-      {sections.map(({ id, heading }, index) => (
-        <li key={id}>
-          <a
-            href={`#${id}`}
-            className="group flex gap-3 py-1.5 text-[13.5px] leading-snug text-black/65 transition-colors duration-200 hover:text-black"
-          >
-            <span className="w-5 shrink-0 tabular-nums text-black/45 transition-colors duration-200 group-hover:text-third">
-              {pad(index + 1)}
-            </span>
-            {heading}
-          </a>
-        </li>
-      ))}
-      <li>
-        <a
-          href={`#${CONTACT_ID}`}
-          className="flex gap-3 py-1.5 pl-8 text-[13.5px] leading-snug text-black/65 transition-colors duration-200 hover:text-black"
-        >
-          Contact us
-        </a>
-      </li>
-    </ol>
-  );
-}
-
 const findPage = (slug) => privacyPages.find((item) => item.slug === slug);
 
 // Each legal page's metadata — its route file (app/(legal)/<slug>/page.js)
@@ -77,13 +55,16 @@ export function legalMetadata(slug) {
 
 // A legal page (/terms-of-service, /privacy-policy, ...): the header
 // (title, last-updated date, license), a switcher across all the legal
-// pages, then the document — numbered sections with an "On this page" list
-// (sticky beside the text from 1080px, a collapsible block above it below
-// that) — and a contact panel. `slug` is the page's entry in
-// data/privacy.js; its text comes from data/legal.
+// pages that sticks under the navbar, then the document — numbered sections
+// with an "On this page" list that marks the section being read (sticky
+// beside the text from 1080px, a collapsible block above it below that) —
+// and a contact panel. `slug` is the page's entry in data/privacy.js; its
+// text comes from data/legal.
 export default function LegalContent({ slug }) {
   const page = findPage(slug);
   const doc = legalDocuments[slug];
+  // "On this page": the sections' ids and headings (not their text)
+  const toc = doc.sections.map(({ id, heading }) => ({ id, heading }));
 
   return (
     <section className="relative bg-white text-black 700:pt-[9.5rem] 700:pb-24 pt-36 pb-16">
@@ -112,34 +93,17 @@ export default function LegalContent({ slug }) {
           </dl>
         </header>
 
-        <nav aria-label="Legal pages" className="mt-8">
-          <ul className="flex flex-wrap gap-2">
-            {privacyPages.map(({ label, slug }) => {
-              const isActive = slug === page.slug;
-              return (
-                <li key={slug}>
-                  <Link
-                    href={`/${slug}`}
-                    aria-current={isActive ? "page" : undefined}
-                    className={`inline-flex items-center h-9 px-4 border text-[11.5px] 550:text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 ${
-                      isActive
-                        ? "bg-black border-black text-white"
-                        : "border-black/15 text-black/70 hover:border-black hover:text-black"
-                    }`}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        <LegalTabs pages={tabs} current={page.slug} />
 
         <div className="mt-10 1080:mt-14 1080:grid 1080:grid-cols-[260px_minmax(0,1fr)] 1080:gap-x-16 1280:gap-x-24">
           <aside className="max-1080:hidden">
-            <nav aria-label="On this page" className="sticky top-[120px]">
+            {/* sticks below the switcher (LegalTabs) */}
+            <nav
+              aria-label="On this page"
+              className="sticky top-[180px] max-h-[calc(100vh-200px)] overflow-y-auto"
+            >
               <Eyebrow className="mb-4">On this page</Eyebrow>
-              <SectionLinks sections={doc.sections} />
+              <SectionLinks sections={toc} contactId={CONTACT_ID} />
             </nav>
           </aside>
 
@@ -160,7 +124,7 @@ export default function LegalContent({ slug }) {
                 aria-label="On this page"
                 className="border-t border-black/10 px-5 py-3"
               >
-                <SectionLinks sections={doc.sections} />
+                <SectionLinks sections={toc} contactId={CONTACT_ID} />
               </nav>
             </details>
 
@@ -173,7 +137,7 @@ export default function LegalContent({ slug }) {
                 key={id}
                 id={id}
                 aria-labelledby={`${id}-heading`}
-                className="scroll-mt-[110px] mt-12 pt-10 border-t border-black/10"
+                className={`${SCROLL_MARGIN} mt-12 pt-10 border-t border-black/10`}
               >
                 <h2
                   id={`${id}-heading`}
@@ -191,7 +155,7 @@ export default function LegalContent({ slug }) {
             <section
               id={CONTACT_ID}
               aria-labelledby={`${CONTACT_ID}-heading`}
-              className="scroll-mt-[110px] mt-14 bg-black text-white"
+              className={`${SCROLL_MARGIN} mt-14 bg-black text-white`}
             >
               <div className="flex items-center gap-3 border-b border-white/15 px-6 700:px-10 py-5">
                 <span className="block h-2 w-2 shrink-0 bg-third" />

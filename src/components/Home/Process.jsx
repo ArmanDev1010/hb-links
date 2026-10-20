@@ -3,6 +3,7 @@
 import React from "react";
 import { BiCheckCircle, BiConversation, BiMoneyWithdraw } from "react-icons/bi";
 import { MdOutlineConstruction } from "react-icons/md";
+import Reveal from "@/components/UI/Reveal";
 
 const process = [
   {
@@ -34,6 +35,10 @@ const process = [
 // The homepage renders the general four steps above. Each service page
 // passes its own four `steps`, the end of the heading ("Four Steps, Every
 // ADU"), and its own intro line. Only the homepage steps carry an `icon`.
+//
+// The heading rises in as it scrolls into view (UI/Reveal), then the steps
+// one after another, each one's gold bar drawing in once its card is up
+// (.reveal-bar, globals.css).
 export default function Process({
   steps = process,
   closing = "Every Project",
@@ -46,20 +51,28 @@ export default function Process({
     >
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="mx-auto 1280:w-[83.33%] w-full">
-          <div className="flex items-center gap-4 pointer-events-none mb-8">
+          <Reveal className="flex items-center gap-4 pointer-events-none mb-8">
             <span className="block h-2 w-2 flex-shrink-0 bg-third"></span>
             <span className="550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] mt-[2px]">
               How We Work
             </span>
             <span className="h-px flex-1 bg-gradient-to-r from-fourth/20 to-transparent"></span>
-          </div>
-          <h2 className="font-gt uppercase font-semibold leading-[1.2] text-[32px] 550:text-[30px] 1080:text-[36px] 1600:text-[45px] pointer-events-none">
+          </Reveal>
+          <Reveal
+            as="h2"
+            delay={0.05}
+            className="font-gt uppercase font-semibold leading-[1.2] text-[32px] 550:text-[30px] 1080:text-[36px] 1600:text-[45px] pointer-events-none"
+          >
             Four Steps<span className="max-550:hidden">,</span>{" "}
             <br className="550:hidden"></br> {closing}
-          </h2>
-          <p className="mt-6 550:mt-8 text-base 550:text-[17px] text-fourth max-w-2xl pointer-events-none">
+          </Reveal>
+          <Reveal
+            as="p"
+            delay={0.1}
+            className="mt-6 550:mt-8 text-base 550:text-[17px] text-fourth max-w-2xl pointer-events-none"
+          >
             {intro}
-          </p>
+          </Reveal>
         </div>
         <div className="relative mt-12 1080:mt-16">
           <ul className="grid grid-cols-1 900:grid-cols-2 1440:grid-cols-4 gap-5 900:gap-6 items-stretch">
@@ -68,8 +81,10 @@ export default function Process({
               const total = String(steps.length).padStart(2, "0");
 
               return (
-                <li
+                <Reveal
+                  as="li"
                   key={index}
+                  delay={0.08 * index}
                   className="w-full group flex flex-col h-full border border-black/15 p-8 700:p-10 1440:p-8 1600:p-10 transition-colors hover:border-third"
                 >
                   <div className="flex items-center justify-between">
@@ -84,7 +99,7 @@ export default function Process({
                   </div>
 
                   <div className="mt-10 flex items-center gap-3 pointer-events-none">
-                    <span className="block h-[2px] w-7 flex-shrink-0 bg-third"></span>
+                    <span className="reveal-bar block h-[2px] w-7 flex-shrink-0 bg-third"></span>
                     <span className="text-[12px] 550:text-[12px] uppercase font-light tracking-[0.3em] text-fourth">
                       Step {step} of {total}
                     </span>
@@ -97,7 +112,7 @@ export default function Process({
                   <p className="mt-6 text-[15px] 1440:text-base leading-[1.75] text-fourth pointer-events-none">
                     {description}
                   </p>
-                </li>
+                </Reveal>
               );
             })}
           </ul>

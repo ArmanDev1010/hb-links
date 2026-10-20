@@ -53,6 +53,11 @@ export default function NavLinks({
   const { toggleModal } = useModal();
 
   const deskText = light ? "1080:text-white" : "1080:text-black";
+  // a dropdown's title (Services, Service Areas)
+  const titleClasses = `uppercase transition-opacity duration-200 hover:opacity-60 cursor-pointer text-black ${deskText}
+    1280:text-[12px] 1080:text-[11px] 700:text-base 400:text-[15px] text-sm 1080:font-semibold font-medium
+    1080:tracking-[0.14em] 1080:h-full 1080:flex 1080:items-center
+    max-1080:flex-1 1080:px-0 700:px-7 px-5 max-1080:py-[22px] max-1080:tracking-[0.18em]`;
 
   const openCta = () => {
     setMenuActive(false);
@@ -132,25 +137,31 @@ export default function NavLinks({
                 onMouseLeave={scheduleClose}
               >
                 <div className="flex items-center 1080:gap-2 1080:justify-center 1080:h-full relative z-20 max-1080:pr-5">
-                  <Link
-                    href={href}
-                    prefetch
-                    className={`uppercase transition-opacity duration-200 hover:opacity-60 cursor-pointer text-black ${deskText}
-                      1280:text-[12px] 1080:text-[11px] 700:text-base 400:text-[15px] text-sm 1080:font-semibold font-medium
-                      1080:tracking-[0.14em] 1080:h-full 1080:flex 1080:items-center
-                      max-1080:flex-1 1080:px-0 700:px-7 px-5 max-1080:py-[22px] max-1080:tracking-[0.18em]`}
-                    onClick={(e) => {
-                      if (isMobile) {
-                        e.preventDefault();
-                        setActiveDropdown(open ? null : title);
-                        return;
-                      }
-                      setMenuActive(false);
-                      setActiveDropdown(null);
-                    }}
-                  >
-                    {title}
-                  </Link>
+                  {/* On desktop the title goes to the section (this page's
+                      own where it has one, see UI/PageTransition); in the
+                      phone menu it opens the list under it. */}
+                  {isMobile ? (
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      className={`${titleClasses} text-left`}
+                      onClick={() => setActiveDropdown(open ? null : title)}
+                    >
+                      {title}
+                    </button>
+                  ) : (
+                    <Link
+                      href={href}
+                      prefetch
+                      className={titleClasses}
+                      onClick={() => {
+                        setMenuActive(false);
+                        setActiveDropdown(null);
+                      }}
+                    >
+                      {title}
+                    </Link>
+                  )}
 
                   <button
                     type="button"

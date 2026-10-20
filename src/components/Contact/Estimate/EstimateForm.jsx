@@ -13,6 +13,7 @@ import {
 import { BlueprintCamera, GridPaper } from "./BlueprintCamera";
 import { useContactForm } from "@/hooks/useContactForm";
 import { FormLegalNote, SmsConsent } from "@/components/UI/FormConsent";
+import { PHONE_PATTERN, formatPhoneInput } from "@/lib/phone";
 import {
   ESTIMATE_STEPS,
   LOCATION_AREAS,
@@ -144,8 +145,8 @@ function AreaButton({
   );
 }
 
-// Six areas to tap (data/estimate.js LOCATION_AREAS) — a tap moves straight
-// on, like the other picks — then "Other area" across the full width, and
+// Seven areas to tap (data/estimate.js LOCATION_AREAS) — a tap moves straight
+// on, like the other picks — then "Other area", filling out the last row, and
 // the box to type a city, ZIP or address in, always showing under them.
 // "Other area" puts the cursor in the box, and typing in it picks "Other
 // area"; the box's Continue button (Enter works too) moves on from either.
@@ -174,6 +175,7 @@ function LocationStep({
             {name}
           </AreaButton>
         ))}
+        {/* beside the last area two-up; two cells wide three-up */}
         <AreaButton
           selected={area === OTHER_AREA}
           onClick={() => {
@@ -181,10 +183,12 @@ function LocationStep({
             inputRef.current?.focus();
           }}
           icon={TbMapPinQuestion}
-          className="col-span-full"
+          className="@min-[480px]:col-span-2"
         >
           Other area
-          <span className="font-normal text-fourth">— type it in below</span>
+          <span className="hidden @min-[480px]:inline font-normal text-fourth">
+            — type it in below
+          </span>
         </AreaButton>
       </div>
 
@@ -237,6 +241,7 @@ function Field({ label, error, children }) {
 
 // Name and phone, with the optional text opt-in under them. Continue checks
 // both before moving on — the request itself is sent from the last step.
+// The phone shapes itself into (747) 777-7777 as it's typed (lib/phone).
 function ContactStep({ form, onContinue }) {
   const {
     register,
@@ -245,6 +250,14 @@ function ContactStep({ form, onContinue }) {
 
   const borderClass = (name) =>
     errors[name] ? "border-red-400" : "border-transparent focus:border-black";
+
+  const phoneField = register("phone", {
+    required: "Phone Number is required.",
+    pattern: {
+      value: PHONE_PATTERN,
+      message: "Please enter a 10-digit phone number.",
+    },
+  });
 
   return (
     <form
@@ -266,15 +279,14 @@ function ContactStep({ form, onContinue }) {
         </Field>
         <Field label="Phone" error={errors.phone}>
           <input
-            {...register("phone", {
-              required: "Phone Number is required.",
-              pattern: {
-                value: /^[0-9+\-\s()]{7,}$/,
-                message: "Please enter a valid phone number.",
-              },
-            })}
+            {...phoneField}
+            onChange={(event) => {
+              formatPhoneInput(event.target);
+              return phoneField.onChange(event);
+            }}
             type="tel"
-            autoComplete="tel"
+            inputMode="tel"
+            autoComplete="tel-national"
             placeholder="(818) 555-0123"
             className={`${inputClasses} ${borderClass("phone")}`}
           />

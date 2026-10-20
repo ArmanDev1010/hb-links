@@ -26,22 +26,23 @@ const sitemapLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
+// The icon and the text are one link, so either one can be clicked.
 function LinkIcon({ info }) {
   let { icon, label, href } = info;
   return (
-    <div className="flex items-center gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-white/25 bg-white/10 backdrop-blur-md text-[16px] text-white">
+    <a
+      href={href}
+      target={href?.startsWith("http") ? "_blank" : undefined}
+      rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+      className="group flex w-fit items-center gap-3"
+    >
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-white/25 bg-white/10 backdrop-blur-md text-[16px] text-white transition-colors duration-200 group-hover:border-white/60 group-hover:bg-white/20">
         {icon}
       </span>
-      <a
-        href={href}
-        target={href?.startsWith("http") ? "_blank" : undefined}
-        rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-        className="text-[13px] 550:text-[14px] tracking-wide text-white/80 transition-colors duration-200 hover:text-white"
-      >
+      <span className="text-[13px] 550:text-[14px] tracking-wide text-white/80 transition-colors duration-200 group-hover:text-white">
         {label}
-      </a>
-    </div>
+      </span>
+    </a>
   );
 }
 
@@ -140,7 +141,9 @@ export default function Footer() {
               </p>
               <ul className="flex flex-col gap-3">
                 {[phone, email, instagram].map((text, key) => (
-                  <LinkIcon info={text} key={key} />
+                  <li key={key}>
+                    <LinkIcon info={text} />
+                  </li>
                 ))}
               </ul>
             </div>
@@ -170,7 +173,7 @@ export default function Footer() {
             Built by{" "}
             <Link
               href="https://armanmanukyan.am/"
-              className="font-semibold text-white/80 hover:text-white transition-colors"
+              className="pointer-events-auto font-semibold text-white/80 hover:text-white transition-colors"
             >
               Arman Manukyan
             </Link>

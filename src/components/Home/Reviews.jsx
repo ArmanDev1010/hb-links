@@ -4,10 +4,12 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, MotionConfig, useReducedMotion } from "framer-motion";
 import { FaStar } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { BsArrowUpRight } from "react-icons/bs";
 import Image from "next/image";
 import Link from "next/link";
 
 import { reviews } from "@/data/reviews";
+import Reveal from "@/components/UI/Reveal";
 
 const toRad = (deg) => (deg * Math.PI) / 180;
 
@@ -98,6 +100,11 @@ const QUOTE_CHAR_LIMIT_WITH_IMAGES = 260;
 // instead of leaving it blank — keeps the card height roughly constant.
 const QUOTE_CHAR_LIMIT_NO_IMAGES = 480;
 
+// The reviews on HB Links' Google listing: "Read More" and the rating badge
+// open them in a new tab.
+const GOOGLE_REVIEWS_URL =
+  "https://www.google.com/maps/place/HB+Links/@33.786671,-118.2990476,352820m/data=!3m1!1e3!4m8!3m7!1s0x641cd639313d13b9:0xf7b403aff7a5bf6d!8m2!3d33.786671!4d-118.2990476!9m1!1b1!16s%2Fg%2F11mrpgwyyc?hl=en&entry=ttu&g_ep=EgoyMDI2MDcyOC4wIKXMDSoASAFQAw%3D%3D";
+
 function QuoteText({ quote, charLimit }) {
   const isLong = quote.length > charLimit;
   const displayText = isLong ? quote.slice(0, charLimit).trimEnd() : quote;
@@ -109,11 +116,10 @@ function QuoteText({ quote, charLimit }) {
         <>
           {"... "}
           <Link
-            href={
-              "https://www.google.com/maps/place/HB+Links/@33.786671,-118.2990476,352820m/data=!3m1!1e3!4m8!3m7!1s0x641cd639313d13b9:0xf7b403aff7a5bf6d!8m2!3d33.786671!4d-118.2990476!9m1!1b1!16s%2Fg%2F11mrpgwyyc?hl=en&entry=ttu&g_ep=EgoyMDI2MDcyOC4wIKXMDSoASAFQAw%3D%3D"
-            }
+            href={GOOGLE_REVIEWS_URL}
             className="pointer-events-auto not-italic font-bold text-black hover:underline"
             target="_blank"
+            rel="noopener noreferrer"
           >
             Read More
           </Link>
@@ -126,7 +132,9 @@ function QuoteText({ quote, charLimit }) {
 // The site skips sliding animations for visitors with "reduce motion" on
 // (components/UI/MotionPreferences), but here the avatars sliding along the
 // arc are how you see the reviews change, so they still play — calmer: a
-// shorter glide, and the quote only fades.
+// shorter glide, and the quote only fades. The heading and the carousel
+// rise in as they scroll into view (UI/Reveal, CSS, which tones itself down
+// for the setting); the "never" opt-out covers only the carousel inside.
 export default function Reviews() {
   const calm = useReducedMotion();
   // the review showing, and the one before it (fading out)
@@ -203,20 +211,42 @@ export default function Reviews() {
   const total = reviews.length;
 
   return (
-    <MotionConfig reducedMotion="never">
-      <section className="relative overflow-hidden">
-        <div className="w-full 1080:w-10/12 1080:mx-auto 700:px-[32px] px-[24px] 1080:mb-24 mb-12 text-center">
-          <p className="mb-4 550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] pointer-events-none">
-            Testimonials
-          </p>
-          <h2 className="font-gt font-semibold leading-[1.2] text-[32px] 700:text-[34px] 1080:text-[36px] 1600:text-[45px] pointer-events-none">
-            Results Speak for Themselves
-          </h2>
-          <div className="inline-flex mt-8 items-center pointer-events-none gap-3 rounded-full bg-white border border-black/20 px-4 py-2.5 backdrop-blur-sm">
+    <section className="relative overflow-hidden">
+      <div className="w-full 1080:w-10/12 1080:mx-auto 700:px-[32px] px-[24px] 1080:mb-24 mb-12 text-center">
+        <Reveal
+          as="p"
+          className="mb-4 550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] pointer-events-none"
+        >
+          Testimonials
+        </Reveal>
+        <Reveal
+          as="h2"
+          delay={0.05}
+          className="font-gt font-semibold leading-[1.2] text-[32px] 700:text-[34px] 1080:text-[36px] 1600:text-[45px] pointer-events-none"
+        >
+          Results Speak for Themselves
+        </Reveal>
+        {/* The rating badge opens the reviews on Google. On hover it lifts,
+            the stars pop one after another, and the arrow nudges out. */}
+        <Reveal delay={0.1} className="inline-flex mt-8">
+          <a
+            href={GOOGLE_REVIEWS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Rated 5 stars in 10+ Google reviews. Read them on Google (opens in a new tab)"
+            className="group inline-flex items-center gap-3 rounded-full bg-white border border-black/20 px-4 py-2.5 backdrop-blur-sm
+              transition-[translate,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+              hover:-translate-y-0.5 hover:border-black/45 hover:shadow-[0_12px_28px_-14px_rgba(0,0,0,0.35)]
+              focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-third"
+          >
             <FcGoogle className="w-[20px] h-[20px]" />
             <div className="flex items-center gap-[3px]">
               {Array.from({ length: 5 }).map((_, key) => (
-                <div key={key}>
+                <div
+                  key={key}
+                  className="transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-[1.2]"
+                  style={{ transitionDelay: `${key * 45}ms` }}
+                >
                   <svg
                     width="15"
                     height="15"
@@ -231,12 +261,21 @@ export default function Reviews() {
             </div>
             <span className="text-[1rem] font-bold leading-none">5</span>
             <span className="h-3.5 w-px shrink-0 bg-black/25"></span>
-            <span className="text-[0.8125rem] leading-none text-fourth">
+            <span className="text-[0.8125rem] leading-none text-fourth transition-colors duration-300 group-hover:text-black">
               10+ Google Reviews
             </span>
-          </div>
-        </div>
-        <div className="max-w-[1200px] mx-auto w-full 700:px-[32px] px-[24px] grid grid-cols-1 1080:grid-cols-[340px_1fr] 1080:gap-24 gap-8 items-center">
+            <BsArrowUpRight
+              aria-hidden="true"
+              className="-ml-1 text-[13px] text-fourth transition-[translate,color] duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-third"
+            />
+          </a>
+        </Reveal>
+      </div>
+      <Reveal
+        delay={0.15}
+        className="max-w-[1200px] mx-auto w-full 700:px-[32px] px-[24px] grid grid-cols-1 1080:grid-cols-[340px_1fr] 1080:gap-24 gap-8 items-center"
+      >
+        <MotionConfig reducedMotion="never">
           {/* Left: curved avatar track */}
           <div
             ref={trackRef}
@@ -418,8 +457,8 @@ export default function Reviews() {
               })}
             </div>
           </div>
-        </div>
-      </section>
-    </MotionConfig>
+        </MotionConfig>
+      </Reveal>
+    </section>
   );
 }

@@ -54,17 +54,17 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // The homepage hero stays pinned under the bar while its tour plays
+      // A timelapse hero stays pinned under the bar while its tour plays
       // (Home/HeroBuildSequence), so the bar stays clear over it until the
       // tour ends — the hero puts how far into it that is in
-      // data-nav-overlay-end — or, when it shows a still instead, until it
-      // has scrolled out from under the bar.
+      // data-nav-overlay-end. Where it shows a still instead (phones and
+      // tablets) there's no tour, and the bar turns solid as soon as the
+      // page scrolls, like on any other page.
       const hero = document.querySelector("[data-nav-overlay]");
       let overHero = false;
       if (hero) {
-        const { top, bottom } = hero.getBoundingClientRect();
         const tourEnd = Number(hero.dataset.navOverlayEnd);
-        overHero = tourEnd ? -top < tourEnd : bottom > 100;
+        overHero = tourEnd > 0 && -hero.getBoundingClientRect().top < tourEnd;
       }
       setAtTop(window.scrollY < 10 || overHero);
       setActiveDropdown((d) => (d ? null : d));

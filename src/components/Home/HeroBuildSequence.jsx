@@ -5,20 +5,23 @@ import { getImageProps } from "next/image";
 import HeroShade from "@/components/Home/HeroShade";
 import { BUILD_END, PUSH_IN, buildTimeline, frameSrc } from "@/data/heroBuild";
 
-// The same query as the `hero-static` variant in globals.css: phones held
-// sideways (too short to pin the hero) get the opening frame as a still
-// instead of the scroll sequence. Portrait phones keep the sequence even when
-// Safari's toolbars leave under 560px.
-const STATIC_QUERY = "(max-height: 500px) and (orientation: landscape)";
+// The same query as the `hero-static` variant in globals.css: touch screens
+// (phones and tablets — scrolled with a finger, the scrubbing felt off) and
+// screens held sideways too short to pin the hero get the opening frame, the
+// finished job, as a still instead of the scroll sequence. A laptop with a
+// touchscreen still has a mouse or trackpad as its main pointer, and plays.
+const STATIC_QUERY =
+  "(max-height: 500px) and (orientation: landscape), (hover: none) and (pointer: coarse)";
 
 // "Reduce motion" still gets the sequence — its frames only change as the
 // visitor scrolls — but calmer: no slow push-in, and the picture follows the
 // scroll exactly instead of gliding after it.
 const CALM_QUERY = "(prefers-reduced-motion: reduce)";
 
-// Portrait screens play the phone frames, the rest the desktop ones. A screen
-// that turns between the two (a tablet, a resized window) starts the sequence
-// again with the other set.
+// Portrait screens (a desktop window taller than it's wide — phones and
+// tablets show the still) play the phone frames, the rest the desktop ones.
+// A window resized between the two starts the sequence again with the other
+// set.
 const PORTRAIT_QUERY = "(orientation: portrait)";
 
 // Seconds the drawn frame takes to catch up with the scroll position, so
@@ -33,11 +36,14 @@ const BLEND = 0.2;
 // Milliseconds without a scroll event that count as the scroll resting.
 const REST = 120;
 
-// Frames kept decoded either side of the scroll position (a desktop frame
-// is ~6 MB decoded, too much to hold them all), and the spacing of the
-// half-size frames held for the whole timeline to fall back on while that
-// window catches up with a fast scroll.
+// Frames kept decoded either side of the scroll position — at most WINDOW,
+// fewer where frames that big would hold more than MEMORY bytes decoded (a
+// full-size desktop frame is ~17 MB; each is decoded no bigger than the
+// screen needs, see sizeFrames) — and the spacing of the half-size frames
+// held for the whole timeline to fall back on while that window catches up
+// with a fast scroll.
 const WINDOW = 8;
+const MEMORY = 160e6;
 const THUMB_STEP = 8;
 
 // How many frames ahead of the scroll position are downloaded (48 is about
@@ -77,14 +83,24 @@ function reachedByLink() {
   return answer;
 }
 
-// A frame's file, decoded off the main thread where the browser can. Safari
-// on iOS can refuse createImageBitmap on an image Blob it would happily show
+// A frame's file, decoded off the main thread where the browser can —
+// scaled down to `size` ({ width, height }) as it's decoded, when given.
+// Safari can refuse createImageBitmap on an image Blob it would happily show
 // in an <img>, so that's the fallback: decode it as an image, then turn that
-// into a bitmap (or draw the image itself). Either has width/height, and
-// drawImage takes both.
-async function decodeFrame(file) {
+// into a bitmap (or draw the image itself), full size. Either has
+// width/height, and drawImage takes both.
+async function decodeFrame(file, size) {
   try {
-    return await createImageBitmap(file);
+    return await createImageBitmap(
+      file,
+      size
+        ? {
+            resizeWidth: size.width,
+            resizeHeight: size.height,
+            resizeQuality: "high",
+          }
+        : undefined,
+    );
   } catch {
     const url = URL.createObjectURL(file);
     try {
@@ -187,11 +203,15 @@ export default function HeroBuildSequence({ sequence, children }) {
     sequence.desktop.count,
     sequence.openOn,
   );
+  // The opening frame covers the hero: on a portrait screen (a phone or
+  // tablet, where it's all the hero shows) at the screen's full height, so
+  // the frame's own shape sets how wide it's drawn.
+  const aspect = sequence.desktop.width / sequence.desktop.height;
   const { props: openingFrame } = getImageProps({
     alt: "",
     width: sequence.desktop.width,
     height: sequence.desktop.height,
-    sizes: "100vw",
+    sizes: `(orientation: portrait) ${Math.ceil(aspect * 100)}vh, 100vw`,
     priority: true,
     src: frameSrc(sequence, "desktop", order[0]),
   });
@@ -263,9 +283,10 @@ function playSequence({ track, panel, canvas, sequence, calm, arrived }) {
   const abort = new AbortController();
 
   // Every frame's file as it arrives; decoded frames (ImageBitmaps, decoded
-  // off the main thread) only within WINDOW positions of where the scroll is
-  // headed; and every THUMB_STEPth frame, the last and the opening one decoded
-  // at half size for the whole timeline. (`index` is a frame.)
+  // off the main thread, at `decodeSize`) only within `reach` positions of
+  // where the scroll is headed; and every THUMB_STEPth frame, the last and the
+  // opening one decoded at half that size for the whole timeline. (`index` is
+  // a frame.)
   const files = new Array(count);
   const decoded = new Map();
   const decoding = new Set();
@@ -273,6 +294,8 @@ function playSequence({ track, panel, canvas, sequence, calm, arrived }) {
   const thumbs = new Array(count);
   const isThumb = (index) =>
     index % THUMB_STEP === 0 || index === count - 1 || index === order[0];
+  let decodeSize = null;
+  let reach = WINDOW;
 
   // Reached by a link, the hero opens at the start of its timeline: until
   // the visitor first touches, scrolls or presses a key, wherever the
@@ -343,7 +366,7 @@ function playSequence({ track, panel, canvas, sequence, calm, arrived }) {
     // frames stand in.
     let tier = "full";
     let get = (i) => decoded.get(order[i]);
-    let [low, high] = bracket(position, get, WINDOW);
+    let [low, high] = bracket(position, get, reach);
     if (low < 0 && high < 0) {
       tier = "thumb";
       get = (i) => thumbs[order[i]];
@@ -391,20 +414,23 @@ function playSequence({ track, panel, canvas, sequence, calm, arrived }) {
   // the ones the scroll has left behind.
   const decodeWindow = () => {
     for (const [index, bitmap] of decoded) {
-      if (!nearCenter(index, WINDOW + 2)) {
+      if (!nearCenter(index, reach + 2)) {
         release(bitmap);
         decoded.delete(index);
       }
     }
-    for (let d = 0; d <= WINDOW && decoding.size < 3; d++) {
+    for (let d = 0; d <= reach && decoding.size < 3; d++) {
       for (const position of d ? [center + d, center - d] : [center]) {
         const index = order[position];
         if (decoding.size >= 3 || index === undefined || !files[index]) continue;
         if (decoded.has(index) || decoding.has(index) || failed.has(index)) continue;
         decoding.add(index);
-        decodeFrame(files[index])
+        const size = decodeSize;
+        decodeFrame(files[index], size)
           .then((bitmap) => {
-            if (stopped || !nearCenter(index, WINDOW + 2)) {
+            // (a frame decoded for a smaller screen than the window now is
+            // dropped, see sizeFrames)
+            if (stopped || size !== decodeSize || !nearCenter(index, reach + 2)) {
               release(bitmap);
               return;
             }
@@ -421,16 +447,22 @@ function playSequence({ track, panel, canvas, sequence, calm, arrived }) {
     }
   };
 
-  const makeThumb = (index) =>
-    decodeFrame(files[index])
+  const makeThumb = (index) => {
+    const size = {
+      width: Math.round((decodeSize?.width ?? frameWidth) / 2),
+      height: Math.round((decodeSize?.height ?? frameHeight) / 2),
+    };
+    return decodeFrame(files[index], size)
       .then((bitmap) => {
         if (stopped) {
           release(bitmap);
           return;
         }
+        // copied onto a canvas of the half size, in case the browser
+        // decoded it full size anyway
         const thumb = document.createElement("canvas");
-        thumb.width = Math.round(bitmap.width / 2);
-        thumb.height = Math.round(bitmap.height / 2);
+        thumb.width = size.width;
+        thumb.height = size.height;
         thumb
           .getContext("2d")
           .drawImage(bitmap, 0, 0, thumb.width, thumb.height);
@@ -440,6 +472,7 @@ function playSequence({ track, panel, canvas, sequence, calm, arrived }) {
         play();
       })
       .catch(() => {});
+  };
 
   // `nudge` (in positions) moves the picture off the scroll position a
   // little: see `settle` in tick().
@@ -504,8 +537,33 @@ function playSequence({ track, panel, canvas, sequence, calm, arrived }) {
     canvas.height = Math.round(height * density);
     // canvas state resets with its size
     context.imageSmoothingQuality = "high";
+    sizeFrames();
     drawn = "";
     render(shown, settle);
+  };
+
+  // Frames are decoded no bigger than the canvas needs them, the push-in
+  // included — every pixel on a big or high-density screen, less to hold on
+  // a smaller one — and as many are kept decoded as fit in MEMORY. A window
+  // made noticeably bigger decodes them again at the new size.
+  const sizeFrames = () => {
+    const cover = Math.max(
+      canvas.width / frameWidth,
+      canvas.height / frameHeight,
+    );
+    const scale = Math.min(1, cover * (1 + (calm ? 0 : PUSH_IN)));
+    const width = Math.round(frameWidth * scale);
+    const height = Math.round(frameHeight * scale);
+    const grew = decodeSize && width > decodeSize.width * 1.1;
+    if (decodeSize && !grew) return;
+    decodeSize = { width, height };
+    const fits = Math.floor(MEMORY / (width * height * 4));
+    reach = Math.max(3, Math.min(WINDOW, Math.floor((fits - 1) / 2) - 2));
+    if (grew) {
+      for (const bitmap of decoded.values()) release(bitmap);
+      decoded.clear();
+      decodeWindow();
+    }
   };
 
   // Frames are fetched around where the scroll is — a few positions behind,
@@ -560,7 +618,7 @@ function playSequence({ track, panel, canvas, sequence, calm, arrived }) {
           if (!file || stopped) return;
           files[index] = file;
           if (isThumb(index)) makeThumb(index);
-          if (nearCenter(index, WINDOW)) decodeWindow();
+          if (nearCenter(index, reach)) decodeWindow();
         })
         .catch(() => {})
         .finally(() => {
@@ -583,6 +641,8 @@ function playSequence({ track, panel, canvas, sequence, calm, arrived }) {
     play();
   };
 
+  // (sized now, so no frame is decoded for the canvas's default size)
+  resize();
   measure();
   shown = target;
   // For the first second, re-read the scroll every frame and jump straight to

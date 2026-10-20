@@ -166,6 +166,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={montserrat.variable} data-scroll-behavior="smooth">
       <body className="font-montserrat">
+        {/* without JavaScript, show what the scroll reveals (UI/Reveal) would
+            fade in, and skip the wall the site opens on (UI/PageTransition) */}
+        <noscript>
+          <style>
+            {"[data-reveal]{opacity:1!important}[data-reveal] .reveal-bar{transform:none!important}[data-intro]{display:none!important}"}
+          </style>
+        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }}
