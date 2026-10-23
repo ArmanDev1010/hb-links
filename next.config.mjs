@@ -90,6 +90,23 @@ const serviceAreaRedirects = [
   { source: "/service-areas/:path*", destination: "/" },
 ];
 
+// The old trade hubs and their sub-pages (/plumbing/rough-in,
+// /electrical/panel-upgrades, ...) were dropped in the ADU-first
+// restructure. Plumbing and electrical are now covered on the home remodel
+// page (C-10 and C-36 under one contract); low voltage has no successor, so
+// it falls back to the homepage's services section.
+const tradeRedirects = [
+  { source: "/plumbing/:path*", destination: "/home-remodel-los-angeles" },
+  { source: "/electrical/:path*", destination: "/home-remodel-los-angeles" },
+  { source: "/low-voltage/:path*", destination: "/#services" },
+];
+
+// The current service slugs (data/service-pages). Only these have a page
+// at /<slug>-los-angeles — any other /services/<slug> left over from an
+// older site (/services/access-control, ...) would redirect into a 404.
+const SERVICE_SLUGS =
+  "adu-builder|home-remodel|kitchen-remodel|bathroom-remodel|home-additions|deck-and-patio|design-build";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async redirects() {
@@ -97,10 +114,15 @@ const nextConfig = {
       ...generalBuildingRedirects,
       ...servicePageRedirects,
       ...serviceAreaRedirects,
+      ...tradeRedirects,
       // The internal paths behind the rewrites below — keep one public URL
       // per area page and per service page.
       { source: "/home-builder/:area", destination: "/home-builder-:area" },
-      { source: "/services/:service", destination: "/:service-los-angeles" },
+      {
+        source: `/services/:service(${SERVICE_SLUGS})`,
+        destination: "/:service-los-angeles",
+      },
+      { source: "/services/:path*", destination: "/#services" },
       // The legal pages moved from /legal/<slug> to /<slug> (app/(legal)).
       { source: "/legal/:slug", destination: "/:slug" },
     ].map((redirect) => ({
