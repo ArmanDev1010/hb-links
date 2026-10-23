@@ -219,13 +219,13 @@ export default function HeroBuildSequence({ sequence, children }) {
   const steps = weights.reduce((sum, weight) => sum + weight, 0) / BUILD_END;
   // On portrait screens the canvas shows the middle of the phone frames —
   // each a square slice of the scene, cut at `mobile.focus` (see
-  // scripts/hero-frames.mjs) — at the screen's full height. The image under
-  // it is lined up on the same spot: the slice's centre, in frame heights
-  // from the left edge.
+  // scripts/hero-frames.mjs) — at the hero's full height. The image under
+  // it is lined up on the same spot: the slice's centre, as a fraction of
+  // the frame's width, held in the middle of the hero. (Measured on the
+  // image itself, not the screen: a phone's toolbar hiding as you scroll
+  // changes the screen's height, which used to slide the still sideways.)
   const sliceCenter =
-    (sequence.desktop.width / sequence.desktop.height - 1) *
-      (sequence.mobile.focus ?? 0.5) +
-    0.5;
+    ((aspect - 1) * (sequence.mobile.focus ?? 0.5) + 0.5) / aspect;
 
   return (
     <section
@@ -238,16 +238,17 @@ export default function HeroBuildSequence({ sequence, children }) {
       }}
       className="relative h-[calc(100vh+var(--hero-scroll))] max-700:h-[calc(100vh+var(--hero-scroll-phone))] hero-static:h-auto bg-black text-neutral-50"
     >
+      {/* the still on phones is 85% of the screen tall — 90% under 550px
+          wide, 95% under 400px (taller only if the copy needs it) — so the
+          next section shows below it */}
       <div
         ref={panelRef}
-        style={{
-          "--slice-x": `calc(50vw - ${(sliceCenter * 100).toFixed(2)}dvh)`,
-        }}
-        className="sticky top-0 h-dvh overflow-hidden flex items-end pt-28 sm:pt-22 hero-static:static hero-static:h-auto hero-static:min-h-screen"
+        style={{ "--slice-center": `${(sliceCenter * 100).toFixed(2)}%` }}
+        className="sticky top-0 h-dvh overflow-hidden flex items-end pt-28 sm:pt-22 hero-static:relative hero-static:h-auto hero-static:min-h-screen hero-static:max-700:min-h-[85svh] hero-static:max-550:min-h-[90svh] hero-static:max-400:min-h-[95svh]"
       >
         <img
           {...openingFrame}
-          className="absolute inset-0 h-full w-full object-cover portrait:[object-position:var(--slice-x)_50%]"
+          className="absolute inset-0 h-full w-full object-cover portrait:right-auto portrait:left-1/2 portrait:w-auto portrait:max-w-none portrait:-translate-x-(--slice-center)"
         />
         <canvas
           ref={canvasRef}

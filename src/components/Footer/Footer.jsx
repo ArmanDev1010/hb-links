@@ -171,12 +171,7 @@ export default function Footer() {
           </ul>
           <div className="font-gt text-[12px] uppercase tracking-[0.2em] pointer-events-none">
             Built by{" "}
-            <Link
-              href="https://armanmanukyan.am/"
-              className="pointer-events-auto font-semibold text-white/80 hover:text-white transition-colors"
-            >
-              Arman Manukyan
-            </Link>
+            <span className="font-semibold text-white/80">Arman Manukyan</span>
           </div>
         </div>
       </div>
