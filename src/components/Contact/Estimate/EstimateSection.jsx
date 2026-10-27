@@ -6,6 +6,7 @@ import EstimateForm from "./EstimateForm";
 import ReachUsDirect from "./ReachUsDirect";
 import { ESTIMATE_STEPS } from "@/data/estimate";
 import Reveal from "@/components/UI/Reveal";
+import { SECTION_TITLE, keepTogether } from "@/components/UI/titles";
 
 function Stars() {
   return (
@@ -65,7 +66,7 @@ export default function EstimateSection({
       <div className="max-w-[1680px] mx-auto w-full px-[24px] 700:px-[32px]">
         <Intro
           as="p"
-          className="max-400:hidden flex items-center gap-4 pointer-events-none mb-8"
+          className="max-400:hidden flex items-center gap-4 pointer-events-none mb-6 800:mb-8"
         >
           <span className="block h-2 w-2 flex-shrink-0 bg-third"></span>
           <span
@@ -81,14 +82,16 @@ export default function EstimateSection({
           <Intro
             as={Heading}
             delay={0.05}
-            className="font-gt font-semibold tracking-tight leading-[1.2] text-[28px] 700:text-[34px] 1280:text-[42px]"
+            className={SECTION_TITLE}
           >
             {heading ? (
               <>
-                {heading.firstLine}
+                {keepTogether(heading.firstLine)}
                 <br />
                 {heading.secondLine}{" "}
-                <span className="italic text-third">{heading.italic}</span>
+                <span className="italic text-third">
+                  {keepTogether(heading.italic)}
+                </span>
               </>
             ) : (
               <>

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { FiPlus } from "react-icons/fi";
 import { MdOutlineLocalPhone } from "react-icons/md";
-import { getHomeFAQs } from "@/lib/seo";
+import { answerParts, getHomeFAQs } from "@/lib/seo";
 import Reveal from "@/components/UI/Reveal";
+import { FAQ_TITLE } from "@/components/UI/titles";
 import SmoothDetails from "@/components/UI/SmoothDetails";
+import FAQAnswer from "./FAQAnswer";
 
 function FAQItem({ question, answer, index }) {
   const step = String(index + 1).padStart(2, "0");
@@ -37,7 +39,7 @@ function FAQItem({ question, answer, index }) {
               Answer
             </p>
             <p className="mt-3 max-w-3xl text-[14px] 550:text-[15px] 700:text-[17px] leading-relaxed text-fourth">
-              {answer}
+              <FAQAnswer parts={answerParts(answer)} />
             </p>
           </div>
         </div>
@@ -46,9 +48,11 @@ function FAQItem({ question, answer, index }) {
   );
 }
 
-// The homepage asks the area's home-building questions; each service page
-// passes its own `faqs`, the `topic` the heading names ("Common Questions
-// About ADU Construction in ..."), and its own intro line.
+// The homepage (and each area page) asks the area's questions about your
+// project; each service page passes its own `faqs`, the `topic` the heading
+// names ("Common Questions About ADU Construction in ..."), and its own
+// intro line. An answer's `{{...}}` phrases open the estimate form
+// (FAQAnswer).
 //
 // The heading, then the questions one after another, rise in as they
 // scroll into view (UI/Reveal); a question slides open and shut
@@ -57,24 +61,26 @@ function FAQItem({ question, answer, index }) {
 export default function FAQ({
   area,
   faqs = getHomeFAQs(area),
-  topic = "Home Building",
-  intro = `Answers to the questions homeowners ask most before choosing a home builder for their project across ${area.name} and the San Fernando Valley.`,
+  topic = "General Contracting",
+  intro = `Answers to the questions homeowners ask most before choosing a general contractor for their project across ${area.name} and the San Fernando Valley.`,
 }) {
   return (
-    <section className="relative bg-white py-[100px] 1080:py-[120px]" id="faq">
+    <section className="relative bg-white pb-[100px] 1080:pb-[120px]" id="faq">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
-        <div className="mx-auto flex max-w-2xl flex-col items-center text-center pointer-events-none">
-          <Reveal as="p" className="mb-6 550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] 800:text-center max-550:text-center">
+        <div className="mx-auto flex max-w-4xl flex-col items-center text-center pointer-events-none">
+          <Reveal as="p" className="mb-6 800:mb-8 550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] 800:text-center max-550:text-center">
             FAQ
           </Reveal>
-          <Reveal as="h2" delay={0.05} className="text-[1.55rem] 400:text-[1.65rem] 550:text-[1.75rem] 700:text-[2.25rem] 1080:text-[2.5rem] font-semibold uppercase leading-[1.2]">
-            Common Questions <br></br> About{"  "}
-            <span className="italic text-third">
-              {topic}
-            </span> <br></br> in{" "}
-            <span className="italic text-third">{area.name}, CA</span>
+          {/* the topic and the place each stay on one line */}
+          <Reveal as="h2" delay={0.05} className={`${FAQ_TITLE} uppercase`}>
+            Common Questions <br></br> About{" "}
+            <span className="italic text-third whitespace-nowrap">{topic}</span>{" "}
+            <br></br> in{" "}
+            <span className="italic text-third whitespace-nowrap">
+              {area.name}, CA
+            </span>
           </Reveal>
-          <Reveal as="p" delay={0.1} className="mt-8 text-[15px] leading-relaxed text-fourth 700:text-[17px]">
+          <Reveal as="p" delay={0.1} className="mt-8 max-w-2xl text-[15px] leading-relaxed text-fourth 700:text-[17px]">
             {intro}
           </Reveal>
         </div>

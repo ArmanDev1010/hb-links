@@ -6,6 +6,7 @@ import { useModal } from "@/context/ModalContext";
 import HeroBuildSequence from "@/components/Home/HeroBuildSequence";
 import HeroShade from "@/components/Home/HeroShade";
 import { getSequence } from "@/data/heroBuild";
+import { keepTogether } from "@/components/UI/titles";
 
 import { IoIosArrowRoundForward } from "react-icons/io";
 
@@ -21,8 +22,8 @@ const PHONE_TITLE = { home: "text-[6.5vw]", service: "text-[7vw]" };
 
 export default function Hero({
   area,
-  title = "Custom Home Builder",
-  paragraph = `A licensed custom home builder serving ${area.coverage}. We specialize in ADUs, home remodels and additions, kitchen and bathroom renovations, and outdoor living spaces — quoted honestly, with no surprises.`,
+  title = "General Contractor",
+  paragraph = `A licensed general contractor serving ${area.coverage}. We specialize in ADUs and garage conversions, home remodels and additions, kitchen and bathroom renovations, and outdoor living spaces — quoted honestly, with no surprises.`,
   sequence = null,
   image = null,
   variant = "home",
@@ -33,9 +34,10 @@ export default function Hero({
     <div className="max-w-4xl">
       <h1
         className={`font-gt uppercase w-fit font-compressed tracking-normal 550:leading-[1.1] leading-[1.2] font-semibold pointer-events-none
-      1600:text-[3.5rem] 1080:text-[3rem] 700:text-[2.7rem] 550:text-[2.2rem] ${PHONE_TITLE[variant]}`}
+      1600:text-[3.125rem] 1080:text-[2.75rem] 700:text-[2.7rem] 550:text-[2.2rem] ${PHONE_TITLE[variant]}`}
       >
-        {title} <br /> in <span className="italic">{area.name}</span>
+        {keepTogether(title)} <br /> in{" "}
+        <span className="italic whitespace-nowrap">{area.name}</span>
       </h1>
 
       <p className="max-550:hidden font-gt mt-8 text-neutral-300 900:text-[11px] text-[10px] uppercase tracking-[0.3em] flex flex-wrap gap-x-3 gap-y-1.5 items-center pointer-events-none">

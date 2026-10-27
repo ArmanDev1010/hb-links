@@ -1,21 +1,22 @@
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Reveal from "@/components/UI/Reveal";
+import { SECTION_TITLE } from "@/components/UI/titles";
 
 const pad = (n) => String(n).padStart(2, "0");
 
 // "Often Paired With" — the other service pages most often planned
-// alongside this one, each with a line on why they go together. The
+// alongside this one, each with a line on why they go together, as
+// separate cards with a gap between them (like ServiceOptions). The
 // heading, then each card's content, rise in as they scroll into view
-// (UI/Reveal); the cards themselves stay put (their white covers the grid
-// lines).
+// (UI/Reveal); the cards' frames stay put.
 export default function ServiceRelated({ services }) {
   return (
     <section className="relative bg-white pb-[100px] 1080:pb-[120px]" id="related">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="flex flex-wrap max-1080:flex-col justify-between gap-x-10 gap-y-6 mb-12 1080:mb-16 pointer-events-none">
           <div className="flex-[1]">
-            <Reveal className="flex items-center gap-4 mb-6">
+            <Reveal className="flex items-center gap-4 mb-6 800:mb-8">
               <span className="block h-2 w-2 flex-shrink-0 bg-third"></span>
               <span className="550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em]">
                 Often Paired With
@@ -25,7 +26,7 @@ export default function ServiceRelated({ services }) {
             <Reveal
               as="h2"
               delay={0.05}
-              className="font-gt uppercase font-semibold leading-[1.2] tracking-tight text-[28px] 800:text-[36px]"
+              className={`${SECTION_TITLE} uppercase`}
             >
               Related Services
             </Reveal>
@@ -40,12 +41,12 @@ export default function ServiceRelated({ services }) {
           </Reveal>
         </div>
 
-        <ul className="grid grid-cols-1 gap-px border border-black/15 bg-black/10 900:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-4 700:gap-5 900:grid-cols-3">
           {services.map(({ navLabel, href, note }, index) => (
             <li key={href} className="flex">
               <Link
                 href={href}
-                className="group flex w-full bg-white p-8 700:p-10 transition-colors duration-200 hover:bg-third/5"
+                className="group flex w-full border border-black/15 bg-white p-8 700:p-10 transition-colors duration-200 hover:border-third hover:bg-third/5"
               >
                 <Reveal
                   delay={0.08 * index}

@@ -1,6 +1,7 @@
 const kitchenRemodel = {
   slug: "kitchen-remodel",
   navLabel: "Kitchen Remodel",
+  navBlurb: "New layouts, cabinets and counters",
   title: "Kitchen Remodel",
   metaTitle: "Kitchen Remodeling Contractor in Los Angeles",
   serviceType: "Kitchen Remodeling",
@@ -61,6 +62,44 @@ const kitchenRemodel = {
       },
     ],
   },
+  options: {
+    eyebrow: "Scope Your Kitchen",
+    heading: ["Refresh, Rework,", "or Open It Up?"],
+    intro:
+      "Most kitchen remodels fall into one of three scopes. What moves — the sink, the range, a wall — matters more to the budget than the finishes do.",
+    items: [
+      {
+        title: "Same-Layout Remodel",
+        description:
+          "New cabinets, countertops, backsplash, lighting, and appliances in the existing footprint. The fastest and least expensive way to a new kitchen.",
+        facts: [
+          { label: "Plumbing & gas", value: "Stay put" },
+          { label: "Permit", value: "Sometimes" },
+          { label: "Biggest cost", value: "Cabinets & stone" },
+        ],
+      },
+      {
+        title: "New Layout",
+        description:
+          "The sink, range, or island moves to where it works best. Plumbing, gas, and circuits are rerouted, usually under the floor or through the walls.",
+        facts: [
+          { label: "Plumbing & gas", value: "Rerouted" },
+          { label: "Permit", value: "Yes" },
+          { label: "Biggest cost", value: "Trades & layout" },
+        ],
+      },
+      {
+        title: "Open-Concept Kitchen",
+        description:
+          "A wall comes down to join the kitchen to the living or dining room. A load-bearing wall is replaced with an engineered beam, flush with the ceiling or dropped.",
+        facts: [
+          { label: "Plumbing & gas", value: "Often rerouted" },
+          { label: "Permit", value: "Yes, engineered" },
+          { label: "Biggest cost", value: "Structure" },
+        ],
+      },
+    ],
+  },
   process: {
     closing: "Every Kitchen",
     intro:
@@ -100,7 +139,7 @@ const kitchenRemodel = {
     {
       question: "How much does a kitchen remodel cost in Los Angeles?",
       answer:
-        "Layout changes, cabinetry and countertop selections, and appliance circuits are the biggest cost drivers. Keeping plumbing and gas where they are costs less than moving them, and custom cabinetry costs more than semi-custom. We provide a detailed written estimate after seeing the space, not a ballpark before.",
+        "Layout changes, cabinetry and countertop selections, and appliance circuits are the biggest cost drivers. Keeping plumbing and gas where they are costs less than moving them, and custom cabinetry costs more than semi-custom. We provide a detailed written estimate after seeing the space, not a ballpark before. {{Get a free on-site estimate}} for your exact number.",
     },
     {
       question: "How long does a kitchen remodel take?",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 
 const ROTATE_INTERVAL_MS = 1800;
 
@@ -11,6 +11,10 @@ const WORD_TRANSITION = { duration: 0.8, ease: [0.25, 0.1, 0.26, 1] };
 // "HB Links | ADU Builder / Remodeler / ..." heading, and the footer's brand
 // tagline). Layout/sizing is left to the caller via `className`; only the
 // crossfade-and-slide animation itself is fixed.
+//
+// It rolls the same everywhere, "reduce motion" on or not (the user wants
+// phones to match desktop): the site-wide setting (UI/MotionPreferences)
+// would otherwise skip the slide and leave the word stuck on the first one.
 export default function RotatingWord({
   words,
   interval = ROTATE_INTERVAL_MS,
@@ -18,36 +22,35 @@ export default function RotatingWord({
   wordClassName = "text-third italic",
 }) {
   const [index, setIndex] = useState(0);
-  // With "reduce motion" on, the first word just stays put.
-  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (reduceMotion) return;
     const id = setInterval(
       () => setIndex((i) => (i + 1) % words.length),
       interval,
     );
     return () => clearInterval(id);
-  }, [words.length, interval, reduceMotion]);
+  }, [words.length, interval]);
 
   return (
-    <motion.span
-      transition={WORD_TRANSITION}
-      className={`relative inline-block overflow-hidden align-bottom ${className}`}
-    >
-      <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span
-          key={words[index]}
-          initial={{ y: "100%", rotate: 5 }}
-          animate={{ y: "0%", rotate: 0 }}
-          exit={{ y: "-100%", rotate: -3 }}
-          transition={WORD_TRANSITION}
-          style={{ transformOrigin: "left top" }}
-          className={`block whitespace-nowrap ${wordClassName}`}
-        >
-          {words[index]}
-        </motion.span>
-      </AnimatePresence>
-    </motion.span>
+    <MotionConfig reducedMotion="never">
+      <motion.span
+        transition={WORD_TRANSITION}
+        className={`relative inline-block overflow-hidden align-bottom ${className}`}
+      >
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span
+            key={words[index]}
+            initial={{ y: "100%", rotate: 5 }}
+            animate={{ y: "0%", rotate: 0 }}
+            exit={{ y: "-100%", rotate: -3 }}
+            transition={WORD_TRANSITION}
+            style={{ transformOrigin: "left top" }}
+            className={`block whitespace-nowrap ${wordClassName}`}
+          >
+            {words[index]}
+          </motion.span>
+        </AnimatePresence>
+      </motion.span>
+    </MotionConfig>
   );
 }

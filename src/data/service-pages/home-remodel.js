@@ -1,6 +1,7 @@
 const homeRemodel = {
   slug: "home-remodel",
   navLabel: "Home Remodel",
+  navBlurb: "Whole-home and multi-room remodels",
   title: "Home Remodel",
   metaTitle: "Home Remodeling Contractor in Los Angeles, CA",
   serviceType: "Home Remodeling",
@@ -61,6 +62,44 @@ const homeRemodel = {
       },
     ],
   },
+  options: {
+    eyebrow: "Scope Your Remodel",
+    heading: ["How Big Is", "Your Remodel?"],
+    intro:
+      "A remodel can be one room or the whole house. The scope decides whether you stay home during the work, what needs a permit, and how much of the house's wiring and plumbing gets replaced along the way.",
+    items: [
+      {
+        title: "Single-Room Remodel",
+        description:
+          "One space rebuilt top to bottom — a living room opened up, a laundry moved, a dated primary suite redone — with the rest of the house untouched.",
+        facts: [
+          { label: "Living at home", value: "Usually" },
+          { label: "Permit", value: "If systems change" },
+          { label: "Best for", value: "One problem space" },
+        ],
+      },
+      {
+        title: "Multi-Room or Phased",
+        description:
+          "Several rooms at once, often with walls moving between them, done in phases so part of the house stays livable while the rest is under construction.",
+        facts: [
+          { label: "Living at home", value: "Often, in phases" },
+          { label: "Permit", value: "Usually" },
+          { label: "Best for", value: "Open-plan layouts" },
+        ],
+      },
+      {
+        title: "Whole-Home Remodel",
+        description:
+          "The house taken back to the studs — new layout, wiring, plumbing, insulation, and finishes throughout. The most disruption, and the most house for the money.",
+        facts: [
+          { label: "Living at home", value: "Usually not" },
+          { label: "Permit", value: "Yes" },
+          { label: "Best for", value: "Older homes" },
+        ],
+      },
+    ],
+  },
   process: {
     closing: "Every Remodel",
     intro:
@@ -88,6 +127,34 @@ const homeRemodel = {
       },
     ],
   },
+  guide: {
+    eyebrow: "Older LA Homes",
+    heading: ["What We Find", "Behind the Walls"],
+    intro:
+      "Much of the San Fernando Valley was built in the decades after World War II. Those houses are solidly built, but their systems are 60 years old or more — this is what a remodel commonly uncovers, and why opening the walls is the best time to deal with it.",
+    items: [
+      {
+        title: "Wiring and the electrical panel",
+        body: "Prewar homes can still have knob-and-tube wiring, and many postwar houses run on ungrounded two-prong circuits and a 60- or 100-amp panel that can't carry a modern kitchen, an EV charger, or central air. Some panels from that era, like Federal Pacific and Zinsco, are widely recommended for replacement. With the walls open, rewiring costs a fraction of what it does later.",
+      },
+      {
+        title: "Plumbing and drains",
+        body: "Galvanized steel supply pipes corrode from the inside, which is why older houses lose water pressure, and cast-iron drain lines crack and scale with age. A remodel with open walls is the time to repipe in copper or PEX, under the same C-36 license as the rest of the plumbing work.",
+      },
+      {
+        title: "Foundation and earthquake bracing",
+        body: "Many raised-foundation homes from that era were built without foundation bolts or braced cripple walls. A bolt-and-brace retrofit is a modest add-on while the crew is on site, and California's Earthquake Brace + Bolt program offers grants for it in many ZIP codes.",
+      },
+      {
+        title: "Asbestos and lead paint",
+        body: "Homes built before 1978 likely have lead paint somewhere, and popcorn ceilings, old flooring, and duct wrap from the period can contain asbestos. Renovation in pre-1978 homes follows the EPA's lead-safe practices, and suspect materials are tested before demolition — if asbestos is found, a certified abatement contractor removes it before work continues.",
+      },
+      {
+        title: "Insulation, windows and alarms",
+        body: "Older houses often have little or no wall insulation and single-pane windows. Open walls are the cheapest time to fix both, and new work is built to California's Title 24 energy code. A permitted remodel also brings smoke and carbon monoxide alarms throughout the house up to current code.",
+      },
+    ],
+  },
   estimateHeading: {
     firstLine: "Ready to Reimagine",
     secondLine: "Your",
@@ -100,7 +167,7 @@ const homeRemodel = {
     {
       question: "How much does a home remodel cost in Los Angeles?",
       answer:
-        "It depends on square footage, how many rooms are involved, whether walls move, and the finish level you choose. Opening load-bearing walls or replacing old wiring and plumbing adds scope a cosmetic refresh doesn't have. We price the project after walking the house — a written estimate, not a range off a calculator.",
+        "It depends on square footage, how many rooms are involved, whether walls move, and the finish level you choose. Opening load-bearing walls or replacing old wiring and plumbing adds scope a cosmetic refresh doesn't have. We price the project after walking the house — a written estimate, not a range off a calculator. {{Get a free on-site estimate}} for your exact number.",
     },
     {
       question: "How long does a whole-home remodel take?",

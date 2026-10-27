@@ -1,6 +1,7 @@
 const bathroomRemodel = {
   slug: "bathroom-remodel",
   navLabel: "Bathroom Remodel",
+  navBlurb: "Showers, tubs, tile and fixtures",
   title: "Bathroom Remodel",
   metaTitle: "Bathroom Remodeling Contractor in Los Angeles",
   serviceType: "Bathroom Remodeling",
@@ -88,6 +89,34 @@ const bathroomRemodel = {
       },
     ],
   },
+  guide: {
+    eyebrow: "Behind the Tile",
+    heading: ["What Makes a", "Bathroom Last"],
+    intro:
+      "The parts of a bathroom that decide whether it lasts are the ones you never see once the tile is up. This is what goes into ours before the finishes do.",
+    items: [
+      {
+        title: "Waterproofing",
+        body: "Tile and grout aren't waterproof — the membrane behind them is. Every wet wall and shower floor gets a continuous waterproof membrane, sealed at the seams, corners, and valve, and the shower pan is flood-tested before any tile goes on.",
+      },
+      {
+        title: "The shower floor and drain",
+        body: "A shower floor has to slope evenly to the drain, at least a quarter inch per foot, or water sits in the corners. Curbless showers and linear drains need the floor framing recessed so the slope works without a step — something to decide during design, not after demo.",
+      },
+      {
+        title: "Ventilation",
+        body: "Moisture that doesn't leave the room ends up in the drywall. The exhaust fan should be ducted to the outside — never into the attic — and a humidity-sensing control clears the room on its own after every shower, whether or not anyone remembers the switch.",
+      },
+      {
+        title: "Water-efficient fixtures",
+        body: "California caps how much water fixtures can use: 1.8 gallons per minute for a showerhead, 1.2 for a bathroom faucet, and 1.28 gallons per flush for a toilet. Every fixture we install meets those limits, and good ones don't feel like a compromise.",
+      },
+      {
+        title: "Built for later",
+        body: "Blocking for future grab bars costs almost nothing while the walls are open. Add a curbless entry, a handheld shower, a comfort-height toilet, and slip-resistant tile, and the bathroom works for every age without looking like it was built for one.",
+      },
+    ],
+  },
   estimateHeading: {
     firstLine: "Ready to Rebuild",
     secondLine: "Your",
@@ -100,7 +129,7 @@ const bathroomRemodel = {
     {
       question: "How much does a bathroom remodel cost in Los Angeles?",
       answer:
-        "Fixture relocations, tile and material selections, and whether the shower needs its waterproofing rebuilt are the biggest factors. A same-layout refresh costs far less than moving the toilet or converting a tub to a walk-in shower. We provide a detailed written estimate after seeing the space.",
+        "Fixture relocations, tile and material selections, and whether the shower needs its waterproofing rebuilt are the biggest factors. A same-layout refresh costs far less than moving the toilet or converting a tub to a walk-in shower. We provide a detailed written estimate after seeing the space. {{Get a free on-site estimate}} for your exact number.",
     },
     {
       question: "How long does a bathroom remodel take?",

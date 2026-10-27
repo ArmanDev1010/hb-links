@@ -1,4 +1,5 @@
 import aduBuilder from "./adu-builder";
+import garageConversion from "./garage-conversion";
 import homeRemodel from "./home-remodel";
 import kitchenRemodel from "./kitchen-remodel";
 import bathroomRemodel from "./bathroom-remodel";
@@ -11,12 +12,15 @@ import { servicePageHref } from "@/lib/cities";
 // footer list them. Each is served at /<slug>-los-angeles (servicePageHref)
 // and carries everything its page renders (components/ServicePage): hero
 // copy, the "What's Included" spec sheet and scope, the four process steps,
-// the FAQ, the service-areas heading, and its "Often Paired With" services.
+// the FAQ, the service-areas heading, and its "Often Paired With" services —
+// plus, on the pages that have them, `options` (the forms the service comes
+// in, compared) and a `guide` (its local rules and decisions).
 // `metaTitle` is its search-result title (lib/seo.js adds " | HB LINKS"),
 // `title` its H1 and breadcrumb; its share card is public/og/<slug>.jpg
 // (scripts/seo-images.mjs).
 const pages = [
   aduBuilder,
+  garageConversion,
   homeRemodel,
   kitchenRemodel,
   bathroomRemodel,

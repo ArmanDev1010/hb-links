@@ -3,9 +3,10 @@ import HomePage from "@/components/Home/HomePage";
 import { AREA_PAGES, getAreaBySlug } from "@/lib/cities";
 import { buildAreaMetadata } from "@/lib/seo";
 
-// Served publicly at /home-builder-<area> through the rewrite in
+// Served publicly at /general-contractor-<area> through the rewrite in
 // next.config.mjs — an App Router folder can't mix fixed text and a param
-// in one segment, so this route lives at /home-builder/<area> internally.
+// in one segment, so this route lives at /general-contractor/<area>
+// internally.
 export const dynamicParams = false;
 
 export function generateStaticParams() {

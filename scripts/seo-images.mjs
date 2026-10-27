@@ -5,7 +5,7 @@
 // public/og/<name>.jpg — the 1200x630 card for each page (og:image /
 // twitter:image; see lib/seo.js): the page's photo, darkened along the
 // bottom, with the white logo in the corner. "home" is used by the homepage,
-// the /home-builder-<area> pages, contact and the legal pages; every service
+// the /general-contractor-<area> pages, contact and the legal pages; every service
 // page gets its own.
 //
 // Re-run it after changing a service page's photo or the hero's opening frame.
@@ -25,6 +25,10 @@ const MARGIN = 56;
 const CARDS = [
   { name: "home", src: "public/hero/adu/desktop/0022.webp" },
   { name: "adu-builder", src: "public/images/services/adu.png" },
+  {
+    name: "garage-conversion",
+    src: "public/images/services/garage-conversion.webp",
+  },
   { name: "home-remodel", src: "public/images/services/home-remodel.png" },
   { name: "kitchen-remodel", src: "public/images/services/kitchen-remodel.png" },
   { name: "bathroom-remodel", src: "public/images/services/bathroom-remodel.png" },

@@ -26,7 +26,7 @@ export default function sitemap() {
     ),
   ];
 
-  // The /home-builder-<area> pages — homepage copies for each service area,
+  // The /general-contractor-<area> pages — homepage copies for each service area,
   // so they sit just under the homepage itself.
   const areaRoutes = AREA_PAGES.map((area) => route(area.href, 0.9));
 

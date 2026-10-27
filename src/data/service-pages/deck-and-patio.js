@@ -1,6 +1,7 @@
 const deckAndPatio = {
   slug: "deck-and-patio",
   navLabel: "Deck & Patio",
+  navBlurb: "Decks, covers and outdoor kitchens",
   title: "Deck & Patio Builder",
   metaTitle: "Deck, Patio & Pergola Builder in Los Angeles",
   serviceType: "Deck & Patio Construction",
@@ -62,6 +63,54 @@ const deckAndPatio = {
       },
     ],
   },
+  options: {
+    eyebrow: "Compare Materials",
+    heading: ["Deck, Cover,", "or Pergola?"],
+    intro:
+      "The right outdoor space depends on how much sun the yard gets, how you'll use it, and how much upkeep you want. Here's how the most common builds compare.",
+    items: [
+      {
+        title: "Composite Deck",
+        description:
+          "Capped composite boards over a framed structure. They hold their color in the Valley sun and never need sealing or staining.",
+        facts: [
+          { label: "Upkeep", value: "Low" },
+          { label: "Shade", value: "Add a cover" },
+          { label: "Best for", value: "Sunny, busy decks" },
+        ],
+      },
+      {
+        title: "Hardwood Deck",
+        description:
+          "Ipe and other hardwoods give the warmest look and feel, and need periodic oiling or sealing to keep it. At their best on shaded or covered decks.",
+        facts: [
+          { label: "Upkeep", value: "Periodic sealing" },
+          { label: "Shade", value: "Add a cover" },
+          { label: "Best for", value: "Shaded decks" },
+        ],
+      },
+      {
+        title: "Patio Cover",
+        description:
+          "A solid or insulated roof over the patio, attached to the house or freestanding — full shade and rain cover, often wired for fans, lights, and heaters.",
+        facts: [
+          { label: "Upkeep", value: "Low" },
+          { label: "Shade", value: "Full" },
+          { label: "Best for", value: "Outdoor kitchens" },
+        ],
+      },
+      {
+        title: "Pergola",
+        description:
+          "An open or louvered frame that filters the sun. Louvered aluminum roofs open and close, so one structure works for July afternoons and winter evenings.",
+        facts: [
+          { label: "Upkeep", value: "Low" },
+          { label: "Shade", value: "Partial or adjustable" },
+          { label: "Best for", value: "Dining & lounging" },
+        ],
+      },
+    ],
+  },
   process: {
     closing: "Every Outdoor Build",
     intro:
@@ -101,7 +150,7 @@ const deckAndPatio = {
     {
       question: "How much does a deck or patio cost in Los Angeles?",
       answer:
-        "Size, materials, height off the ground, and built-in features like a cover, lighting, or an outdoor kitchen drive the cost. A ground-level paver patio costs far less than an elevated deck with a roof. We give you a written estimate after seeing the yard, not a per-square-foot guess.",
+        "Size, materials, height off the ground, and built-in features like a cover, lighting, or an outdoor kitchen drive the cost. A ground-level paver patio costs far less than an elevated deck with a roof. We give you a written estimate after seeing the yard, not a per-square-foot guess. {{Get a free on-site estimate}} for your exact number.",
     },
     {
       question: "Do I need a permit for a deck or patio cover?",

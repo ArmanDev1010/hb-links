@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { BsInstagram } from "react-icons/bs";
 import { useModal } from "@/context/ModalContext";
 import DropdownShell from "./DropdownShell";
@@ -14,6 +14,43 @@ import ServiceAreasMenuContent from "./ServiceAreasMenuContent";
 // two triggers) doesn't flicker the menu closed. Opening is instant and only
 // ever happens via a trigger's own onMouseEnter.
 const CLOSE_DELAY_MS = 100;
+
+// A desktop dropdown panel's id, by its nav item's index (DropdownShell).
+const panelId = (key) => `nav-panel-${key}`;
+
+const within = (rect, x, y) =>
+  rect && x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+
+// Whether (x, y) falls inside a polygon of [x, y] points (ray casting).
+function inPolygon(x, y, points) {
+  let inside = false;
+  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+    const [xi, yi] = points[i];
+    const [xj, yj] = points[j];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
+// The safe zone between an open dropdown's trigger and its panel, after the
+// shape the user drew: tight around the trigger at the top, flaring out
+// below it and down to the panel across about its middle half (21% to 73%
+// of its width) — not the whole width. Inside it the menu stays open and
+// the nav items it crosses don't react, so the pointer can cut diagonally
+// to a row like ADU without the menu closing on the way.
+function safeZone(trigger, panel) {
+  const flare = trigger.top + trigger.height * 0.55;
+  return [
+    [trigger.left - 10, trigger.top],
+    [trigger.right + 10, trigger.top],
+    [trigger.right + 40, flare],
+    [panel.left + panel.width * 0.73, panel.top + 4],
+    [panel.left + panel.width * 0.21, panel.top + 4],
+    [trigger.left - 45, flare],
+  ];
+}
 
 function Chevron({ open, className = "" }) {
   return (
@@ -64,20 +101,77 @@ export default function NavLinks({
     toggleModal();
   };
 
-  const openDropdown = (title) => {
-    if (isMobile) return;
+  // Whether (x, y) is over the open dropdown: its trigger, its panel, or
+  // the safe zone between them.
+  const overOpenMenu = (x, y) => {
+    const key = navlinks.findIndex((link) => link.title === activeDropdown);
+    if (key < 0) return false;
+    const trigger = triggerEls.current[key]?.getBoundingClientRect();
+    const panel = document.getElementById(panelId(key))?.getBoundingClientRect();
+    if (!trigger || !panel) return false;
+    return (
+      within(trigger, x, y) ||
+      within(panel, x, y) ||
+      inPolygon(x, y, safeZone(trigger, panel))
+    );
+  };
+
+  const cancelClose = () => {
     clearTimeout(closeTimeout.current);
+    closeTimeout.current = null;
+  };
+
+  // `event` is the mouseenter that asked: one that lands in the open
+  // dropdown's safe zone (crossing Home or the other dropdown on the way to
+  // the panel) is ignored.
+  const openDropdown = (title, event) => {
+    if (isMobile) return;
+    if (
+      event &&
+      activeDropdown &&
+      activeDropdown !== title &&
+      overOpenMenu(event.clientX, event.clientY)
+    ) {
+      return;
+    }
+    cancelClose();
     setActiveDropdown(title);
   };
 
+  // Closes after CLOSE_DELAY_MS unless something cancels it first; a close
+  // already on its way isn't pushed back.
   const scheduleClose = () => {
-    if (isMobile) return;
-    clearTimeout(closeTimeout.current);
-    closeTimeout.current = setTimeout(
-      () => setActiveDropdown(null),
-      CLOSE_DELAY_MS,
-    );
+    if (isMobile || closeTimeout.current) return;
+    closeTimeout.current = setTimeout(() => {
+      closeTimeout.current = null;
+      setActiveDropdown(null);
+    }, CLOSE_DELAY_MS);
   };
+
+  // While a dropdown is open on desktop, follow the pointer: over the open
+  // menu it stays open; over the other dropdown's trigger (outside the safe
+  // zone) that one opens; anywhere else it closes.
+  useEffect(() => {
+    if (isMobile || !activeDropdown) return;
+    const onMove = (event) => {
+      const { clientX: x, clientY: y } = event;
+      if (overOpenMenu(x, y)) return cancelClose();
+      const other = navlinks.findIndex(
+        (link, key) =>
+          link.type &&
+          link.title !== activeDropdown &&
+          within(triggerEls.current[key]?.getBoundingClientRect(), x, y),
+      );
+      if (other >= 0) {
+        cancelClose();
+        setActiveDropdown(navlinks[other].title);
+        return;
+      }
+      scheduleClose();
+    };
+    document.addEventListener("pointermove", onMove);
+    return () => document.removeEventListener("pointermove", onMove);
+  });
 
   const handleLinkClick = () => {
     setMenuActive(false);
@@ -107,7 +201,7 @@ export default function NavLinks({
                 <li
                   className="1080:h-full 1080:flex 1080:items-center max-1080:border-b max-1080:border-black/10"
                   key={key}
-                  onMouseEnter={() => openDropdown(null)}
+                  onMouseEnter={(event) => openDropdown(null, event)}
                 >
                   <Link
                     href={href}
@@ -133,7 +227,7 @@ export default function NavLinks({
                 ref={(el) => {
                   triggerEls.current[key] = el;
                 }}
-                onMouseEnter={() => openDropdown(title)}
+                onMouseEnter={(event) => openDropdown(title, event)}
                 onMouseLeave={scheduleClose}
               >
                 <div className="flex items-center 1080:gap-2 1080:justify-center 1080:h-full relative z-20 max-1080:pr-5">
@@ -176,7 +270,8 @@ export default function NavLinks({
                   </button>
                 </div>
 
-                {/* underline indicator (desktop) */}
+                {/* a mark under the open link (desktop): white over the
+                    hero, black once the bar is solid */}
                 <div
                   className={`max-1080:hidden absolute left-0 w-full h-[2px] bottom-0 transition-opacity duration-150 z-[100] ${
                     light ? "bg-white" : "bg-black"
@@ -184,6 +279,7 @@ export default function NavLinks({
                 />
 
                 <DropdownShell
+                  id={panelId(key)}
                   active={open}
                   isMobile={isMobile}
                   triggerEl={triggerEls.current[key]}
@@ -192,7 +288,7 @@ export default function NavLinks({
                     <ServicesMegaMenuContent
                       rows={item.rows}
                       pathname={pathname}
-                      menuActive={menuActive}
+                      isMobile={isMobile}
                       onLinkClick={handleLinkClick}
                       onMouseEnter={() => openDropdown(title)}
                       onMouseLeave={scheduleClose}
@@ -203,7 +299,7 @@ export default function NavLinks({
                       featured={item.featured}
                       viewAllHref={item.viewAllHref}
                       pathname={pathname}
-                      menuActive={menuActive}
+                      isMobile={isMobile}
                       onLinkClick={handleLinkClick}
                       onMouseEnter={() => openDropdown(title)}
                       onMouseLeave={scheduleClose}

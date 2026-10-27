@@ -1,6 +1,9 @@
+import { servicePageHref } from "@/lib/cities";
+
 const homeAdditions = {
   slug: "home-additions",
   navLabel: "Home Additions",
+  navBlurb: "Room additions and second stories",
   title: "Home Additions",
   metaTitle: "Home Addition Contractor in Los Angeles, CA",
   serviceType: "Home Additions",
@@ -61,6 +64,46 @@ const homeAdditions = {
       },
     ],
   },
+  options: {
+    eyebrow: "Out, Up, or Separate?",
+    heading: ["Three Ways to", "Add Space"],
+    intro:
+      "More room can come from building out, building up, or building a separate unit. Which one fits depends on your lot, your budget, and whether the space needs to be part of the house.",
+    items: [
+      {
+        title: "Room Addition",
+        description:
+          "Builds out from the house on a new foundation — an extra bedroom, a bigger kitchen or family room, or a primary suite, tied in to look original.",
+        facts: [
+          { label: "Builds", value: "Out, ground floor" },
+          { label: "Construction", value: "3–6 months" },
+          { label: "Yard space", value: "Needed" },
+        ],
+      },
+      {
+        title: "Second-Story Addition",
+        description:
+          "Builds up over the existing house and keeps the yard. An engineer checks the first floor's foundation and framing, which often need reinforcing to carry it.",
+        facts: [
+          { label: "Builds", value: "Up, over the house" },
+          { label: "Construction", value: "5–9 months" },
+          { label: "Yard space", value: "None" },
+        ],
+      },
+      {
+        title: "ADU Instead",
+        description:
+          "A separate unit with its own entrance, kitchen, and bathroom. It can be rented, and state ADU rules often allow one where an addition wouldn't fit.",
+        facts: [
+          { label: "Builds", value: "A separate unit" },
+          { label: "Construction", value: "2–8 months" },
+          { label: "Yard space", value: "Backyard or garage" },
+        ],
+        href: servicePageHref("adu-builder"),
+        linkLabel: "ADU Construction",
+      },
+    ],
+  },
   process: {
     closing: "Every Addition",
     intro:
@@ -88,6 +131,38 @@ const homeAdditions = {
       },
     ],
   },
+  guide: {
+    eyebrow: "Know Before You Add On",
+    heading: ["What Shapes", "an LA Addition"],
+    intro:
+      "An addition is part of the house, so it plays by the house's rules — not the relaxed ones state law gives ADUs. These are the questions we answer before design starts.",
+    items: [
+      {
+        title: "How much you can add",
+        body: "In the City of Los Angeles' single-family zones, the Baseline Mansionization Ordinance caps a home's total floor area relative to the size of the lot, and hillside lots fall under the Baseline Hillside Ordinance instead. Your existing house counts against that cap, so the first step is measuring how much of it you've already used. Independent cities like Calabasas set their own limits.",
+      },
+      {
+        title: "Setbacks and height",
+        body: "An addition has to meet your zone's front, side, and rear setbacks and its height limit. For second stories, many Los Angeles neighborhoods also have an encroachment plane that limits how tall walls can rise near the side property lines — it shapes the roofline as much as the floor plan does.",
+      },
+      {
+        title: "Can the house carry it?",
+        body: "A structural engineer checks the existing foundation and framing before design. Older Los Angeles homes on raised foundations sometimes need new footings, shear walls, or hold-downs — and a second story almost always needs part of the first floor reinforced. Finding that out early keeps it out of change orders.",
+      },
+      {
+        title: "Tying in to the house",
+        body: "The tie-in — where the new structure meets the old — is where an addition succeeds or fails visually. We match the roofline, stucco or siding, windows, and floor heights so the addition looks like it was always there. It's also the most disruptive phase, so we schedule it with you.",
+      },
+      {
+        title: "What the addition updates in the rest of the house",
+        body: "A permitted addition brings some of the existing house up to current code: California requires smoke and carbon monoxide alarms throughout the home, the extra load often calls for an electrical panel upgrade, and the new space needs its own Title 24 energy calculations. We include all of it in the estimate, not as a surprise later.",
+      },
+      {
+        title: "Property tax",
+        body: "Only the addition is assessed. Under California's property tax rules, the new construction's value is added to your existing assessment — the rest of the house keeps its current base.",
+      },
+    ],
+  },
   estimateHeading: {
     firstLine: "Ready to Expand",
     secondLine: "Your",
@@ -100,7 +175,7 @@ const homeAdditions = {
     {
       question: "How much does a home addition cost in Los Angeles?",
       answer:
-        "It depends on square footage, whether you're building out or up, the foundation and structural work involved, and finish level. Second stories often cost more per square foot than ground-floor additions because the existing structure may need reinforcing. We provide a written estimate after the site and structural review.",
+        "It depends on square footage, whether you're building out or up, the foundation and structural work involved, and finish level. Second stories often cost more per square foot than ground-floor additions because the existing structure may need reinforcing. We provide a written estimate after the site and structural review. {{Get a free on-site estimate}} for your exact number.",
     },
     {
       question: "How long does a home addition take?",

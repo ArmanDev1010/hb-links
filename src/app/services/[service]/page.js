@@ -5,7 +5,7 @@ import { buildServicePageMetadata } from "@/lib/seo";
 
 // Served publicly at /<service>-los-angeles (e.g. /adu-builder-los-angeles)
 // through the rewrite in next.config.mjs — same pattern as the area pages
-// in app/home-builder/[area].
+// in app/general-contractor/[area].
 export const dynamicParams = false;
 
 export function generateStaticParams() {

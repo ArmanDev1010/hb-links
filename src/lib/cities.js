@@ -1,5 +1,5 @@
 import { FEATURED_CITIES, PRIMARY } from "@/lib/seo";
-import { areaFAQs } from "@/data/areas";
+import { areaContent } from "@/data/areas";
 
 // URL-safe slug for a city name, e.g. "La Cañada Flintridge" -> "la-canada-flintridge".
 export function slugifyCity(name) {
@@ -14,8 +14,9 @@ export function slugifyCity(name) {
 
 // The nine service areas the site targets (FEATURED_CITIES). Los Angeles is
 // the primary area and its page IS the homepage; every other area gets a
-// copy of the homepage at /home-builder-<slug> with its own name swapped in
-// (see components/Home/HomePage). `badge` and `coverage` are the location
+// version of the homepage at /general-contractor-<slug> with its own name,
+// building guide and FAQs (see components/Home/HomePage). `badge` and
+// `coverage` are the location
 // phrases those sections drop in. `badge` is always "<area>, CA"; for
 // `coverage` the primary area pairs the city with the Valley ("Los Angeles
 // and the San Fernando Valley" — "Los Angeles and Los Angeles County" would
@@ -24,7 +25,8 @@ export function slugifyCity(name) {
 // "across Los Angeles" spans the whole city and Valley, but every other area
 // is a single neighborhood or small city, so it's "in Woodland Hills" — and
 // "in Calabasas" too, which is its own city but reads as a neighborhood.
-// `faq` is the area's own FAQ (data/areas.js), null for the primary.
+// `local` is what makes the area's page its own — its building guide and
+// its FAQs (data/areas.js) — null for the primary.
 export const SERVICE_AREAS = FEATURED_CITIES.map((name) => {
   const isPrimary = name === PRIMARY.city;
   const slug = slugifyCity(name);
@@ -33,7 +35,7 @@ export const SERVICE_AREAS = FEATURED_CITIES.map((name) => {
     name,
     slug,
     isPrimary,
-    href: isPrimary ? "/" : `/home-builder-${slug}`,
+    href: isPrimary ? "/" : `/general-contractor-${slug}`,
     badge: `${name}, CA`,
     coverage: isPrimary
       ? `${name} County`
@@ -42,13 +44,13 @@ export const SERVICE_AREAS = FEATURED_CITIES.map((name) => {
       ? `${name} and the San Fernando Valley`
       : `${name} and greater ${PRIMARY.city}`,
     preposition: isPrimary ? "across" : "in",
-    faq: areaFAQs[name] ?? null,
+    local: areaContent[name] ?? null,
   };
 });
 
 export const PRIMARY_AREA = SERVICE_AREAS.find((area) => area.isPrimary);
 
-// The areas that get their own /home-builder-<slug> page.
+// The areas that get their own /general-contractor-<slug> page.
 export const AREA_PAGES = SERVICE_AREAS.filter((area) => !area.isPrimary);
 
 export function getAreaBySlug(slug) {

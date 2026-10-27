@@ -1,6 +1,7 @@
 const designBuild = {
   slug: "design-build",
   navLabel: "Design-Build",
+  navBlurb: "Design, permits and the build in one",
   title: "Design-Build Contractor",
   metaTitle: "Design-Build Contractor in Los Angeles, CA",
   serviceType: "Design-Build Construction",
@@ -61,6 +62,34 @@ const designBuild = {
       },
     ],
   },
+  options: {
+    eyebrow: "Two Ways to Build",
+    heading: ["Design-Build vs.", "Design-Bid-Build"],
+    intro:
+      "There are two common ways to get from an idea to a finished project. The difference is when you learn what it costs, and who answers for the problems that come up along the way.",
+    items: [
+      {
+        title: "Design-Build",
+        description:
+          "One team designs and builds. Construction pricing runs alongside design, so the plans are drawn to a budget you've already seen, and buildability questions get solved on paper.",
+        facts: [
+          { label: "Contracts", value: "One" },
+          { label: "Cost known", value: "During design" },
+          { label: "Accountability", value: "One team" },
+        ],
+      },
+      {
+        title: "Design-Bid-Build",
+        description:
+          "An architect designs, then contractors bid on the finished plans. It's common, but cost and buildability surface late — after you've already paid for the design.",
+        facts: [
+          { label: "Contracts", value: "Two or more" },
+          { label: "Cost known", value: "After design" },
+          { label: "Accountability", value: "Split" },
+        ],
+      },
+    ],
+  },
   process: {
     closing: "One Team",
     intro:
@@ -85,6 +114,34 @@ const designBuild = {
         label: "Walkthrough & Handoff",
         description:
           "We walk the completed project with you and address every punch list item before you sign off.",
+      },
+    ],
+  },
+  guide: {
+    eyebrow: "The Design Phase",
+    heading: ["What Happens", "Before We Build"],
+    intro:
+      "Design-build front-loads the decisions. By the time construction starts, the plans are permitted, the selections are made, and the price reflects both.",
+    items: [
+      {
+        title: "Site survey and as-builts",
+        body: "We measure the existing house and lot and check zoning, setbacks, easements, and the parcel's designations — hillside, fire zone, historic overlay — so the design starts from what's actually buildable.",
+      },
+      {
+        title: "Concept and layout",
+        body: "Floor plans and elevations, revised with you until they're right, with construction pricing updated as the design changes. You see the cost of a decision while it's still a line on paper.",
+      },
+      {
+        title: "Engineering",
+        body: "Structural engineering, Title 24 energy calculations, and a soils report when the site calls for one — completed before the plans are final, so they don't send the design back to the drawing board.",
+      },
+      {
+        title: "Selections",
+        body: "Cabinets, fixtures, finishes, and appliances chosen before construction, so the price is real and long-lead items are ordered early instead of holding up the schedule.",
+      },
+      {
+        title: "Permit set and plan check",
+        body: "A complete set of drawings submitted to LADBS or your city. We answer every plan-check correction ourselves and schedule the inspections once construction starts.",
       },
     ],
   },
@@ -116,7 +173,7 @@ const designBuild = {
     {
       question: "How much does a design-build project cost?",
       answer:
-        "It depends on the project — an ADU, an addition, and a whole-home remodel price very differently. What design-build changes is when you learn the number: construction pricing runs alongside design, so you see real costs before the plans are finalized.",
+        "It depends on the project — an ADU, an addition, and a whole-home remodel price very differently. What design-build changes is when you learn the number: construction pricing runs alongside design, so you see real costs before the plans are finalized. {{Get a free on-site estimate}} for your exact number.",
     },
     {
       question: "Is design-build more expensive than traditional delivery?",

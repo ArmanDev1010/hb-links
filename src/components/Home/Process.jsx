@@ -4,6 +4,7 @@ import React from "react";
 import { BiCheckCircle, BiConversation, BiMoneyWithdraw } from "react-icons/bi";
 import { MdOutlineConstruction } from "react-icons/md";
 import Reveal from "@/components/UI/Reveal";
+import { SECTION_TITLE } from "@/components/UI/titles";
 
 const process = [
   {
@@ -46,12 +47,12 @@ export default function Process({
 }) {
   return (
     <section
-      className="relative overflow-hidden py-[100px] 1080:pb-[120px] 1080:pt-[150px]"
+      className="relative overflow-hidden pb-[100px] 1080:pb-[120px]"
       id="process"
     >
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="mx-auto 1280:w-[83.33%] w-full">
-          <Reveal className="flex items-center gap-4 pointer-events-none mb-8">
+          <Reveal className="flex items-center gap-4 pointer-events-none mb-6 800:mb-8">
             <span className="block h-2 w-2 flex-shrink-0 bg-third"></span>
             <span className="550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] mt-[2px]">
               How We Work
@@ -61,7 +62,7 @@ export default function Process({
           <Reveal
             as="h2"
             delay={0.05}
-            className="font-gt uppercase font-semibold leading-[1.2] text-[32px] 550:text-[30px] 1080:text-[36px] 1600:text-[45px] pointer-events-none"
+            className={`${SECTION_TITLE} uppercase pointer-events-none`}
           >
             Four Steps<span className="max-550:hidden">,</span>{" "}
             <br className="550:hidden"></br> {closing}

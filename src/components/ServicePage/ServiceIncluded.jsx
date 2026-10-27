@@ -1,4 +1,5 @@
 import Reveal from "@/components/UI/Reveal";
+import { SECTION_TITLE, keepTogether } from "@/components/UI/titles";
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -6,15 +7,15 @@ const pad = (n) => String(n).padStart(2, "0");
 // license) beside its heading, then the six things every project of that
 // type covers, numbered in a 3-column grid. Spaced like the homepage: it
 // sits as close under the hero as About does, the heading leads below
-// 1080px (the spec sheet follows it), and How We Work's top padding sets
-// the gap after it.
+// 1080px (the spec sheet follows it), and it carries the gap to the next
+// section below it (see Home/HomePage).
 //
 // The heading, the spec sheet and then each item rise in as they scroll
 // into view (UI/Reveal). The items' cells stay put (their white covers the
 // grid lines); only what's in them moves.
 export default function ServiceIncluded({ specs, heading, intro, items }) {
   return (
-    <section className="relative bg-white mt-3 pt-10" id="included">
+    <section className="relative bg-white mt-3 pt-10 pb-[100px] 1080:pb-[120px]" id="included">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="grid grid-cols-1 gap-12 1080:grid-cols-12 1080:items-start 1080:gap-16">
           <div className="1080:col-span-6">
@@ -47,7 +48,7 @@ export default function ServiceIncluded({ specs, heading, intro, items }) {
           </div>
 
           <div className="max-1080:order-first 1080:col-span-6 pointer-events-none">
-            <Reveal className="flex items-center gap-4 mb-8">
+            <Reveal className="flex items-center gap-4 mb-6 800:mb-8">
               <span className="block h-2 w-2 flex-shrink-0 bg-third"></span>
               <span className="550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em]">
                 What&apos;s Included
@@ -57,11 +58,11 @@ export default function ServiceIncluded({ specs, heading, intro, items }) {
             <Reveal
               as="h2"
               delay={0.05}
-              className="font-gt uppercase font-semibold leading-[1.2] text-[32px] 550:text-[30px] 1080:text-[36px] 1600:text-[45px]"
+              className={`${SECTION_TITLE} uppercase`}
             >
-              {heading[0]}
+              {keepTogether(heading[0])}
               <br />
-              {heading[1]}
+              {keepTogether(heading[1])}
             </Reveal>
             <Reveal
               as="p"

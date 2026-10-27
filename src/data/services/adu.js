@@ -5,7 +5,7 @@ const adu = {
   href: servicePageHref("adu-builder"),
   tagline: "Plan your ADU",
   paragraph:
-    "Detached, attached, junior ADUs, garage conversions, and home additions — designed to match your home and built to last across {area}.",
+    "Detached, attached, and junior ADUs — designed to match your home, permitted, and built to last across {area}.",
 };
 
 export default adu;

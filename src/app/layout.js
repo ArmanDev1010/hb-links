@@ -34,10 +34,10 @@ export const metadata = {
   metadataBase: new URL(BASE_URL),
   applicationName: SITE_NAME,
   title: {
-    default: `Home Builder in Los Angeles, CA | ${SITE_NAME}`,
+    default: `General Contractor in Los Angeles, CA | ${SITE_NAME}`,
     template: `%s | ${SITE_NAME}`,
   },
-  description: `Home builder in ${PRIMARY_AREA.coverageServices} — ADUs, garage conversions, additions and remodels by one licensed team. Free on-site estimates.`,
+  description: `Licensed general contractor in ${PRIMARY_AREA.coverageServices} — ADUs, garage conversions, additions and remodels under one contract. Free estimates.`,
   icons: {
     icon: LOGO_IMAGE,
     apple: LOGO_IMAGE,

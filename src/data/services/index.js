@@ -1,4 +1,5 @@
 import adu from "./adu";
+import garageConversion from "./garage-conversion";
 import designBuild from "./design-build";
 import homeRemodeling from "./home-remodeling";
 import kitchenRemodel from "./kitchen-remodel";
@@ -30,11 +31,14 @@ export const primaryServices = [
   designBuild,
 ];
 
-// The homepage's service cards: the primary services plus the kitchen and
-// bathroom remodels, each with its own service page, in the order the
-// Services menu lists them.
+// The homepage's service cards: the primary services plus garage
+// conversions and the kitchen and bathroom remodels, each with its own
+// service page, in the order the Services menu lists them. Garage
+// conversions stay out of `primaryServices` — the forms file them under ADU
+// ("detached, attached or garage conversion", data/estimate).
 export const homepageServices = [
   adu,
+  garageConversion,
   homeRemodeling,
   kitchenRemodel,
   bathroomRemodel,

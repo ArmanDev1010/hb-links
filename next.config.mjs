@@ -77,17 +77,21 @@ const servicePageRedirects = [
 ];
 
 // The old /service-areas directory and its per-city pages were replaced by
-// the /home-builder-<area> pages. The old city pages that have a new
-// equivalent map straight to it; everything else (including the directory
-// itself and Los Angeles, whose area page is now the homepage) falls back to
-// the homepage, which carries the service-areas list.
+// the area pages, now /general-contractor-<area>. The old city pages that
+// have a new equivalent map straight to it; everything else (including the
+// directory itself and Los Angeles, whose area page is now the homepage)
+// falls back to the homepage, which carries the service-areas list. The area
+// pages were /home-builder-<area> until the site's focus moved from "home
+// builder" to "general contractor" (2026-10-27).
 const serviceAreaRedirects = [
   {
     source:
       "/service-areas/:city(woodland-hills|encino|tarzana|calabasas|canoga-park|sherman-oaks|reseda|northridge)",
-    destination: "/home-builder-:city",
+    destination: "/general-contractor-:city",
   },
   { source: "/service-areas/:path*", destination: "/" },
+  { source: "/home-builder-:area", destination: "/general-contractor-:area" },
+  { source: "/home-builder/:area", destination: "/general-contractor-:area" },
 ];
 
 // The old trade hubs and their sub-pages (/plumbing/rough-in,
@@ -105,7 +109,7 @@ const tradeRedirects = [
 // at /<slug>-los-angeles — any other /services/<slug> left over from an
 // older site (/services/access-control, ...) would redirect into a 404.
 const SERVICE_SLUGS =
-  "adu-builder|home-remodel|kitchen-remodel|bathroom-remodel|home-additions|deck-and-patio|design-build";
+  "adu-builder|garage-conversion|home-remodel|kitchen-remodel|bathroom-remodel|home-additions|deck-and-patio|design-build";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -117,7 +121,10 @@ const nextConfig = {
       ...tradeRedirects,
       // The internal paths behind the rewrites below — keep one public URL
       // per area page and per service page.
-      { source: "/home-builder/:area", destination: "/home-builder-:area" },
+      {
+        source: "/general-contractor/:area",
+        destination: "/general-contractor-:area",
+      },
       {
         source: `/services/:service(${SERVICE_SLUGS})`,
         destination: "/:service-los-angeles",
@@ -132,10 +139,13 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      // Service-area pages (src/app/home-builder/[area]) are served at
-      // /home-builder-<area>. Unknown areas 404 via the route's
+      // Service-area pages (src/app/general-contractor/[area]) are served at
+      // /general-contractor-<area>. Unknown areas 404 via the route's
       // dynamicParams = false.
-      { source: "/home-builder-:area", destination: "/home-builder/:area" },
+      {
+        source: "/general-contractor-:area",
+        destination: "/general-contractor/:area",
+      },
       // Service pages (src/app/services/[service]) are served at
       // /<service>-los-angeles — "los-angeles" is PRIMARY.city's slug (see
       // servicePageHref in lib/cities.js). Unknown services 404 via the

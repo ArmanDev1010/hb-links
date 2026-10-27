@@ -10,6 +10,7 @@ import Link from "next/link";
 
 import { reviews } from "@/data/reviews";
 import Reveal from "@/components/UI/Reveal";
+import { SECTION_TITLE } from "@/components/UI/titles";
 
 const toRad = (deg) => (deg * Math.PI) / 180;
 
@@ -211,18 +212,18 @@ export default function Reviews() {
   const total = reviews.length;
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden pb-[100px] 1080:pb-[120px]">
       <div className="w-full 1080:w-10/12 1080:mx-auto 700:px-[32px] px-[24px] 1080:mb-24 mb-12 text-center">
         <Reveal
           as="p"
-          className="mb-4 550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] pointer-events-none"
+          className="mb-6 800:mb-8 550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] pointer-events-none"
         >
           Testimonials
         </Reveal>
         <Reveal
           as="h2"
           delay={0.05}
-          className="font-gt font-semibold leading-[1.2] text-[32px] 700:text-[34px] 1080:text-[36px] 1600:text-[45px] pointer-events-none"
+          className={`${SECTION_TITLE} pointer-events-none`}
         >
           Results Speak for Themselves
         </Reveal>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ALL_CITIES } from "@/lib/seo";
 import { SERVICE_AREAS } from "@/lib/cities";
 import Reveal from "@/components/UI/Reveal";
+import { BOXED_TITLE, keepTogether } from "@/components/UI/titles";
 
 function AreaPill({ area, active }) {
   return (
@@ -38,11 +39,11 @@ export default function ServiceAreas({
 
   return (
     <section className="relative bg-white scroll-mt-28" id="service_areas">
-      <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px] pb-[60px] 1080:pb-[80px]">
+      <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px] pb-[100px] 1080:pb-[120px]">
         <div className="relative overflow-hidden border border-black/10 bg-[#fafafa] py-10 px-6 700:p-10 1080:p-14">
           <div className="flex flex-wrap max-1080:flex-col justify-between gap-x-10 gap-y-6 pb-8 mb-8 border-b border-black/15 pointer-events-none">
             <div className="flex-[1]">
-              <Reveal className="flex items-center gap-4">
+              <Reveal className="flex items-center gap-4 mb-6 800:mb-8">
                 <span className="block h-2 w-2 shrink-0 bg-third" />
                 <span className="550:text-[13px] text-[12.5px] uppercase font-light tracking-[0.3em]">
                   Areas We Service
@@ -53,11 +54,11 @@ export default function ServiceAreas({
               <Reveal
                 as="h2"
                 delay={0.05}
-                className="font-gt uppercase mt-6 text-[28px] 800:text-[36px] font-semibold leading-[1.2] tracking-tight"
+                className={`${BOXED_TITLE} uppercase`}
               >
                 {heading.map((line) => (
                   <span key={line} className="block">
-                    {line}
+                    {keepTogether(line)}
                   </span>
                 ))}
               </Reveal>
@@ -73,7 +74,7 @@ export default function ServiceAreas({
 
           <Reveal
             delay={0.1}
-            className="grid grid-cols-1 400:grid-cols-2 800:grid-cols-3 1080:grid-cols-5 gap-3 mb-8"
+            className="grid grid-cols-1 550:grid-cols-2 800:grid-cols-3 1080:grid-cols-5 gap-3 mb-8"
           >
             {SERVICE_AREAS.map((serviceArea) => (
               <AreaPill

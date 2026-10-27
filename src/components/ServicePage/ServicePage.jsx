@@ -4,6 +4,8 @@ import Contact from "@/components/Home/Contact";
 import FAQ from "@/components/Home/FAQ";
 import ServiceAreas from "@/components/Home/ServiceAreas";
 import ServiceIncluded from "./ServiceIncluded";
+import ServiceOptions from "./ServiceOptions";
+import ServiceGuide from "./ServiceGuide";
 import ServiceRelated from "./ServiceRelated";
 import { PRIMARY_AREA } from "@/lib/cities";
 import {
@@ -16,6 +18,9 @@ import {
 // homepage's sections with the service's own content swapped in — hero,
 // process, FAQ, service areas — plus its "What's Included" spec sheet and
 // "Often Paired With" links, and the homepage's contact section unchanged.
+// Pages aren't all built the same: one with `options` gets a comparison of
+// the forms the service comes in after How We Work, one with a `guide`
+// gets its local rules and decisions last, just before the footer.
 export default function ServicePage({ page }) {
   const area = PRIMARY_AREA;
   const schemas = [
@@ -52,6 +57,7 @@ export default function ServicePage({ page }) {
         closing={page.process.closing}
         intro={page.process.intro}
       />
+      {page.options && <ServiceOptions {...page.options} />}
       <Contact heading={page.estimateHeading} />
       <FAQ
         area={area}
@@ -59,12 +65,13 @@ export default function ServicePage({ page }) {
         topic={page.faqTopic}
         intro={page.faqIntro}
       />
-      <ServiceRelated services={page.related} />
       <ServiceAreas
         area={area}
         heading={page.coverage.heading}
         description={page.coverage.description}
       />
+      <ServiceRelated services={page.related} />
+      {page.guide && <ServiceGuide {...page.guide} />}
     </>
   );
 }

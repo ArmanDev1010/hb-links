@@ -27,7 +27,7 @@ export default function About({ area }) {
   ];
 
   return (
-    <section className="mt-3 pt-10 text-black" id="about">
+    <section className="mt-3 pt-10 pb-[100px] 1080:pb-[120px] text-black" id="about">
       <div className="w-full 1280:w-10/13 1280:mx-auto 1280:px-0 700:px-[32px] px-[24px] text-left">
         <Reveal
           as="p"
@@ -81,9 +81,10 @@ export default function About({ area }) {
           delay={0.1}
           className="mt-10 550:text-[17px] 1080:text-[17px] text-fourth 800:mx-auto 800:text-center max-550:text-center 900:max-w-2xl pointer-events-none"
         >
-          HB Links is a licensed, fully insured home builder and remodeler{" "}
+          HB Links is a licensed, fully insured general contractor{" "}
           {area.isPrimary ? "based in" : "serving"} {area.name}, CA. We build
-          ADUs, outdoor living spaces, and high-end remodels for homeowners
+          ADUs, garage conversions, home additions, outdoor living spaces, and
+          high-end remodels for homeowners
           across greater Los Angeles — our approach is defined by honest
           pricing, a detailed process, and complete transparency at every stage.
           Before construction begins, we review materials, timeline, and cost

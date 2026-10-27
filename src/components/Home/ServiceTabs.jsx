@@ -26,7 +26,7 @@ export default function ServiceTabs({ services }) {
         delay={0.1}
         role="tablist"
         aria-label="Services"
-        className="mt-8 800:mt-10 grid grid-cols-2 700:grid-cols-3 1080:grid-cols-4 gap-1.5"
+        className="mt-8 800:mt-10 grid grid-cols-1 550:grid-cols-2 700:grid-cols-3 1080:grid-cols-4 gap-1.5"
       >
         {services.map((service, index) => {
           const selected = index === active;
