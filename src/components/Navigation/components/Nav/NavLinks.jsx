@@ -194,7 +194,7 @@ export default function NavLinks({
         max-1080:border max-1080:border-black/10 max-1080:overflow-y-auto max-1080:overscroll-contain
         max-1080:max-h-[calc(100dvh-150px)]"
       >
-        <ul className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full 1600:gap-x-[2rem] 1440:gap-x-[34px] 1280:gap-x-[26px] 1080:gap-x-[22px]">
+        <ul className="flex flex-col 1080:flex-row 1080:items-center 1080:h-full 1600:gap-x-[calc(2rem*var(--wide-zoom))] 1440:gap-x-[34px] 1280:gap-x-[26px] 1080:gap-x-[22px]">
           {navlinks.map(({ title, href, type, ...item }, key) => {
             if (!type) {
               return (
@@ -206,7 +206,7 @@ export default function NavLinks({
                   <Link
                     href={href}
                     prefetch
-                    className={`uppercase transition-opacity duration-200 hover:opacity-60 text-black ${deskText}
+                    className={`wide-zoom uppercase transition-opacity duration-200 hover:opacity-60 text-black ${deskText}
                       1280:text-[12px] 1080:text-[11px] 700:text-base 400:text-[15px] text-sm 1080:tracking-[0.14em] 
                       1080:font-semibold font-medium
                       max-1080:block max-1080:w-full 1080:px-0 700:px-7 px-5 max-1080:py-[22px] max-1080:tracking-[0.18em]`}
@@ -230,7 +230,7 @@ export default function NavLinks({
                 onMouseEnter={(event) => openDropdown(title, event)}
                 onMouseLeave={scheduleClose}
               >
-                <div className="flex items-center 1080:gap-2 1080:justify-center 1080:h-full relative z-20 max-1080:pr-5">
+                <div className="wide-zoom flex items-center 1080:gap-2 1080:justify-center 1080:h-full relative z-20 max-1080:pr-5">
                   {/* On desktop the title goes to the section (this page's
                       own where it has one, see UI/PageTransition); in the
                       phone menu it opens the list under it. */}

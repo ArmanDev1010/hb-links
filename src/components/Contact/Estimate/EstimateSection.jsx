@@ -59,7 +59,7 @@ export default function EstimateSection({
   return (
     <section
       id={id}
-      className={`relative ${
+      className={`wide-zoom relative ${
         dark ? "bg-[#111111] text-white" : "bg-[#f5f4f1] text-black"
       } ${className}`}
     >

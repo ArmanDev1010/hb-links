@@ -43,7 +43,7 @@ export default function HomePage({ area }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
-      <Hero area={area} sequence="adu" />
+      <Hero area={area} sequence="intro" />
       <About area={area} />
       <Services area={area} />
       <Reviews />

@@ -49,10 +49,19 @@ const SHUT = { y: "0%", opacity: 1 };
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Resolves once the page's hero image is decoded, or after `wait` ms.
+// Resolves once the page's hero image is decoded — or, for the homepage's
+// drawn hero (Home/HeroIntro), once its canvas has its first frame — or after
+// `wait` ms.
 async function heroReady(wait) {
   const image = document.querySelector("#hero img");
-  await Promise.race([image?.decode?.().catch(() => {}), sleep(wait)]);
+  const canvas = !image && document.querySelector("#hero canvas[role='img']");
+  const drawn =
+    canvas &&
+    new Promise((resolve) => {
+      const check = () => (canvas.dataset.drawn ? resolve() : requestAnimationFrame(check));
+      check();
+    });
+  await Promise.race([image ? image.decode?.().catch(() => {}) : drawn, sleep(wait)]);
 }
 
 export default function PageTransition() {

@@ -15,7 +15,7 @@ const pad = (n) => String(n).padStart(2, "0");
 // grid lines); only what's in them moves.
 export default function ServiceIncluded({ specs, heading, intro, items }) {
   return (
-    <section className="relative bg-white mt-3 pt-10 pb-[100px] 1080:pb-[120px]" id="included">
+    <section className="wide-zoom relative bg-white mt-3 pt-10 pb-[100px] 1080:pb-[120px]" id="included">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="grid grid-cols-1 gap-12 1080:grid-cols-12 1080:items-start 1080:gap-16">
           <div className="1080:col-span-6">

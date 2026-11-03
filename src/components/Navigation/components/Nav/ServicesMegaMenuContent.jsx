@@ -64,7 +64,7 @@ export default function ServicesMegaMenuContent({
 
   return (
     <div
-      className="w-[700px] py-3"
+      className="wide-zoom w-[700px] py-3"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -75,13 +75,15 @@ export default function ServicesMegaMenuContent({
         {rows.map(({ title, blurb, href }, i) => (
           <li
             key={href}
-            className="border-b border-black/10 [&:nth-last-child(-n+2)]:border-b-0"
+            className="flex border-b border-black/10 [&:nth-last-child(-n+2)]:border-b-0"
           >
+            {/* flex-1 in a flex li: the link (and its hover) fills the whole
+                grid row, even beside a taller neighbour whose blurb wraps */}
             <Link
               href={href}
               prefetch
               onClick={onLinkClick}
-              className="group flex items-start gap-3.5 -mx-2 px-2 py-3.5 transition-colors duration-200 hover:bg-black/[0.04] outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-third"
+              className="group flex flex-1 items-start gap-3.5 -mx-2 px-2 py-3.5 transition-colors duration-200 hover:bg-black/[0.04] outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-third"
             >
               <span className="w-5 shrink-0 pt-[3px] text-[11px] font-semibold tracking-wider text-third/60 transition-colors duration-200 group-hover:text-third">
                 {number(i)}

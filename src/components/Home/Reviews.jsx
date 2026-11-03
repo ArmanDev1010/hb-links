@@ -212,7 +212,7 @@ export default function Reviews() {
   const total = reviews.length;
 
   return (
-    <section className="relative overflow-hidden pb-[100px] 1080:pb-[120px]">
+    <section className="wide-zoom relative overflow-hidden pb-[100px] 1080:pb-[120px]">
       <div className="w-full 1080:w-10/12 1080:mx-auto 700:px-[32px] px-[24px] 1080:mb-24 mb-12 text-center">
         <Reveal
           as="p"

@@ -22,8 +22,8 @@ const aduBuilder = {
     "ADU permit Los Angeles",
     "ADU cost Los Angeles",
   ],
-  // The homepage's detached-ADU build; the garage conversion timelapse plays
-  // on the garage conversion page.
+  // The detached-ADU build; the garage conversion timelapse plays on the
+  // garage conversion page.
   sequence: "adu",
   image: {
     src: "/images/services/adu.png",

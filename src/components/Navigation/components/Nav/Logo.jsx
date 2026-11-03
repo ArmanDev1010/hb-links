@@ -14,7 +14,7 @@ export default function Logo({
     "1280:w-[210px] 1080:w-[190px] w-[210px] h-auto max-700:w-[200px] max-400:w-[185px]";
 
   return (
-    <div className="relative z-[100] flex items-center gap-4">
+    <div className="wide-zoom relative z-[100] flex items-center gap-4">
       <Link
         href="/"
         prefetch

@@ -7,10 +7,10 @@ with an HB Links crew at work. They're illustrations, not real projects.
 
 | Sequence | Frames | Story |
 |---|---|---|
-| `adu` (homepage) | 23 | done |
+| `adu` (ADU page) | 23 | done |
 | `bathroom-remodel` | 9 | old bath → demo → waterproofing → tile → finished |
 | `deck-and-patio` | 9 | old slab → base and forms → pavers → pergola → finished |
-| `garage-conversion` (ADU page) | 10 | old garage → door out → new front wall → finished rental unit |
+| `garage-conversion` | 10 | old garage → door out → new front wall → finished rental unit |
 | `kitchen-remodel` | 10 | old kitchen → gutted → rough-in → cabinets → finished |
 | `home-remodel` | 11 | closed-off rooms → wall out → new beam → finished |
 | `home-additions` | 12 | backyard → slab → framing → sunroom built around the camera |

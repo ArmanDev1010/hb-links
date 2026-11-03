@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { getImageProps } from "next/image";
 import HeroShade from "@/components/Home/HeroShade";
+import { reachedByLink } from "@/components/Home/arrival";
 import { BUILD_END, PUSH_IN, buildTimeline, frameSrc } from "@/data/heroBuild";
 
 // The same query as the `hero-static` variant in globals.css: touch screens
@@ -58,30 +59,6 @@ const BEHIND = 8;
 const SCROLL_PER_STEP = { desktop: 0.0975, phone: 0.0745 };
 
 const clamp = (value) => Math.min(1, Math.max(0, value));
-
-// Whether this hero's page was reached by a link inside the site — not
-// loaded, reloaded, or come back to with Back/Forward. Asked once per page:
-// a link followed since the last hero, or, for the first hero this module
-// shows (it may load with a later page), a page other than the one loaded.
-let followedLink = false;
-let firstHero = true;
-if (typeof window !== "undefined") {
-  window.addEventListener(
-    "click",
-    (event) => event.target.closest?.("a[href]") && (followedLink = true),
-    true,
-  );
-  window.addEventListener("popstate", () => (followedLink = false));
-}
-function reachedByLink() {
-  const page = (url) => url?.split("#")[0];
-  const loaded = performance.getEntriesByType?.("navigation")[0]?.name;
-  const answer =
-    followedLink || (firstHero && page(loaded) !== page(location.href));
-  followedLink = false;
-  firstHero = false;
-  return answer;
-}
 
 // A frame's file, decoded off the main thread where the browser can —
 // scaled down to `size` ({ width, height }) as it's decoded, when given.
@@ -258,7 +235,7 @@ export default function HeroBuildSequence({ sequence, children }) {
 
         <HeroShade />
 
-        <div className="relative z-20 900:pb-16 pb-20 mx-auto w-full 700:px-[32px] px-[24px]">
+        <div className="wide-zoom relative z-20 900:pb-16 pb-20 mx-auto w-full 700:px-[32px] px-[24px]">
           {children}
         </div>
       </div>

@@ -65,7 +65,7 @@ export default function FAQ({
   intro = `Answers to the questions homeowners ask most before choosing a general contractor for their project across ${area.name} and the San Fernando Valley.`,
 }) {
   return (
-    <section className="relative bg-white pb-[100px] 1080:pb-[120px]" id="faq">
+    <section className="wide-zoom relative bg-white pb-[100px] 1080:pb-[120px]" id="faq">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center pointer-events-none">
           <Reveal as="p" className="mb-6 800:mb-8 550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] 800:text-center max-550:text-center">

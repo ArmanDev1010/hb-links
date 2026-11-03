@@ -1,6 +1,6 @@
 import ServiceTabs from "@/components/Home/ServiceTabs";
 import Reveal from "@/components/UI/Reveal";
-import { SECTION_TITLE } from "@/components/UI/titles";
+import { SERVICES_TITLE } from "@/components/UI/titles";
 import { homepageServices, getAreaParagraph } from "@/data/services";
 import { servicePages } from "@/data/service-pages";
 
@@ -19,7 +19,7 @@ export default function Services({ area }) {
   return (
     <section
       aria-labelledby="services-heading"
-      className="relative bg-white pb-[100px] 1080:pb-[120px] scroll-mt-32"
+      className="wide-zoom relative bg-white pb-[100px] 1080:pb-[120px] scroll-mt-32"
       id="services"
     >
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
@@ -35,7 +35,7 @@ export default function Services({ area }) {
             as="h2"
             delay={0.05}
             id="services-heading"
-            className={SECTION_TITLE}
+            className={SERVICES_TITLE}
           >
             Services we offer <br></br>
             {area.preposition}{" "}

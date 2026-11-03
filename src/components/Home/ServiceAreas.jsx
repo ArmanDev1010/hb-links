@@ -38,7 +38,7 @@ export default function ServiceAreas({
   const moreCities = ALL_CITIES.length - SERVICE_AREAS.length;
 
   return (
-    <section className="relative bg-white scroll-mt-28" id="service_areas">
+    <section className="wide-zoom relative bg-white scroll-mt-28" id="service_areas">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px] pb-[100px] 1080:pb-[120px]">
         <div className="relative overflow-hidden border border-black/10 bg-[#fafafa] py-10 px-6 700:p-10 1080:p-14">
           <div className="flex flex-wrap max-1080:flex-col justify-between gap-x-10 gap-y-6 pb-8 mb-8 border-b border-black/15 pointer-events-none">

@@ -27,7 +27,7 @@ export default function About({ area }) {
   ];
 
   return (
-    <section className="mt-3 pt-10 pb-[100px] 1080:pb-[120px] text-black" id="about">
+    <section className="wide-zoom mt-3 pt-10 pb-[100px] 1080:pb-[120px] text-black" id="about">
       <div className="w-full 1280:w-10/13 1280:mx-auto 1280:px-0 700:px-[32px] px-[24px] text-left">
         <Reveal
           as="p"

@@ -4,7 +4,8 @@ import { EmailLink, ExternalLink, PhoneLink } from "./links";
 // statement that overstates conformance is worse than none. "What we've
 // done" maps to: wrapped <label>s on the form fields (EstimateForm), the
 // reduced-motion handling (MotionPreferences, globals.css, and the calmer
-// versions in HeroBuildSequence and Reviews; the small rotating word in
+// versions in HeroIntro — its camera holds its angle and nothing in it moves
+// on its own — HeroBuildSequence and Reviews; the small rotating word in
 // About and the footer is the one exception that rolls as usual),
 // and alt text on every image.
 const accessibility = {

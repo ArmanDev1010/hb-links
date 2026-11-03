@@ -10,9 +10,10 @@ import manifests from "./heroSequences.json";
 // size of each set and their file type: `desktop` keeps the stills' shape,
 // `mobile` is a 3:4 crop for portrait screens.
 //
-// "adu" is the homepage's. A service page plays the sequence named after its
-// slug (or its `sequence`, see data/service-pages) as soon as one exists, and
-// shows its still `image` until then.
+// A service page plays the sequence named after its slug (or its
+// `sequence`, see data/service-pages: the ADU page plays "adu") as soon as
+// one exists, and shows its still `image` until then. The homepage draws its
+// own hero (components/Home/HeroIntro.jsx).
 
 // Per-sequence settings, over DEFAULTS:
 // - `openOn`: which frame the hero opens on, counted from the end (1 is the

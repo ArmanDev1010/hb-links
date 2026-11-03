@@ -12,7 +12,7 @@ const pad = (n) => String(n).padStart(2, "0");
 // (UI/Reveal); the cards' frames stay put.
 export default function ServiceRelated({ services }) {
   return (
-    <section className="relative bg-white pb-[100px] 1080:pb-[120px]" id="related">
+    <section className="wide-zoom relative bg-white pb-[100px] 1080:pb-[120px]" id="related">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="flex flex-wrap max-1080:flex-col justify-between gap-x-10 gap-y-6 mb-12 1080:mb-16 pointer-events-none">
           <div className="flex-[1]">

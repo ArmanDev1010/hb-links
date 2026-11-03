@@ -91,11 +91,11 @@ export default function Navbar() {
           className={`transition-all duration-300 ${solid ? "p-3 400:px-[24px] 700:px-[32px]" : ""}`}
         >
           <div
-            className={`relative z-[11] mx-auto w-full max-w-[1680px]
+            className={`relative z-[11] mx-auto w-full max-w-[calc(1680px*var(--wide-zoom))]
               transition-all duration-300 ${
                 solid
-                  ? "1080:h-[75px] h-[70px] border bg-white/85 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/85 border-b border-black/10"
-                  : "bg-transparent 1080:h-[100px] h-[95px]"
+                  ? "1080:h-[calc(75px*var(--wide-zoom))] h-[70px] border bg-white/85 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/85 border-b border-black/10"
+                  : "bg-transparent 1080:h-[calc(100px*var(--wide-zoom))] h-[95px]"
               }`}
           >
             <div
@@ -122,7 +122,7 @@ export default function Navbar() {
                 isMobile={isMobile}
               />
 
-              <div className="relative z-20 flex items-center gap-3">
+              <div className="wide-zoom relative z-20 flex items-center gap-3">
                 <InstagramBtn light={light} />
                 <PhoneChip light={light} className="!px-7 max-550:hidden" />
                 <RequestBtn toggleModal={toggleModal} solid={solid} main />

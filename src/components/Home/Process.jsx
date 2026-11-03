@@ -47,7 +47,7 @@ export default function Process({
 }) {
   return (
     <section
-      className="relative overflow-hidden pb-[100px] 1080:pb-[120px]"
+      className="wide-zoom relative overflow-hidden pb-[100px] 1080:pb-[120px]"
       id="process"
     >
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">

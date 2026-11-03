@@ -20,7 +20,7 @@ const LOGO_WIDTH = 300;
 const MARGIN = 56;
 
 // `src` is the photo each card is cut from (cropped to fill 1200x630).
-// "home" is the homepage hero's opening frame (the finished ADU) — frame
+// "home" is the ADU timelapse's opening frame (the finished ADU) — frame
 // count minus `openOn` for "adu" in data/heroBuild.js.
 const CARDS = [
   { name: "home", src: "public/hero/adu/desktop/0022.webp" },

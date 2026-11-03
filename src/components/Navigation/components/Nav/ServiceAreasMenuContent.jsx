@@ -87,7 +87,7 @@ export default function ServiceAreasMenuContent({
 
   return (
     <div
-      className="w-[480px] py-3"
+      className="wide-zoom w-[480px] py-3"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

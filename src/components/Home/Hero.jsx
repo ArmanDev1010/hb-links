@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { useModal } from "@/context/ModalContext";
 import HeroBuildSequence from "@/components/Home/HeroBuildSequence";
+import HeroIntro from "@/components/Home/HeroIntro";
 import HeroShade from "@/components/Home/HeroShade";
 import { getSequence } from "@/data/heroBuild";
 import { keepTogether } from "@/components/UI/titles";
@@ -13,12 +14,20 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 // `title` and `paragraph` default to the homepage's; each service page
 // passes its own (e.g. "ADU Builder") — the H1 always ends "in <area>".
 // `sequence` names a build timelapse (data/heroBuild) to pin the hero over as
-// you scroll (see HeroBuildSequence) — "adu" on the homepage, the page's own
-// on a service page — once its frames exist. Until then a service page's
+// you scroll (see HeroBuildSequence) — the page's own on a service page —
+// once its frames exist; "intro" is the homepage's drawn build instead (see
+// HeroIntro), which needs no frames. Until then a service page's
 // photo, `image` ({ src, alt }), sits behind the copy; without one the hero
-// is black. `variant` is "home" or "service": on phones (under 550px) service
-// pages' titles run a little larger (PHONE_TITLE); from 550px up both match.
-const PHONE_TITLE = { home: "text-[6.5vw]", service: "text-[7vw]" };
+// is black. `variant` is "home" or "service": on phones (under 550px) the
+// title fills the copy's column (PHONE_TITLE, in cqw, the column's own width
+// — vw would count a desktop scrollbar and spill past it): the homepage's
+// "GENERAL CONTRACTOR" is 12.6em wide, the widest service line, "GARAGE
+// CONVERSIONS", 12.3em, so every service page shares that size. From 550px
+// up both match.
+const PHONE_TITLE = {
+  home: "text-[length:min(100cqw/12.7,2.3rem)]",
+  service: "text-[length:min(100cqw/12.45,2.3rem)]",
+};
 
 export default function Hero({
   area,
@@ -31,10 +40,10 @@ export default function Hero({
   const { toggleModal } = useModal();
 
   const content = (
-    <div className="max-w-4xl">
+    <div className="@container max-w-4xl">
       <h1
         className={`font-gt uppercase w-fit font-compressed tracking-normal 550:leading-[1.1] leading-[1.2] font-semibold pointer-events-none
-      1600:text-[3.125rem] 1080:text-[2.75rem] 700:text-[2.7rem] 550:text-[2.2rem] ${PHONE_TITLE[variant]}`}
+      1600:text-[3.25rem] 1080:text-[2.875rem] 700:text-[2.8rem] 550:text-[2.3rem] ${PHONE_TITLE[variant]}`}
       >
         {keepTogether(title)} <br /> in{" "}
         <span className="italic whitespace-nowrap">{area.name}</span>
@@ -50,7 +59,8 @@ export default function Hero({
         <span>{area.badge}</span>
       </p>
 
-      <p className="550:mt-6 mt-8 font-light max-w-2xl text-neutral-200 text-[15px] 700:text-base 900:text-[17px] pointer-events-none">
+      {/* text-pretty: no word left alone on the last line */}
+      <p className="550:mt-6 mt-8 font-light max-w-2xl text-pretty text-neutral-200 text-[15px] 700:text-base 900:text-[17px] pointer-events-none">
         {paragraph}
       </p>
 
@@ -72,6 +82,8 @@ export default function Hero({
       </button>
     </div>
   );
+
+  if (sequence === "intro") return <HeroIntro>{content}</HeroIntro>;
 
   const timelapse = getSequence(sequence);
   if (timelapse) {
@@ -97,7 +109,7 @@ export default function Hero({
       )}
       <HeroShade />
 
-      <div className="relative z-20 900:pb-16 pb-20 mx-auto w-full 700:px-[32px] px-[24px]">
+      <div className="wide-zoom relative z-20 900:pb-16 pb-20 mx-auto w-full 700:px-[32px] px-[24px]">
         {content}
       </div>
     </section>
