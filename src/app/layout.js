@@ -7,6 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import { ModalProvider } from "@/context/ModalContext";
 import MotionPreferences from "@/components/UI/MotionPreferences";
 import PageTransition from "@/components/UI/PageTransition";
+import Analytics from "@/components/UI/Analytics";
 import FloatingRequestBtn from "@/components/Navigation/components/Nav/FloatingRequestBtn";
 import {
   CORE_CITIES,
@@ -92,11 +93,13 @@ const siteSchema = {
         "Licensed general contractor building ADUs, garage conversions, home additions, and kitchen, bathroom and whole-home remodels across Los Angeles and the San Fernando Valley.",
       telephone: "+1-818-303-3555",
       email: "info@hb-links.com",
-      // Service-area business — no public storefront, so no street address.
+      // Service-area business — the street address is hidden on the Google
+      // Business Profile, so only its city and ZIP are given here.
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Los Angeles",
+        addressLocality: "Woodland Hills",
         addressRegion: "CA",
+        postalCode: "91367",
         addressCountry: "US",
       },
       hasMap: GOOGLE_MAPS_URL,
@@ -187,6 +190,7 @@ export default function RootLayout({ children }) {
             <PageTransition />
           </ModalProvider>
         </MotionPreferences>
+        <Analytics />
       </body>
     </html>
   );

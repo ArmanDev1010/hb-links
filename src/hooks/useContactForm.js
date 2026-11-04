@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useModal } from "@/context/ModalContext";
+import { trackEvent } from "@/lib/analytics";
 
 // `extraData` is sent along with the form's own fields (the estimate form's
 // answers, which aren't inputs); `onSuccess` runs after a successful send.
@@ -29,6 +30,7 @@ export function useContactForm({ defaultValues, extraData, onSuccess } = {}) {
       });
 
       if (res.ok) {
+        trackEvent("generate_lead");
         reset();
         onSuccess?.();
         openThanks(data.name);
