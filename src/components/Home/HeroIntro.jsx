@@ -90,7 +90,7 @@ export default function HeroIntro({ children }) {
       ref={trackRef}
       id="hero"
       data-nav-overlay
-      className="relative h-[700vh] max-700:h-[620vh] intro-still:h-auto bg-[#090b0a] text-neutral-50"
+      className="relative h-[calc(700*var(--vh))] max-700:h-[calc(620*var(--vh))] intro-still:h-auto bg-[#090b0a] text-neutral-50"
     >
       <div
         ref={panelRef}
@@ -100,7 +100,7 @@ export default function HeroIntro({ children }) {
           ref={canvasRef}
           role="img"
           aria-label="An HB Links property at dusk, drawn as you scroll, with four services outlined and locked: one by one they're built and unlocked. First an ADU in the back corner of the lot, starting from the HB Links logo chalked on the ground; then a home remodel, the roof lifted off while the kitchen and bathroom are redone; then a home addition goes up on its side; then a deck and patio with a fire pit and string lights, until the lights come on."
-          className="absolute inset-0 h-full w-full intro-still:relative intro-still:h-screen"
+          className="absolute inset-0 h-full w-full intro-still:relative intro-still:h-[calc(100*var(--vh))]"
         />
         <div className="intro-still:hidden">
           <HeroShade />

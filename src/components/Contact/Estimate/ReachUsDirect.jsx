@@ -3,12 +3,11 @@
 import { useEffect, useState } from "react";
 import { BsArrowUpRight, BsClock } from "react-icons/bs";
 
-import { contactInfo } from "@/data/contact";
+import { contactInfo, socials } from "@/data/contact";
 
 const phone = contactInfo.find((item) => item.type === "Phone");
 const email = contactInfo.find((item) => item.type === "E-Mail");
 const area = contactInfo.find((item) => item.type === "Area");
-const instagram = contactInfo.find((item) => item.type === "Instagram");
 
 // Office hours, every day, Los Angeles time.
 const OPENS = 7;
@@ -54,6 +53,7 @@ const TONES = {
     label: "text-white/45",
     value: "text-white",
     arrow: "text-white/25 group-hover:text-[#3fbf74]",
+    socialIcon: "text-white/80 group-hover:text-[#3fbf74]",
   },
   light: {
     rule: "border-black/10",
@@ -68,6 +68,7 @@ const TONES = {
     label: "text-fourth",
     value: "text-black",
     arrow: "text-black/25 group-hover:text-third",
+    socialIcon: "text-black/70 group-hover:text-third",
   },
 };
 
@@ -129,6 +130,31 @@ function DirectCell({ tone, icon, label, value, href, className = "" }) {
   );
 }
 
+// Our social pages: one tile per platform, styled like the cells around
+// it, the icon big in the middle. Together they take one cell's place in
+// the grid.
+function SocialTiles({ tone }) {
+  return (
+    <div className="grid grid-cols-4 gap-1.5">
+      {socials.map(({ name, href, icon: Icon }) => (
+        <a
+          key={name}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`HB Links on ${name}`}
+          title={name}
+          className={`group grid place-items-center min-h-[62px] border transition-colors duration-200 ${tone.cell} ${tone.cellHover}`}
+        >
+          <Icon
+            className={`text-[20px] transition-colors duration-200 ${tone.socialIcon}`}
+          />
+        </a>
+      ))}
+    </div>
+  );
+}
+
 // "Reach Us Direct" — the row under the estimate form in EstimateSection:
 // a short pitch with a live open / closed badge on the left, the contact
 // details as cells on the right. `dark` for the homepage's #111 section.
@@ -178,13 +204,7 @@ export default function ReachUsDirect({ dark = false, className = "" }) {
             value={email.label}
             href={email.href}
           />
-          <DirectCell
-            tone={tone}
-            icon={instagram.icon}
-            label="Instagram"
-            value={instagram.label}
-            href={instagram.href}
-          />
+          <SocialTiles tone={tone} />
           <DirectCell
             tone={tone}
             icon={area.icon}

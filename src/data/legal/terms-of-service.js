@@ -165,7 +165,8 @@ const termsOfService = {
       body: (
         <p>
           The Site links to and uses services run by other companies &mdash;
-          for example, Google (maps, reviews, and analytics) and Instagram. We don&rsquo;t control those services and
+          for example, Google (maps, reviews, and analytics) and social media
+          (Instagram, Facebook, TikTok, and LinkedIn). We don&rsquo;t control those services and
           aren&rsquo;t responsible for their content or practices. Your use of
           them is governed by their own terms and privacy policies.
         </p>

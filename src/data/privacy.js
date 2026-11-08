@@ -9,14 +9,14 @@ export const privacyPages = [
   {
     label: "Terms of Service",
     slug: "terms-of-service",
-    updated: "2026-10-10",
+    updated: "2026-11-08",
     description:
       "The terms for using hb-links.com, the website of HB LINKS LLC, a licensed California contractor (CSLB #1144057).",
   },
   {
     label: "Privacy Policy",
     slug: "privacy-policy",
-    updated: "2026-10-10",
+    updated: "2026-11-08",
     description:
       "What information HB LINKS LLC collects through hb-links.com and when you contact us, how we use and share it, and the choices you have.",
   },
@@ -37,7 +37,7 @@ export const privacyPages = [
   {
     label: "Accessibility",
     slug: "accessibility",
-    updated: "2026-10-14",
+    updated: "2026-11-08",
     description:
       "HB LINKS LLC's commitment to an accessible website, the standard we work toward, and how to get help if something on hb-links.com doesn't work for you.",
   },

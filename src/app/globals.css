@@ -48,6 +48,16 @@
   }
 }
 
+/* One vh and one svh, held steady: UI/StableViewport pins them in px when
+   the page opens, so iPhone browsers other than Safari can't resize them
+   each time their bottom bar slides in or out. Heights in the page's flow
+   that follow the screen (the heroes) use these, as calc(N * var(--vh)),
+   instead of vh/svh. Before that script runs they're the live units. */
+:root {
+  --vh: 1vh;
+  --svh: 1svh;
+}
+
 /* The homepage's drawn build (Home/HeroIntro) plays on phones too; only
    screens held sideways too short to pin it get its opening frame as a still.
    Keep in step with STILL_QUERY there. */

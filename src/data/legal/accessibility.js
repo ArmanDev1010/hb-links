@@ -58,8 +58,8 @@ const accessibility = {
       body: (
         <>
           <p>
-            Some content, such as Google Maps and Instagram, is provided by
-            other companies and is outside our control.
+            Some content, such as Google Maps and our social media pages, is
+            provided by other companies and is outside our control.
           </p>
           <p>
             If anything on the Site gets in your way, including the form, call

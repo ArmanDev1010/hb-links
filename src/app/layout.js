@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import Footer from "@/components/Footer/Footer";
 import { ModalProvider } from "@/context/ModalContext";
 import MotionPreferences from "@/components/UI/MotionPreferences";
+import StableViewport from "@/components/UI/StableViewport";
 import PageTransition from "@/components/UI/PageTransition";
 import Analytics from "@/components/UI/Analytics";
 import FloatingRequestBtn from "@/components/Navigation/components/Nav/FloatingRequestBtn";
@@ -21,6 +22,7 @@ import {
 } from "@/lib/seo";
 import { PRIMARY_AREA } from "@/lib/cities";
 import { servicePages } from "@/data/service-pages";
+import { socials } from "@/data/contact";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -106,7 +108,7 @@ const siteSchema = {
       sameAs: [
         GOOGLE_MAPS_URL,
         "https://share.google/XmhSxSeMGY10BV7ea",
-        "https://www.instagram.com/hb_links/",
+        ...socials.map(({ href }) => href),
       ],
       // The hours on the contact page (Estimate/ReachUsDirect).
       openingHoursSpecification: {
@@ -190,6 +192,7 @@ export default function RootLayout({ children }) {
             <PageTransition />
           </ModalProvider>
         </MotionPreferences>
+        <StableViewport />
         <Analytics />
       </body>
     </html>

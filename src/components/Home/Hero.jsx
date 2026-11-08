@@ -94,7 +94,7 @@ export default function Hero({
 
   return (
     <section
-      className="relative overflow-hidden h-full flex min-h-screen max-700:min-h-[85svh] max-550:min-h-[90svh] max-400:min-h-[95svh] items-end pt-28 sm:pt-22 !bg-black text-neutral-50"
+      className="relative overflow-hidden h-full flex min-h-[calc(100*var(--vh))] max-700:min-h-[calc(85*var(--svh))] max-550:min-h-[calc(90*var(--svh))] max-400:min-h-[calc(95*var(--svh))] items-end pt-28 sm:pt-22 !bg-black text-neutral-50"
       id="hero"
     >
       {image && (

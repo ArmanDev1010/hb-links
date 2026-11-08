@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { BsInstagram } from "react-icons/bs";
+import { socials } from "@/data/contact";
 import { useModal } from "@/context/ModalContext";
 import DropdownShell from "./DropdownShell";
 import PhoneChip from "./PhoneChip";
@@ -311,18 +311,25 @@ export default function NavLinks({
           })}
         </ul>
 
-        {/* Mobile menu footer — socials, call, and the primary CTA */}
-        <div className="1080:hidden flex flex-col gap-4 px-6 pt-6 pb-9">
+        {/* Mobile menu footer — socials on their own row (in the tablet
+            row they'd squeeze the CTA's label onto two lines), then call
+            and the primary CTA */}
+        <div className="1080:hidden flex flex-col gap-3 px-6 pt-6 pb-9">
+          <div className="flex gap-2">
+            {socials.map(({ name, href, icon: Icon }) => (
+              <a
+                key={name}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`HB Links on ${name}`}
+                className="w-11 h-11 grid place-items-center border border-black/25 text-black shrink-0 transition-colors duration-200 hover:bg-black hover:text-white"
+              >
+                <Icon className="w-[17px] h-[17px]" />
+              </a>
+            ))}
+          </div>
           <div className="flex gap-3 max-800:flex-col">
-            <Link
-              href="https://www.instagram.com/hb_links/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="HB Links on Instagram"
-              className="w-11 h-11 grid place-items-center border border-black/25 text-black shrink-0 transition-colors duration-200 hover:bg-black hover:text-white"
-            >
-              <BsInstagram className="w-[17px] h-[17px]" />
-            </Link>
             <PhoneChip
               icon
               className="flex-[0.5] !font-bold 550:!text-base !text-[14px] !gap-4 max-800:min-h-[44px]"

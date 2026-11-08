@@ -9,7 +9,7 @@ import MenuBtn from "./components/Nav/MenuBtn";
 import RequestBtn from "./components/Form/RequestBtn";
 import RequestModal from "./components/Form/RequestModal";
 import ThanksModal from "./components/Form/ThanksModal";
-import InstagramBtn from "./components/Nav/InstagramBtn";
+import SocialsBtn from "./components/Nav/SocialsBtn";
 import PhoneChip from "./components/Nav/PhoneChip";
 import { desktopNavlinks, mobileNavlinks } from "@/data/navigation";
 import { privacyPages } from "@/data/privacy";
@@ -123,7 +123,7 @@ export default function Navbar() {
               />
 
               <div className="wide-zoom relative z-20 flex items-center gap-3">
-                <InstagramBtn light={light} />
+                <SocialsBtn light={light} />
                 <PhoneChip light={light} className="!px-7 max-550:hidden" />
                 <RequestBtn toggleModal={toggleModal} solid={solid} main />
                 <MenuBtn

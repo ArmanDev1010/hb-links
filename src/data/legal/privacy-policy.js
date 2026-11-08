@@ -283,8 +283,9 @@ const privacyPolicy = {
       body: (
         <p>
           The Site links to other websites and services, such as Google and
-          Instagram. Their own privacy policies, not this one, govern how they
-          handle your information.
+          our pages on Instagram, Facebook, TikTok, and LinkedIn. Their own
+          privacy policies, not this one, govern how they handle your
+          information.
         </p>
       ),
     },

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { privacyPages } from "@/data/privacy";
 import { servicePages } from "@/data/service-pages";
-import { contactInfo } from "@/data/contact";
+import { contactInfo, SOCIAL_HANDLE, socials } from "@/data/contact";
 import { useModal } from "@/context/ModalContext";
 import { rotatingWords } from "@/data/rotatingWords";
 import { IoIosArrowRoundForward } from "react-icons/io";
@@ -17,7 +17,6 @@ const license = contactInfo.find((item) => item.type === "License")?.label;
 const phone = contactInfo.find((item) => item.type === "Phone");
 const email = contactInfo.find((item) => item.type === "E-Mail");
 const area = contactInfo.find((item) => item.type === "Area");
-const instagram = contactInfo.find((item) => item.type === "Instagram");
 
 const sitemapLinks = [
   { label: "Home", href: "/" },
@@ -140,11 +139,31 @@ export default function Footer() {
                 Contact
               </p>
               <ul className="flex flex-col gap-3">
-                {[phone, email, instagram].map((text, key) => (
+                {[phone, email].map((text, key) => (
                   <li key={key}>
                     <LinkIcon info={text} />
                   </li>
                 ))}
+                {/* one square per platform, then the handle they share */}
+                <li className="flex items-center gap-3">
+                  <div className="flex gap-2">
+                    {socials.map(({ name, href, icon: Icon }) => (
+                      <a
+                        key={name}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`HB Links on ${name}`}
+                        className="flex h-9 w-9 shrink-0 items-center justify-center border border-white/25 bg-white/10 backdrop-blur-md text-[16px] text-white transition-colors duration-200 hover:border-white/60 hover:bg-white/20"
+                      >
+                        <Icon />
+                      </a>
+                    ))}
+                  </div>
+                  <span className="text-[13px] 550:text-[14px] tracking-wide text-white/80 pointer-events-none">
+                    {SOCIAL_HANDLE}
+                  </span>
+                </li>
               </ul>
             </div>
           </div>

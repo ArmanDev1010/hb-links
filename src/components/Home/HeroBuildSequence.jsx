@@ -221,7 +221,7 @@ export default function HeroBuildSequence({ sequence, children }) {
       <div
         ref={panelRef}
         style={{ "--slice-center": `${(sliceCenter * 100).toFixed(2)}%` }}
-        className="sticky top-0 h-dvh overflow-hidden flex items-end pt-28 sm:pt-22 hero-static:relative hero-static:h-auto hero-static:min-h-screen hero-static:max-700:min-h-[85svh] hero-static:max-550:min-h-[90svh] hero-static:max-400:min-h-[95svh]"
+        className="sticky top-0 h-dvh overflow-hidden flex items-end pt-28 sm:pt-22 hero-static:relative hero-static:h-auto hero-static:min-h-[calc(100*var(--vh))] hero-static:max-700:min-h-[calc(85*var(--svh))] hero-static:max-550:min-h-[calc(90*var(--svh))] hero-static:max-400:min-h-[calc(95*var(--svh))]"
       >
         <img
           {...openingFrame}
