@@ -36,8 +36,6 @@ const DONE = 1;
 // doesn't show through.
 function StepTracker() {
   const reduceMotion = useReducedMotion();
-  const panelRef = useRef(null);
-  useDialogTouch(panelRef);
 
   return (
     <ol className="grid grid-cols-5">
@@ -149,6 +147,8 @@ function StepTracker() {
 export default function ThanksModal({ name, handleClose }) {
   const firstName = name.trim().split(/\s+/)[0];
   const reduceMotion = useReducedMotion();
+  const panelRef = useRef(null);
+  useDialogTouch(panelRef);
 
   return (
     <div className="modal fixed inset-0 z-[100000] text-white">
