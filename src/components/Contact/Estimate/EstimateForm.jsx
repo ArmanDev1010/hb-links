@@ -76,8 +76,12 @@ function scrollParent(node) {
 const PRIMARY_BUTTON =
   "group shrink-0 h-[46px] rounded-[20px] flex items-center justify-center gap-2 bg-black px-6 text-[14px] font-semibold text-white transition-colors duration-200 hover:bg-third disabled:opacity-35 disabled:hover:bg-black disabled:cursor-not-allowed cursor-pointer";
 
+// 16px at least, on every text field: an iPhone zooms the page in on a field
+// smaller than that as it's tapped, and stays zoomed when the keyboard
+// closes (the user caught it: the page stuck zoomed in, swipes moving the
+// page behind the dialog)
 const inputClasses =
-  "mt-1.5 w-full h-[46px] bg-[#f5f4f1] border rounded-[20px] px-4 text-[14.5px] outline-none placeholder:text-black/30 transition-colors duration-200";
+  "mt-1.5 w-full h-[46px] bg-[#f5f4f1] border rounded-[20px] px-4 text-[16px] outline-none placeholder:text-black/30 transition-colors duration-200";
 
 function OptionCard({ option, selected, onSelect }) {
   const Icon = option.icon;
@@ -208,7 +212,7 @@ function LocationStep({
             }}
             autoComplete="street-address"
             placeholder="City, ZIP code or street address"
-            className="w-full h-[46px] bg-[#f5f4f1] rounded-[20px] border border-transparent pl-11 pr-4 text-[14.5px] outline-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
+            className="w-full h-[46px] bg-[#f5f4f1] rounded-[20px] border border-transparent pl-11 pr-4 text-[16px] outline-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
           />
         </div>
         <button
@@ -316,7 +320,7 @@ function DetailsStep({ form }) {
         aria-label="Anything else we should know? (optional)"
         rows={4}
         placeholder="Lot size, budget, timing, ideas you have in mind — whatever helps."
-        className="w-full bg-[#f5f4f1] rounded-[20px] border border-transparent px-4 py-3 text-[14.5px] leading-relaxed outline-none resize-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
+        className="w-full bg-[#f5f4f1] rounded-[20px] border border-transparent px-4 py-3 text-[16px] leading-relaxed outline-none resize-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
       />
       <div aria-hidden="true" className="sr-only">
         <input

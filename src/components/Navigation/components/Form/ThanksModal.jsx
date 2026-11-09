@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 import {
@@ -9,6 +10,8 @@ import {
   TbKey,
   TbRulerMeasure,
 } from "react-icons/tb";
+
+import useDialogTouch from "@/hooks/useDialogTouch";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -33,6 +36,8 @@ const DONE = 1;
 // doesn't show through.
 function StepTracker() {
   const reduceMotion = useReducedMotion();
+  const panelRef = useRef(null);
+  useDialogTouch(panelRef);
 
   return (
     <ol className="grid grid-cols-5">
@@ -148,7 +153,10 @@ export default function ThanksModal({ name, handleClose }) {
   return (
     <div className="modal fixed inset-0 z-[100000] text-white">
       <motion.div
-        className="fixed inset-0 bg-black/55 backdrop-blur-md"
+        // the dimmed page reaches a screen past the top and the bottom:
+        // with the keyboard up an iPhone shortens the screen to above it,
+        // and the page showed, undimmed, through its see-through keyboard
+        className="fixed inset-x-0 -top-[100vh] -bottom-[100vh] bg-black/55 backdrop-blur-md"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -157,6 +165,7 @@ export default function ThanksModal({ name, handleClose }) {
 
       <div className="relative z-10 h-full w-full flex items-center justify-center p-4 700:p-8 pointer-events-none">
         <motion.div
+          ref={panelRef}
           role="dialog"
           aria-modal="true"
           aria-labelledby="thanks-title"
@@ -183,7 +192,7 @@ export default function ThanksModal({ name, handleClose }) {
             </button>
           </div>
 
-          <div className="modal-scroll modal-scroll-dark overflow-y-auto px-6 700:px-9 pt-8 700:pt-10 pb-9 700:pb-10">
+          <div className="modal-scroll modal-scroll-dark overflow-y-auto overscroll-contain px-6 700:px-9 pt-8 700:pt-10 pb-9 700:pb-10">
             <div className="grid gap-y-9 1080:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] 1080:grid-rows-[auto_1fr] 1080:gap-x-14">
               <div className="pointer-events-none">
                 <p className="flex items-center gap-2.5 uppercase text-[11px] 550:text-[11.5px] font-semibold tracking-[0.22em] text-white/70">

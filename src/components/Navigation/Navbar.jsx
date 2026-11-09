@@ -44,13 +44,33 @@ export default function Navbar() {
 
   const navlinks = isMobile ? mobileNavlinks : desktopNavlinks;
 
+  // The page underneath doesn't scroll while the menu or a dialog is open.
+  // Even locked, an iPhone scrolls the page under the dialog to bring a
+  // field above its keyboard, and leaves it there when the keyboard goes
+  // down; so once no field has focus, the page goes back to where it was.
+  // (The body's overflow, not the root's: on both, the body would become a
+  // scroll box of its own and a hero's sticky panel would jump.)
+  const locked = menuActive || showModal || showThanks;
   useEffect(() => {
-    document.body.style.overflow =
-      menuActive || showModal || showThanks ? "hidden" : "";
+    if (!locked) return;
+    const y = window.scrollY;
+    let timer;
+    const settle = () => {
+      clearTimeout(timer);
+      // after the keyboard has gone (moving to the next field keeps it up)
+      timer = setTimeout(() => {
+        if (document.activeElement?.matches("input, textarea, select")) return;
+        if (Math.abs(window.scrollY - y) > 1) window.scrollTo({ top: y, behavior: "instant" });
+      }, 350);
+    };
+    document.body.style.overflow = "hidden";
+    document.addEventListener("focusout", settle);
     return () => {
+      clearTimeout(timer);
+      document.removeEventListener("focusout", settle);
       document.body.style.overflow = "";
     };
-  }, [menuActive, showModal, showThanks]);
+  }, [locked]);
 
   useEffect(() => {
     const handleScroll = () => {
