@@ -7,7 +7,9 @@ import {
   TbHelp,
   TbHome,
 } from "react-icons/tb";
+import { BsGoogle, BsPeople, BsTelephone, BsThreeDots } from "react-icons/bs";
 import { primaryServices } from "@/data/services";
+import { socials } from "@/data/contact";
 import { servicePageHref } from "@/lib/cities";
 
 // The step-by-step estimate form (components/Contact/Estimate). Each
@@ -77,6 +79,25 @@ export const LOCATION_AREAS = [
   "Northridge",
 ];
 
+// "How did you hear about us?" on the last step, under the message box —
+// required, one pick, tap it again to clear it. Referral and "You called
+// me" (people our own calls reached) come before the social pages, which
+// come from data/contact.js `socials`, in their usual order, so a new
+// profile shows up here too. The user chose Google search over a separate
+// Google Maps pick (11-11). Labels stay short enough to fit on one line
+// two-up on a phone. `OTHER_SOURCE` opens a box to type where, which then
+// has to be filled in. The pick, or what was typed for "Other", is sent as
+// the lead's "Found us" line.
+export const OTHER_SOURCE = "Other";
+
+export const LEAD_SOURCES = [
+  { title: "Google search", icon: BsGoogle },
+  { title: "Referral", icon: BsPeople },
+  { title: "You called me", icon: BsTelephone },
+  ...socials.map(({ name, icon }) => ({ title: name, icon })),
+  { title: OTHER_SOURCE, icon: BsThreeDots },
+];
+
 // `optional` adds a light "(optional)" after the question.
 export const ESTIMATE_STEPS = [
   {
@@ -95,11 +116,13 @@ export const ESTIMATE_STEPS = [
     label: "contact",
     question: "How can we reach you?",
   },
+  // The optional message, then "How did you hear about us?" (required), then
+  // Send. No "(optional)" in this heading: the user moved it into the
+  // message box's placeholder (11-11), since the step itself isn't optional.
   {
     id: "details",
     label: "details",
     question: "Anything else we should know?",
-    optional: true,
   },
 ];
 

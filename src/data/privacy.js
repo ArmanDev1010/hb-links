@@ -16,7 +16,7 @@ export const privacyPages = [
   {
     label: "Privacy Policy",
     slug: "privacy-policy",
-    updated: "2026-11-08",
+    updated: "2026-11-11",
     description:
       "What information HB LINKS LLC collects through hb-links.com and when you contact us, how we use and share it, and the choices you have.",
   },

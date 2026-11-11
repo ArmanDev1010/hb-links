@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import toast from "react-hot-toast";
 import {
   TbArrowLeft,
   TbArrowRight,
@@ -12,11 +13,14 @@ import {
 
 import { BlueprintCamera, GridPaper } from "./BlueprintCamera";
 import { useContactForm } from "@/hooks/useContactForm";
+import { useModal } from "@/context/ModalContext";
 import { FormLegalNote, SmsConsent } from "@/components/UI/FormConsent";
 import { PHONE_PATTERN, formatPhoneInput } from "@/lib/phone";
 import {
   ESTIMATE_STEPS,
+  LEAD_SOURCES,
   LOCATION_AREAS,
+  OTHER_SOURCE,
   findOption,
   getBlueprintMarks,
 } from "@/data/estimate";
@@ -30,6 +34,8 @@ const EMPTY_ANSWERS = {
   project: null,
   area: null,
   address: "",
+  leadSource: null,
+  leadSourceOther: "",
 };
 
 const slide = {
@@ -47,6 +53,15 @@ const OTHER_AREA = "Other area";
 function resolveLocation({ area, address }) {
   if (area === OTHER_AREA) return address.trim();
   return area ? `${area}, CA` : "";
+}
+
+// How they heard about us: the pick, or what was typed for "Other" ("Other"
+// alone when the box was left empty). Empty when nothing was picked.
+function resolveLeadSource({ leadSource, leadSourceOther }) {
+  if (leadSource === OTHER_SOURCE) {
+    return leadSourceOther.trim() || OTHER_SOURCE;
+  }
+  return leadSource || "";
 }
 
 function isAnswered(stepId, answers) {
@@ -123,26 +138,36 @@ function OptionCard({ option, selected, onSelect }) {
   );
 }
 
-function AreaButton({
+// A one-tap pick: the location step's areas, and (`compact`, a little
+// smaller so each label stays on one line two-up on a phone) the last
+// step's "How did you hear about us?" sources. Compact picks drop their icon
+// in a box under 300px wide (375px phones and narrower), where the longest
+// labels ("Google search", "You called me") would otherwise wrap.
+function PickButton({
   selected,
   onClick,
   icon: Icon = TbMapPin,
+  compact = false,
   className = "",
   children,
 }) {
+  const size = compact
+    ? "gap-1.5 px-3 550:px-3.5 py-2.5 text-[13px] 550:text-[14px]"
+    : "gap-2 px-3.5 550:px-4 py-3.5 text-[13.5px] 550:text-[14.5px]";
+
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className={`${className} flex items-center gap-2 min-w-0 rounded-[20px] border px-3.5 550:px-4 py-3.5 text-left text-[13.5px] 550:text-[14.5px] font-semibold leading-tight transition-colors duration-200 cursor-pointer ${
+      className={`${className} ${size} flex items-center min-w-0 rounded-[20px] border text-left font-semibold leading-tight transition-colors duration-200 cursor-pointer ${
         selected
           ? "border-third bg-third/[0.04] text-third"
           : "border-black/15 bg-white hover:border-black/40"
       }`}
     >
       <Icon
-        className={`shrink-0 text-[17px] ${selected ? "text-third" : "text-black/40"}`}
+        className={`shrink-0 ${compact ? "text-[16px] @max-[300px]:hidden" : "text-[17px]"} ${selected ? "text-third" : "text-black/40"}`}
       />
       {children}
     </button>
@@ -171,16 +196,16 @@ function LocationStep({
     <div>
       <div className="grid gap-2.5 grid-cols-2 @min-[480px]:grid-cols-3">
         {LOCATION_AREAS.map((name) => (
-          <AreaButton
+          <PickButton
             key={name}
             selected={area === name}
             onClick={() => onPickArea(name)}
           >
             {name}
-          </AreaButton>
+          </PickButton>
         ))}
         {/* beside the last area two-up; two cells wide three-up */}
-        <AreaButton
+        <PickButton
           selected={area === OTHER_AREA}
           onClick={() => {
             onPickArea(OTHER_AREA);
@@ -193,7 +218,7 @@ function LocationStep({
           <span className="hidden @min-[480px]:inline font-normal text-fourth">
             — type it in below
           </span>
-        </AreaButton>
+        </PickButton>
       </div>
 
       <div className="mt-3 flex flex-col @min-[480px]:flex-row gap-2.5">
@@ -307,21 +332,135 @@ function ContactStep({ form, onContinue }) {
   );
 }
 
-// The optional message, and the button that sends the request. `hb_check`
-// is a field people never see or reach: only a bot fills it in, and the API
-// route quietly drops those requests (the form has no CAPTCHA).
-function DetailsStep({ form }) {
+// What "How did you hear about us?" still needs before the request can be
+// sent, or null when it's answered.
+function leadSourceError({ leadSource, leadSourceOther }) {
+  // Worded as a friendly last question rather than an error (the user's
+  // pick, 11-11).
+  if (!leadSource) return "One last thing — how did you hear about us?";
+  if (leadSource === OTHER_SOURCE && !leadSourceOther.trim()) {
+    return "One last thing — where did you hear about us?";
+  }
+  return null;
+}
+
+// The last step: the optional message (its question is the step's heading),
+// then "How did you hear about us?" — required, one pick, tap it again to
+// clear it; "Other" opens a box to type where — then the button that sends
+// the request. Sending without a pick (or with "Other" left blank) says
+// what's missing instead.
+//
+// The button and the legal note under it are pinned to the bottom of the
+// screen (or of the request modal) while the step runs past it, so "Request
+// my estimate" is always in view whatever the screen height; the user asked
+// for that (11-11). The white fades in over the top 16px, so what scrolls
+// under it fades out. In the modal it's pulled down by the scroll area's
+// padding (--scroll-pad, RequestModal), which would otherwise leave a strip
+// of the form showing under it. While it's on screen the phone's floating
+// call bar steps aside (ModalContext `reportSendBar`). The terms note is
+// pinned with the button so nobody sends without it in view.
+//
+// `hb_check` is a field people never see or reach: only a bot fills it in,
+// and the API route quietly drops those requests (the form has no CAPTCHA).
+function DetailsStep({
+  form,
+  leadSource,
+  leadSourceOther,
+  onPickSource,
+  onSourceOtherChange,
+}) {
   const { register, handleFormSubmit, isSubmitting } = form;
+  const { reportSendBar } = useModal();
+  const otherRef = useRef(null);
+  const groupRef = useRef(null);
+  const barRef = useRef(null);
+  const [showError, setShowError] = useState(false);
+  const error = leadSourceError({ leadSource, leadSourceOther });
+
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar || typeof IntersectionObserver === "undefined") return;
+    let inView = false;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting === inView) return;
+      inView = entry.isIntersecting;
+      reportSendBar(inView);
+    });
+    observer.observe(bar);
+    return () => {
+      observer.disconnect();
+      if (inView) reportSendBar(false);
+    };
+    // reportSendBar only queues a counter update, so the first one is fine
+  }, []);
+
+  const submit = (event) => {
+    if (error) {
+      event.preventDefault();
+      setShowError(true);
+      toast.error(error);
+      if (leadSource === OTHER_SOURCE) otherRef.current?.focus();
+      // centred, so the pinned send bar doesn't sit over the picks
+      else groupRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+      return;
+    }
+    handleFormSubmit(event);
+  };
 
   return (
-    <form onSubmit={handleFormSubmit} noValidate>
+    <form onSubmit={submit} noValidate>
       <textarea
         {...register("message")}
         aria-label="Anything else we should know? (optional)"
-        rows={4}
-        placeholder="Lot size, budget, timing, ideas you have in mind — whatever helps."
+        rows={3}
+        placeholder="(Optional) Lot size, budget, timing, ideas you have in mind — whatever helps."
         className="w-full bg-[#f5f4f1] rounded-[20px] border border-transparent px-4 py-3 text-[16px] leading-relaxed outline-none resize-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
       />
+
+      <fieldset ref={groupRef} className="mt-5">
+        <legend className="pointer-events-none text-[14px] 550:text-[15px] font-semibold leading-snug">
+          How did you hear about us?
+        </legend>
+        <div className="mt-2.5 grid gap-2 grid-cols-2 @min-[660px]:grid-cols-4">
+          {LEAD_SOURCES.map(({ title, icon }) => (
+            <PickButton
+              key={title}
+              compact
+              icon={icon}
+              selected={leadSource === title}
+              onClick={() => {
+                onPickSource(title);
+                // the box shows once the pick lands
+                if (title === OTHER_SOURCE && leadSource !== OTHER_SOURCE) {
+                  setTimeout(() => otherRef.current?.focus(), 0);
+                }
+              }}
+            >
+              {title}
+            </PickButton>
+          ))}
+        </div>
+      </fieldset>
+      {leadSource === OTHER_SOURCE && (
+        <input
+          ref={otherRef}
+          aria-label="Where did you hear about us?"
+          value={leadSourceOther}
+          onChange={(event) => onSourceOtherChange(event.target.value)}
+          maxLength={80}
+          autoComplete="off"
+          placeholder="Where did you hear about us?"
+          className={`mt-2.5 w-full h-[46px] bg-[#f5f4f1] rounded-[20px] border px-4 text-[16px] outline-none placeholder:text-black/30 transition-colors duration-200 ${
+            showError && error ? "border-red-400" : "border-transparent focus:border-black"
+          }`}
+        />
+      )}
+      {showError && error && (
+        <p role="alert" className="mt-2 text-xs text-red-600">
+          {error}
+        </p>
+      )}
+
       <div aria-hidden="true" className="sr-only">
         <input
           type="text"
@@ -331,15 +470,22 @@ function DetailsStep({ form }) {
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className={`${PRIMARY_BUTTON} mt-4 w-full @min-[480px]:w-auto @min-[480px]:min-w-[280px] !justify-between`}
+      <div
+        ref={barRef}
+        className="sticky bottom-[calc(var(--scroll-pad,0px)*-1)] z-10 mt-1 pt-4 pb-3 bg-[linear-gradient(to_bottom,rgba(255,255,255,0),#fff_16px)] @min-[720px]:flex @min-[720px]:items-center @min-[720px]:gap-5"
       >
-        {isSubmitting ? "Sending..." : "Request my estimate"}
-        <TbArrowRight className="text-lg transition-transform duration-200 group-hover:translate-x-0.5" />
-      </button>
-      <FormLegalNote className="mt-3" />
+        {/* the note beside the button where there's room, keeping the
+            pinned bar low over the picks */}
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`${PRIMARY_BUTTON} w-full @min-[480px]:w-auto @min-[480px]:min-w-[280px] !justify-between`}
+        >
+          {isSubmitting ? "Sending..." : "Request my estimate"}
+          <TbArrowRight className="text-lg transition-transform duration-200 group-hover:translate-x-0.5" />
+        </button>
+        <FormLegalNote className="mt-2.5 @min-[720px]:mt-0 @min-[720px]:max-w-[440px]" />
+      </div>
     </form>
   );
 }
@@ -393,7 +539,8 @@ function MobilePicks({ answers, location, step, onJump, className = "" }) {
   );
 }
 
-// The four-step estimate request — what, where, who, and anything else —
+// The four-step estimate request — what, where, who, and how they found us
+// (plus anything else) —
 // in one white card, used by the homepage and /contact (EstimateSection)
 // and the header's request modal. Each question has "Step 2 of 4" over it
 // and a progress line under it. From 1080px up the card splits in two: the
@@ -463,6 +610,7 @@ export default function EstimateForm({
     extraData: {
       service: answers.project,
       address: location,
+      leadSource: resolveLeadSource(answers),
     },
     onSuccess: () => {
       setAnswers(EMPTY_ANSWERS);
@@ -501,6 +649,16 @@ export default function EstimateForm({
     setAnswers((prev) => ({ ...prev, area: OTHER_AREA, address }));
     setShot(shotFor("location", address.trim()));
   };
+
+  // "How did you hear about us?": tapping the current pick clears it.
+  const pickSource = (title) =>
+    setAnswers((prev) => ({
+      ...prev,
+      leadSource: prev.leadSource === title ? null : title,
+    }));
+
+  const changeSourceOther = (leadSourceOther) =>
+    setAnswers((prev) => ({ ...prev, leadSourceOther }));
 
   // Jumping back to a step ("Your picks") points the camera at what that
   // step's answer shows.
@@ -574,7 +732,15 @@ export default function EstimateForm({
   } else if (current.id === "contact") {
     body = <ContactStep form={form} onContinue={continueFromContact} />;
   } else if (current.id === "details") {
-    body = <DetailsStep form={form} />;
+    body = (
+      <DetailsStep
+        form={form}
+        leadSource={answers.leadSource}
+        leadSourceOther={answers.leadSourceOther}
+        onPickSource={pickSource}
+        onSourceOtherChange={changeSourceOther}
+      />
+    );
   } else {
     // Two columns only once each card gets ~260px — narrower than that and
     // titles and hints wrap into cramped stacks, so one full-width column
@@ -641,9 +807,11 @@ export default function EstimateForm({
       </div>
 
       {/* @container: the steps lay themselves out by this box's width, so
-          phones and the narrow desktop column both work. */}
+          phones and the narrow desktop column both work. overflow-x-clip
+          trims the sideways slide between steps; overflow-hidden would
+          also stop the last step's send bar pinning to the screen. */}
       <div
-        className="@container px-4 550:px-8 1080:px-0 pt-5 550:pt-6 pb-5 overflow-hidden"
+        className="@container px-4 550:px-8 1080:px-0 pt-5 550:pt-6 pb-5 overflow-x-clip"
       >
         <AnimatePresence mode="wait" initial={false} custom={direction}>
           <motion.div

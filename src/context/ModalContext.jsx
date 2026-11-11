@@ -25,6 +25,13 @@ export function ModalProvider({ children }) {
 
   const closeThanks = () => setThanksName(null);
 
+  // How many estimate forms have their pinned "Request my estimate" bar on
+  // screen (EstimateForm's last step). The phone's floating call/estimate
+  // bar steps aside meanwhile, so it never covers that button.
+  const [sendBarsInView, setSendBarsInView] = useState(0);
+  const reportSendBar = (inView) =>
+    setSendBarsInView((count) => Math.max(0, count + (inView ? 1 : -1)));
+
   return (
     <ModalContext.Provider
       value={{
@@ -35,6 +42,8 @@ export function ModalProvider({ children }) {
         thanksName,
         openThanks,
         closeThanks,
+        sendBarsInView,
+        reportSendBar,
       }}
     >
       {children}

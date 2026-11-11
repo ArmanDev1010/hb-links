@@ -46,16 +46,18 @@ const line = (label, value, max = 200) => {
 };
 
 // The plain-text summary of a request, used for both the SMS and the RingCentral
-// chat post. Optional fields (email, address, project type, details) are left
-// out entirely when blank rather than printing empty labels. The texts line
-// sits right under the phone so truncation can't cut it: it's the team's
-// record of whether this lead agreed to texts on the website (and when).
+// chat post. Optional fields (email, address, project type, how they found
+// us, details) are left out entirely when blank rather than printing empty
+// labels. The texts line sits right under the phone so truncation can't cut
+// it: it's the team's record of whether this lead agreed to texts on the
+// website (and when).
 export function buildLeadText({
   name,
   phone,
   mail,
   address,
   service,
+  leadSource,
   message,
   smsConsentAt,
 }) {
@@ -70,6 +72,7 @@ export function buildLeadText({
       line("Email", mail, 120),
       line("Address", address, 200),
       line("Project", service, 100),
+      line("Found us", leadSource, 100),
       line("Details", message, DETAILS_MAX),
     ]
       .filter(Boolean)

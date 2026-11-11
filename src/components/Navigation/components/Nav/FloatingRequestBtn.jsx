@@ -12,7 +12,7 @@ import { FiCheckSquare } from "react-icons/fi";
 const PHONE = "(818) 303-3555";
 
 export default function FloatingRequestBtn() {
-  const { toggleModal, menuActive } = useModal();
+  const { toggleModal, menuActive, sendBarsInView } = useModal();
   const [hidden, setHidden] = useState(true);
   const pathname = usePathname();
   // /contact is already the estimate form, so the bar only offers the phone
@@ -33,7 +33,9 @@ export default function FloatingRequestBtn() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  const shouldShow = !hidden && !menuActive;
+  // Also out of the way while an estimate form's pinned "Request my
+  // estimate" bar is on screen (ModalContext), so it never covers it.
+  const shouldShow = !hidden && !menuActive && !sendBarsInView;
 
   return (
     <div className="900:hidden fixed bottom-5 700:right-[32px] 400:right-[24px] right-3 z-[9998]">

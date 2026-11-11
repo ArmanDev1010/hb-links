@@ -38,7 +38,9 @@ const consentTimestamp = () =>
 
 export async function POST(req) {
   const body = await req.json();
-  const { name, phone, mail, address, service, message, smsConsent, hb_check } = body;
+  // `leadSource` is the estimate form's "How did you hear about us?" answer
+  // (optional; free text when they typed one in for "Other").
+  const { name, phone, mail, address, service, leadSource, message, smsConsent, hb_check } = body;
   const smsConsentAt = smsConsent === true ? consentTimestamp() : null;
 
   // The form has no CAPTCHA, so two light spam checks instead: `hb_check` is
@@ -55,7 +57,7 @@ export async function POST(req) {
   // Requests are posted to the RingCentral chat and/or texted to SMS_TO_NUMBER,
   // whichever are configured. Email is the fallback when neither is set up or
   // every channel fails, so a lead is never dropped.
-  const text = buildLeadText({ name, phone, mail, address, service, message, smsConsentAt });
+  const text = buildLeadText({ name, phone, mail, address, service, leadSource, message, smsConsentAt });
   const channels = [
     { label: "RingCentral", enabled: isRingCentralConfigured(), send: () => sendRingCentralMessage(text) },
     { label: "SMS", enabled: isSmsConfigured(), send: () => sendSms(text) },
@@ -107,6 +109,7 @@ export async function POST(req) {
       ${mail ? row("Email", mail) : ""}
       ${address ? row("Address", address) : ""}
       ${service ? row("Project Type", service) : ""}
+      ${leadSource ? row("Found Us", String(leadSource).slice(0, 100)) : ""}
       ${
         message
           ? `<p style="margin: 12px 0;"><strong>Message:</strong></p>

@@ -35,8 +35,8 @@ const privacyPolicy = {
             </li>
             <li>
               <strong>Project details</strong> &mdash; your property address or
-              general location, project type, and anything else you choose to
-              tell us.
+              general location, project type, how you heard about us, and
+              anything else you choose to tell us.
             </li>
             <li>
               <strong>Communications</strong> &mdash; records of the calls,
