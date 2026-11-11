@@ -33,6 +33,9 @@ const montserrat = Montserrat({
 // Site-wide defaults. Every page sets its own title, description, canonical
 // and share card through buildPageMetadata (lib/seo.js) — nothing here names
 // a URL, so a page that forgets can't claim to be the homepage.
+// The mobile browser bar's colour: HB Black (HB-LINKS-WEBSITE-COLORS.md).
+export const viewport = { themeColor: "#0B0F0D" };
+
 export const metadata = {
   metadataBase: new URL(BASE_URL),
   applicationName: SITE_NAME,

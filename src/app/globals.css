@@ -16,17 +16,19 @@
   --breakpoint-400: 400px;
   --breakpoint-360: 360px;
 
-  /* Colors */
-
-  --color-primary: #1f1f1f;
-  --color-secondary: #111111;
-  --color-third: #106b37;
-  --color-fourth: #6B6B6B;
-
-  /* Nav — warm cream bar + angular black CTA (see Navigation/*) */
-  --color-sand: #f1ece2;
-  --color-sand-hover: #e7e1d3;
-  --color-ink: #1c1a17;
+  /* HB Links website palette: see HB-LINKS-WEBSITE-COLORS.md */
+  --color-third: #106B37;      /* HB Green (name kept) */
+  --color-forest: #0A4523;     /* Forest Green: hover/pressed on green */
+  --color-lime: #C4E538;       /* Electric Lime: dark surfaces only, black text on it */
+  --color-black: #0B0F0D;      /* HB Black: replaces Tailwind's pure black everywhere */
+  --color-black-soft: color-mix(in oklab, var(--color-black) 95%, white); /* tint of HB Black, not a new color */
+  --color-secondary: #0B0F0D;  /* HB Black */
+  --color-ink: #0B0F0D;        /* HB Black */
+  --color-fourth: #4B5450;     /* Graphite */
+  --color-silver: #C5CCD0;     /* Silver */
+  --color-concrete: #F4F5F2;   /* Concrete */
+  --color-white: #FFFFFF;
+  --color-error: #C81E1E;      /* functional: form errors only */
 
   /* Fonts */
 
@@ -344,11 +346,16 @@ details[open] > .faq-answer {
 }
 
 body {
-  background: white;
-  color: #222;
+  background-color: var(--color-white);
+  color: var(--color-black); /* was #222 */
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+::selection {
+  background-color: var(--color-lime);
+  color: var(--color-black);
 }
 
 /* The body text of the /legal pages (components/Legal/LegalContent.jsx).
@@ -357,7 +364,7 @@ body {
    utility classes still win where a page needs them to. */
 @layer components {
   .legal-prose {
-    color: rgb(0 0 0 / 0.78);
+    color: color-mix(in oklab, var(--color-black) 80%, transparent);
     font-size: 15.5px;
     line-height: 1.75;
   }
@@ -366,7 +373,7 @@ body {
   }
   .legal-prose h3 {
     margin-top: 1.75rem;
-    color: #111;
+    color: var(--color-black);
     font-size: 12.5px;
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -386,7 +393,7 @@ body {
     color: var(--color-third);
   }
   .legal-prose strong {
-    color: #111;
+    color: var(--color-black);
     font-weight: 600;
   }
   .legal-prose a {
@@ -397,7 +404,7 @@ body {
     overflow-wrap: anywhere;
   }
   .legal-prose a:hover {
-    color: #111;
+    color: var(--color-black);
   }
   @media (min-width: 700px) {
     .legal-prose {
