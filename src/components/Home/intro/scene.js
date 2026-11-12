@@ -176,15 +176,17 @@ function grid(ctx, P, [cx, cz], reach, minor) {
   }
 }
 
-// ---- the chevron band beside the lot ---------------------------------------
-// The brand posts' texture, painted on the open ground to the left of the
-// property: a band of HB Green whose top edge rises to the right, with rows
-// of forward chevrons across it, so the dark side of the stage isn't blank
-// (the user's reference, 11-12). It's laid out in the opening shot's screen
-// pixels and pinned to the ground there, so in that shot it sits exactly
-// as designed, and from then on it moves and zooms with the scene like
-// everything else on the ground. It fades out before the grid floor where
-// the buildings stand. On its own layer, so the fades leave the scene alone.
+// ---- the arrows beside the lot ---------------------------------------------
+// The brand posts' forward arrows (the user's reference, 11-12), painted on
+// the open ground to the left of the property so the dark side of the stage
+// isn't blank: rows of faint HB Green chevrons on the black, no band behind
+// them (the user's call), below a soft line rising to the right. They're
+// strongest at the far left and fade slowly to black well before the grid
+// floor, leaving clear black between them and the buildings. Laid out in
+// the opening shot's screen pixels and pinned to the ground there, so in
+// that shot they sit as designed, and from then on they move and zoom with
+// the scene like everything else on the ground. On their own layer, so the
+// fades leave the scene alone.
 
 // The opening shot's scale, and where one of its screen points lies on the
 // ground: the same framing drawScene gives the whole property at t = 0.
@@ -206,12 +208,15 @@ function openingShot({ width, height, portrait, layout }, calm) {
   return { s, ground };
 }
 
-// In the opening shot's px, for a screen `w` x `h`: the band's top edge runs
-// from (0, TOP_LEFT·h) up to (RIGHT·w, TOP_RIGHT·h) and carries on past the
-// screen's left edge and bottom, so moving the camera never shows its ends;
-// it fades out over the right of that span. Chevrons every PITCH px, each
-// row offset half a step, like the posts.
-const BAND = { TOP_LEFT: 0.56, TOP_RIGHT: 0.22, RIGHT: 0.6, FADE_FROM: 0.24 };
+// In the opening shot's px, for a screen `w` x `h`: the arrows fill the
+// ground below a line through (0, TOP_LEFT·h) rising to the right, SLANT·h
+// px per w px across, carrying on past the screen's left edge and bottom so
+// moving the camera never shows their ends. (Up in the space beside and
+// above the headline: lower, the hero's shade over the copy hides them.) The top
+// edge fades in over SOFT px; across, they fade slowly to black, gone by
+// GONE·w. Chevrons every PITCH px, each row offset half a step, like the
+// posts; ALPHA is their strength at the far left.
+const BAND = { TOP_LEFT: 0.3, SLANT: -0.57, GONE: 0.36, SOFT: 44, ALPHA: 0.9 };
 const PITCH = 24;
 let BAND_LAYER = null;
 function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h) {
@@ -238,20 +243,18 @@ function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h) {
   layer.save();
   layer.transform(ax - ex, ay - ey, bx - ex, by - ey, ex, ey);
 
-  const slope = ((BAND.TOP_RIGHT - BAND.TOP_LEFT) * h) / (BAND.RIGHT * w);
+  const slope = (BAND.SLANT * h) / w;
   const top = (x) => BAND.TOP_LEFT * h + slope * x;
-  const x0 = -w, x1 = BAND.RIGHT * w, y1 = h * 2.2;
+  const gone = BAND.GONE * w;
+  const x0 = -w, x1 = gone + PITCH, y1 = h * 2.2;
   const band = new Path2D();
   band.moveTo(x0, top(x0));
   band.lineTo(x1, top(x1));
   band.lineTo(x1, y1);
   band.lineTo(x0, y1);
   band.closePath();
-  layer.fillStyle = rgba(C.green, 0.24);
-  layer.fill(band);
 
-  // the chevrons, in a brighter green than the band (darker ones vanish on
-  // a band this dark), clipped to it
+  // the chevrons on their own, clipped to that shape
   layer.save();
   layer.clip(band);
   const marks = new Path2D();
@@ -264,19 +267,28 @@ function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h) {
       marks.lineTo(x + 9, y + 17);
     }
   }
-  layer.strokeStyle = rgba(C.green, 0.62);
+  layer.strokeStyle = rgba(C.green, BAND.ALPHA);
   layer.lineWidth = 2.5;
   layer.lineJoin = "miter";
   layer.stroke(marks);
   layer.restore();
 
-  // fading out over the right of its span
   layer.globalCompositeOperation = "destination-out";
-  const fade = layer.createLinearGradient(BAND.FADE_FROM * w, 0, x1, 0);
+  // a soft top edge: fading in over the first SOFT px below the line
+  const len = Math.hypot(1, slope);
+  const [nx, ny] = [-slope / len, 1 / len];
+  const edge = layer.createLinearGradient(0, top(0), nx * BAND.SOFT, top(0) + ny * BAND.SOFT);
+  edge.addColorStop(0, "rgba(0,0,0,1)");
+  edge.addColorStop(1, "rgba(0,0,0,0)");
+  layer.fillStyle = edge;
+  layer.fillRect(x0, top(x1) - h, x1 - x0, y1 + h);
+  // and slowly to black across, gone by GONE·w
+  const fade = layer.createLinearGradient(0, 0, gone, 0);
   fade.addColorStop(0, "rgba(0,0,0,0)");
+  fade.addColorStop(0.5, "rgba(0,0,0,0.5)");
   fade.addColorStop(1, "rgba(0,0,0,1)");
   layer.fillStyle = fade;
-  layer.fillRect(BAND.FADE_FROM * w, top(x1) - h, x1 - BAND.FADE_FROM * w + 2, y1 + h);
+  layer.fillRect(0, top(x1) - h, x1 + 2, y1 + h);
   layer.restore();
 
   // and gone, softly, well before the grid floor around the buildings (the
