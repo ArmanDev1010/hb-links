@@ -30,7 +30,7 @@ const PIXEL_BUDGET = 4_200_000;
 const PLAY = 0.92;
 
 // The white HB Links logo, for the yard sign in the scene.
-const LOGO = "/Logos/PNG/HB-Links-logo_horizontal_white-green.png";
+const LOGO = "/Logos/white_horizontal.png";
 
 // The homepage hero: pinned for several screens of scroll over one property
 // where four services are built one after another (intro/scene.js), drawn on

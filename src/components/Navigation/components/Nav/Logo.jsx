@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import blackLogo from "@/../public/Logos/PNG/HB-Links-logo_horizontal_black-green.png";
-import whiteLogo from "@/../public/Logos/PNG/HB-Links-logo_horizontal_white-green.png";
+import blackLogo from "@/../public/Logos/black_horizontal.png";
+import whiteLogo from "@/../public/Logos/white_horizontal.png";
 
 export default function Logo({
   light,

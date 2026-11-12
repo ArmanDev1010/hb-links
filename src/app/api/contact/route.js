@@ -5,8 +5,6 @@ import {
   isRingCentralConfigured,
   sendRingCentralMessage,
 } from "@/lib/ringcentral";
-// the email's logo comes from the live site (public/Logos)
-import { BASE_URL } from "@/lib/seo";
 
 // Server-side secrets — from .env.local locally and the Vercel project's
 // Environment Variables in production. Never hardcode them here: the repo is
@@ -99,7 +97,7 @@ export async function POST(req) {
       html: `
   <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 32px; border-radius: 12px; max-width: 600px; margin: auto; color: #333;">
     <div style="text-align: center; margin-bottom: 24px;">
-      <img src="${BASE_URL}/Logos/PNG/HB-Links-logo_horizontal_black-green.png" alt="HB LINKS Logo" style="max-width: 180px; height: auto;" />
+      <img src="https://i.imgur.com/g65VZMQ.png" alt="HB LINKS Logo" style="max-width: 180px; height: auto;" />
       <p style="margin: 12px 0 0; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #666;">Contact Form Submission</p>
       <h1 style="margin: 8px 0 16px; font-size: 28px; font-weight: 600; color: #0B0F0D;">You've received a new request</h1>
     </div>

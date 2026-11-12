@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 
 import { privacyPages } from "@/data/privacy";
-import whiteLogo from "@/../public/Logos/PNG/HB-Links-logo_horizontal_white-green.png";
+import whiteLogo from "@/../public/Logos/white_horizontal.png";
 
 // Between pages, a wall goes up: PANELS dark panels, each edged in green,
 // rise from the bottom in a wave from left to right and close the screen. On
