@@ -49,7 +49,7 @@ export default function Footer() {
   const { toggleModal } = useModal();
 
   return (
-    <footer className="wide-zoom relative bg-[#111111] text-white border-t-5 border-third">
+    <footer className="wide-zoom relative bg-black text-white border-t-5 border-third">
       <div className="max-w-[1680px] mx-auto w-full max-700:pb-20 pt-12 700:pt-16 700:px-[32px] px-[24px]">
         <div className="grid grid-cols-1 900:grid-cols-[1fr_0.5fr_0.8fr] 1080:grid-cols-[1.3fr_0.55fr_0.65fr_0.9fr] 1280:grid-cols-[1.25fr_0.6fr_0.65fr_0.9fr] gap-y-16 gap-x-10">
           <div className="max-900:order-1 flex flex-col gap-12 1080:gap-16">

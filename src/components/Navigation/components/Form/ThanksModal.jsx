@@ -110,8 +110,8 @@ function StepTracker() {
                   done
                     ? "bg-white text-black"
                     : next
-                      ? "bg-[#111111] border border-white text-white shadow-[0_0_20px_2px_rgba(255,255,255,0.25)]"
-                      : "bg-[#111111] border border-white/15 text-white/35"
+                      ? "bg-black border border-white text-white shadow-[0_0_20px_2px_rgba(255,255,255,0.25)]"
+                      : "bg-black border border-white/15 text-white/35"
                 }`}
               >
                 <Icon />
@@ -169,7 +169,7 @@ export default function ThanksModal({ name, handleClose }) {
           role="dialog"
           aria-modal="true"
           aria-labelledby="thanks-title"
-          className="pointer-events-auto flex flex-col w-full max-w-[720px] 1080:max-w-[1040px] max-h-[90dvh] bg-[#111111] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]"
+          className="pointer-events-auto flex flex-col w-full max-w-[720px] 1080:max-w-[1040px] max-h-[90dvh] bg-black shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]"
           initial={{ opacity: 0, y: 16, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 16, scale: 0.98 }}
@@ -238,7 +238,7 @@ export default function ThanksModal({ name, handleClose }) {
                   <p className="mt-3 text-[15px] 700:text-[16px] leading-relaxed text-white/65">
                     <span className="text-white font-medium">Boris</span> will
                     call you within{" "}
-                    <mark className="bg-[#ffe45c] text-black font-medium px-1">
+                    <mark className="bg-lime text-black font-medium px-1">
                       3 business hours
                     </mark>{" "}
                     from{" "}

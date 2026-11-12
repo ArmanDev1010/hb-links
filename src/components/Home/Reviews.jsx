@@ -387,7 +387,7 @@ export default function Reviews() {
                         >
                           {review.name}
                         </span>
-                        <span className="flex items-center gap-1 text-xs text-gray-500">
+                        <span className="flex items-center gap-1 text-xs text-fourth">
                           <FaStar className="text-[oklch(75%_0.18_80)] w-3 h-3" />
                           <span className="font-semibold text-black">
                             {review.rating}

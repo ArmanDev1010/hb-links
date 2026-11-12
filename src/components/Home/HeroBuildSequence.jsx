@@ -213,7 +213,7 @@ export default function HeroBuildSequence({ sequence, children }) {
         "--hero-scroll": `${Math.round(steps * SCROLL_PER_STEP.desktop * 100)}vh`,
         "--hero-scroll-phone": `${Math.round(steps * SCROLL_PER_STEP.phone * 100)}vh`,
       }}
-      className="relative h-[calc(100vh+var(--hero-scroll))] max-700:h-[calc(100vh+var(--hero-scroll-phone))] hero-static:h-auto bg-black text-neutral-50"
+      className="relative h-[calc(100vh+var(--hero-scroll))] max-700:h-[calc(100vh+var(--hero-scroll-phone))] hero-static:h-auto bg-black text-white"
     >
       {/* the still on phones is 85% of the screen tall — 90% under 550px
           wide, 95% under 400px (taller only if the copy needs it) — so the

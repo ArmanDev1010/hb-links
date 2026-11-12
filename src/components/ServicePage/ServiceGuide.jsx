@@ -20,7 +20,7 @@ export default function ServiceGuide({ eyebrow, heading, intro, items }) {
   return (
     <section className="wide-zoom relative bg-white pb-[100px] 1080:pb-[120px]" id="guide">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
-        <div className="grid grid-cols-1 gap-10 1280:grid-cols-12 1280:gap-16 border border-black/10 bg-[#fafafa] py-10 px-6 700:p-10 1080:p-14">
+        <div className="grid grid-cols-1 gap-10 1280:grid-cols-12 1280:gap-16 border border-black/10 bg-concrete py-10 px-6 700:p-10 1080:p-14">
           <div className="1280:col-span-6 1440:col-span-5">
             <div className="1280:sticky 1280:top-[140px] pointer-events-none">
               <Reveal className="flex items-center gap-4 mb-6 800:mb-8">

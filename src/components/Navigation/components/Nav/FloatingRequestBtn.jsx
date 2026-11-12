@@ -72,7 +72,7 @@ export default function FloatingRequestBtn() {
                 <button
                   onClick={toggleModal}
                   aria-label="Request a free estimate"
-                  className="flex items-center justify-center gap-1.5 550:gap-2 700:gap-2.5 px-3.5 550:px-6 700:px-7 bg-third text-white hover:bg-[#0c5a2e] transition-colors duration-200 cursor-pointer"
+                  className="flex items-center justify-center gap-1.5 550:gap-2 700:gap-2.5 px-3.5 550:px-6 700:px-7 bg-third text-white hover:bg-forest transition-colors duration-200 cursor-pointer"
                 >
                   <FiCheckSquare className="w-[15px] h-[15px] 550:w-[16px] 550:h-[16px] 700:w-[17px] 700:h-[17px] shrink-0" />
                   <span className="550:hidden text-[11.5px] leading-[1] mt-0.5 font-medium uppercase tracking-[0.08em] whitespace-nowrap">

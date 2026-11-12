@@ -49,7 +49,7 @@ export default function Hero({
         <span className="italic whitespace-nowrap">{area.name}</span>
       </h1>
 
-      <p className="max-550:hidden font-gt mt-8 text-neutral-300 900:text-[11px] text-[10px] uppercase tracking-[0.3em] flex flex-wrap gap-x-3 gap-y-1.5 items-center pointer-events-none">
+      <p className="max-550:hidden font-gt mt-8 text-silver 900:text-[11px] text-[10px] uppercase tracking-[0.3em] flex flex-wrap gap-x-3 gap-y-1.5 items-center pointer-events-none">
         <span>Licensed & Insured</span>{" "}
         <span className="text-third 700:text-2xl text-xl max-700:hidden">
           /
@@ -60,7 +60,7 @@ export default function Hero({
       </p>
 
       {/* text-pretty: no word left alone on the last line */}
-      <p className="550:mt-6 mt-8 font-light max-w-2xl text-pretty text-neutral-200 text-[15px] 700:text-base 900:text-[17px] pointer-events-none">
+      <p className="550:mt-6 mt-8 font-light max-w-2xl text-pretty text-silver text-[15px] 700:text-base 900:text-[17px] pointer-events-none">
         {paragraph}
       </p>
 
@@ -94,7 +94,7 @@ export default function Hero({
 
   return (
     <section
-      className="relative overflow-hidden h-full flex min-h-[calc(100*var(--vh))] max-700:min-h-[calc(85*var(--svh))] max-550:min-h-[calc(90*var(--svh))] max-400:min-h-[calc(95*var(--svh))] items-end pt-28 sm:pt-22 !bg-black text-neutral-50"
+      className="relative overflow-hidden h-full flex min-h-[calc(100*var(--vh))] max-700:min-h-[calc(85*var(--svh))] max-550:min-h-[calc(90*var(--svh))] max-400:min-h-[calc(95*var(--svh))] items-end pt-28 sm:pt-22 !bg-black text-white"
       id="hero"
     >
       {image && (

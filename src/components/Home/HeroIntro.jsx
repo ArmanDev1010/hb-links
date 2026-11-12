@@ -90,7 +90,7 @@ export default function HeroIntro({ children }) {
       ref={trackRef}
       id="hero"
       data-nav-overlay
-      className="relative h-[calc(700*var(--vh))] max-700:h-[calc(620*var(--vh))] intro-still:h-auto bg-[#090b0a] text-neutral-50"
+      className="relative h-[calc(700*var(--vh))] max-700:h-[calc(620*var(--vh))] intro-still:h-auto bg-black text-white"
     >
       <div
         ref={panelRef}

@@ -99,7 +99,7 @@ export async function POST(req) {
     <div style="text-align: center; margin-bottom: 24px;">
       <img src="https://i.imgur.com/g65VZMQ.png" alt="HB LINKS Logo" style="max-width: 180px; height: auto;" />
       <p style="margin: 12px 0 0; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #666;">Contact Form Submission</p>
-      <h1 style="margin: 8px 0 16px; font-size: 28px; font-weight: 600; color: #222;">You've received a new request</h1>
+      <h1 style="margin: 8px 0 16px; font-size: 28px; font-weight: 600; color: #0B0F0D;">You've received a new request</h1>
     </div>
 
     <div style="background-color: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 0 4px rgba(0,0,0,0.05);">

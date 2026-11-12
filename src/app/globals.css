@@ -347,7 +347,7 @@ details[open] > .faq-answer {
 
 body {
   background-color: var(--color-white);
-  color: var(--color-black); /* was #222 */
+  color: var(--color-black); /* HB Black */
   padding: 0;
   margin: 0;
   box-sizing: border-box;

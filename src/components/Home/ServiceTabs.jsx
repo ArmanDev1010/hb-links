@@ -40,7 +40,7 @@ export default function ServiceTabs({ services }) {
                 aria-selected={selected}
                 aria-controls={`service-panel-${index}`}
                 onClick={() => setActive(index)}
-                className={`group flex h-full w-full cursor-pointer items-center gap-2.5 border bg-[#F7F7F7] px-3 py-2.5 text-left transition-colors duration-200 ${
+                className={`group flex h-full w-full cursor-pointer items-center gap-2.5 border bg-concrete px-3 py-2.5 text-left transition-colors duration-200 ${
                   selected
                     ? "border-third"
                     : "border-secondary/15 hover:border-secondary/40"

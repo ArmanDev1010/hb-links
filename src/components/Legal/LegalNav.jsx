@@ -51,7 +51,7 @@ export function LegalTabs({ pages, current }) {
       className={`sticky top-[94px] 1080:top-[99px] z-20 mt-8 border border-black/10 p-1.5 transition-[background-color,box-shadow] duration-300 ${
         stuck
           ? "bg-white/85 backdrop-blur-xl backdrop-saturate-150 shadow-[0_14px_30px_-22px_rgba(0,0,0,0.4)]"
-          : "bg-[#fafafa]"
+          : "bg-concrete"
       }`}
     >
       <ul

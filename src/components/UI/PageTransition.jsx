@@ -192,7 +192,7 @@ export default function PageTransition() {
           }}
           // a hair wider than its share, so no seam of page shows between panels
           className={`relative h-full flex-1 ${i < PANELS - 1 ? "-mr-px" : ""} ${
-            i % 2 ? "bg-[#161616]" : "bg-[#121212]"
+            i % 2 ? "bg-black-soft" : "bg-black"
           }`}
         >
           <span className="absolute inset-x-0 top-0 h-[3px] bg-third" />

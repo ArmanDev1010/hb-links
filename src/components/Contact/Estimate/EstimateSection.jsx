@@ -35,7 +35,7 @@ function Static({ as: Tag = "div", delay, ...props }) {
 
 // The estimate section — label, heading and intro, the estimate
 // form card, then Reach Us Direct — shared by the homepage (`dark`, on the
-// footer's #111) and the /contact page (light, on #f5f4f1). The page also
+// footer's HB Black) and the /contact page (light, on Concrete). The page also
 // passes `headingAs="h1"` (the homepage already has its h1) and
 // `showTrust` for the Google-reviews / licence line under the intro;
 // `className` carries each one's own padding. Service pages pass their own
@@ -60,7 +60,7 @@ export default function EstimateSection({
     <section
       id={id}
       className={`wide-zoom relative ${
-        dark ? "bg-[#111111] text-white" : "bg-[#f5f4f1] text-black"
+        dark ? "bg-black text-white" : "bg-concrete text-black"
       } ${className}`}
     >
       <div className="max-w-[1680px] mx-auto w-full px-[24px] 700:px-[32px]">

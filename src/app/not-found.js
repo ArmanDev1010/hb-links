@@ -13,9 +13,9 @@ export const metadata = {
 
 const phone = contactInfo.find((item) => item.type === "Phone");
 
-// The hero's white/green split, on the big "404".
+// The big "404" split White / Electric Lime (HB-LINKS-WEBSITE-COLORS.md 4C).
 const SPLIT_TEXT = {
-  backgroundImage: "linear-gradient(137deg, #ffffff 50%, #0b8540 50%)",
+  backgroundImage: "linear-gradient(137deg, var(--color-white) 50%, var(--color-lime) 50%)",
   WebkitBackgroundClip: "text",
 };
 
@@ -42,11 +42,11 @@ function RollingLabel({ children }) {
 // it without needing to know this is a 404.
 export default function NotFound() {
   return (
-    <section className="relative overflow-hidden min-h-screen bg-black text-neutral-50 flex items-center 700:pt-[9.5rem] pt-36 pb-20">
+    <section className="relative overflow-hidden min-h-screen bg-black text-white flex items-center 700:pt-[9.5rem] pt-36 pb-20">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="flex items-center gap-4 pointer-events-none">
           <span className="block h-2 w-2 shrink-0 bg-third" />
-          <span className="550:text-[13px] text-[12px] text-neutral-300 uppercase font-light tracking-[0.3em]">
+          <span className="550:text-[13px] text-[12px] text-silver uppercase font-light tracking-[0.3em]">
             Error 404 · Page not found
           </span>
           <span className="h-px flex-1 max-w-[640px] bg-gradient-to-r from-white/25 to-transparent" />
@@ -63,7 +63,7 @@ export default function NotFound() {
         <h1 className="font-gt mt-6 text-[26px] 400:text-[28px] 550:text-[36px] 800:text-[42px] font-semibold uppercase leading-[1.2] tracking-tight">
           This page doesn&rsquo;t exist
         </h1>
-        <p className="mt-5 max-w-2xl font-light text-neutral-300 text-[15px] 700:text-base 900:text-[17px]">
+        <p className="mt-5 max-w-2xl font-light text-silver text-[15px] 700:text-base 900:text-[17px]">
           The link may be broken, or the page may have moved. Head back home,
           pick a service below, or call us at{" "}
           <a

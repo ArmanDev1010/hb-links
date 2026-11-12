@@ -62,7 +62,7 @@ export default function RequestModal({ handleClose }) {
 
           {/* --scroll-pad is this area's padding; the form's pinned send bar
               reads it to sit flush with the bottom edge. */}
-          <div className="modal-scroll overflow-y-auto overscroll-contain bg-[#f5f4f1] [--scroll-pad:12px] 550:[--scroll-pad:20px] 1080:[--scroll-pad:24px] p-(--scroll-pad)">
+          <div className="modal-scroll overflow-y-auto overscroll-contain bg-concrete [--scroll-pad:12px] 550:[--scroll-pad:20px] 1080:[--scroll-pad:24px] p-(--scroll-pad)">
             <EstimateForm showLabel={false} shadow={false} />
           </div>
         </motion.div>

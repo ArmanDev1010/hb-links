@@ -37,23 +37,23 @@ function useOpenNow() {
   return open;
 }
 
-// Colours for each background. The brand green is too dark to read on #111,
-// so on dark the accents use the blueprint's lighter green instead.
+// Colours for each background. The brand green is too dark to read on black,
+// so on dark the accents are Electric Lime (HB-LINKS-WEBSITE-COLORS.md 6.4).
 const TONES = {
   dark: {
     rule: "border-white/10",
     body: "text-white/60",
-    accent: "text-[#3fbf74]",
-    dot: "bg-[#3fbf74]",
+    accent: "text-lime",
+    dot: "bg-lime",
     closed: "text-white/50",
     closedDot: "bg-white/30",
     cell: "border-white/[0.06] bg-white/[0.04]",
     cellHover: "hover:border-white/15 hover:bg-white/[0.08]",
-    icon: "border-white/15 bg-white/[0.06] text-white/80 group-hover:text-[#3fbf74]",
+    icon: "border-white/15 bg-white/[0.06] text-white/80 group-hover:text-lime",
     label: "text-white/45",
     value: "text-white",
-    arrow: "text-white/25 group-hover:text-[#3fbf74]",
-    socialIcon: "text-white/80 group-hover:text-[#3fbf74]",
+    arrow: "text-white/25 group-hover:text-lime",
+    socialIcon: "text-white/80 group-hover:text-lime",
   },
   light: {
     rule: "border-black/10",
@@ -64,7 +64,7 @@ const TONES = {
     closedDot: "bg-black/30",
     cell: "border-black/10 bg-white",
     cellHover: "hover:border-black/25",
-    icon: "border-black/10 bg-[#f5f4f1] text-black/70 group-hover:text-third",
+    icon: "border-black/10 bg-concrete text-black/70 group-hover:text-third",
     label: "text-fourth",
     value: "text-black",
     arrow: "text-black/25 group-hover:text-third",
@@ -157,7 +157,7 @@ function SocialTiles({ tone }) {
 
 // "Reach Us Direct" — the row under the estimate form in EstimateSection:
 // a short pitch with a live open / closed badge on the left, the contact
-// details as cells on the right. `dark` for the homepage's #111 section.
+// details as cells on the right. `dark` for the homepage's HB Black section.
 export default function ReachUsDirect({ dark = false, className = "" }) {
   const tone = dark ? TONES.dark : TONES.light;
 

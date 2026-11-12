@@ -14,7 +14,7 @@ function FAQItem({ question, answer, index }) {
     <Reveal as="li" delay={Math.min(index, 5) * 0.05}>
       <SmoothDetails className="group border border-black/15 bg-white transition-colors duration-200 hover:border-black/30 data-[state=open]:border-black/40">
         <summary className="flex cursor-pointer list-none items-center gap-5 px-5 py-5 transition-colors duration-200 700:gap-7 700:px-7 700:py-7 [&::-webkit-details-marker]:hidden">
-          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center border border-black/25 bg-[#F7F7F7] 700:h-12 700:w-12">
+          <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center border border-black/25 bg-concrete 700:h-12 700:w-12">
             <span className="text-[12px] font-bold tracking-tight text-third 700:text-[15px]">
               {step}
             </span>
@@ -98,7 +98,7 @@ export default function FAQ({
 
         <Reveal className="flex flex-wrap items-center justify-between gap-6 border border-black/15 bg-white px-5 py-5 700:px-7 700:py-7">
           <div className="flex items-center gap-5 700:gap-7">
-            <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center border border-black/25 bg-[#F7F7F7] 700:h-12 700:w-12">
+            <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center border border-black/25 bg-concrete 700:h-12 700:w-12">
               <MdOutlineLocalPhone className="text-lg text-third" />
             </span>
             <div className="pointer-events-none">

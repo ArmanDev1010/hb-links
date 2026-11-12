@@ -101,7 +101,7 @@ export default function Navbar() {
     <>
       <nav className="fixed top-0 left-0 w-full z-[999]">
         <div
-          className={`1080:hidden fixed inset-0 bg-[#111111]/40 backdrop-blur-sm transition-all duration-300 ${
+          className={`1080:hidden fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300 ${
             menuActive ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
           onClick={() => setMenuActive(false)}

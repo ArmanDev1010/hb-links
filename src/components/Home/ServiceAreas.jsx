@@ -40,7 +40,7 @@ export default function ServiceAreas({
   return (
     <section className="wide-zoom relative bg-white scroll-mt-28" id="service_areas">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px] pb-[100px] 1080:pb-[120px]">
-        <div className="relative overflow-hidden border border-black/10 bg-[#fafafa] py-10 px-6 700:p-10 1080:p-14">
+        <div className="relative overflow-hidden border border-black/10 bg-concrete py-10 px-6 700:p-10 1080:p-14">
           <div className="flex flex-wrap max-1080:flex-col justify-between gap-x-10 gap-y-6 pb-8 mb-8 border-b border-black/15 pointer-events-none">
             <div className="flex-[1]">
               <Reveal className="flex items-center gap-4 mb-6 800:mb-8">
@@ -102,7 +102,7 @@ export default function ServiceAreas({
                 Los Angeles County
               </span>
             </div>
-            <div className="bg-[#f5f4f1] border-t border-black/10 p-2">
+            <div className="bg-concrete border-t border-black/10 p-2">
               <div className="relative h-[270px] 400:h-[300px] 550:h-[340px] 800:h-[450px] w-full overflow-hidden bg-black">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d423116.08925537445!2d-118.6980807!3d34.0542728!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x641cd639313d13b9%3A0xf7b403aff7a5bf6d!2sHB%20Links!5e0!3m2!1sen!2sam!4v1790577268395!5m2!1sen!2sam"

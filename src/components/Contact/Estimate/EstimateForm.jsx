@@ -96,7 +96,7 @@ const PRIMARY_BUTTON =
 // closes (the user caught it: the page stuck zoomed in, swipes moving the
 // page behind the dialog)
 const inputClasses =
-  "mt-1.5 w-full h-[46px] bg-[#f5f4f1] border rounded-[20px] px-4 text-[16px] outline-none placeholder:text-black/30 transition-colors duration-200";
+  "mt-1.5 w-full h-[46px] bg-concrete border rounded-[20px] px-4 text-[16px] outline-none placeholder:text-black/30 transition-colors duration-200";
 
 function OptionCard({ option, selected, onSelect }) {
   const Icon = option.icon;
@@ -237,7 +237,7 @@ function LocationStep({
             }}
             autoComplete="street-address"
             placeholder="City, ZIP code or street address"
-            className="w-full h-[46px] bg-[#f5f4f1] rounded-[20px] border border-transparent pl-11 pr-4 text-[16px] outline-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
+            className="w-full h-[46px] bg-concrete rounded-[20px] border border-transparent pl-11 pr-4 text-[16px] outline-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
           />
         </div>
         <button
@@ -262,7 +262,7 @@ function Field({ label, error, children }) {
       <span className="block text-[12px] text-fourth">{label}</span>
       {children}
       {error && (
-        <span className="block mt-1 text-xs text-red-600">{error.message}</span>
+        <span className="block mt-1 text-xs text-error">{error.message}</span>
       )}
     </label>
   );
@@ -278,7 +278,7 @@ function ContactStep({ form, onContinue }) {
   } = form;
 
   const borderClass = (name) =>
-    errors[name] ? "border-red-400" : "border-transparent focus:border-black";
+    errors[name] ? "border-error" : "border-transparent focus:border-black";
 
   const phoneField = register("phone", {
     required: "Phone Number is required.",
@@ -414,7 +414,7 @@ function DetailsStep({
         aria-label="Anything else we should know? (optional)"
         rows={3}
         placeholder="(Optional) Lot size, budget, timing, ideas you have in mind — whatever helps."
-        className="w-full bg-[#f5f4f1] rounded-[20px] border border-transparent px-4 py-3 text-[16px] leading-relaxed outline-none resize-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
+        className="w-full bg-concrete rounded-[20px] border border-transparent px-4 py-3 text-[16px] leading-relaxed outline-none resize-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
       />
 
       <fieldset ref={groupRef} className="mt-5">
@@ -450,13 +450,13 @@ function DetailsStep({
           maxLength={80}
           autoComplete="off"
           placeholder="Where did you hear about us?"
-          className={`mt-2.5 w-full h-[46px] bg-[#f5f4f1] rounded-[20px] border px-4 text-[16px] outline-none placeholder:text-black/30 transition-colors duration-200 ${
-            showError && error ? "border-red-400" : "border-transparent focus:border-black"
+          className={`mt-2.5 w-full h-[46px] bg-concrete rounded-[20px] border px-4 text-[16px] outline-none placeholder:text-black/30 transition-colors duration-200 ${
+            showError && error ? "border-error" : "border-transparent focus:border-black"
           }`}
         />
       )}
       {showError && error && (
-        <p role="alert" className="mt-2 text-xs text-red-600">
+        <p role="alert" className="mt-2 text-xs text-error">
           {error}
         </p>
       )}
@@ -508,7 +508,7 @@ function MobilePicks({ answers, location, step, onJump, className = "" }) {
 
   return (
     <div
-      className={`${className} px-4 550:px-8 py-3.5 border-b border-black/10 bg-[#f7f7f5]`}
+      className={`${className} px-4 550:px-8 py-3.5 border-b border-black/10 bg-concrete`}
     >
       <p className="text-[11px] uppercase tracking-[0.16em] text-fourth pointer-events-none">
         Your picks{" "}
