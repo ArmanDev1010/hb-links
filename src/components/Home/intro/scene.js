@@ -176,69 +176,122 @@ function grid(ctx, P, [cx, cz], reach, minor) {
   }
 }
 
-// ---- the land beside the lot -----------------------------------------------
-// Off to the left of the property, past where the grid floor fades out, the
-// open ground is drawn the way a surveyor maps it: faint HB Green contour
-// lines over a faint green wash, so the dark side of the stage isn't blank.
-// It lies on the ground like everything else, so it moves with the camera;
-// over the grid floor it's wiped away (softly), so it never reaches the
-// buildings. On its own layer, so that wipe leaves the scene under it alone.
-const CONTOURS = 8; // rings
-const CONTOUR_STEP = 11; // ft between rings
-let LAND = null;
-function land(ctx, dpr, P, [wx, wz], [fx, fz], clear) {
+// ---- the chevron band beside the lot ---------------------------------------
+// The brand posts' texture, painted on the open ground to the left of the
+// property: a band of HB Green whose top edge rises to the right, with rows
+// of forward chevrons across it, so the dark side of the stage isn't blank
+// (the user's reference, 11-12). It's laid out in the opening shot's screen
+// pixels and pinned to the ground there, so in that shot it sits exactly
+// as designed, and from then on it moves and zooms with the scene like
+// everything else on the ground. It fades out before the grid floor where
+// the buildings stand. On its own layer, so the fades leave the scene alone.
+
+// The opening shot's scale, and where one of its screen points lies on the
+// ground: the same framing drawScene gives the whole property at t = 0.
+function openingShot({ width, height, portrait, layout }, calm) {
+  const cam = camera(0, calm, 1, 0, 0);
+  const { box } = stage({ width, height, portrait, layout }, cam);
+  const m = view(cam, -1);
+  const s = 0.98 * Math.min((box.x1 - box.x0) / m.w, (box.y1 - box.y0) / m.h);
+  const ox = (box.x0 + box.x1) / 2 - m.mx * s;
+  const oy = (box.y0 + box.y1) / 2 - m.my * s;
+  const ca = Math.cos(cam.yaw);
+  const sa = Math.sin(cam.yaw);
+  const se = Math.sin(cam.pitch);
+  const ground = (X, Y) => {
+    const xr = (X - ox) / s;
+    const zr = (oy - Y) / (s * se);
+    return [xr * ca + zr * sa, -xr * sa + zr * ca];
+  };
+  return { s, ground };
+}
+
+// In the opening shot's px, for a screen `w` x `h`: the band's top edge runs
+// from (0, TOP_LEFT·h) up to (RIGHT·w, TOP_RIGHT·h) and carries on past the
+// screen's left edge and bottom, so moving the camera never shows its ends;
+// it fades out over the right of that span. Chevrons every PITCH px, each
+// row offset half a step, like the posts.
+const BAND = { TOP_LEFT: 0.56, TOP_RIGHT: 0.22, RIGHT: 0.6, FADE_FROM: 0.24 };
+const PITCH = 24;
+let BAND_LAYER = null;
+function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h) {
   const { width, height } = ctx.canvas;
-  if (!LAND) LAND = document.createElement("canvas");
-  if (LAND.width !== width || LAND.height !== height) {
-    LAND.width = width;
-    LAND.height = height;
+  if (!BAND_LAYER) BAND_LAYER = document.createElement("canvas");
+  if (BAND_LAYER.width !== width || BAND_LAYER.height !== height) {
+    BAND_LAYER.width = width;
+    BAND_LAYER.height = height;
   }
-  const layer = LAND.getContext("2d");
+  const layer = BAND_LAYER.getContext("2d");
   layer.setTransform(1, 0, 0, 1, 0, 0);
   layer.clearRect(0, 0, width, height);
-  layer.setTransform(dpr, 0, 0, dpr, 0, 0);
   layer.globalCompositeOperation = "source-over";
-  const reach = 8 + CONTOURS * CONTOUR_STEP;
-  groundGlow(layer, P, wx, wz, reach, rgba(C.green, 0.1));
+  layer.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-  // The rings, in feet on the ground (the ground's own transform, as in
-  // groundGlow), then stroked 1px on screen. One gently wavy outline, grown
-  // ring by ring with a little drift, so they never cross; every fourth one
-  // stronger, like a survey's index contours; the outer ones fainter.
-  const [ox, oy] = P(wx, 0, wz);
-  const [ax, ay] = P(wx + 1, 0, wz);
-  const [bx, by] = P(wx, 0, wz + 1);
-  for (let k = 0; k < CONTOURS; k++) {
-    const R = 8 + k * CONTOUR_STEP;
-    layer.save();
-    layer.transform(ax - ox, ay - oy, bx - ox, by - oy, ox, oy);
-    layer.beginPath();
-    for (let i = 0; i <= 120; i++) {
-      const a = (i / 120) * Math.PI * 2;
-      const r = R * (1 + 0.14 * Math.sin(2 * a + 0.6 + k * 0.12) + 0.08 * Math.sin(3 * a + 2.1 - k * 0.09) + 0.04 * Math.sin(5 * a + 4 + k * 0.2));
-      if (i) layer.lineTo(Math.cos(a) * r, Math.sin(a) * r);
-      else layer.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+  // the opening shot's screen, mapped through the ground onto this one
+  const at = (X, Y) => {
+    const [x, z] = shot.ground(X, Y);
+    return P(x, 0, z);
+  };
+  const [ex, ey] = at(0, 0);
+  const [ax, ay] = at(1, 0);
+  const [bx, by] = at(0, 1);
+  layer.save();
+  layer.transform(ax - ex, ay - ey, bx - ex, by - ey, ex, ey);
+
+  const slope = ((BAND.TOP_RIGHT - BAND.TOP_LEFT) * h) / (BAND.RIGHT * w);
+  const top = (x) => BAND.TOP_LEFT * h + slope * x;
+  const x0 = -w, x1 = BAND.RIGHT * w, y1 = h * 2.2;
+  const band = new Path2D();
+  band.moveTo(x0, top(x0));
+  band.lineTo(x1, top(x1));
+  band.lineTo(x1, y1);
+  band.lineTo(x0, y1);
+  band.closePath();
+  layer.fillStyle = rgba(C.green, 0.24);
+  layer.fill(band);
+
+  // the chevrons, in a brighter green than the band (darker ones vanish on
+  // a band this dark), clipped to it
+  layer.save();
+  layer.clip(band);
+  const marks = new Path2D();
+  const yTop = Math.floor(top(x1) / PITCH) * PITCH;
+  for (let row = 0, y = yTop; y < y1; row++, y += PITCH) {
+    const shift = row % 2 ? PITCH / 2 : 0;
+    for (let x = Math.floor(x0 / PITCH) * PITCH + shift; x < x1; x += PITCH) {
+      marks.moveTo(x + 9, y + 7);
+      marks.lineTo(x + 15, y + 12);
+      marks.lineTo(x + 9, y + 17);
     }
-    layer.closePath();
-    layer.restore();
-    const index = k % 4 === 3;
-    layer.strokeStyle = rgba(C.green, (index ? 0.42 : 0.26) * (1 - 0.55 * (k / (CONTOURS - 1)) ** 2));
-    layer.lineWidth = index ? 1.25 : 1;
-    layer.stroke();
   }
+  layer.strokeStyle = rgba(C.green, 0.62);
+  layer.lineWidth = 2.5;
+  layer.lineJoin = "miter";
+  layer.stroke(marks);
+  layer.restore();
 
-  // wiped away over the grid floor: fully within most of its reach, fading
-  // back in just past where its lines give out
+  // fading out over the right of its span
+  layer.globalCompositeOperation = "destination-out";
+  const fade = layer.createLinearGradient(BAND.FADE_FROM * w, 0, x1, 0);
+  fade.addColorStop(0, "rgba(0,0,0,0)");
+  fade.addColorStop(1, "rgba(0,0,0,1)");
+  layer.fillStyle = fade;
+  layer.fillRect(BAND.FADE_FROM * w, top(x1) - h, x1 - BAND.FADE_FROM * w + 2, y1 + h);
+  layer.restore();
+
+  // and gone, softly, well before the grid floor around the buildings (the
+  // opening shot's, so the band keeps its shape on the ground as the camera
+  // moves)
   const [cx, cy] = P(fx, 0, fz);
   const [dx, dy] = P(fx + 1, 0, fz);
-  const [ex, ey] = P(fx, 0, fz + 1);
+  const [gx, gy] = P(fx, 0, fz + 1);
   layer.save();
   layer.globalCompositeOperation = "destination-out";
-  layer.transform(dx - cx, dy - cy, ex - cx, ey - cy, cx, cy);
-  const r = clear * 1.15;
+  layer.transform(dx - cx, dy - cy, gx - cx, gy - cy, cx, cy);
+  const r = reach * 0.7;
   const g = layer.createRadialGradient(0, 0, 0, 0, 0, r);
   g.addColorStop(0, "rgba(0,0,0,1)");
-  g.addColorStop(0.78, "rgba(0,0,0,1)");
+  g.addColorStop(0.72, "rgba(0,0,0,1)");
   g.addColorStop(1, "rgba(0,0,0,0)");
   layer.fillStyle = g;
   layer.fillRect(-r, -r, 2 * r, 2 * r);
@@ -246,26 +299,8 @@ function land(ctx, dpr, P, [wx, wz], [fx, fz], clear) {
 
   ctx.save();
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.drawImage(LAND, 0, 0);
+  ctx.drawImage(BAND_LAYER, 0, 0);
   ctx.restore();
-}
-
-// Where the land lies, on the ground: under the blank space left of the
-// scene in the opening shot (a little in from the screen's left edge, midway
-// between the navbar and the copy), worked out from that shot's camera and
-// then fixed, so from there on it moves with the scene.
-function landAt({ width, height, portrait, layout }, calm) {
-  const cam = camera(0, calm, 1, 0, 0);
-  const { box } = stage({ width, height, portrait, layout }, cam);
-  const m = view(cam, -1);
-  const s = 0.98 * Math.min((box.x1 - box.x0) / m.w, (box.y1 - box.y0) / m.h);
-  const ox = (box.x0 + box.x1) / 2 - m.mx * s;
-  const oy = (box.y0 + box.y1) / 2 - m.my * s;
-  const xr = (width * 0.14 - ox) / s;
-  const zr = (oy - (NAV + layout.copyTop * height) / 2) / (s * Math.sin(cam.pitch));
-  const ca = Math.cos(cam.yaw);
-  const sa = Math.sin(cam.yaw);
-  return [xr * ca + zr * sa, -xr * sa + zr * ca];
 }
 
 // Film grain, a small tile of noise laid over the whole scene.
@@ -337,8 +372,12 @@ export function drawScene(ctx, { width, height, dpr, t, portrait, layout: given,
   backdrop(ctx, P, focus, width, height, lit);
   const reach = Math.max(70, (0.55 * width) / s);
   // (beside the copy only: on a phone the scene sits above it, nothing blank
-  // beside it)
-  if (!portrait) land(ctx, dpr, P, landAt({ width, height, portrait, layout }, calm), focus, reach);
+  // beside it; kept clear of the opening shot's grid floor, fixed on the
+  // ground)
+  if (!portrait) {
+    const shot = openingShot({ width, height, portrait, layout }, calm);
+    chevronBand(ctx, dpr, P, shot, middle(-1), Math.max(70, (0.55 * width) / shot.s), width, height);
+  }
   groundGlow(ctx, P, focus[0], focus[1], 60, rgba(mix([70, 130, 96], [120, 104, 76], lit), 0.24));
   grid(ctx, P, focus, reach, clamp((s - 5) / 8));
   const G = { ctx, P, s, lw };
