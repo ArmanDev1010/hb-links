@@ -366,10 +366,10 @@ function tags(ctx, P, t, done, gt, width, emphasis) {
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(Math.min(Math.max(x, tag.x0 + 11), tag.x0 + w - 11), tag.y0 + tag.h);
-    ctx.strokeStyle = started ? "rgba(74,214,128,0.5)" : "rgba(255,255,255,0.28)";
+    ctx.strokeStyle = started ? rgba(C.lime, 0.5) : "rgba(255,255,255,0.28)";
     ctx.lineWidth = 1;
     ctx.stroke();
-    ctx.fillStyle = started ? rgba(C.greenHi) : "rgba(255,255,255,0.45)";
+    ctx.fillStyle = started ? rgba(C.lime) : "rgba(255,255,255,0.45)";
     ctx.beginPath();
     ctx.arc(x, y, 2.5, 0, Math.PI * 2);
     ctx.fill();
@@ -379,7 +379,7 @@ function tags(ctx, P, t, done, gt, width, emphasis) {
       else ctx.rect(tag.x0, tag.y0, w, tag.h);
     };
     pill();
-    ctx.fillStyle = finished ? rgba(C.green) : "rgba(9,11,10,0.82)";
+    ctx.fillStyle = finished ? rgba(C.green) : rgba(C.bg, 0.82);
     ctx.fill();
     if (started && !finished) {
       // filling as it's built
@@ -391,7 +391,7 @@ function tags(ctx, P, t, done, gt, width, emphasis) {
       ctx.restore();
     }
     pill();
-    ctx.strokeStyle = finished ? "rgba(74,214,128,0.9)" : started ? "rgba(74,214,128,0.6)" : "rgba(255,255,255,0.16)";
+    ctx.strokeStyle = finished ? rgba(C.lime, 0.9) : started ? rgba(C.lime, 0.6) : "rgba(255,255,255,0.16)";
     ctx.stroke();
     const ink = started ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.5)";
     ctx.fillStyle = ink;
@@ -404,7 +404,7 @@ function tags(ctx, P, t, done, gt, width, emphasis) {
       ctx.beginPath();
       if (ctx.roundRect) ctx.roundRect(tag.x0 - grow, tag.y0 - grow, w + 2 * grow, tag.h + 2 * grow, tag.h / 2 + grow);
       else ctx.rect(tag.x0 - grow, tag.y0 - grow, w + 2 * grow, tag.h + 2 * grow);
-      ctx.strokeStyle = rgba(C.greenHi, 0.8 * (1 - pulse));
+      ctx.strokeStyle = rgba(C.lime, 0.8 * (1 - pulse));
       ctx.lineWidth = 1.5;
       ctx.stroke();
     }
@@ -465,7 +465,7 @@ function caption(ctx, { width: w, height: h, portrait, layout, box, beside, P },
     ctx.fillRect(bx, by, bar, 3);
     const f = fill(j);
     if (f > 0) {
-      ctx.fillStyle = rgba(C.greenHi);
+      ctx.fillStyle = rgba(C.lime);
       ctx.fillRect(bx, by, bar * f, 3);
     }
   }

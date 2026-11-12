@@ -21,7 +21,9 @@ const colors = {
   mark: "rgba(0,0,0,0.58)",
   accent: "#106b37",
   accentFill: "rgba(16,107,55,0.14)",
-  dimText: "rgba(0,0,0,0.42)",
+  // the dimensions and the city on the sign: Graphite
+  // (HB-LINKS-WEBSITE-COLORS.md 6.5), set as a style so the variable works
+  dimText: "var(--color-fourth)",
 };
 
 // Pin positions as % of the 640×380 drawing; `side` is where the label sits
@@ -95,7 +97,7 @@ function AddressSign({ address }) {
           textAnchor="middle"
           fontSize="14"
           fontWeight="700"
-          fill={colors.mark}
+          style={{ fill: colors.dimText }}
           stroke="none"
         >
           {text}
@@ -176,11 +178,13 @@ export default function EstimateBlueprint({ pin, address }) {
           <line x1="595" y1="346" x2="595" y2="358" />
         </g>
         <g
-          fill={pin === "plans" ? colors.accent : colors.dimText}
           fontSize="11"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
           textAnchor="middle"
-          style={FADE}
+          style={{
+            ...FADE,
+            fill: pin === "plans" ? colors.accent : colors.dimText,
+          }}
         >
           <text x="200" y="372">{"52'-0\""}</text>
           <text x="525" y="372">{"28'-0\""}</text>

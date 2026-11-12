@@ -113,7 +113,7 @@ export default function FAQ({
           <Link
             href="tel:+1 (818) 303-3555"
             className="border-[1.5px] max-550:w-full max-550:text-center border-third bg-third px-[2rem] py-[0.9rem] 550:text-[13px] text-xs font-[500] uppercase tracking-[0.1em] text-white 
-            transition-colors duration-200 border-black/25 text-black hover:bg-black hover:text-white"
+            transition-colors duration-200 hover:bg-forest hover:border-forest"
           >
             Call (818) 303-3555
           </Link>

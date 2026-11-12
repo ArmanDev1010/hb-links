@@ -45,8 +45,8 @@ export default function NotFound() {
     <section className="relative overflow-hidden min-h-screen bg-black text-white flex items-center 700:pt-[9.5rem] pt-36 pb-20">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="flex items-center gap-4 pointer-events-none">
-          <span className="block h-2 w-2 shrink-0 bg-third" />
-          <span className="550:text-[13px] text-[12px] text-silver uppercase font-light tracking-[0.3em]">
+          <span className="block h-2 w-2 shrink-0 bg-lime" />
+          <span className="550:text-[13px] text-[12px] text-silver/70 uppercase font-light tracking-[0.3em]">
             Error 404 · Page not found
           </span>
           <span className="h-px flex-1 max-w-[640px] bg-gradient-to-r from-white/25 to-transparent" />
@@ -78,7 +78,7 @@ export default function NotFound() {
         <div className="mt-9 flex flex-wrap gap-3">
           <Link
             href="/"
-            className={`${buttonBase} border border-white bg-third text-white`}
+            className={`${buttonBase} border border-lime bg-lime text-black hover:border-white`}
           >
             <RollingLabel>Back to Home</RollingLabel>
           </Link>

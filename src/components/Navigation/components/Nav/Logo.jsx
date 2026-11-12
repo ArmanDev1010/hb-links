@@ -38,7 +38,7 @@ export default function Logo({
 
       <span
         className={`max-1440:hidden h-[26px] w-px transition-colors duration-300 pointer-events-none ${
-          light ? "bg-white/40" : "bg-ink/20"
+          light ? "bg-white/40" : "bg-ink/15"
         }`}
       />
       <span

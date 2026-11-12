@@ -41,6 +41,7 @@ function useOpenNow() {
 // so on dark the accents are Electric Lime (HB-LINKS-WEBSITE-COLORS.md 6.4).
 const TONES = {
   dark: {
+    square: "bg-lime",
     rule: "border-white/10",
     body: "text-silver",
     accent: "text-lime",
@@ -56,6 +57,7 @@ const TONES = {
     socialIcon: "text-silver group-hover:text-lime",
   },
   light: {
+    square: "bg-third",
     rule: "border-black/10",
     body: "text-fourth",
     accent: "text-third",
@@ -168,7 +170,7 @@ export default function ReachUsDirect({ dark = false, className = "" }) {
       <div className="pointer-events-none">
         <div className="flex items-center justify-between 1080:justify-start gap-6">
           <div className="flex items-center gap-2.5">
-            <span className="w-2 h-2 bg-third shrink-0" />
+            <span className={`w-2 h-2 shrink-0 ${tone.square}`} />
             <span className="uppercase text-[12px] font-bold tracking-[0.16em]">
               Reach Us Direct
             </span>

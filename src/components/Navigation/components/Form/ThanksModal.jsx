@@ -74,7 +74,7 @@ function StepTracker() {
                 <>
                   <motion.span
                     aria-hidden="true"
-                    className="absolute -inset-2 rounded-full bg-white/30 blur-md"
+                    className="absolute -inset-2 rounded-full bg-lime/30 blur-md"
                     animate={
                       reduceMotion
                         ? undefined
@@ -92,8 +92,8 @@ function StepTracker() {
                       className="absolute inset-0 rounded-full"
                       animate={{
                         boxShadow: [
-                          "0 0 0 0 rgba(255,255,255,0.45)",
-                          "0 0 0 14px rgba(255,255,255,0)",
+                          "0 0 0 0 rgba(196,229,56,0.45)",
+                          "0 0 0 14px rgba(196,229,56,0)",
                         ],
                       }}
                       transition={{
@@ -110,7 +110,7 @@ function StepTracker() {
                   done
                     ? "bg-white text-black"
                     : next
-                      ? "bg-black border border-white text-white shadow-[0_0_20px_2px_rgba(255,255,255,0.25)]"
+                      ? "bg-black border border-lime text-lime shadow-[0_0_20px_2px_rgba(196,229,56,0.3)]"
                       : "bg-black border border-white/15 text-silver/50"
                 }`}
               >
@@ -177,7 +177,7 @@ export default function ThanksModal({ name, handleClose }) {
         >
           <div className="flex items-center justify-between px-6 700:px-9 py-5 border-b border-white/10 shrink-0">
             <div className="flex items-center gap-2.5">
-              <span className="w-2 h-2 bg-third shrink-0" />
+              <span className="w-2 h-2 bg-lime shrink-0" />
               <span className="uppercase text-[12px] font-bold tracking-[0.16em] pointer-events-none">
                 HB Links
               </span>
@@ -229,7 +229,7 @@ export default function ThanksModal({ name, handleClose }) {
                   transition={{ duration: 0.45, delay: 0.45, ease: EASE }}
                 >
                   <p className="flex items-center gap-2.5 uppercase text-[11px] font-semibold tracking-[0.22em] text-silver/70 pointer-events-none">
-                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.55)]" />
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-lime shadow-[0_0_8px_2px_rgba(196,229,56,0.55)]" />
                     Up next
                   </p>
                   <h3 className="mt-3 font-gt font-semibold text-[24px] 700:text-[28px] leading-tight pointer-events-none">

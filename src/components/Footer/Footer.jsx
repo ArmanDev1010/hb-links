@@ -81,9 +81,9 @@ export default function Footer() {
             </div>
             <button
               onClick={toggleModal}
-              className="group border-1 border-white bg-third text-white flex items-center justify-center
+              className="group border-1 border-lime bg-lime text-black flex items-center justify-center
                     550:h-[46px] h-[42px] w-fit 700:px-12 px-10 uppercase 550:text-[12.5px] text-[12px] font-semibold tracking-[0.12em]
-                    hover:bg-white hover:text-black transition duration-200 cursor-pointer outline-none"
+                    hover:bg-white hover:border-white hover:text-black transition duration-200 cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
             >
               <div className="relative overflow-hidden text-center">
                 <div className="group-hover:-translate-y-[110%] flex items-center gap-2 transition duration-300">
