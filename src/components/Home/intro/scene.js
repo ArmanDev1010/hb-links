@@ -215,8 +215,10 @@ function openingShot({ width, height, portrait, layout }, calm) {
 // above the headline: lower, the hero's shade over the copy hides them.) The top
 // edge fades in over SOFT px; across, they fade slowly to black, gone by
 // GONE·w. Chevrons every PITCH px, each row offset half a step, like the
-// posts; ALPHA is their strength at the far left.
-const BAND = { TOP_LEFT: 0.3, SLANT: -0.57, GONE: 0.36, SOFT: 44, ALPHA: 0.9 };
+// posts, each turned TURN from pointing right (negative turns it up: the
+// user drew them pointing up and to the right, 11-12); ALPHA is their
+// strength at the far left.
+const BAND = { TOP_LEFT: 0.3, SLANT: -0.57, GONE: 0.36, SOFT: 44, ALPHA: 0.9, TURN: -45 * RAD };
 const PITCH = 24;
 let BAND_LAYER = null;
 function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h) {
@@ -259,12 +261,18 @@ function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h) {
   layer.clip(band);
   const marks = new Path2D();
   const yTop = Math.floor(top(x1) / PITCH) * PITCH;
+  // one chevron (tip 3 px right of its tile's middle, arms 3 back and 5 to
+  // each side), turned TURN about that middle
+  const cos = Math.cos(BAND.TURN);
+  const sin = Math.sin(BAND.TURN);
+  const mid = PITCH / 2;
+  const turned = (x, y, dx, dy) => [x + mid + dx * cos - dy * sin, y + mid + dx * sin + dy * cos];
   for (let row = 0, y = yTop; y < y1; row++, y += PITCH) {
     const shift = row % 2 ? PITCH / 2 : 0;
     for (let x = Math.floor(x0 / PITCH) * PITCH + shift; x < x1; x += PITCH) {
-      marks.moveTo(x + 9, y + 7);
-      marks.lineTo(x + 15, y + 12);
-      marks.lineTo(x + 9, y + 17);
+      marks.moveTo(...turned(x, y, -3, -5));
+      marks.lineTo(...turned(x, y, 3, 0));
+      marks.lineTo(...turned(x, y, -3, 5));
     }
   }
   layer.strokeStyle = rgba(C.green, BAND.ALPHA);
