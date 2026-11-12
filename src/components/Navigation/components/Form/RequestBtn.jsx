@@ -1,9 +1,9 @@
 import { IoIosArrowRoundForward } from "react-icons/io";
 
-// Primary CTA — opens the request modal, with a roll-up label hover. Over a
-// dark hero (`!solid`) it's the Electric Lime button, white on hover, like
-// the hero's; once the bar is solid it's HB Green, Forest on hover
-// (HB-LINKS-WEBSITE-COLORS.md 6.1).
+// Primary CTA — opens the request modal, with a roll-up label hover. HB Green
+// in every state of the bar, turning Electric Lime (black text) on hover —
+// the user's pick (11-12), over the spec's lime-over-the-hero. The border is
+// white over a dark hero, faint black once the bar is solid.
 export default function RequestBtn({
   toggleModal,
   solid,
@@ -18,8 +18,8 @@ export default function RequestBtn({
         h-full min-h-[44px] px-8 uppercase 550:text-[12.5px] text-[12px] font-semibold tracking-[0.12em]
         transition duration-200 cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-offset-2 ${className ? "w-full" : null} ${main && "max-1280:!text-[11.5px] max-1280:px-6"} ${
           solid
-            ? "bg-third text-white border-black/15 hover:bg-forest focus-visible:outline-third"
-            : "bg-lime text-black border-lime hover:bg-white hover:border-white hover:text-black focus-visible:outline-lime"
+            ? "bg-third text-white border-black/15 hover:bg-lime hover:border-lime hover:text-black focus-visible:outline-third"
+            : "bg-third text-white border-white hover:bg-lime hover:border-lime hover:text-black focus-visible:outline-lime"
         }`}
       >
         <div className="relative overflow-hidden text-center h-fit">

@@ -13,14 +13,14 @@ export const metadata = {
 
 const phone = contactInfo.find((item) => item.type === "Phone");
 
-// The big "404" split White / Electric Lime (HB-LINKS-WEBSITE-COLORS.md 4C).
+// The hero's white/green split, on the big "404".
 const SPLIT_TEXT = {
-  backgroundImage: "linear-gradient(137deg, var(--color-white) 50%, var(--color-lime) 50%)",
+  backgroundImage: "linear-gradient(137deg, #ffffff 50%, #0b8540 50%)",
   WebkitBackgroundClip: "text",
 };
 
 const buttonBase =
-  "group flex items-center justify-center max-550:w-full w-fit 550:h-[46px] h-[42px] 700:px-12 px-10 uppercase 550:text-[12.5px] text-[12px] font-semibold tracking-[0.12em] transition duration-200 hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime";
+  "group flex items-center justify-center max-550:w-full w-fit 550:h-[46px] h-[42px] 700:px-12 px-10 uppercase 550:text-[12.5px] text-[12px] font-semibold tracking-[0.12em] transition duration-200 hover:bg-white hover:text-black";
 
 // The hero button's rolling label.
 function RollingLabel({ children }) {
@@ -42,11 +42,11 @@ function RollingLabel({ children }) {
 // it without needing to know this is a 404.
 export default function NotFound() {
   return (
-    <section className="relative overflow-hidden min-h-screen bg-black text-white flex items-center 700:pt-[9.5rem] pt-36 pb-20">
+    <section className="relative overflow-hidden min-h-screen bg-black text-neutral-50 flex items-center 700:pt-[9.5rem] pt-36 pb-20">
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="flex items-center gap-4 pointer-events-none">
-          <span className="block h-2 w-2 shrink-0 bg-lime" />
-          <span className="550:text-[13px] text-[12px] text-silver/70 uppercase font-light tracking-[0.3em]">
+          <span className="block h-2 w-2 shrink-0 bg-third" />
+          <span className="550:text-[13px] text-[12px] text-neutral-300 uppercase font-light tracking-[0.3em]">
             Error 404 · Page not found
           </span>
           <span className="h-px flex-1 max-w-[640px] bg-gradient-to-r from-white/25 to-transparent" />
@@ -63,7 +63,7 @@ export default function NotFound() {
         <h1 className="font-gt mt-6 text-[26px] 400:text-[28px] 550:text-[36px] 800:text-[42px] font-semibold uppercase leading-[1.2] tracking-tight">
           This page doesn&rsquo;t exist
         </h1>
-        <p className="mt-5 max-w-2xl font-light text-silver text-[15px] 700:text-base 900:text-[17px]">
+        <p className="mt-5 max-w-2xl font-light text-neutral-300 text-[15px] 700:text-base 900:text-[17px]">
           The link may be broken, or the page may have moved. Head back home,
           pick a service below, or call us at{" "}
           <a
@@ -78,7 +78,7 @@ export default function NotFound() {
         <div className="mt-9 flex flex-wrap gap-3">
           <Link
             href="/"
-            className={`${buttonBase} border border-lime bg-lime text-black hover:border-white`}
+            className={`${buttonBase} border border-lime bg-lime text-black hover:border-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime`}
           >
             <RollingLabel>Back to Home</RollingLabel>
           </Link>
@@ -91,7 +91,7 @@ export default function NotFound() {
         </div>
 
         <nav aria-label="Our services" className="mt-16 700:mt-20">
-          <p className="uppercase text-[12px] text-silver/70 tracking-[0.3em] pointer-events-none">
+          <p className="uppercase text-[12px] text-white/50 tracking-[0.3em] pointer-events-none">
             Our services
           </p>
           {/* Each cell draws its own right/bottom edge, so a short last
@@ -101,10 +101,10 @@ export default function NotFound() {
               <li key={href} className="border-r border-b border-white/15">
                 <Link
                   href={href}
-                  className="group flex items-center justify-between gap-4 h-full px-5 py-5 text-[14px] 700:text-[15px] text-silver transition-colors duration-200 hover:bg-white/5 hover:text-white"
+                  className="group flex items-center justify-between gap-4 h-full px-5 py-5 text-[14px] 700:text-[15px] text-white/85 transition-colors duration-200 hover:bg-white/5 hover:text-white"
                 >
                   {navLabel}
-                  <TbArrowUpRight className="shrink-0 text-lg text-silver/70 transition-colors duration-200 group-hover:text-lime" />
+                  <TbArrowUpRight className="shrink-0 text-lg text-white/40 transition-colors duration-200 group-hover:text-third" />
                 </Link>
               </li>
             ))}

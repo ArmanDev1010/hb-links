@@ -177,7 +177,7 @@ export default function ThanksModal({ name, handleClose }) {
         >
           <div className="flex items-center justify-between px-6 700:px-9 py-5 border-b border-white/10 shrink-0">
             <div className="flex items-center gap-2.5">
-              <span className="w-2 h-2 bg-lime shrink-0" />
+              <span className="w-2 h-2 bg-third shrink-0" />
               <span className="uppercase text-[12px] font-bold tracking-[0.16em] pointer-events-none">
                 HB Links
               </span>

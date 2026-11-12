@@ -95,7 +95,7 @@ export default function Process({
                       </span>
                     </div>
                     {Icon && (
-                      <Icon className="text-[36px] 900:text-[32px] text-fourth transition-colors group-hover:text-third pointer-events-none" />
+                      <Icon className="text-[36px] 900:text-[32px] text-fourth transition-colors group-hover:text-lime pointer-events-none" />
                     )}
                   </div>
 

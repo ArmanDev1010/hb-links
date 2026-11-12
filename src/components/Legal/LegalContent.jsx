@@ -158,7 +158,7 @@ export default function LegalContent({ slug }) {
               className={`${SCROLL_MARGIN} mt-14 bg-black text-white`}
             >
               <div className="flex items-center gap-3 border-b border-white/15 px-6 700:px-10 py-5">
-                <span className="block h-2 w-2 shrink-0 bg-lime" />
+                <span className="block h-2 w-2 shrink-0 bg-third" />
                 <h2
                   id={`${CONTACT_ID}-heading`}
                   className="text-[11px] 550:text-[12px] font-bold uppercase tracking-[0.3em]"
@@ -179,7 +179,7 @@ export default function LegalContent({ slug }) {
                       </span>
                       <a
                         href={href}
-                        className="font-gt min-w-0 break-words text-[14px] 700:text-[15px] 1080:text-base font-semibold uppercase tracking-wide transition-colors duration-200 hover:text-lime"
+                        className="font-gt min-w-0 break-words text-[14px] 700:text-[15px] 1080:text-base font-semibold uppercase tracking-wide transition-colors duration-200 hover:text-third"
                       >
                         {label}
                       </a>

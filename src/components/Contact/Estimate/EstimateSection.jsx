@@ -68,7 +68,7 @@ export default function EstimateSection({
           as="p"
           className="max-400:hidden flex items-center gap-4 pointer-events-none mb-6 800:mb-8"
         >
-          <span className={`block h-2 w-2 flex-shrink-0 ${dark ? "bg-lime" : "bg-third"}`}></span>
+          <span className="block h-2 w-2 flex-shrink-0 bg-third"></span>
           <span
             className={`550:text-[13px] text-[12.5px] uppercase font-light tracking-[0.3em] ${
               dark ? "text-silver/70" : "text-fourth"
@@ -89,7 +89,7 @@ export default function EstimateSection({
                 {keepTogether(heading.firstLine)}
                 <br />
                 {heading.secondLine}{" "}
-                <span className={`italic ${dark ? "text-lime" : "text-third"}`}>
+                <span className="italic text-third">
                   {keepTogether(heading.italic)}
                 </span>
               </>

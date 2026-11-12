@@ -38,23 +38,25 @@ function useOpenNow() {
 }
 
 // Colours for each background. The brand green is too dark to read on black,
-// so on dark the accents are Electric Lime (HB-LINKS-WEBSITE-COLORS.md 6.4).
+// so on dark "Open now" and the hovers use the lighter green they always had
+// (the user kept it, 11-12, over the spec's lime); the square is HB Green
+// everywhere.
 const TONES = {
   dark: {
-    square: "bg-lime",
+    square: "bg-third",
     rule: "border-white/10",
     body: "text-silver",
-    accent: "text-lime",
-    dot: "bg-lime",
+    accent: "text-[#3fbf74]",
+    dot: "bg-[#3fbf74]",
     closed: "text-silver/70",
     closedDot: "bg-white/30",
     cell: "border-white/[0.06] bg-white/[0.04]",
     cellHover: "hover:border-white/15 hover:bg-white/[0.08]",
-    icon: "border-white/15 bg-white/[0.06] text-silver group-hover:text-lime",
+    icon: "border-white/15 bg-white/[0.06] text-silver group-hover:text-[#3fbf74]",
     label: "text-silver/70",
     value: "text-white",
-    arrow: "text-silver/50 group-hover:text-lime",
-    socialIcon: "text-silver group-hover:text-lime",
+    arrow: "text-silver/50 group-hover:text-[#3fbf74]",
+    socialIcon: "text-silver group-hover:text-[#3fbf74]",
   },
   light: {
     square: "bg-third",

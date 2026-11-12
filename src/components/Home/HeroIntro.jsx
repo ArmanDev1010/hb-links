@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import HeroShade from "@/components/Home/HeroShade";
+import HeroTexture from "@/components/Home/HeroTexture";
 import { reachedByLink } from "@/components/Home/arrival";
 import { drawScene } from "@/components/Home/intro/scene";
 import { drawLife } from "@/components/Home/intro/context";
@@ -104,6 +105,7 @@ export default function HeroIntro({ children }) {
         />
         <div className="intro-still:hidden">
           <HeroShade />
+          <HeroTexture />
         </div>
         <div
           ref={copyRef}

@@ -353,11 +353,6 @@ body {
   box-sizing: border-box;
 }
 
-::selection {
-  background-color: var(--color-lime);
-  color: var(--color-black);
-}
-
 /* The body text of the /legal pages (components/Legal/LegalContent.jsx).
    The documents in data/legal are plain <p>, <h3>, <ul>, <strong> and <a>
    markup, styled here so they stay easy to edit. In the components layer, so

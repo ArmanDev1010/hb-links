@@ -105,7 +105,7 @@ export default function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[15px] text-white hover:text-lime transition-colors"
+                className="text-[15px] text-silver hover:text-white transition-colors"
               >
                 {link.label}
               </Link>
@@ -120,7 +120,7 @@ export default function Footer() {
               <Link
                 key={service.href}
                 href={service.href}
-                className="text-[15px] text-white hover:text-lime transition-colors"
+                className="text-[15px] text-silver hover:text-white transition-colors"
               >
                 {service.navLabel}
               </Link>
