@@ -20,7 +20,7 @@ const SPLIT_TEXT = {
 };
 
 const buttonBase =
-  "group flex items-center justify-center max-550:w-full w-fit 550:h-[46px] h-[42px] 700:px-12 px-10 uppercase 550:text-[12.5px] text-[12px] font-semibold tracking-[0.12em] transition duration-200 hover:bg-white hover:text-black";
+  "group flex items-center justify-center max-550:w-full w-fit 550:h-[46px] h-[42px] 700:px-12 px-10 uppercase 550:text-[12.5px] text-[12px] font-semibold tracking-[0.12em] transition duration-200 hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime";
 
 // The hero button's rolling label.
 function RollingLabel({ children }) {
