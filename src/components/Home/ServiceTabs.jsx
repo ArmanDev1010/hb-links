@@ -56,7 +56,7 @@ export default function ServiceTabs({ services }) {
                 />
                 <span
                   className={`flex-shrink-0 text-[10px] uppercase tracking-[0.2em] transition-colors duration-200 ${
-                    selected ? "text-fourth" : "text-fourth/60"
+                    selected ? "text-fourth" : "text-fourth"
                   }`}
                 >
                   {pad(index + 1)}
@@ -65,7 +65,7 @@ export default function ServiceTabs({ services }) {
                   className={`550:truncate leading-tight font-gt text-[11.5px] 550:text-[12px] font-semibold uppercase tracking-tight transition-colors duration-200 ${
                     selected
                       ? "text-secondary"
-                      : "text-secondary/60 group-hover:text-secondary"
+                      : "text-fourth group-hover:text-secondary"
                   }`}
                 >
                   {service.title}

@@ -51,7 +51,7 @@ export default function ServicesMegaMenuContent({
                 >
                   {title}
                 </span>
-                <span className="block mt-0.5 text-[12.5px] text-black/50">
+                <span className="block mt-0.5 text-[12.5px] text-fourth">
                   {blurb}
                 </span>
               </span>
@@ -85,7 +85,7 @@ export default function ServicesMegaMenuContent({
               onClick={onLinkClick}
               className="group flex flex-1 items-start gap-3.5 -mx-2 px-2 py-3.5 transition-colors duration-200 hover:bg-black/[0.04] outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-third"
             >
-              <span className="w-5 shrink-0 pt-[3px] text-[11px] font-semibold tracking-wider text-third/60 transition-colors duration-200 group-hover:text-third">
+              <span className="w-5 shrink-0 pt-[3px] text-[11px] font-semibold tracking-wider text-third transition-colors duration-200 group-hover:text-third">
                 {number(i)}
               </span>
               <span className="flex-1 min-w-0">
@@ -96,7 +96,7 @@ export default function ServicesMegaMenuContent({
                 >
                   {title}
                 </span>
-                <span className="block mt-1 text-[12.5px] leading-snug text-black/55">
+                <span className="block mt-1 text-[12.5px] leading-snug text-fourth">
                   {blurb}
                 </span>
               </span>
@@ -109,7 +109,7 @@ export default function ServicesMegaMenuContent({
         ))}
       </ul>
       <div className="mx-6 mt-2 pt-4 pb-1 border-t border-black/10 flex items-center justify-between gap-4">
-        <span className="text-[12.5px] text-black/55 pointer-events-none">
+        <span className="text-[12.5px] text-fourth pointer-events-none">
           Not sure what fits?
         </span>
         <button

@@ -96,7 +96,7 @@ const PRIMARY_BUTTON =
 // closes (the user caught it: the page stuck zoomed in, swipes moving the
 // page behind the dialog)
 const inputClasses =
-  "mt-1.5 w-full h-[46px] bg-concrete border rounded-[20px] px-4 text-[16px] outline-none placeholder:text-black/30 transition-colors duration-200";
+  "mt-1.5 w-full h-[46px] bg-concrete border rounded-[20px] px-4 text-[16px] outline-none placeholder:text-fourth/85 transition-colors duration-200";
 
 function OptionCard({ option, selected, onSelect }) {
   const Icon = option.icon;
@@ -116,7 +116,7 @@ function OptionCard({ option, selected, onSelect }) {
         className={`grid place-items-center w-11 h-11 shrink-0 border text-[22px] transition-colors duration-200 ${
           selected
             ? "border-third/40 text-third"
-            : "border-black/10 text-black/70"
+            : "border-black/10 text-fourth"
         }`}
       >
         <Icon />
@@ -167,7 +167,7 @@ function PickButton({
       }`}
     >
       <Icon
-        className={`shrink-0 ${compact ? "text-[16px] @max-[300px]:hidden" : "text-[17px]"} ${selected ? "text-third" : "text-black/40"}`}
+        className={`shrink-0 ${compact ? "text-[16px] @max-[300px]:hidden" : "text-[17px]"} ${selected ? "text-third" : "text-fourth"}`}
       />
       {children}
     </button>
@@ -223,7 +223,7 @@ function LocationStep({
 
       <div className="mt-3 flex flex-col @min-[480px]:flex-row gap-2.5">
         <div className="relative flex-1">
-          <TbMapPin className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[18px] text-black/40" />
+          <TbMapPin className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[18px] text-fourth" />
           <input
             ref={inputRef}
             aria-label="City, ZIP code or street address"
@@ -237,7 +237,7 @@ function LocationStep({
             }}
             autoComplete="street-address"
             placeholder="City, ZIP code or street address"
-            className="w-full h-[46px] bg-concrete rounded-[20px] border border-transparent pl-11 pr-4 text-[16px] outline-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
+            className="w-full h-[46px] bg-concrete rounded-[20px] border border-transparent pl-11 pr-4 text-[16px] outline-none placeholder:text-fourth/85 focus:border-black transition-colors duration-200"
           />
         </div>
         <button
@@ -414,7 +414,7 @@ function DetailsStep({
         aria-label="Anything else we should know? (optional)"
         rows={3}
         placeholder="(Optional) Lot size, budget, timing, ideas you have in mind — whatever helps."
-        className="w-full bg-concrete rounded-[20px] border border-transparent px-4 py-3 text-[16px] leading-relaxed outline-none resize-none placeholder:text-black/30 focus:border-black transition-colors duration-200"
+        className="w-full bg-concrete rounded-[20px] border border-transparent px-4 py-3 text-[16px] leading-relaxed outline-none resize-none placeholder:text-fourth/85 focus:border-black transition-colors duration-200"
       />
 
       <fieldset ref={groupRef} className="mt-5">
@@ -450,7 +450,7 @@ function DetailsStep({
           maxLength={80}
           autoComplete="off"
           placeholder="Where did you hear about us?"
-          className={`mt-2.5 w-full h-[46px] bg-concrete rounded-[20px] border px-4 text-[16px] outline-none placeholder:text-black/30 transition-colors duration-200 ${
+          className={`mt-2.5 w-full h-[46px] bg-concrete rounded-[20px] border px-4 text-[16px] outline-none placeholder:text-fourth/85 transition-colors duration-200 ${
             showError && error ? "border-error" : "border-transparent focus:border-black"
           }`}
         />
@@ -512,14 +512,14 @@ function MobilePicks({ answers, location, step, onJump, className = "" }) {
     >
       <p className="text-[11px] uppercase tracking-[0.16em] text-fourth pointer-events-none">
         Your picks{" "}
-        <span className="normal-case tracking-normal text-black/35">
+        <span className="normal-case tracking-normal text-fourth">
           — tap one to change it
         </span>
       </p>
       <p className="mt-1.5 text-[14px] font-semibold leading-relaxed">
         {picks.map((pick, i) => (
           <span key={pick.index}>
-            {i > 0 && <span className="font-normal text-black/30"> · </span>}
+            {i > 0 && <span className="font-normal text-fourth/60"> · </span>}
             <button
               type="button"
               onClick={() => onJump(pick.index)}
@@ -785,7 +785,7 @@ export default function EstimateForm({
           >
             {current.question}
             {current.optional && (
-              <span className="font-light text-black/40"> (optional)</span>
+              <span className="font-light text-fourth"> (optional)</span>
             )}
           </motion.h2>
         </AnimatePresence>
@@ -912,7 +912,7 @@ export default function EstimateForm({
             move={DESK_MOVE}
           />
 
-          <span className="absolute top-4 left-5 bg-white/90 px-1.5 py-0.5 text-[10px] uppercase tracking-[0.2em] text-black/50">
+          <span className="absolute top-4 left-5 bg-white/90 px-1.5 py-0.5 text-[10px] uppercase tracking-[0.2em] text-fourth">
             Your blueprint
           </span>
         </div>

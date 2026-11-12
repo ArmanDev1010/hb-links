@@ -51,11 +51,11 @@ export default function Hero({
 
       <p className="max-550:hidden font-gt mt-8 text-silver 900:text-[11px] text-[10px] uppercase tracking-[0.3em] flex flex-wrap gap-x-3 gap-y-1.5 items-center pointer-events-none">
         <span>Licensed & Insured</span>{" "}
-        <span className="text-third 700:text-2xl text-xl max-700:hidden">
+        <span className="text-lime 700:text-2xl text-xl max-700:hidden">
           /
         </span>{" "}
         <span className="max-700:hidden">CSLB #1144057</span>{" "}
-        <span className="text-third 700:text-2xl text-xl">/</span>{" "}
+        <span className="text-lime 700:text-2xl text-xl">/</span>{" "}
         <span>{area.badge}</span>
       </p>
 

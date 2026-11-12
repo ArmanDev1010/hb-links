@@ -33,7 +33,7 @@ function Eyebrow({ children, className = "" }) {
   return (
     <div className={`flex items-center gap-4 ${className}`}>
       <span className="block h-2 w-2 shrink-0 bg-third" />
-      <span className="text-[12px] 550:text-[13px] text-black/60 uppercase font-light tracking-[0.3em]">
+      <span className="text-[12px] 550:text-[13px] text-fourth uppercase font-light tracking-[0.3em]">
         {children}
       </span>
     </div>
@@ -167,7 +167,7 @@ export default function LegalContent({ slug }) {
                 </h2>
               </div>
               <div className="px-6 700:px-10 py-7 1080:py-9">
-                <p className="text-[15px] leading-relaxed text-white/75">
+                <p className="text-[15px] leading-relaxed text-silver">
                   Questions about this page, or a request about your
                   information? Reach us directly:
                 </p>
@@ -179,14 +179,14 @@ export default function LegalContent({ slug }) {
                       </span>
                       <a
                         href={href}
-                        className="font-gt min-w-0 break-words text-[14px] 700:text-[15px] 1080:text-base font-semibold uppercase tracking-wide transition-colors duration-200 hover:text-third"
+                        className="font-gt min-w-0 break-words text-[14px] 700:text-[15px] 1080:text-base font-semibold uppercase tracking-wide transition-colors duration-200 hover:text-lime"
                       >
                         {label}
                       </a>
                     </li>
                   ))}
                 </ul>
-                <p className="mt-7 pt-6 border-t border-white/15 text-[13px] text-white/60">
+                <p className="mt-7 pt-6 border-t border-white/15 text-[13px] text-silver">
                   HB LINKS LLC · Licensed California contractor · {license}
                 </p>
               </div>

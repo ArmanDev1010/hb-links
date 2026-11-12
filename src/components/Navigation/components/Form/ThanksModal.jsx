@@ -111,7 +111,7 @@ function StepTracker() {
                     ? "bg-white text-black"
                     : next
                       ? "bg-black border border-white text-white shadow-[0_0_20px_2px_rgba(255,255,255,0.25)]"
-                      : "bg-black border border-white/15 text-white/35"
+                      : "bg-black border border-white/15 text-silver/50"
                 }`}
               >
                 <Icon />
@@ -121,10 +121,10 @@ function StepTracker() {
             <span
               className={`mt-3 text-[10.5px] 550:text-[12px] leading-tight ${
                 done
-                  ? "text-white/70"
+                  ? "text-silver"
                   : next
                     ? "text-white font-semibold"
-                    : "text-white/35"
+                    : "text-silver/70"
               }`}
             >
               {step.label}
@@ -195,7 +195,7 @@ export default function ThanksModal({ name, handleClose }) {
           <div className="modal-scroll modal-scroll-dark overflow-y-auto overscroll-contain px-6 700:px-9 pt-8 700:pt-10 pb-9 700:pb-10">
             <div className="grid gap-y-9 1080:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] 1080:grid-rows-[auto_1fr] 1080:gap-x-14">
               <div className="pointer-events-none">
-                <p className="flex items-center gap-2.5 uppercase text-[11px] 550:text-[11.5px] font-semibold tracking-[0.22em] text-white/70">
+                <p className="flex items-center gap-2.5 uppercase text-[11px] 550:text-[11.5px] font-semibold tracking-[0.22em] text-silver">
                   <motion.span
                     className="grid place-items-center w-6 h-6 shrink-0 rounded-full bg-third text-white text-[14px]"
                     initial={reduceMotion ? false : { scale: 0.4, opacity: 0 }}
@@ -213,7 +213,7 @@ export default function ThanksModal({ name, handleClose }) {
                 >
                   Thanks {firstName}.
                 </h2>
-                <p className="mt-4 text-[15.5px] 700:text-[17px] leading-relaxed text-white/60">
+                <p className="mt-4 text-[15.5px] 700:text-[17px] leading-relaxed text-silver">
                   Step {DONE} of {STEPS.length} is complete. Here&apos;s how
                   the rest goes.
                 </p>
@@ -228,14 +228,14 @@ export default function ThanksModal({ name, handleClose }) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: 0.45, ease: EASE }}
                 >
-                  <p className="flex items-center gap-2.5 uppercase text-[11px] font-semibold tracking-[0.22em] text-white/50 pointer-events-none">
+                  <p className="flex items-center gap-2.5 uppercase text-[11px] font-semibold tracking-[0.22em] text-silver/70 pointer-events-none">
                     <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.55)]" />
                     Up next
                   </p>
                   <h3 className="mt-3 font-gt font-semibold text-[24px] 700:text-[28px] leading-tight pointer-events-none">
                     {STEPS[DONE].label}
                   </h3>
-                  <p className="mt-3 text-[15px] 700:text-[16px] leading-relaxed text-white/65">
+                  <p className="mt-3 text-[15px] 700:text-[16px] leading-relaxed text-silver">
                     <span className="text-white font-medium">Boris</span> will
                     call you within{" "}
                     <mark className="bg-lime text-black font-medium px-1">
@@ -272,7 +272,7 @@ export default function ThanksModal({ name, handleClose }) {
                   ))}
                 </div>
                 <span className="text-[15px] font-bold leading-none">5.0</span>
-                <span className="text-[13px] leading-none text-white/50">
+                <span className="text-[13px] leading-none text-silver/70">
                   from 10+ Google reviews
                 </span>
               </div>

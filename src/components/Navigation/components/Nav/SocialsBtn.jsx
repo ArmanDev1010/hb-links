@@ -57,13 +57,13 @@ export default function SocialsBtn({ light }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`HB Links on ${name}`}
-                  className="group/row flex items-center gap-3 -mx-3 px-3 py-2.5 uppercase text-[12px] font-medium tracking-[0.14em] text-black/75 transition-colors duration-200 hover:text-black hover:bg-black/[0.04] outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-third"
+                  className="group/row flex items-center gap-3 -mx-3 px-3 py-2.5 uppercase text-[12px] font-medium tracking-[0.14em] text-fourth transition-colors duration-200 hover:text-black hover:bg-black/[0.04] outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-third"
                 >
-                  <span className="grid place-items-center w-8 h-8 shrink-0 border border-black/10 text-[15px] text-black/70 transition-colors duration-200 group-hover/row:border-third/40 group-hover/row:text-third">
+                  <span className="grid place-items-center w-8 h-8 shrink-0 border border-black/10 text-[15px] text-fourth transition-colors duration-200 group-hover/row:border-third/40 group-hover/row:text-third">
                     <PlatformIcon />
                   </span>
                   {name}
-                  <BsArrowUpRight className="ml-auto text-[11px] text-black/25 transition-colors duration-200 group-hover/row:text-third" />
+                  <BsArrowUpRight className="ml-auto text-[11px] text-fourth/60 transition-colors duration-200 group-hover/row:text-third" />
                 </a>
               </li>
             ))}

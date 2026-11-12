@@ -69,7 +69,7 @@ export default function About({ area }) {
                 {item.title}
               </p>
 
-              <p className="text-[11px] text-fourth/85 mt-2 uppercase">
+              <p className="text-[11px] text-fourth mt-2 uppercase">
                 {item.subtitle}
               </p>
             </Reveal>

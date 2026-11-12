@@ -43,7 +43,7 @@ export default function Logo({
       />
       <span
         className={`font-gt max-1440:hidden text-[10px] uppercase tracking-[0.16em] pointer-events-none font-medium whitespace-nowrap transition-colors duration-300 ${
-          light ? "text-white/80" : "text-ink/55"
+          light ? "text-silver" : "text-fourth"
         }`}
       >
         License #1144057

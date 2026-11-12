@@ -38,7 +38,7 @@ function LinkIcon({ info }) {
       <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-white/25 bg-white/10 backdrop-blur-md text-[16px] text-white transition-colors duration-200 group-hover:border-white/60 group-hover:bg-white/20">
         {icon}
       </span>
-      <span className="text-[13px] 550:text-[14px] tracking-wide text-white/80 transition-colors duration-200 group-hover:text-white">
+      <span className="text-[13px] 550:text-[14px] tracking-wide text-silver transition-colors duration-200 group-hover:text-white">
         {label}
       </span>
     </a>
@@ -60,7 +60,7 @@ export default function Footer() {
                 className="w-[200px] 900:w-[190px] 1280:w-[225px] h-auto shrink-0"
               />
               <span className="max-550:hidden h-8 w-px bg-white/25 shrink-0" />
-              <p className="max-550:hidden text-white/70 leading-snug text-[17px] italic pointer-events-none max-900:flex-1">
+              <p className="max-550:hidden text-silver leading-snug text-[17px] italic pointer-events-none max-900:flex-1">
                 <RotatingWord
                   words={rotatingWords}
                   className="h-[1.2em] w-full 900:w-[180px]"
@@ -69,12 +69,12 @@ export default function Footer() {
               </p>
             </div>
             <div className="flex flex-col gap-4 pointer-events-none">
-              <p className="uppercase text-[12px] text-white/50 tracking-[0.3em]">
+              <p className="uppercase text-[12px] text-silver/70 tracking-[0.3em]">
                 Credentials
               </p>
               <div className="flex flex-col gap-3">
-                <p className="text-white/80 text-[15px]">License {license}</p>
-                <p className="text-white/80 text-[15px]">
+                <p className="text-silver text-[15px]">License {license}</p>
+                <p className="text-silver text-[15px]">
                   Licensed, bonded &amp; insured in California.
                 </p>
               </div>
@@ -98,14 +98,14 @@ export default function Footer() {
           </div>
 
           <div className="max-900:order-3 flex flex-col gap-3">
-            <p className="uppercase text-[12px] text-white/50 tracking-[0.3em] mb-2 pointer-events-none">
+            <p className="uppercase text-[12px] text-silver/70 tracking-[0.3em] mb-2 pointer-events-none">
               Sitemap
             </p>
             {sitemapLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[15px] text-white/80 hover:text-white transition-colors"
+                className="text-[15px] text-white hover:text-lime transition-colors"
               >
                 {link.label}
               </Link>
@@ -113,14 +113,14 @@ export default function Footer() {
           </div>
 
           <div className="max-1080:hidden max-900:flex max-900:order-4 flex flex-col gap-3">
-            <p className="uppercase text-[12px] text-white/50 tracking-[0.3em] mb-2 pointer-events-none">
+            <p className="uppercase text-[12px] text-silver/70 tracking-[0.3em] mb-2 pointer-events-none">
               Services
             </p>
             {servicePages.map((service) => (
               <Link
                 key={service.href}
                 href={service.href}
-                className="text-[15px] text-white/80 hover:text-white transition-colors"
+                className="text-[15px] text-white hover:text-lime transition-colors"
               >
                 {service.navLabel}
               </Link>
@@ -129,13 +129,13 @@ export default function Footer() {
 
           <div className="max-900:order-2 flex flex-col gap-8">
             <div className="flex flex-col gap-4">
-              <p className="uppercase text-[12px] text-white/50 tracking-[0.3em] pointer-events-none">
+              <p className="uppercase text-[12px] text-silver/70 tracking-[0.3em] pointer-events-none">
                 Service Area
               </p>
               <LinkIcon info={area} />
             </div>
             <div className="border-t border-white/15 pt-6 flex flex-col gap-4">
-              <p className="uppercase text-[12px] text-white/50 tracking-[0.3em] pointer-events-none">
+              <p className="uppercase text-[12px] text-silver/70 tracking-[0.3em] pointer-events-none">
                 Contact
               </p>
               <ul className="flex flex-col gap-3">
@@ -160,7 +160,7 @@ export default function Footer() {
                       </a>
                     ))}
                   </div>
-                  <span className="text-[13px] 550:text-[14px] tracking-wide text-white/80 pointer-events-none">
+                  <span className="text-[13px] 550:text-[14px] tracking-wide text-silver pointer-events-none">
                     {SOCIAL_HANDLE}
                   </span>
                 </li>
@@ -171,7 +171,7 @@ export default function Footer() {
 
         <div
           className="mt-16 py-6 border-t border-white/10 flex flex-wrap justify-center 900:justify-between items-center
-        max-900:text-center gap-10 text-white/50"
+        max-900:text-center gap-10 text-silver/70"
         >
           <span className="font-gt uppercase tracking-[0.2em] text-[11px] pointer-events-none">
             © {new Date().getFullYear()} HB Links LLC. All rights reserved.
@@ -190,7 +190,7 @@ export default function Footer() {
           </ul>
           <div className="font-gt text-[12px] uppercase tracking-[0.2em] pointer-events-none">
             Built by{" "}
-            <span className="font-semibold text-white/80">Arman Manukyan</span>
+            <span className="font-semibold text-silver">Arman Manukyan</span>
           </div>
         </div>
       </div>

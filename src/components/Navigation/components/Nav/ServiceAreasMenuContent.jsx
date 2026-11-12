@@ -30,7 +30,7 @@ export default function ServiceAreasMenuContent({
   const pin = (href) => (
     <TbMapPin
       className={`shrink-0 transition-colors ${
-        isCurrentPage(href) ? "text-third" : "text-black/55 group-hover:text-black/75"
+        isCurrentPage(href) ? "text-third" : "text-fourth group-hover:text-black"
       }`}
     />
   );
@@ -112,7 +112,7 @@ export default function ServiceAreasMenuContent({
               prefetch
               onClick={onLinkClick}
               className={`group flex items-center gap-3 -mx-3 px-3 py-3 uppercase text-[12px] font-medium tracking-[0.14em] transition-colors duration-200 hover:text-black hover:bg-black/[0.04] outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-third ${
-                isCurrentPage(href) ? "text-third" : "text-black/75"
+                isCurrentPage(href) ? "text-third" : "text-fourth"
               }`}
             >
               {pin(href)}

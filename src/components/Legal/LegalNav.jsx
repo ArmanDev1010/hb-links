@@ -68,7 +68,7 @@ export function LegalTabs({ pages, current }) {
                 className={`inline-flex items-center h-9 px-4 border text-[11.5px] 550:text-[12px] font-semibold uppercase tracking-[0.12em] whitespace-nowrap transition-colors duration-200 ${
                   isActive
                     ? "bg-black border-black text-white"
-                    : "bg-white border-black/15 text-black/70 hover:border-black hover:text-black"
+                    : "bg-white border-black/15 text-fourth hover:border-black hover:text-black"
                 }`}
               >
                 {label}
@@ -117,7 +117,7 @@ export function SectionLinks({ sections, contactId }) {
     `group -ml-px flex gap-3 border-l-2 py-1.5 pl-4 text-[13.5px] leading-snug transition-colors duration-200 ${
       on
         ? "border-third text-third"
-        : "border-transparent text-black/65 hover:text-black"
+        : "border-transparent text-fourth hover:text-black"
     }`;
 
   return (
@@ -133,7 +133,7 @@ export function SectionLinks({ sections, contactId }) {
             >
               <span
                 className={`w-5 shrink-0 tabular-nums transition-colors duration-200 ${
-                  on ? "text-third" : "text-black/45 group-hover:text-third"
+                  on ? "text-third" : "text-fourth group-hover:text-third"
                 }`}
               >
                 {pad(index + 1)}

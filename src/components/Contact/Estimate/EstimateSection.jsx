@@ -71,7 +71,7 @@ export default function EstimateSection({
           <span className="block h-2 w-2 flex-shrink-0 bg-third"></span>
           <span
             className={`550:text-[13px] text-[12.5px] uppercase font-light tracking-[0.3em] ${
-              dark ? "text-white/50" : "text-fourth"
+              dark ? "text-silver/70" : "text-fourth"
             }`}
           >
             Free Estimate - {ESTIMATE_STEPS.length} Quick Steps
@@ -89,7 +89,7 @@ export default function EstimateSection({
                 {keepTogether(heading.firstLine)}
                 <br />
                 {heading.secondLine}{" "}
-                <span className="italic text-third">
+                <span className={`italic ${dark ? "text-lime" : "text-third"}`}>
                   {keepTogether(heading.italic)}
                 </span>
               </>
@@ -109,7 +109,7 @@ export default function EstimateSection({
             as="p"
             delay={0.1}
             className={`mt-6 max-w-xl text-[14.5px] 550:text-[15.5px] leading-relaxed ${
-              dark ? "text-white/65" : "text-fourth"
+              dark ? "text-silver" : "text-fourth"
             }`}
           >
             Tell us about your project and we&apos;ll come out for a free

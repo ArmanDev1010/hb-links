@@ -91,7 +91,7 @@ export default function NotFound() {
         </div>
 
         <nav aria-label="Our services" className="mt-16 700:mt-20">
-          <p className="uppercase text-[12px] text-white/50 tracking-[0.3em] pointer-events-none">
+          <p className="uppercase text-[12px] text-silver/70 tracking-[0.3em] pointer-events-none">
             Our services
           </p>
           {/* Each cell draws its own right/bottom edge, so a short last
@@ -101,10 +101,10 @@ export default function NotFound() {
               <li key={href} className="border-r border-b border-white/15">
                 <Link
                   href={href}
-                  className="group flex items-center justify-between gap-4 h-full px-5 py-5 text-[14px] 700:text-[15px] text-white/85 transition-colors duration-200 hover:bg-white/5 hover:text-white"
+                  className="group flex items-center justify-between gap-4 h-full px-5 py-5 text-[14px] 700:text-[15px] text-silver transition-colors duration-200 hover:bg-white/5 hover:text-white"
                 >
                   {navLabel}
-                  <TbArrowUpRight className="shrink-0 text-lg text-white/40 transition-colors duration-200 group-hover:text-third" />
+                  <TbArrowUpRight className="shrink-0 text-lg text-silver/70 transition-colors duration-200 group-hover:text-lime" />
                 </Link>
               </li>
             ))}
