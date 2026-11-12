@@ -727,7 +727,7 @@ function stringLights(G, k, lit) {
 // ---- ghosts -----------------------------------------------------------------
 // Before a service starts, a dashed outline of what it'll build hangs over the
 // lot, drawn over everything like a blueprint; `a` fades it.
-function ghost(G, segments, a) {
+export function ghost(G, segments, a) {
   if (a <= 0.01) return;
   const { ctx, P } = G;
   ctx.save();
@@ -740,7 +740,7 @@ function ghost(G, segments, a) {
   ctx.restore();
 }
 // a box's twelve edges
-function box([x0, x1], [y0, y1], [z0, z1]) {
+export function box([x0, x1], [y0, y1], [z0, z1]) {
   const c = (i) => [i & 1 ? x1 : x0, i & 2 ? y1 : y0, i & 4 ? z1 : z0];
   return [[0, 1], [2, 3], [4, 5], [6, 7], [0, 2], [1, 3], [4, 6], [5, 7], [0, 4], [1, 5], [2, 6], [3, 7]].map(([i, j]) => [c(i), c(j)]);
 }
@@ -825,7 +825,7 @@ function shadow(G, [x0, x1], [z0, z1], h, a = 1) {
 }
 
 // A shrub, a few overlapping rounded clumps, grown `g` of the way.
-function shrub(G, x, z, g, size = 1) {
+export function shrub(G, x, z, g, size = 1) {
   if (g <= 0) return;
   const { ctx, P, s } = G;
   const r = s * 0.85 * g * size;

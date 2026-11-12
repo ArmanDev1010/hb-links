@@ -22,8 +22,9 @@ const CARD = "h-[290px] 700:h-[300px] 1080:h-auto";
 // name and what it covers — the lead card's full paragraph, the others'
 // short line (the estimate form's hint).
 //
-// Pointing at it (or tabbing to it): the icon and the arrow fill lime, the
-// arrow nudges on, the text lifts a little and a lime rule draws in along
+// The icon is Silver (the user's call, over the lime-on-dark rule).
+// Pointing at it (or tabbing to it): the icon's box fills green, the arrow
+// fills lime and nudges on, the text lifts a little and a lime rule draws in along
 // the foot. With Reduce Motion only the colours change and the rule fades
 // in.
 function ServiceCard({ service, index }) {
@@ -46,7 +47,7 @@ function ServiceCard({ service, index }) {
         {Icon && (
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-5 top-5 700:left-6 700:top-6 grid h-11 w-11 place-items-center border border-white/20 bg-black/60 text-lime transition-colors duration-300 group-hover:border-lime group-hover:bg-lime group-hover:text-black group-focus-visible:border-lime group-focus-visible:bg-lime group-focus-visible:text-black"
+            className="pointer-events-none absolute left-5 top-5 700:left-6 700:top-6 grid h-11 w-11 place-items-center border border-white/20 bg-black/60 text-silver transition-colors duration-300 group-hover:border-third group-hover:bg-third group-hover:text-white group-focus-visible:border-third group-focus-visible:bg-third group-focus-visible:text-white"
           >
             <Icon className="text-[22px]" />
           </span>

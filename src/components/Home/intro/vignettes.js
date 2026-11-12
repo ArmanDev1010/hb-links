@@ -8,18 +8,20 @@
 import { C, RAD, clamp, span, rgba, groundGlow } from "./kit";
 import { drawADU, ADU_BOUNDS } from "./adu";
 import { drawProperty, ghostADU, ghostRemodel, ghostAddition, ghostDeck } from "./property";
+import { drawDesignBuild, ghostDesignBuild, DESIGN_BUILD_BOUNDS } from "./designbuild";
 import { projector, measure, grid } from "./scene";
 
 // Each service's stage, by its service page's slug: what the camera frames,
 // how it's built and outlined, where its build stops and how long it takes
 // (seconds), and where its build goes back to when the card is pointed at
 // (`replay`): the ADU to its slab, the remodel to its bare rooms, the
-// addition and the deck to their footings, Design-Build to the logo
-// chalked on the bare ground.
+// addition and the deck to their footings, Design-Build to its design
+// (the plan on the ground, the wireframe over it).
 // - Home Remodel stops with the roof still lifted, the new kitchen and bath
 //   on show inside.
-// - Design-Build is the ADU stopped at its frame: drawn, staked, poured
-//   and framed, the design becoming the building.
+// - Design-Build is a modern two-storey home of its own (designbuild.js):
+//   designed on the ground, then built inside its wireframe, finished and
+//   lit.
 export const VIGNETTES = {
   "adu-builder": {
     focus: ADU_BOUNDS,
@@ -54,12 +56,12 @@ export const VIGNETTES = {
     replay: 0.14,
   },
   "design-build": {
-    focus: ADU_BOUNDS,
-    draw: (G, k, assets) => drawADU(G, k, assets),
-    ghost: ghostADU,
-    end: 0.6,
-    seconds: 2.6,
-    replay: 0,
+    focus: DESIGN_BUILD_BOUNDS,
+    draw: (G, k, assets) => drawDesignBuild(G, k, assets),
+    ghost: ghostDesignBuild,
+    end: 1,
+    seconds: 3.6,
+    replay: 0.12,
   },
 };
 

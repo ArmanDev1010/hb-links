@@ -276,7 +276,7 @@ function layoutLines(ctx, P, b, s, gt) {
 
 // An architect's dimension line on the ground: ticks at both ends and the
 // length along it.
-function dimension(ctx, P, a, b, label, alpha, s, gt) {
+export function dimension(ctx, P, a, b, label, alpha, s, gt) {
   const [x1, y1] = P(a[0], a[1], a[2]);
   const [x2, y2] = P(b[0], b[1], b[2]);
   const angle = Math.atan2(y2 - y1, x2 - x1);
