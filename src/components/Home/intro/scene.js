@@ -218,7 +218,7 @@ function openingShot({ width, height, portrait, layout }, calm) {
 // posts, each turned TURN from pointing right (negative turns it up: the
 // user drew them pointing up and to the right, 11-12); ALPHA is their
 // strength at the far left.
-const BAND = { TOP_LEFT: 0.3, SLANT: -0.57, GONE: 0.36, SOFT: 44, ALPHA: 0.9, TURN: -45 * RAD };
+const BAND = { TOP_LEFT: 0.3, SLANT: -0.57, GONE: 0.36, SOFT: 44, ALPHA: 0.7, TURN: -45 * RAD };
 const PITCH = 24;
 let BAND_LAYER = null;
 function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h) {
