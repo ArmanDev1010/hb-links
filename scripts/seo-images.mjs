@@ -53,7 +53,7 @@ const shade = Buffer.from(
 async function buildCards() {
   mkdirSync("public/og", { recursive: true });
 
-  const logo = await sharp("public/Logos/white_horizontal.png")
+  const logo = await sharp("public/Logos/PNG/HB-Links-logo_horizontal_white-green.png")
     .resize({ width: LOGO_WIDTH })
     .toBuffer({ resolveWithObject: true });
 

@@ -18,7 +18,7 @@
 // `calm` is the Reduce Motion version: the camera holds its angle (no swing
 // or tilt), only moving from one service to the next as the visitor scrolls. `fonts.gt` is the site's
 // display face; `logo` is the white HB Links logo
-// (public/Logos/white_horizontal.png) once it has loaded, for the ADU's yard
+// (public/Logos/PNG/HB-Links-logo_horizontal_white-green.png) once it has loaded, for the ADU's yard
 // sign.
 //
 // Everything is drawn from shapes and numbers, in feet: the house and its

@@ -11,7 +11,7 @@ import { useModal } from "@/context/ModalContext";
 import { rotatingWords } from "@/data/rotatingWords";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import RotatingWord from "@/components/UI/RotatingWord";
-import whiteLogo from "@/../public/Logos/white_horizontal.png";
+import whiteLogo from "@/../public/Logos/PNG/HB-Links-logo_horizontal_white-green.png";
 
 const license = contactInfo.find((item) => item.type === "License")?.label;
 const phone = contactInfo.find((item) => item.type === "Phone");

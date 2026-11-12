@@ -180,7 +180,8 @@ const SHRUBS = [
 ];
 const SIGN = { x0: 31.6, x1: 37.8, z: -8.6, y0: 1.9, y1: 5.3 };
 
-// The HB Links mark (public/Logos/white_horizontal.png, in its pixels): the
+// The HB Links mark (in the pixels of the first horizontal logo; the mark is
+// unchanged in the 11-12 logos, public/Logos/PNG|SVG): the
 // white piece rising to a point, the green one falling to a point, locked
 // together. Chalked across the lot at the start.
 const MARK = {
