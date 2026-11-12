@@ -144,7 +144,10 @@ export default function Navbar() {
 
               <div className="wide-zoom relative z-20 flex items-center gap-3">
                 <SocialsBtn light={light} />
-                <PhoneChip light={light} className="!px-7 max-550:hidden" />
+                {/* 46px, like the Instagram square: an outlined box reads a touch
+                    shorter than the filled estimate button beside it (44px),
+                    so this makes the three look the same height */}
+                <PhoneChip light={light} className="!px-7 900:!h-[46px] max-550:hidden" />
                 <RequestBtn toggleModal={toggleModal} solid={solid} main />
                 <MenuBtn
                   light={light}

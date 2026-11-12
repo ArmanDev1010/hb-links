@@ -211,8 +211,14 @@ export default function Reviews() {
   const geo = isMobile ? mobileGeo : desktopGeo;
   const total = reviews.length;
 
+  // On a wide screen the arc of names draws on down into the section's gap
+  // below, and the reviewers' photos pass along it close to How We Work, so
+  // the space under the reviews looked smaller than the 120px under How We
+  // Work. 40px more there makes them look the same (the user's call, 11-12).
+  // On a phone the reviews stack and their text sets the edge, so it keeps
+  // the usual gap.
   return (
-    <section className="wide-zoom relative overflow-hidden pb-[100px] 1080:pb-[120px]">
+    <section className="wide-zoom relative overflow-hidden pb-[100px] 1080:pb-[160px]">
       <div className="w-full 1080:w-10/12 1080:mx-auto 700:px-[32px] px-[24px] 1080:mb-24 mb-12 text-center">
         <Reveal
           as="p"
