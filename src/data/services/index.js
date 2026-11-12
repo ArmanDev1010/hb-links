@@ -1,9 +1,6 @@
 import adu from "./adu";
-import garageConversion from "./garage-conversion";
 import designBuild from "./design-build";
 import homeRemodeling from "./home-remodeling";
-import kitchenRemodel from "./kitchen-remodel";
-import bathroomRemodel from "./bathroom-remodel";
 import homeAdditions from "./home-additions";
 import outdoorLiving from "./deck-patio";
 
@@ -31,21 +28,12 @@ export const primaryServices = [
   designBuild,
 ];
 
-// The homepage's service cards: the primary services plus garage
-// conversions and the kitchen and bathroom remodels, each with its own
-// service page, in the order the Services menu lists them. Garage
-// conversions stay out of `primaryServices` — the forms file them under ADU
-// ("detached, attached or garage conversion", data/estimate).
-export const homepageServices = [
-  adu,
-  garageConversion,
-  homeRemodeling,
-  kitchenRemodel,
-  bathroomRemodel,
-  homeAdditions,
-  outdoorLiving,
-  designBuild,
-];
+// The homepage's Services section: the five primary services. Garage
+// conversions and the kitchen and bathroom remodels keep their own service
+// pages (and their places in the Services menu) but not a tile there.
+// Garage conversions stay out of `primaryServices` — the forms file them
+// under ADU ("detached, attached or garage conversion", data/estimate).
+export const homepageServices = primaryServices;
 
 // "Project Type" options shared by every contact form (the /contact page and
 // the header's request modal) — one source so the two never drift apart.

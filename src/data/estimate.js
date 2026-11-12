@@ -18,8 +18,9 @@ import { servicePageHref } from "@/lib/cities";
 
 // Per-service extras for the first question, keyed by the service's href
 // (its service page). `pin` names the part of the blueprint
-// (EstimateBlueprint) that lights up when that project is picked.
-const projectExtras = {
+// (EstimateBlueprint) that lights up when that project is picked. The
+// homepage's service cards (Home/Services) show the same icon and hint.
+export const projectExtras = {
   [servicePageHref("adu-builder")]: {
     icon: TbHomePlus,
     hint: "detached, attached or garage conversion",

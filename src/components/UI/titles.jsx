@@ -6,10 +6,12 @@ import { FEATURED_CITIES } from "@/lib/seo";
 export const SECTION_TITLE =
   "font-gt font-semibold leading-[1.2] text-[27px] 400:text-[30px] 550:text-[32px] 800:text-[34px] 1080:text-[36px] 1600:text-[40px]";
 
-// The homepage's Services title ("Services we offer across <area>") runs a
-// step larger than the rest: it's the section that matters most.
+// The homepage's Services title ("Everything we build / across <area>")
+// runs a step larger than the rest from 550px: it's the section that
+// matters most (the user asked, 11-12). On a phone it stays the shared
+// size, so "Everything we build" keeps to one line.
 export const SERVICES_TITLE =
-  "font-gt font-semibold leading-[1.2] text-[30px] 400:text-[33px] 550:text-[34px] 800:text-[36px] 1080:text-[39px] 1600:text-[43px]";
+  "font-gt font-semibold leading-[1.2] text-[27px] 400:text-[30px] 550:text-[34px] 800:text-[36px] 1080:text-[39px] 1600:text-[43px]";
 
 // The FAQ's title is the same, except on phones: its topic and place each
 // keep to one line ("Bathroom Remodeling" is the widest), so under 550px it

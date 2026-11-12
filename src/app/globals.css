@@ -268,10 +268,9 @@
   }
 }
 
-/* A service card shown by its tab (components/Home/ServiceTabs) and an FAQ
-   answer as it opens (components/Home/FAQ) rise in briefly; with "reduce
-   motion" they only fade. The animation starts each time the selector
-   starts matching, i.e. each time one is shown. */
+/* An FAQ answer as it opens (components/Home/FAQ) rises in briefly; with
+   "reduce motion" it only fades. The animation starts each time the
+   selector starts matching, i.e. each time one opens. */
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -290,12 +289,10 @@
     opacity: 1;
   }
 }
-.tab-panel:not([hidden]),
 details[open] > .faq-answer {
   animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @media (prefers-reduced-motion: reduce) {
-  .tab-panel:not([hidden]),
   details[open] > .faq-answer {
     animation-name: fade-in;
   }

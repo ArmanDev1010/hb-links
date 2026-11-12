@@ -76,7 +76,7 @@ function heading(t) {
 // Parallel projection from `yaw` around the property and `pitch` above it,
 // `s` px per foot, the origin at (ox, oy). Returns [x, y, depth] (depth grows
 // away from the camera).
-function projector({ yaw, pitch }, s, ox, oy) {
+export function projector({ yaw, pitch }, s, ox, oy) {
   const ca = Math.cos(yaw);
   const sa = Math.sin(yaw);
   const ce = Math.cos(pitch);
@@ -98,7 +98,7 @@ function camera(t, calm, overview, inside, high) {
 }
 
 // The extent of `e` on screen from this camera, at 1 px per foot.
-function measure(cam, e) {
+export function measure(cam, e) {
   const P1 = projector(cam, 1, 0, 0);
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
   for (const x of e.x) for (const y of e.y) for (const z of e.z) {
@@ -150,7 +150,7 @@ function backdrop(ctx, P, [fx, fz], w, h, lit) {
 // from what's in view and darkening as it goes, within `reach`: each line
 // drawn once, its fade along it a gradient. `minor` fades the 2 ft lines out
 // as the camera pulls back.
-function grid(ctx, P, [cx, cz], reach, minor) {
+export function grid(ctx, P, [cx, cz], reach, minor) {
   ctx.lineWidth = 1;
   const fade = (d) => Math.max(0, 1 - d / reach) ** 1.3;
   const draw = (a, b, offset, half, major) => {
