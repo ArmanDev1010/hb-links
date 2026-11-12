@@ -176,6 +176,98 @@ function grid(ctx, P, [cx, cz], reach, minor) {
   }
 }
 
+// ---- the land beside the lot -----------------------------------------------
+// Off to the left of the property, past where the grid floor fades out, the
+// open ground is drawn the way a surveyor maps it: faint HB Green contour
+// lines over a faint green wash, so the dark side of the stage isn't blank.
+// It lies on the ground like everything else, so it moves with the camera;
+// over the grid floor it's wiped away (softly), so it never reaches the
+// buildings. On its own layer, so that wipe leaves the scene under it alone.
+const CONTOURS = 8; // rings
+const CONTOUR_STEP = 11; // ft between rings
+let LAND = null;
+function land(ctx, dpr, P, [wx, wz], [fx, fz], clear) {
+  const { width, height } = ctx.canvas;
+  if (!LAND) LAND = document.createElement("canvas");
+  if (LAND.width !== width || LAND.height !== height) {
+    LAND.width = width;
+    LAND.height = height;
+  }
+  const layer = LAND.getContext("2d");
+  layer.setTransform(1, 0, 0, 1, 0, 0);
+  layer.clearRect(0, 0, width, height);
+  layer.setTransform(dpr, 0, 0, dpr, 0, 0);
+  layer.globalCompositeOperation = "source-over";
+  const reach = 8 + CONTOURS * CONTOUR_STEP;
+  groundGlow(layer, P, wx, wz, reach, rgba(C.green, 0.1));
+
+  // The rings, in feet on the ground (the ground's own transform, as in
+  // groundGlow), then stroked 1px on screen. One gently wavy outline, grown
+  // ring by ring with a little drift, so they never cross; every fourth one
+  // stronger, like a survey's index contours; the outer ones fainter.
+  const [ox, oy] = P(wx, 0, wz);
+  const [ax, ay] = P(wx + 1, 0, wz);
+  const [bx, by] = P(wx, 0, wz + 1);
+  for (let k = 0; k < CONTOURS; k++) {
+    const R = 8 + k * CONTOUR_STEP;
+    layer.save();
+    layer.transform(ax - ox, ay - oy, bx - ox, by - oy, ox, oy);
+    layer.beginPath();
+    for (let i = 0; i <= 120; i++) {
+      const a = (i / 120) * Math.PI * 2;
+      const r = R * (1 + 0.14 * Math.sin(2 * a + 0.6 + k * 0.12) + 0.08 * Math.sin(3 * a + 2.1 - k * 0.09) + 0.04 * Math.sin(5 * a + 4 + k * 0.2));
+      if (i) layer.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+      else layer.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+    }
+    layer.closePath();
+    layer.restore();
+    const index = k % 4 === 3;
+    layer.strokeStyle = rgba(C.green, (index ? 0.42 : 0.26) * (1 - 0.55 * (k / (CONTOURS - 1)) ** 2));
+    layer.lineWidth = index ? 1.25 : 1;
+    layer.stroke();
+  }
+
+  // wiped away over the grid floor: fully within most of its reach, fading
+  // back in just past where its lines give out
+  const [cx, cy] = P(fx, 0, fz);
+  const [dx, dy] = P(fx + 1, 0, fz);
+  const [ex, ey] = P(fx, 0, fz + 1);
+  layer.save();
+  layer.globalCompositeOperation = "destination-out";
+  layer.transform(dx - cx, dy - cy, ex - cx, ey - cy, cx, cy);
+  const r = clear * 1.15;
+  const g = layer.createRadialGradient(0, 0, 0, 0, 0, r);
+  g.addColorStop(0, "rgba(0,0,0,1)");
+  g.addColorStop(0.78, "rgba(0,0,0,1)");
+  g.addColorStop(1, "rgba(0,0,0,0)");
+  layer.fillStyle = g;
+  layer.fillRect(-r, -r, 2 * r, 2 * r);
+  layer.restore();
+
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.drawImage(LAND, 0, 0);
+  ctx.restore();
+}
+
+// Where the land lies, on the ground: under the blank space left of the
+// scene in the opening shot (a little in from the screen's left edge, midway
+// between the navbar and the copy), worked out from that shot's camera and
+// then fixed, so from there on it moves with the scene.
+function landAt({ width, height, portrait, layout }, calm) {
+  const cam = camera(0, calm, 1, 0, 0);
+  const { box } = stage({ width, height, portrait, layout }, cam);
+  const m = view(cam, -1);
+  const s = 0.98 * Math.min((box.x1 - box.x0) / m.w, (box.y1 - box.y0) / m.h);
+  const ox = (box.x0 + box.x1) / 2 - m.mx * s;
+  const oy = (box.y0 + box.y1) / 2 - m.my * s;
+  const xr = (width * 0.14 - ox) / s;
+  const zr = (oy - (NAV + layout.copyTop * height) / 2) / (s * Math.sin(cam.pitch));
+  const ca = Math.cos(cam.yaw);
+  const sa = Math.sin(cam.yaw);
+  return [xr * ca + zr * sa, -xr * sa + zr * ca];
+}
+
 // Film grain, a small tile of noise laid over the whole scene.
 let GRAIN = null;
 function grain(ctx, w, h) {
@@ -243,8 +335,12 @@ export function drawScene(ctx, { width, height, dpr, t, portrait, layout: given,
   const lit = done.reduce((sum, d) => sum + ease(span(d, 0.9, 1)), 0) / done.length;
 
   backdrop(ctx, P, focus, width, height, lit);
+  const reach = Math.max(70, (0.55 * width) / s);
+  // (beside the copy only: on a phone the scene sits above it, nothing blank
+  // beside it)
+  if (!portrait) land(ctx, dpr, P, landAt({ width, height, portrait, layout }, calm), focus, reach);
   groundGlow(ctx, P, focus[0], focus[1], 60, rgba(mix([70, 130, 96], [120, 104, 76], lit), 0.24));
-  grid(ctx, P, focus, Math.max(70, (0.55 * width) / s), clamp((s - 5) / 8));
+  grid(ctx, P, focus, reach, clamp((s - 5) / 8));
   const G = { ctx, P, s, lw };
   drawGround(G);
 
