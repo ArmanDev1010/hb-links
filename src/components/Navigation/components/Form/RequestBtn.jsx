@@ -2,7 +2,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 
 // Primary CTA — opens the request modal, with a roll-up label hover. HB Green
 // in every state of the bar, turning Electric Lime (black text) on hover —
-// the user's pick (11-12), over the spec's lime-over-the-hero. The border is
+// the user's pick (11-12), over lime over the hero. The border is
 // white over a dark hero, faint black once the bar is solid.
 export default function RequestBtn({
   toggleModal,

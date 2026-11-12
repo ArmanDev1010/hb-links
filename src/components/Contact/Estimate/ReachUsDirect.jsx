@@ -39,7 +39,7 @@ function useOpenNow() {
 
 // Colours for each background. The brand green is too dark to read on black,
 // so on dark "Open now" and the hovers use the lighter green they always had
-// (the user kept it, 11-12, over the spec's lime); the square is HB Green
+// (the user kept it, 11-12, over lime); the square is HB Green
 // everywhere.
 const TONES = {
   dark: {

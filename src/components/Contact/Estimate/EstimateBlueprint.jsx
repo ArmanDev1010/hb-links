@@ -22,7 +22,7 @@ const colors = {
   accent: "#106b37",
   accentFill: "rgba(16,107,55,0.14)",
   // the dimensions and the city on the sign: Graphite
-  // (HB-LINKS-WEBSITE-COLORS.md 6.5), set as a style so the variable works
+  // (secondary text on light), set as a style so the variable works
   dimText: "var(--color-fourth)",
 };
 

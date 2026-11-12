@@ -16,7 +16,7 @@
   --breakpoint-400: 400px;
   --breakpoint-360: 360px;
 
-  /* HB Links website palette: see HB-LINKS-WEBSITE-COLORS.md */
+  /* HB Links website palette: these tokens are the site's colours */
   --color-third: #106B37;      /* HB Green (name kept) */
   --color-forest: #0A4523;     /* Forest Green: hover/pressed on green */
   --color-lime: #C4E538;       /* Electric Lime: dark surfaces only, black text on it */

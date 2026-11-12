@@ -14,10 +14,10 @@ export const RAD = Math.PI / 180;
 
 // ---- palette ---------------------------------------------------------------
 export const C = {
-  bg: [11, 15, 13], // HB Black, the hero section's bg-black (HB-LINKS-WEBSITE-COLORS.md 6.2)
+  bg: [11, 15, 13], // HB Black, the hero section's bg-black
   grid: [92, 132, 108],
   green: [16, 107, 55], // the logo's
-  lime: [196, 229, 56], // Electric Lime: the tags' and captions' UI (6.2)
+  lime: [196, 229, 56], // Electric Lime: the tags' and captions' UI
   greenHi: [74, 214, 128], // freshly placed work glows this, then settles
   white: [244, 242, 236],
   wood: [218, 182, 130],
