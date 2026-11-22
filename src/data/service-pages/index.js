@@ -14,7 +14,7 @@ import { servicePageHref } from "@/lib/cities";
 // copy, the "What's Included" spec sheet and scope, the four process steps,
 // the FAQ, the service-areas heading, and its "Often Paired With" services —
 // plus, on the pages that have them, `options` (the forms the service comes
-// in, compared) and a `guide` (its local rules and decisions).
+// in, compared).
 // `metaTitle` is its search-result title (lib/seo.js adds " | HB LINKS"),
 // `title` its H1 and breadcrumb; its share card is public/og/<slug>.jpg
 // (scripts/seo-images.mjs).

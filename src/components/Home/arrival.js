@@ -1,4 +1,4 @@
-// Shared by the scroll-played heroes (HeroIntro, HeroBuildSequence).
+// Shared by the scroll-played heroes (Home/HeroIntro, ServicePage/ServiceHero).
 
 // Whether this hero's page was reached by a link inside the site — not
 // loaded, reloaded, or come back to with Back/Forward. Asked once per page:

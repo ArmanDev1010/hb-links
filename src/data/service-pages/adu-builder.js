@@ -22,9 +22,6 @@ const aduBuilder = {
     "ADU permit Los Angeles",
     "ADU cost Los Angeles",
   ],
-  // The detached-ADU build; the garage conversion timelapse plays on the
-  // garage conversion page.
-  sequence: "adu",
   image: {
     src: "/images/services/adu.png",
     alt: "Finished backyard ADU with white stucco walls, black windows and an arched entry porch",
@@ -35,40 +32,43 @@ const aduBuilder = {
     { label: "Scope", value: "ADU / Extension" },
     { label: "License", value: "B · C-10 · C-36" },
   ],
-  included: {
-    heading: ["Every ADU Type", "Built to Code"],
+  // The Build, under the hero (ServicePage/ServiceBuild): the stages of the
+  // build, each with its icon (a key in ServiceBuild's ICONS). The ADU's
+  // run beside its layered drawing, so they're written out a little fuller.
+  build: {
+    heading: ["Your ADU,","Step by Step"],
     intro:
-      "An ADU project through HB Links covers every phase — site assessment, permits, foundation, framing, mechanicals, and interior finishes. Detached, attached, garage conversion, or Junior ADU — one team, one contract.",
-    items: [
+      "How a backyard ADU goes up with us — from the first lines on the ground to the lights in the yard.",
+    steps: [
       {
-        title: "Site Assessment",
-        description:
-          "Full lot survey, setback analysis, and feasibility check against Los Angeles' ADU ordinance before design starts.",
+        icon: "measure",
+        title: "Layout & Site Prep",
+        text: "We survey the lot, stake the ADU's footprint inside the setbacks and grade the pad, then dig the trenches for the water, sewer and power lines.",
       },
       {
-        title: "Permits & Zoning",
-        description:
-          "Building permit and zoning review handled with LADBS and city planning. No third-party expediter.",
+        icon: "foundation",
+        title: "Foundation",
+        text: "Forms, rebar and the plumbing and electrical stubs go in and are inspected, then the concrete slab is poured, engineered for your lot's soil.",
       },
       {
-        title: "Foundation & Utilities",
-        description:
-          "Slab or raised foundation with new electrical, water, sewer, and gas service run to the ADU.",
+        icon: "frame",
+        title: "Framing",
+        text: "The walls are framed in wood with headers over every door and window, and the plumbing, wiring and HVAC are roughed in while they're open.",
       },
       {
-        title: "Framing & Envelope",
-        description:
-          "Structural framing, roofing, siding, windows, and doors. Weather-tight before interior work begins.",
+        icon: "roof",
+        title: "Roof",
+        text: "Rafters, roof sheathing and shingles close the ADU in, with flashing and gutters, so it's dry before the insulation and drywall go in.",
       },
       {
-        title: "Interior Finishes",
-        description:
-          "Kitchen, bath, flooring, cabinetry, and fixtures specified and installed to match your primary home.",
+        icon: "window",
+        title: "Windows & Stucco",
+        text: "Energy-efficient windows and doors are set, then the walls are wrapped and finished in stucco to match the main house.",
       },
       {
-        title: "Handoff & Occupancy",
-        description:
-          "Final walkthrough, punch list, and city inspections. Ready for occupancy or rental on day one.",
+        icon: "keys",
+        title: "Finishes & Yard",
+        text: "The kitchen, bathroom, flooring, paint and fixtures inside; a path, planting and lights outside — then the final inspection and your keys.",
       },
     ],
   },
@@ -80,6 +80,7 @@ const aduBuilder = {
     items: [
       {
         title: "Detached ADU",
+        plan: "adu-detached",
         description:
           "A freestanding backyard home on its own foundation — the most privacy and the most flexibility in layout, and the strongest rental.",
         facts: [
@@ -90,6 +91,7 @@ const aduBuilder = {
       },
       {
         title: "Attached ADU",
+        plan: "adu-attached",
         description:
           "Built onto the side or back of the house with its own entrance, kitchen, and bathroom. Its size is tied to the main home's — generally up to half its floor area.",
         facts: [
@@ -100,6 +102,7 @@ const aduBuilder = {
       },
       {
         title: "Garage Conversion",
+        plan: "adu-garage",
         description:
           "Your existing garage turned into a legal unit. The walls, roof, and slab are already there, the setbacks stay as they are, and the parking doesn't have to be replaced.",
         facts: [
@@ -112,6 +115,7 @@ const aduBuilder = {
       },
       {
         title: "Junior ADU",
+        plan: "adu-junior",
         description:
           "Up to 500 sq ft carved out of the existing house, with its own entrance and an efficiency kitchen. It can share the house's bathroom.",
         facts: [
@@ -146,45 +150,6 @@ const aduBuilder = {
         label: "Walkthrough & Handoff",
         description:
           "Final punch list, city inspection, and handoff. Your ADU is ready for occupancy or rental on day one.",
-      },
-    ],
-  },
-  guide: {
-    eyebrow: "Know Before You Build",
-    heading: ["The Rules That", "Shape Your ADU"],
-    intro:
-      "California has rewritten its ADU laws almost every year since 2017, and almost every change has made ADUs easier to build. These are the rules that shape an ADU in Los Angeles today.",
-    items: [
-      {
-        title: "How big you can build",
-        body: "In the City of Los Angeles a detached ADU can be up to 1,200 sq ft. State law also guarantees most single-family lots at least an 800 sq ft ADU, regardless of the lot-coverage and floor-area limits that apply to the house. A junior ADU is capped at 500 sq ft. Your lot's size, slope, and existing structures set the real number, which we confirm on site.",
-      },
-      {
-        title: "Setbacks and height",
-        body: "A city can require no more than 4 feet between a new ADU and the side and rear property lines, and a garage or other existing structure you convert needs no setback at all. Cities have to allow a detached ADU at least 16 feet tall — 18 feet near major transit — and an attached ADU up to 25 feet or the zone's own height limit, whichever is lower.",
-      },
-      {
-        title: "Parking",
-        body: "An ADU needs no parking space at all if it's within half a mile walking distance of public transit, inside a historic district, built within the existing house or an accessory structure, or within a block of a car-share vehicle — which covers much of Los Angeles. Converting or tearing down a garage for an ADU doesn't require replacing its parking either.",
-      },
-      {
-        title: "Permits and plan review",
-        body: [
-          "In the City of Los Angeles — including Woodland Hills, Encino, Sherman Oaks, and the rest of the Valley — ADU plans go through LADBS. Independent cities like Calabasas, and unincorporated LA County, run their own review.",
-          "Once an application is complete, state law gives the city 60 days to approve or deny it. Every comment a plan checker sends back is answered by us, not left to you.",
-        ],
-      },
-      {
-        title: "Renting and owner occupancy",
-        body: "A standard ADU can be rented, and you don't have to live on the property — a rule California has made permanent. A junior ADU is different: the owner has to live in the main house or the JADU. Cities can require ADU rentals to run longer than 30 days, so plan on long-term tenants.",
-      },
-      {
-        title: "Fees, property tax and solar",
-        body: "ADUs under 750 sq ft are exempt from impact fees; larger ones pay a reduced fee, proportional to their size against the main house. Property tax goes up only by the value the ADU adds — the main house isn't reassessed. And under California's energy code, a new detached ADU generally needs solar panels, while attached ADUs and conversions generally don't.",
-      },
-      {
-        title: "Hillsides, fire zones and historic districts",
-        body: "Some lots carry extra rules: the Baseline Hillside Ordinance on hillside lots, added fire-safety requirements in Very High Fire Hazard Severity Zones, and design review in historic preservation overlay zones. We check your parcel's designations before design starts, so you know what's buildable before paying for plans.",
       },
     ],
   },
@@ -232,7 +197,7 @@ const aduBuilder = {
   coverage: {
     heading: ["ADUs Built", "Across Los Angeles"],
     description:
-      "We build ADUs throughout Los Angeles County. Free on-site estimates anywhere in our coverage zone.",
+      "We build ADUs throughout Los Angeles and Ventura Counties. Free on-site estimates anywhere in our coverage zone.",
   },
   related: [
     {

@@ -20,9 +20,10 @@ export default function FloatingRequestBtn() {
   const onContactPage = pathname === "/contact";
 
   useEffect(() => {
-    // Hidden at the top of the page — and, where the hero plays a build
-    // timelapse as you scroll (Home/HeroBuildSequence), until the hero has
-    // scrolled out from under the navbar, so the bar never sits over it.
+    // Hidden at the top of the page — and, where the hero plays a drawn
+    // build as you scroll (Home/HeroIntro, ServicePage/ServiceHero), until
+    // the hero has scrolled out from under the navbar, so the bar never sits
+    // over it.
     const handleScroll = () => {
       const hero = document.querySelector("[data-nav-overlay]");
       const inHero = hero ? hero.getBoundingClientRect().bottom > 100 : false;
@@ -38,7 +39,7 @@ export default function FloatingRequestBtn() {
   const shouldShow = !hidden && !menuActive && !sendBarsInView;
 
   return (
-    <div className="900:hidden fixed bottom-5 700:right-[32px] 400:right-[24px] right-3 z-[9998]">
+    <div className="900:hidden fixed bottom-5 right-[24px] 700:right-[32px] z-[9998]">
       <AnimatePresence>
         {shouldShow && (
           <motion.div

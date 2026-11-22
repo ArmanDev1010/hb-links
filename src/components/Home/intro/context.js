@@ -250,10 +250,27 @@ function crew(G, done, time, clear) {
   });
 }
 
+// HB Links' mark (public/seo/logo.png, traced: its black chevron and green
+// bolt, in that image's pixels), drawn `width` px wide, centred on (cx, cy).
+const MARK_BLACK = [[18, 441], [390, 182], [390, 268], [248, 368], [325, 368], [325, 441]];
+const MARK_GREEN = [[390, 270], [695, 270], [325, 529], [325, 440], [467, 342], [390, 342]];
+function logoMark(ctx, cx, cy, width) {
+  const k = width / 677;
+  const ox = cx - (18 + 677 / 2) * k;
+  const oy = cy - (182 + 347 / 2) * k;
+  for (const [pts, fill] of [[MARK_BLACK, "#111111"], [MARK_GREEN, "#106B37"]]) {
+    ctx.fillStyle = fill;
+    ctx.beginPath();
+    pts.forEach(([x, y], i) => (i ? ctx.lineTo(ox + x * k, oy + y * k) : ctx.moveTo(ox + x * k, oy + y * k)));
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
 // A worker, about 6 ft tall: a shadow, dark work pants and sleeves, a green
-// hi-vis vest, a white hard hat. `walk` swings the legs and arms; one who's
-// `working` stands, lifting and dropping a hammer.
-function worker(G, [x, y, z], walk, a, time, working) {
+// hi-vis vest with our logo on it, a white hard hat. `walk` swings the legs
+// and arms; one who's `working` stands, lifting and dropping a hammer.
+export function worker(G, [x, y, z], walk, a, time, working) {
   if (a <= 0) return;
   const { ctx, P, s } = G;
   const [fx, fy] = P(x, y, z);
@@ -309,6 +326,8 @@ function worker(G, [x, y, z], walk, a, time, working) {
   ctx.fill();
   ctx.fillStyle = "rgba(255,255,255,0.75)";
   ctx.fillRect(vx, vy + vh * 0.55, vw, Math.max(1, vh * 0.1));
+  // our logo on it, above the stripe (11-21, the user)
+  logoMark(ctx, fx, vy + vh * 0.29, vw * 0.8);
   // head and hard hat
   const hy = head - bob;
   ctx.fillStyle = rgba([200, 158, 120]);

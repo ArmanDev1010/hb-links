@@ -3,6 +3,7 @@ import { legalDocuments } from "@/data/legal";
 import { contactInfo } from "@/data/contact";
 import { SITE_NAME, buildPageMetadata } from "@/lib/seo";
 import { LegalTabs, SectionLinks } from "./LegalNav";
+import { Bars, Grid } from "@/components/UI/Deco";
 
 const license = contactInfo.find((item) => item.type === "License")?.label;
 const phone = contactInfo.find((item) => item.type === "Phone");
@@ -67,7 +68,16 @@ export default function LegalContent({ slug }) {
   const toc = doc.sections.map(({ id, heading }) => ({ id, heading }));
 
   return (
-    <section className="relative bg-white text-black 700:pt-[9.5rem] 700:pb-24 pt-36 pb-16">
+    // A grid fades from the top right with green bars beside the title (the
+    // redesign); clipped sideways with overflow-x: clip, which, unlike
+    // hidden, keeps the switcher and "On this page" sticky. The bottom
+    // leaves room for the footer's diagonal (Footer).
+    <section className="relative isolate overflow-x-clip bg-white text-black 700:pt-[9.5rem] pt-36 pb-[100px] 700:pb-[130px] 1080:pb-[160px]">
+      <Grid mask="50% 30% at 78% 0%" />
+      <Bars
+        widths={[90, 180, 300]}
+        className="max-1080:hidden -right-[40px] top-[190px]"
+      />
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <header className="pb-10 550:pb-12 border-b border-black/10">
           <div className="flex items-center gap-4">

@@ -4,6 +4,14 @@ import { contactInfo } from "@/data/contact";
 import { rotatingWords } from "@/data/rotatingWords";
 import RotatingWord from "@/components/UI/RotatingWord";
 import Reveal from "@/components/UI/Reveal";
+import {
+  Bars,
+  BlueprintHouse,
+  Edge,
+  Grid,
+  PlusMarks,
+  Slab,
+} from "@/components/UI/Deco";
 
 const license = contactInfo.find((item) => item.type === "License")?.label;
 
@@ -26,8 +34,28 @@ export default function About({ area }) {
     },
   ];
 
+  // Sits under the dark hero: the hero's black cuts in along the top on a
+  // diagonal (Edge), so the copy starts below it — 84px on phones, 184px
+  // from 1080px.
   return (
-    <section className="wide-zoom mt-3 pt-10 pb-[100px] 1080:pb-[120px] text-black" id="about">
+    <section
+      className="wide-zoom relative isolate overflow-hidden pt-[84px] 700:pt-[136px] 1080:pt-[184px] pb-[100px] 1080:pb-[112px] text-black"
+      id="about"
+    >
+      <Grid mask="62% 70% at 50% 30%" />
+      <Edge at="top" />
+      <Slab className="w-[150px] 700:w-[240px] h-[1000px] left-[58%] -top-[120px]" />
+      <Bars
+        widths={[90, 180, 300]}
+        className="700:max-1080:hidden right-[-40px] max-700:bottom-[24px] 700:bottom-[96px] max-700:scale-[0.55] max-700:origin-bottom-right"
+      />
+      <PlusMarks />
+      <BlueprintHouse className="w-[300px] 700:w-[520px] right-[-90px] 700:right-[-150px] top-[110px] 700:top-[30px]" />
+      <BlueprintHouse
+        opacity={0.1}
+        className="max-1080:hidden w-[460px] left-[-170px] bottom-[10px]"
+      />
+
       <div className="w-full 1280:w-10/13 1280:mx-auto 1280:px-0 700:px-[32px] px-[24px] text-left">
         <Reveal
           as="p"
@@ -50,13 +78,16 @@ export default function About({ area }) {
           />
         </Reveal>
 
+        {/* The three facts in their boxes, solid white, so the green slab
+            and the grid run under them (like the footer's icon squares; the
+            redesign's unboxed row along a dimension line was reverted, 11-20). */}
         <div className="mt-8 grid gap-4 mx-auto grid-cols-1 550:grid-cols-2 800:grid-cols-3">
           {highlights.map((item, index) => (
             <Reveal
               key={item.tag}
               delay={0.1 + 0.08 * index}
               className={`
-        border border-black/10 px-4 py-3.5 text-left pointer-events-none
+        border border-black/10 bg-white px-4 py-3.5 text-left pointer-events-none
         ${index === 2 ? "550:col-span-2 550:justify-self-center 550:w-full 550:max-w-[400px] 800:col-span-1 800:max-w-none" : ""}
       `}
             >
@@ -87,11 +118,16 @@ export default function About({ area }) {
           high-end remodels for homeowners
           across greater Los Angeles — our approach is defined by honest
           pricing, a detailed process, and complete transparency at every stage.
-          Before construction begins, we review materials, timeline, and cost
-          with each client to ensure clarity. Throughout the build, progress is
-          documented and communicated, so clients understand exactly what is
-          being done and why. We discuss every detail upfront, quote it clearly,
-          and build to the standard we'd want for ourselves.
+          {/* Phones stop here (the redesign's mobile board). */}
+          <span className="max-550:hidden">
+            {" "}
+            Before construction begins, we review materials, timeline, and
+            cost with each client to ensure clarity. Throughout the build,
+            progress is documented and communicated, so clients understand
+            exactly what is being done and why. We discuss every detail
+            upfront, quote it clearly, and build to the standard we&apos;d want
+            for ourselves.
+          </span>
         </Reveal>
       </div>
     </section>

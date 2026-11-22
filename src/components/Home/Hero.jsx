@@ -3,22 +3,19 @@
 import React from "react";
 import Image from "next/image";
 import { useModal } from "@/context/ModalContext";
-import HeroBuildSequence from "@/components/Home/HeroBuildSequence";
 import HeroIntro from "@/components/Home/HeroIntro";
 import HeroShade from "@/components/Home/HeroShade";
-import { getSequence } from "@/data/heroBuild";
+import ServiceHero, { SERVICE_SCENES } from "@/components/ServicePage/ServiceHero";
 import { keepTogether } from "@/components/UI/titles";
 
 import { IoIosArrowRoundForward } from "react-icons/io";
 
 // `title` and `paragraph` default to the homepage's; each service page
 // passes its own (e.g. "ADU Builder") — the H1 always ends "in <area>".
-// `sequence` names a build timelapse (data/heroBuild) to pin the hero over as
-// you scroll (see HeroBuildSequence) — the page's own on a service page —
-// once its frames exist; "intro" is the homepage's drawn build instead (see
-// HeroIntro), which needs no frames. Until then a service page's
-// photo, `image` ({ src, alt }), sits behind the copy; without one the hero
-// is black. `variant` is "home" or "service": on phones (under 550px) the
+// `sequence` "intro" is the homepage's drawn build (HeroIntro); `scene`, a
+// service page's slug, is that service's drawn build (ServicePage/
+// ServiceHero), both played as you scroll. Otherwise `image` ({ src, alt })
+// sits behind the copy; without one the hero is black. `variant` is "home" or "service": on phones (under 550px) the
 // title fills the copy's column (PHONE_TITLE, in cqw, the column's own width
 // — vw would count a desktop scrollbar and spill past it): the homepage's
 // "GENERAL CONTRACTOR" is 12.6em wide, the widest service line, "GARAGE
@@ -34,6 +31,7 @@ export default function Hero({
   title = "General Contractor",
   paragraph = `A licensed general contractor serving ${area.coverage}. We specialize in ADUs and garage conversions, home remodels and additions, kitchen and bathroom renovations, and outdoor living spaces — quoted honestly, with no surprises.`,
   sequence = null,
+  scene = null,
   image = null,
   variant = "home",
 }) {
@@ -83,14 +81,12 @@ export default function Hero({
     </div>
   );
 
-  if (sequence === "intro") return <HeroIntro>{content}</HeroIntro>;
-
-  const timelapse = getSequence(sequence);
-  if (timelapse) {
+  if (sequence === "intro")
     return (
-      <HeroBuildSequence sequence={timelapse}>{content}</HeroBuildSequence>
+      <HeroIntro place={area.isPrimary ? null : area.name}>{content}</HeroIntro>
     );
-  }
+  if (scene && SERVICE_SCENES[scene])
+    return <ServiceHero slug={scene}>{content}</ServiceHero>;
 
   return (
     <section

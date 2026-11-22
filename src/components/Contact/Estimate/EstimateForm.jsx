@@ -579,6 +579,9 @@ export default function EstimateForm({
   className = "",
   showLabel = true,
   shadow = true,
+  // false: no blueprint beside the questions at any width (the /contact
+  // page, whose map is its picture), the picks line across the top instead
+  blueprint = true,
 }) {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -882,16 +885,16 @@ export default function EstimateForm({
         </div>
       )}
 
-      {/* Below 1080px: the tappable picks. */}
+      {/* Below 1080px (or with no blueprint): the tappable picks. */}
       <MobilePicks
         answers={answers}
         location={location}
         step={step}
         onJump={jumpTo}
-        className="1080:hidden"
+        className={blueprint ? "1080:hidden" : ""}
       />
 
-      <div className={`1080:grid ${CARD_COLUMNS}`}>
+      <div className={blueprint ? `1080:grid ${CARD_COLUMNS}` : ""}>
         <div className="min-w-0 1080:p-8 1080:flex 1080:flex-col">
           {questions}
         </div>
@@ -899,6 +902,7 @@ export default function EstimateForm({
         {/* From 1080px: the blueprint on the white, its grid fading out at
             the edges, as tall as the questions beside it, with the whole
             drawing centred in it (PANEL_FILL of its width). */}
+        {blueprint && (
         <div
           aria-hidden="true"
           className="max-1080:hidden relative min-h-[320px] overflow-hidden bg-white pointer-events-none"
@@ -916,6 +920,7 @@ export default function EstimateForm({
             Your blueprint
           </span>
         </div>
+        )}
       </div>
     </div>
   );

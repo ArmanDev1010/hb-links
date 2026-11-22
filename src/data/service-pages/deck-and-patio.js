@@ -26,40 +26,42 @@ const deckAndPatio = {
     { label: "Scope", value: "Site to Finish" },
     { label: "License", value: "B · C-10 · C-36" },
   ],
-  included: {
-    heading: ["Outdoor Living", "Built Like the House"],
+  // The Build, under the hero (ServicePage/ServiceBuild): the stages of the
+  // build, each with its icon (a key in ServiceBuild's ICONS)
+  build: {
+    heading: ["Your Deck & Patio,","Step by Step"],
     intro:
-      "Every deck and patio extends the home it belongs to — same architectural standard, same material care, same finish quality. Framing, decking, built-ins, lighting, and shade structures handled by one team.",
-    items: [
+      "How a deck and patio go up with us — from the footings to the string lights.",
+    steps: [
       {
-        title: "Framing",
-        description:
-          "Structural framing and foundation work built to code and built to last. Connections, posts, and footings detailed correctly the first time.",
+        icon: "foundation",
+        title: "Footings",
+        text: "The footings are dug and poured, and the posts set on them.",
       },
       {
+        icon: "frame",
+        title: "Beams & Joists",
+        text: "Beams and joists are framed and fastened, spaced for the decking you've chosen.",
+      },
+      {
+        icon: "layers",
         title: "Decking",
-        description:
-          "Hardwood, composite, tile, or concrete — selected to match the home and chosen for the conditions. Layout, fastening, and finishing handled in-house.",
+        text: "Composite or hardwood boards are laid and fastened, with the railing and the stairs.",
       },
       {
-        title: "Built-Ins",
-        description:
-          "Bench seating, planters, and architectural details that make the space feel designed — not assembled from off-the-shelf pieces.",
+        icon: "tile",
+        title: "Patio",
+        text: "The patio is leveled and laid — pavers, concrete or tile.",
       },
       {
-        title: "Lighting",
-        description:
-          "Integrated lighting and electrical routing for outdoor kitchens, fixtures, and ambient illumination. All concealed where it should be.",
+        icon: "pergola",
+        title: "Pergola",
+        text: "The pergola or patio cover goes up over the seating area.",
       },
       {
-        title: "Pergolas",
-        description:
-          "Pergolas, shade structures, and covered patios that hold up to Valley sun and weather while keeping the architecture intact.",
-      },
-      {
-        title: "Walkthrough",
-        description:
-          "Final review and punch list before handover. Every item addressed before you sign off.",
+        icon: "light",
+        title: "Lights",
+        text: "String lights, step lights and outlets are wired in — then the walkthrough.",
       },
     ],
   },
@@ -71,6 +73,7 @@ const deckAndPatio = {
     items: [
       {
         title: "Composite Deck",
+        plan: "deck",
         description:
           "Capped composite boards over a framed structure. They hold their color in the Valley sun and never need sealing or staining.",
         facts: [
@@ -81,6 +84,7 @@ const deckAndPatio = {
       },
       {
         title: "Hardwood Deck",
+        plan: "deck",
         description:
           "Ipe and other hardwoods give the warmest look and feel, and need periodic oiling or sealing to keep it. At their best on shaded or covered decks.",
         facts: [
@@ -91,6 +95,7 @@ const deckAndPatio = {
       },
       {
         title: "Patio Cover",
+        plan: "patio-cover",
         description:
           "A solid or insulated roof over the patio, attached to the house or freestanding — full shade and rain cover, often wired for fans, lights, and heaters.",
         facts: [
@@ -101,6 +106,7 @@ const deckAndPatio = {
       },
       {
         title: "Pergola",
+        plan: "pergola",
         description:
           "An open or louvered frame that filters the sun. Louvered aluminum roofs open and close, so one structure works for July afternoons and winter evenings.",
         facts: [
@@ -181,7 +187,7 @@ const deckAndPatio = {
   coverage: {
     heading: ["Decks & Patios", "Across Los Angeles"],
     description:
-      "We build decks and patios throughout Los Angeles County. Free on-site estimates anywhere in our coverage zone.",
+      "We build decks and patios throughout Los Angeles and Ventura Counties. Free on-site estimates anywhere in our coverage zone.",
   },
   related: [
     {

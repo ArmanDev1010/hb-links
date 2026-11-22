@@ -746,3 +746,7 @@ function glow(ctx, P, s, lit) {
   blob(23, 0.5, -3, 4.5, 0.16);
   ctx.restore();
 }
+
+// The building's shape, for the ADU page's drawing of it taken apart layer
+// by layer (ServicePage/layers.js), so both draw the same ADU.
+export const ADU_SHAPE = { L, D, SLAB, WALL, OVER, RIDGE, EAVE, WALLS, PORCH, SHRUBS };

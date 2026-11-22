@@ -5,6 +5,7 @@ import { ALL_CITIES } from "@/lib/seo";
 import { SERVICE_AREAS } from "@/lib/cities";
 import Reveal from "@/components/UI/Reveal";
 import { BOXED_TITLE, keepTogether } from "@/components/UI/titles";
+import { Bars, Grid, PlusMarks } from "@/components/UI/Deco";
 
 function AreaPill({ area, active }) {
   return (
@@ -30,22 +31,57 @@ function AreaPill({ area, active }) {
 // "Across Los Angeles"]) and `description`. The heading, the areas and the map
 // rise in as they scroll into view (UI/Reveal). Jumped to ("Service Areas" in
 // the navbar and footer), it stops clear of the fixed navbar.
+//
+// The card is drawn on like a sheet: a grid fading from its top-right
+// corner, small green bars there and a cross in each corner. `edgeTop` when
+// it follows the dark contact band (an area page), which pulls down over
+// the top of this section on a diagonal (Home/Contact): room for it above. `last`: the section right above the footer,
+// whose diagonal pulls up into the bottom of it (Footer) — 40px more room
+// below the card so the diagonal clears it.
 export default function ServiceAreas({
   area,
   heading = ["Where We Work"],
-  description = "We build throughout Los Angeles County. Free on-site estimates anywhere in our coverage zone.",
+  description = "We build throughout Los Angeles and Ventura Counties. Free on-site estimates anywhere in our coverage zone.",
+  edgeTop = false,
+  last = false,
 }) {
   const moreCities = ALL_CITIES.length - SERVICE_AREAS.length;
 
   return (
-    <section className="wide-zoom relative bg-white scroll-mt-28" id="service_areas">
-      <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px] pb-[100px] 1080:pb-[120px]">
-        <div className="relative overflow-hidden border border-black/10 bg-concrete py-10 px-6 700:p-10 1080:p-14">
+    <section
+      className={`wide-zoom relative isolate bg-white scroll-mt-28 ${
+        edgeTop ? "pt-[112px] 700:pt-[150px] 1080:pt-[196px]" : ""
+      }`}
+      id="service_areas"
+    >
+      <div
+        className={`max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px] ${
+          last
+            ? "pb-[100px] 700:pb-[130px] 1080:pb-[160px]"
+            : "pb-[100px] 1080:pb-[120px]"
+        }`}
+      >
+        <div className="relative isolate overflow-hidden border border-black/10 bg-concrete py-10 px-6 700:p-10 1080:p-14">
+          <Grid tone="card" mask="45% 40% at 92% 0%" />
+          <Bars
+            widths={[50, 100, 170]}
+            height={10}
+            className="-right-[30px] top-[46px] max-700:scale-75 max-700:origin-top-right"
+          />
+          <PlusMarks
+            inset={{
+              top: "top-[20px]",
+              bottom: "bottom-[20px]",
+              left: "left-[20px]",
+              right: "right-[20px]",
+            }}
+            className="max-700:hidden"
+          />
           <div className="flex flex-wrap max-1080:flex-col justify-between gap-x-10 gap-y-6 pb-8 mb-8 border-b border-black/15 pointer-events-none">
             <div className="flex-[1]">
               <Reveal className="flex items-center gap-4 mb-6 800:mb-8">
                 <span className="block h-2 w-2 shrink-0 bg-third" />
-                <span className="550:text-[13px] text-[12.5px] uppercase font-light tracking-[0.3em]">
+                <span className="550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em]">
                   Areas We Service
                 </span>
                 <span className="h-px flex-1 bg-gradient-to-r from-fourth/20 to-transparent"></span>
@@ -99,7 +135,7 @@ export default function ServiceAreas({
               </div>
               <span className="block h-3 w-px bg-black/25"></span>
               <span className="text-[10px] uppercase tracking-[0.3em] text-fourth">
-                Los Angeles County
+                Los Angeles & Ventura Counties
               </span>
             </div>
             <div className="bg-concrete border-t border-black/10 p-2">

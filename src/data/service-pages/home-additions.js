@@ -27,40 +27,42 @@ const homeAdditions = {
     { label: "Scope", value: "Foundation to Finish" },
     { label: "License", value: "B · C-10 · C-36" },
   ],
-  included: {
-    heading: ["More Space", "Built to Match"],
+  // The Build, under the hero (ServicePage/ServiceBuild): the stages of the
+  // build, each with its icon (a key in ServiceBuild's ICONS)
+  build: {
+    heading: ["Your Addition,","Step by Step"],
     intro:
-      "A home addition through HB Links adds the space you need and ties it into the house so it looks original. Engineering, permits, structure, and finishes — one team, one contract.",
-    items: [
+      "How an addition goes up with us — from the new foundation to stucco that matches the house.",
+    steps: [
       {
-        title: "Site Assessment",
-        description:
-          "Lot survey, setback and floor-area analysis, and a structural review of the existing house before design starts.",
+        icon: "foundation",
+        title: "Foundation",
+        text: "New footings and a slab or raised floor are formed and poured, tied in to the existing house.",
       },
       {
-        title: "Permits & Engineering",
-        description:
-          "Structural engineering, Title 24 energy calcs, and permit review handled with LADBS. No third-party expediter.",
+        icon: "frame",
+        title: "Framing",
+        text: "The walls go up and the addition is framed into the house, with a beam where the old wall opens up.",
       },
       {
-        title: "Foundation & Framing",
-        description:
-          "New footings, framing, and roof tied into the existing structure. Second stories get the first floor reinforced to carry the load.",
+        icon: "roof",
+        title: "Roof Framing",
+        text: "Rafters are set to match the existing roofline and pitch.",
       },
       {
-        title: "Mechanical",
-        description:
-          "Electrical, plumbing, and HVAC extended into the new space and brought up to code. Concealed routing, clean transitions, no patchwork.",
+        icon: "layers",
+        title: "Sheathing",
+        text: "The walls and roof are sheathed and wrapped, closing the addition in against the weather.",
       },
       {
-        title: "Envelope",
-        description:
-          "Roofline, stucco or siding, windows, and doors matched to the existing house. Weather-tight before interior work begins.",
+        icon: "home",
+        title: "Roofing",
+        text: "Roofing goes on to match the house, so the addition looks like it was always there.",
       },
       {
-        title: "Walkthrough",
-        description:
-          "Final review, city inspection, and punch list before handover. Every item addressed before you sign off.",
+        icon: "keys",
+        title: "Stucco & Finishes",
+        text: "Stucco or siding matched outside; drywall, floors and paint inside — then the walkthrough.",
       },
     ],
   },
@@ -72,6 +74,7 @@ const homeAdditions = {
     items: [
       {
         title: "Room Addition",
+        plan: "addition-room",
         description:
           "Builds out from the house on a new foundation — an extra bedroom, a bigger kitchen or family room, or a primary suite, tied in to look original.",
         facts: [
@@ -82,6 +85,7 @@ const homeAdditions = {
       },
       {
         title: "Second-Story Addition",
+        plan: "addition-second",
         description:
           "Builds up over the existing house and keeps the yard. An engineer checks the first floor's foundation and framing, which often need reinforcing to carry it.",
         facts: [
@@ -92,6 +96,7 @@ const homeAdditions = {
       },
       {
         title: "ADU Instead",
+        plan: "adu-detached",
         description:
           "A separate unit with its own entrance, kitchen, and bathroom. It can be rented, and state ADU rules often allow one where an addition wouldn't fit.",
         facts: [
@@ -128,38 +133,6 @@ const homeAdditions = {
         label: "Walkthrough & Handoff",
         description:
           "Final punch list and city inspection, then we walk the new space with you room by room before handover.",
-      },
-    ],
-  },
-  guide: {
-    eyebrow: "Know Before You Add On",
-    heading: ["What Shapes", "an LA Addition"],
-    intro:
-      "An addition is part of the house, so it plays by the house's rules — not the relaxed ones state law gives ADUs. These are the questions we answer before design starts.",
-    items: [
-      {
-        title: "How much you can add",
-        body: "In the City of Los Angeles' single-family zones, the Baseline Mansionization Ordinance caps a home's total floor area relative to the size of the lot, and hillside lots fall under the Baseline Hillside Ordinance instead. Your existing house counts against that cap, so the first step is measuring how much of it you've already used. Independent cities like Calabasas set their own limits.",
-      },
-      {
-        title: "Setbacks and height",
-        body: "An addition has to meet your zone's front, side, and rear setbacks and its height limit. For second stories, many Los Angeles neighborhoods also have an encroachment plane that limits how tall walls can rise near the side property lines — it shapes the roofline as much as the floor plan does.",
-      },
-      {
-        title: "Can the house carry it?",
-        body: "A structural engineer checks the existing foundation and framing before design. Older Los Angeles homes on raised foundations sometimes need new footings, shear walls, or hold-downs — and a second story almost always needs part of the first floor reinforced. Finding that out early keeps it out of change orders.",
-      },
-      {
-        title: "Tying in to the house",
-        body: "The tie-in — where the new structure meets the old — is where an addition succeeds or fails visually. We match the roofline, stucco or siding, windows, and floor heights so the addition looks like it was always there. It's also the most disruptive phase, so we schedule it with you.",
-      },
-      {
-        title: "What the addition updates in the rest of the house",
-        body: "A permitted addition brings some of the existing house up to current code: California requires smoke and carbon monoxide alarms throughout the home, the extra load often calls for an electrical panel upgrade, and the new space needs its own Title 24 energy calculations. We include all of it in the estimate, not as a surprise later.",
-      },
-      {
-        title: "Property tax",
-        body: "Only the addition is assessed. Under California's property tax rules, the new construction's value is added to your existing assessment — the rest of the house keeps its current base.",
       },
     ],
   },
@@ -206,7 +179,7 @@ const homeAdditions = {
   coverage: {
     heading: ["Home Additions", "Across Los Angeles"],
     description:
-      "We build home additions throughout Los Angeles County. Free on-site estimates anywhere in our coverage zone.",
+      "We build home additions throughout Los Angeles and Ventura Counties. Free on-site estimates anywhere in our coverage zone.",
   },
   related: [
     {

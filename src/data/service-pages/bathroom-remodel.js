@@ -25,40 +25,42 @@ const bathroomRemodel = {
     { label: "Scope", value: "Demo to Finish" },
     { label: "License", value: "B · C-10 · C-36" },
   ],
-  included: {
-    heading: ["Demo to Finish", "Every Detail Covered"],
+  // The Build, under the hero (ServicePage/ServiceBuild): the stages of the
+  // build, each with its icon (a key in ServiceBuild's ICONS)
+  build: {
+    heading: ["Your Bathroom,","Step by Step"],
     intro:
-      "Our bathroom remodels go from full demo to finished space — tile, fixtures, cabinetry, plumbing, lighting, and everything in between. No partial scopes, no trades you have to source yourself.",
-    items: [
+      "How a bathroom comes together with us — from the studs out, so it lasts behind the tile.",
+    steps: [
       {
-        title: "Demolition",
-        description:
-          "Full tear-down and waterproofing prep. We open the space cleanly so what gets built next holds for decades.",
+        icon: "demo",
+        title: "Demo & Prep",
+        text: "The old bathroom comes out down to the studs and the subfloor, and what's behind the walls is checked.",
       },
       {
+        icon: "systems",
+        title: "Plumbing & Electrical",
+        text: "The supply and drain lines, the shower valve, the fan and new circuits are roughed in.",
+      },
+      {
+        icon: "water",
+        title: "Waterproofing",
+        text: "Backer board and a waterproof membrane go on every wet wall and the shower floor, which is flood-tested.",
+      },
+      {
+        icon: "tile",
         title: "Tile",
-        description:
-          "Custom selection through hand-set installation. Layout, cuts, grout, and sealing — done right the first time.",
+        text: "The floor and wall tile are set, grouted and sealed.",
       },
       {
-        title: "Cabinetry",
-        description:
-          "Vanities, cabinets, and fixtures sourced and installed by finish carpenters who handle this work daily.",
+        icon: "bath",
+        title: "Vanity & Fixtures",
+        text: "The vanity, mirror, toilet and shower or tub fixtures go in.",
       },
       {
-        title: "Plumbing",
-        description:
-          "Licensed rough-in through trim-out. Valves, fixtures, and pressure testing handled in-house.",
-      },
-      {
-        title: "Electrical",
-        description:
-          "Lighting layout, switching, and circuit work brought up to current code with concealed routing.",
-      },
-      {
-        title: "Walkthrough",
-        description:
-          "Final review and punch list before handover. Every item addressed before you sign off.",
+        icon: "light",
+        title: "Lights & Walkthrough",
+        text: "The lights and fan are connected, everything's cleaned, and we walk it with you before handover.",
       },
     ],
   },
@@ -86,34 +88,6 @@ const bathroomRemodel = {
         label: "Walkthrough & Handoff",
         description:
           "We walk the finished bathroom with you. Everything is reviewed and signed off before handover.",
-      },
-    ],
-  },
-  guide: {
-    eyebrow: "Behind the Tile",
-    heading: ["What Makes a", "Bathroom Last"],
-    intro:
-      "The parts of a bathroom that decide whether it lasts are the ones you never see once the tile is up. This is what goes into ours before the finishes do.",
-    items: [
-      {
-        title: "Waterproofing",
-        body: "Tile and grout aren't waterproof — the membrane behind them is. Every wet wall and shower floor gets a continuous waterproof membrane, sealed at the seams, corners, and valve, and the shower pan is flood-tested before any tile goes on.",
-      },
-      {
-        title: "The shower floor and drain",
-        body: "A shower floor has to slope evenly to the drain, at least a quarter inch per foot, or water sits in the corners. Curbless showers and linear drains need the floor framing recessed so the slope works without a step — something to decide during design, not after demo.",
-      },
-      {
-        title: "Ventilation",
-        body: "Moisture that doesn't leave the room ends up in the drywall. The exhaust fan should be ducted to the outside — never into the attic — and a humidity-sensing control clears the room on its own after every shower, whether or not anyone remembers the switch.",
-      },
-      {
-        title: "Water-efficient fixtures",
-        body: "California caps how much water fixtures can use: 1.8 gallons per minute for a showerhead, 1.2 for a bathroom faucet, and 1.28 gallons per flush for a toilet. Every fixture we install meets those limits, and good ones don't feel like a compromise.",
-      },
-      {
-        title: "Built for later",
-        body: "Blocking for future grab bars costs almost nothing while the walls are open. Add a curbless entry, a handheld shower, a comfort-height toilet, and slip-resistant tile, and the bathroom works for every age without looking like it was built for one.",
       },
     ],
   },
@@ -160,7 +134,7 @@ const bathroomRemodel = {
   coverage: {
     heading: ["Bathroom Remodels", "Across Los Angeles"],
     description:
-      "We remodel bathrooms throughout Los Angeles County. Free on-site estimates anywhere in our coverage zone.",
+      "We remodel bathrooms throughout Los Angeles and Ventura Counties. Free on-site estimates anywhere in our coverage zone.",
   },
   related: [
     {

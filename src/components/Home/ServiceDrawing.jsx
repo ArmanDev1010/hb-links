@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { clamp, ease, lerp } from "@/components/Home/intro/kit";
 import { VIGNETTES, drawVignette, stageFor, turnStage } from "@/components/Home/intro/vignettes";
+import { HERO_VIEWS } from "@/components/ServicePage/heroes";
 
 // The white HB Links logo, for the ADU's yard sign (as in the hero).
 const LOGO = "/Logos/white_horizontal.png";
@@ -28,9 +29,12 @@ const FINISH = 600;
 
 const easeIn = (t) => t * t;
 
-// A service drawn on a canvas filling its card (intro/vignettes): its
-// dashed outline until the card is well into view, then built over a few
-// seconds, `delay` after it gets there.
+// A service drawn on a canvas filling its card: the same build as its
+// service page's hero (ServicePage/heroes; 11-22, the user: the new builds
+// on the cards, not the homepage hero's house), or its vignette where the
+// hero plays that (the ADU's, intro/vignettes). Its dashed outline until
+// the card is well into view, then built over a few seconds, `delay`
+// after it gets there. (The hero's crew, notes and tag stay in the hero.)
 //
 // Once it's built, pointing at the card (or tabbing to its link) plays a
 // little timelapse: the build runs back to an early stage and goes up
@@ -43,7 +47,7 @@ export default function ServiceDrawing({ slug, frame = "card", delay = 0 }) {
 
   useEffect(() => {
     const canvas = ref.current;
-    const view = VIGNETTES[slug];
+    const view = HERO_VIEWS[slug] ?? VIGNETTES[slug];
     if (!canvas || !view) return;
     const ctx = canvas.getContext("2d");
     const card = canvas.closest("a") ?? canvas;
@@ -106,7 +110,7 @@ export default function ServiceDrawing({ slug, frame = "card", delay = 0 }) {
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
-      stage = stageFor(slug, { width, height, dpr }, FRAMES[frame]);
+      stage = stageFor(view, { width, height, dpr }, FRAMES[frame]);
       draw();
     };
 

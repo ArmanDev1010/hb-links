@@ -10,7 +10,7 @@ export const PRIMARY = {
   service: "General Contractor",
   serviceShort: "General Contractor",
   city: "Los Angeles",
-  region: "Los Angeles County",
+  region: "Los Angeles and Ventura Counties",
 };
 
 // A small, curated set of well-known cities for human-readable text

@@ -22,7 +22,7 @@ import {
 } from "@/lib/seo";
 import { PRIMARY_AREA } from "@/lib/cities";
 import { servicePages } from "@/data/service-pages";
-import { socials } from "@/data/contact";
+import { ADDRESS, socials } from "@/data/contact";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -98,13 +98,13 @@ const siteSchema = {
         "Licensed general contractor building ADUs, garage conversions, home additions, and kitchen, bathroom and whole-home remodels across Los Angeles and the San Fernando Valley.",
       telephone: "+1-818-303-3555",
       email: "info@hb-links.com",
-      // Service-area business — the street address is hidden on the Google
-      // Business Profile, so only its city and ZIP are given here.
+      // The office, as the Google Business Profile shows it (data/contact.js).
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Woodland Hills",
-        addressRegion: "CA",
-        postalCode: "91367",
+        streetAddress: ADDRESS.street,
+        addressLocality: ADDRESS.city,
+        addressRegion: ADDRESS.region,
+        postalCode: ADDRESS.zip,
         addressCountry: "US",
       },
       hasMap: GOOGLE_MAPS_URL,

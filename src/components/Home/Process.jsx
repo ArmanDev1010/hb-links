@@ -4,6 +4,7 @@ import React from "react";
 import { BiCheckCircle, BiConversation, BiMoneyWithdraw } from "react-icons/bi";
 import { MdOutlineConstruction } from "react-icons/md";
 import Reveal from "@/components/UI/Reveal";
+import { BlueprintHouse, DimensionLine, Grid } from "@/components/UI/Deco";
 import { SECTION_TITLE } from "@/components/UI/titles";
 
 const process = [
@@ -33,23 +34,76 @@ const process = [
   },
 ];
 
-// The homepage renders the general four steps above. Each service page
+// An area page's four steps (`place`, 11-20): the homepage's, with the same
+// titles — only the descriptions are worded for the area, its name in each
+// (the user: "don't change the title, only the descriptions").
+const placeDescriptions = (place) => [
+  `Call us, fill out the form, or send us an email about your ${place} project. We’ll get back to you quickly and schedule a time to talk about it in detail. No pressure, no sales pitch — just a real conversation.`,
+  `We visit your property in ${place}, walk the scope, and prepare a detailed written estimate. You see the real cost — every phase accounted for. If something’s unclear, we explain it before you sign.`,
+  `Once the project is confirmed, we get to work on your ${place} home. Our team brings the plan to life with quality craftsmanship and clear communication from start to finish, delivering a completed project you can be proud of.`,
+  `Final walkthrough at your ${place} home, every detail reviewed and addressed. We review the completed work with you, address any final details, and ensure everything meets your expectations before we wrap up.`,
+];
+
+// The homepage renders the general four steps above; an area page passes
+// its name (`place`): the same steps and heading, its own descriptions and
+// intro line. Each service page
 // passes its own four `steps`, the end of the heading ("Four Steps, Every
 // ADU"), and its own intro line. Only the homepage steps carry an `icon`.
 //
 // The heading rises in as it scrolls into view (UI/Reveal), then the steps
 // one after another, each one's gold bar drawing in once its card is up
 // (.reveal-bar, globals.css).
+//
+// The homepage dresses it (the redesign): a grid top left and a blueprint
+// house with its dimension behind the heading (`decorated`), room above for
+// the reviews band's cut (`afterBand`), and room below for the dark contact
+// band, which pulls up over the bottom of this section on a diagonal
+// (`edgeBottom`, Home/Contact).
 export default function Process({
-  steps = process,
-  closing = "Every Project",
-  intro = "Every project follows the same four steps — regardless of scope, budget, or location.",
+  place = null,
+  steps: given = process,
+  closing: givenClosing = "Every Project",
+  intro: givenIntro = "Every project follows the same four steps — regardless of scope, budget, or location.",
+  decorated = false,
+  afterBand = false,
+  edgeBottom = false,
 }) {
+  const steps = place
+    ? given.map((step, i) => ({ ...step, description: placeDescriptions(place)[i] ?? step.description }))
+    : given;
+  const closing = givenClosing;
+  const intro = place
+    ? `Every ${place} project follows the same four steps — regardless of scope or budget.`
+    : givenIntro;
+  const padding = [
+    afterBand && "pt-[72px] 700:pt-[96px] 1080:pt-[112px]",
+    edgeBottom
+      ? "pb-[110px] 700:pb-[140px] 1080:pb-[160px]"
+      : "pb-[100px] 1080:pb-[120px]",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <section
-      className="wide-zoom relative overflow-hidden pb-[100px] 1080:pb-[120px]"
+      className={`wide-zoom relative isolate overflow-hidden ${padding}`}
       id="process"
     >
+      {decorated && (
+        <>
+          <Grid mask="40% 40% at 12% 18%" />
+          {/* smaller than the redesign's 560px (the user's call, 11-20);
+              the dimension runs across it at its windows */}
+          <BlueprintHouse
+            opacity={0.15}
+            className="w-[200px] 700:w-[300px] 1080:w-[380px] -right-[30px] 700:right-[40px] top-[60px] 1080:top-[56px]"
+          />
+          <DimensionLine
+            label={"52'-0\""}
+            className="max-1080:hidden w-[380px] right-[40px] top-[203px]"
+          />
+        </>
+      )}
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="mx-auto 1280:w-[83.33%] w-full">
           <Reveal className="flex items-center gap-4 pointer-events-none mb-6 800:mb-8">

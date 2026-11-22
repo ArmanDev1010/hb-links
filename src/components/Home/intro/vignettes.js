@@ -9,6 +9,7 @@ import { C, RAD, clamp, span, rgba, groundGlow } from "./kit";
 import { drawADU, ADU_BOUNDS } from "./adu";
 import { drawProperty, ghostADU, ghostRemodel, ghostAddition, ghostDeck } from "./property";
 import { drawDesignBuild, ghostDesignBuild, DESIGN_BUILD_BOUNDS } from "./designbuild";
+import { drawGarageConversion, ghostGarageConversion } from "./garage";
 import { projector, measure, grid } from "./scene";
 
 // Each service's stage, by its service page's slug: what the camera frames,
@@ -63,6 +64,35 @@ export const VIGNETTES = {
     seconds: 3.6,
     replay: 0.12,
   },
+  // The three below have no homepage card; their service pages' heroes
+  // (ServicePage/ServiceHero) draw them. The garage is the ADU's building
+  // as a two-car garage, converted (garage.js). The kitchen and the
+  // bathroom are the remodel's own rooms, framed close, stopping with the
+  // roof still lifted and the lights on.
+  "garage-conversion": {
+    focus: { x: [-3, 39], y: [0, 15.4], z: [-11, 22] },
+    draw: (G, k, assets) => drawGarageConversion(G, k, assets),
+    ghost: ghostGarageConversion,
+    end: 1,
+    seconds: 3.4,
+    replay: 0.2,
+  },
+  "kitchen-remodel": {
+    focus: { x: [-2, 22], y: [1, 12], z: [2, 26] },
+    draw: (G, k) => drawProperty(G, { remodel: k, addition: 0, deck: 0 }),
+    ghost: ghostRemodel,
+    end: 0.88,
+    seconds: 3,
+    replay: 0.12,
+  },
+  "bathroom-remodel": {
+    focus: { x: [16, 38], y: [1, 12], z: [7, 26] },
+    draw: (G, k) => drawProperty(G, { remodel: k, addition: 0, deck: 0 }),
+    ghost: ghostRemodel,
+    end: 0.88,
+    seconds: 3,
+    replay: 0.12,
+  },
 };
 
 // The camera: the hero's, held at one angle.
@@ -72,8 +102,10 @@ const CAMERA = { yaw: -35 * RAD, pitch: 30 * RAD };
 // (fractions of the canvas, room left under it for the card's text), and
 // the ground under it (the dark, a soft glow and the drafting grid) on a
 // canvas of its own, drawn again only when the camera turns.
+// (`slug` can be a stage of its own instead: { focus, draw, ghost, end },
+// as the service pages' heroes give theirs, ServicePage/heroes)
 export function stageFor(slug, { width, height, dpr }, box = [0.06, 0.08, 0.94, 0.72]) {
-  const v = VIGNETTES[slug];
+  const v = typeof slug === "string" ? VIGNETTES[slug] : slug;
   const m = measure(CAMERA, v.focus);
   const [bx0, by0, bx1, by1] = [box[0] * width, box[1] * height, box[2] * width, box[3] * height];
   const s = Math.min((bx1 - bx0) / (m.x1 - m.x0), (by1 - by0) / (m.y1 - m.y0));

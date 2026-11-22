@@ -6,7 +6,6 @@ import Contact from "@/components/Home/Contact";
 import Reviews from "@/components/Home/Reviews";
 import ServiceAreas from "@/components/Home/ServiceAreas";
 import FAQ from "@/components/Home/FAQ";
-import ServiceGuide from "@/components/ServicePage/ServiceGuide";
 import {
   buildHomeSchema,
   buildHomeFAQSchema,
@@ -16,9 +15,11 @@ import {
 // The homepage, rendered for one service area. "/" renders it for the
 // primary area (Los Angeles); each /general-contractor-<area> page renders the
 // same sections with its own area swapped into the headings and copy, plus
-// what only that area's page has (data/areas.js): a guide to building there
-// at the end, just before the footer, and its own FAQs. On an area page
-// Areas We Service comes before the FAQ; the homepage keeps the FAQ first.
+// what only that area's page has: How We Work's descriptions worded for
+// the area, and its own FAQs (data/areas.js). Area pages
+// leave out the reviews band, and their contact band and Areas We Service
+// are titled for the area. On an area page Areas We Service comes before
+// the FAQ; the homepage keeps the FAQ first.
 // Area pages also get a Home > area breadcrumb; the homepage is its own
 // root.
 //
@@ -46,21 +47,38 @@ export default function HomePage({ area }) {
       <Hero area={area} sequence="intro" />
       <About area={area} />
       <Services area={area} />
-      <Reviews />
-      <Process />
-      <Contact />
+      {area.isPrimary && <Reviews />}
+      <Process
+        decorated
+        place={area.isPrimary ? null : area.name}
+        afterBand={area.isPrimary}
+        edgeBottom
+      />
+      <Contact
+        decorated
+        heading={
+          area.isPrimary
+            ? undefined
+            : { firstLine: "Let's Talk About", secondLine: "Your", italic: `${area.name} Project` }
+        }
+      />
+      {/* Whichever follows the dark contact band takes its diagonal. */}
       {area.isPrimary ? (
         <>
-          <FAQ area={area} />
-          <ServiceAreas area={area} />
+          <FAQ area={area} edgeTop />
+          <ServiceAreas area={area} last />
         </>
       ) : (
         <>
-          <ServiceAreas area={area} />
-          <FAQ area={area} />
+          <ServiceAreas
+            area={area}
+            heading={["Building in", area.name]}
+            description={`From ${area.name} to the rest of Los Angeles and Ventura Counties, we come out for a free on-site estimate anywhere in our coverage zone.`}
+            edgeTop
+          />
+          <FAQ area={area} last />
         </>
       )}
-      {area.local && <ServiceGuide {...area.local.guide} />}
     </>
   );
 }

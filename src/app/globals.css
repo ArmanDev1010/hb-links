@@ -29,6 +29,7 @@
   --color-concrete: #F4F5F2;   /* Concrete */
   --color-white: #FFFFFF;
   --color-error: #C81E1E;      /* functional: form errors only */
+  --color-star: #E89D00;       /* review stars only (approved exception) */
 
   /* Fonts */
 
@@ -39,16 +40,6 @@
   --font-montserrat: var(--next-font-montserrat), sans-serif;
 }
 
-/* The scroll-timelapse heroes (components/Home/HeroBuildSequence.jsx) show a
-   still of the finished job instead on touch screens — phones and tablets,
-   scrolled with a finger, where scrubbing the timelapse felt off — and on
-   anything held sideways too short to pin the hero. Keep in step with
-   STATIC_QUERY there. */
-@custom-variant hero-static {
-  @media (max-height: 500px) and (orientation: landscape), (hover: none) and (pointer: coarse) {
-    @slot;
-  }
-}
 
 /* One vh and one svh, held steady: UI/StableViewport pins them in px when
    the page opens, so iPhone browsers other than Safari can't resize them
@@ -267,6 +258,7 @@
     transition: none;
   }
 }
+
 
 /* An FAQ answer as it opens (components/Home/FAQ) rises in briefly; with
    "reduce motion" it only fades. The animation starts each time the

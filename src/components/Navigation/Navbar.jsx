@@ -16,8 +16,9 @@ import { privacyPages } from "@/data/privacy";
 import { useModal } from "@/context/ModalContext";
 
 // White pages with no dark hero behind the navbar, so it's solid with dark
-// text from the top instead of transparent with white text.
-const LIGHT_PAGES = ["/contact", ...privacyPages.map(({ slug }) => `/${slug}`)];
+// text from the top instead of transparent with white text. (/contact is
+// dark since 11-20, so it's transparent there like over a hero.)
+const LIGHT_PAGES = privacyPages.map(({ slug }) => `/${slug}`);
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -74,12 +75,11 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // A timelapse hero stays pinned under the bar while its tour plays
-      // (Home/HeroBuildSequence), so the bar stays clear over it until the
-      // tour ends — the hero puts how far into it that is in
-      // data-nav-overlay-end. Where it shows a still instead (phones and
-      // tablets) there's no tour, and the bar turns solid as soon as the
-      // page scrolls, like on any other page.
+      // A drawn hero stays pinned under the bar while its build plays
+      // (Home/HeroIntro, ServicePage/ServiceHero), so the bar stays clear over
+      // it until the build ends — the hero puts how far into it that is in
+      // data-nav-overlay-end. Elsewhere the bar turns solid as soon as the
+      // page scrolls.
       const hero = document.querySelector("[data-nav-overlay]");
       let overHero = false;
       if (hero) {
@@ -108,7 +108,7 @@ export default function Navbar() {
         />
 
         <div
-          className={`transition-all duration-300 ${solid ? "p-3 400:px-[24px] 700:px-[32px]" : ""}`}
+          className={`transition-all duration-300 ${solid ? "py-3 px-[24px] 700:px-[32px]" : ""}`}
         >
           <div
             className={`relative z-[11] mx-auto w-full max-w-[calc(1680px*var(--wide-zoom))]

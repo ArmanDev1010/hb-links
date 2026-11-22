@@ -30,40 +30,42 @@ const garageConversion = {
     { label: "Scope", value: "Garage to ADU / JADU" },
     { label: "License", value: "B · C-10 · C-36" },
   ],
-  included: {
-    heading: ["Garage to Home", "One Contract"],
+  // The Build, under the hero (ServicePage/ServiceBuild): the stages of the
+  // build, each with its icon (a key in ServiceBuild's ICONS)
+  build: {
+    heading: ["Your Garage,","Step by Step"],
     intro:
-      "A garage conversion through HB Links takes the structure you already have and makes it a legal, comfortable place to live — from the slab and the old garage door to the kitchen, bath, and final inspection.",
-    items: [
+      "How a garage becomes a home with us — from the old door coming out to the porch light going on.",
+    steps: [
       {
-        title: "Garage Assessment",
-        description:
-          "Slab, footings, framing, roof, and the route to your sewer line checked before design, so the estimate reflects what your garage actually needs.",
+        icon: "measure",
+        title: "The Garage, Checked",
+        text: "The slab, footings, framing and roof are checked, and the route to the sewer found, before anything changes.",
       },
       {
-        title: "Plans & Permits",
-        description:
-          "Floor plan, structural and Title 24 energy calcs, and the permit filed with LADBS or your city. We answer plan-check corrections ourselves.",
+        icon: "demo",
+        title: "The Door Comes Out",
+        text: "The garage door and its track come out, leaving the opening ready to be framed in.",
       },
       {
-        title: "Slab & Moisture",
-        description:
-          "The sloped garage slab leveled and sealed with a moisture barrier, or new footings where the old ones fall short of code.",
+        icon: "frame",
+        title: "Framed In",
+        text: "The opening is framed as a finished wall, with the window and entry door where the plan puts them.",
       },
       {
-        title: "Door Infill & Windows",
-        description:
-          "The garage door opening framed in as a finished wall with windows and an entry door, plus code-compliant egress in every bedroom.",
+        icon: "systems",
+        title: "Insulated & Wired",
+        text: "The walls and ceiling are insulated, new circuits and plumbing run, and the floor leveled over a vapor barrier.",
       },
       {
-        title: "Insulation & Mechanicals",
-        description:
-          "Insulated walls and ceiling, heating and cooling, new circuits, and supply and drain lines tied into the house's water and sewer.",
+        icon: "window",
+        title: "Stucco, Windows & Doors",
+        text: "The new wall is stuccoed to match the rest, and the windows and entry door go in.",
       },
       {
-        title: "Kitchen, Bath & Finishes",
-        description:
-          "Kitchen, bathroom, flooring, and fixtures installed, then the final inspection. Ready to live in or rent the day it's signed off.",
+        icon: "keys",
+        title: "Finishes & Porch",
+        text: "The kitchen, bath, floors and fixtures inside; a porch, path and planting outside — then the final inspection.",
       },
     ],
   },
@@ -75,6 +77,7 @@ const garageConversion = {
     items: [
       {
         title: "Detached Garage to ADU",
+        plan: "adu-garage",
         description:
           "The most common conversion: a freestanding garage becomes a studio or one-bedroom with its own entry, kitchen, and bathroom.",
         facts: [
@@ -85,6 +88,7 @@ const garageConversion = {
       },
       {
         title: "Attached Garage to ADU",
+        plan: "garage-attached-adu",
         description:
           "Shares a wall with the house but lives on its own — a separate entrance, kitchen, and bathroom, with the shared wall rebuilt as a fire-rated separation.",
         facts: [
@@ -95,6 +99,7 @@ const garageConversion = {
       },
       {
         title: "Attached Garage to JADU",
+        plan: "garage-attached-jadu",
         description:
           "A junior ADU of up to 500 sq ft inside the house's walls, with an efficiency kitchen and its own entrance. The bathroom can be its own or shared with the house.",
         facts: [
@@ -105,6 +110,7 @@ const garageConversion = {
       },
       {
         title: "Rebuild on the Footprint",
+        plan: "garage-rebuild",
         description:
           "When the garage is too far gone to save, a new ADU built in the same spot and to the same dimensions keeps the garage's setbacks — even right on the property line.",
         facts: [
@@ -141,45 +147,6 @@ const garageConversion = {
         label: "Inspection & Handoff",
         description:
           "Final punch list and city inspection, then we walk the finished unit with you. It's ready for family or a tenant on day one.",
-      },
-    ],
-  },
-  guide: {
-    eyebrow: "Know Before You Convert",
-    heading: ["From Garage to", "Legal Living Space"],
-    intro:
-      "California law makes garage conversions easier than most people expect — and a garage still needs real work to pass as a home. Here's what changes and what the rules say.",
-    items: [
-      {
-        title: "You don't have to replace the parking",
-        body: "When a garage is converted to an ADU, or torn down to build one, state law bars the city from making you replace those parking spaces. That rule is what turns most Los Angeles garages into candidates for a conversion.",
-      },
-      {
-        title: "Existing setbacks stay as they are",
-        body: "A new ADU generally sits at least 4 feet from the side and rear property lines, but a garage you convert doesn't have to — even one built right on the line. A detached garage can also grow by up to 150 sq ft to make room for an entry. The same exemption covers a new structure built in the same location and to the same dimensions as the old garage.",
-      },
-      {
-        title: "The slab and foundation",
-        body: "Garage slabs slope toward the door and usually have no moisture barrier under them. We check the slab for level, cracks and moisture, and the footings for depth, then fix what's needed — leveling, a vapor barrier, a raised floor, or new footings where the old ones fall short.",
-      },
-      {
-        title: "Walls, windows and the garage door",
-        body: "The garage door opening is framed in as a finished exterior wall, usually with windows or the new entry door. Bedrooms need an egress window big enough to climb out of, and habitable rooms need at least a 7-foot ceiling — which most garages have, once the floor is built up.",
-      },
-      {
-        title: "Insulation, comfort and Title 24",
-        body: [
-          "A converted garage becomes conditioned living space, so it has to meet California's Title 24 energy code: insulated walls and ceiling, energy-rated windows, and heating and cooling — often a ductless mini-split.",
-          "New detached ADUs generally have to include solar panels under the same code. Conversions of an existing garage generally don't, which is one more way a conversion saves money over building new.",
-        ],
-      },
-      {
-        title: "Plumbing, sewer and power",
-        body: "The new kitchen and bathroom drain to your existing sewer line. If the garage sits lower than the line, a pump may be needed — we find that out at the assessment, not mid-build. Most conversions need new circuits and some need a panel upgrade. For a conversion inside an existing structure, the city generally can't require a new or separate utility connection.",
-      },
-      {
-        title: "Fees and permit review",
-        body: "ADUs under 750 sq ft are exempt from impact fees, which covers most garage conversions. Once your application is complete, state law gives the city 60 days to approve or deny it.",
       },
     ],
   },
@@ -226,7 +193,7 @@ const garageConversion = {
   coverage: {
     heading: ["Garages Converted", "Across Los Angeles"],
     description:
-      "We convert garages throughout Los Angeles County. Free on-site estimates anywhere in our coverage zone.",
+      "We convert garages throughout Los Angeles and Ventura Counties. Free on-site estimates anywhere in our coverage zone.",
   },
   related: [
     {

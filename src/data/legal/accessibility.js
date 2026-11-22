@@ -5,7 +5,8 @@ import { EmailLink, ExternalLink, PhoneLink } from "./links";
 // done" maps to: wrapped <label>s on the form fields (EstimateForm), the
 // reduced-motion handling (MotionPreferences, globals.css, and the calmer
 // versions in HeroIntro — its camera holds its angle and nothing in it moves
-// on its own — HeroBuildSequence and Reviews; the small rotating word in
+// on its own — ServiceHero (likewise: no camera swing, follows the scroll
+// exactly) and Reviews; the small rotating word in
 // About and the footer is the one exception that rolls as usual),
 // and alt text on every image.
 const accessibility = {

@@ -25,44 +25,48 @@ const designBuild = {
     { label: "Scope", value: "Concept to Keys" },
     { label: "License", value: "B · C-10 · C-36" },
   ],
-  included: {
-    heading: ["One Team", "From Concept to Keys"],
+  // The Build, under the hero (ServicePage/ServiceBuild): the stages of the
+  // build, each with its icon (a key in ServiceBuild's ICONS)
+  build: {
+    heading: ["Your Home,","Step by Step"],
     intro:
-      "Design-build means one entity handles architecture, design, and construction. No gaps between what the designer specified and what the builder delivers. HB Links manages both sides under one coordinated process.",
-    items: [
+      "How a design-build project goes with us — from the first sketch to the keys.",
+    steps: [
       {
-        title: "Design Coordination",
-        description:
-          "Concept development and design coordination — handled in-house or alongside your architect. Plans, materials, and specs reviewed and locked before construction begins.",
+        icon: "pencil",
+        title: "Design",
+        text: "Plans, elevations and selections are worked out with you, and priced as they change.",
       },
       {
-        title: "Selections",
-        description:
-          "Material and finish selection guided by our team. We walk you through what works, what holds value, and what to skip based on the project.",
+        icon: "permit",
+        title: "Permits",
+        text: "The permit set and the engineering go to the city, and we answer plan check.",
       },
       {
-        title: "Permitting",
-        description:
-          "City approvals and code review managed in-house. By the time the first crew arrives on site, every approval and inspection is queued.",
+        icon: "foundation",
+        title: "Foundation",
+        text: "Once it's approved, the slab is formed and poured.",
       },
       {
-        title: "Construction",
-        description:
-          "Full construction management — all trades coordinated by one team. No handoff between designer and builder, no finger-pointing when scope shifts.",
+        icon: "frame",
+        title: "Framing",
+        text: "The floors are framed and sheathed, and the plumbing and electrical roughed in.",
       },
       {
-        title: "Budget Transparency",
-        description:
-          "Budget tracking and change-order transparency from concept through completion. You see the real number before you commit — and watch it stay there.",
+        icon: "window",
+        title: "Roof & Exterior",
+        text: "Roofing, stucco, windows and doors close the house in.",
       },
       {
-        title: "Walkthrough",
-        description:
-          "Final walkthrough at handoff covering every detail. Every punch list item closed before you sign off.",
+        icon: "keys",
+        title: "Finishes & Keys",
+        text: "Interior finishes, landscaping and lights — then the final inspection and the keys.",
       },
     ],
   },
   options: {
+    // shown as cards side by side (the section's design before 11-20)
+    layout: "cards",
     eyebrow: "Two Ways to Build",
     heading: ["Design-Build vs.", "Design-Bid-Build"],
     intro:
@@ -117,34 +121,6 @@ const designBuild = {
       },
     ],
   },
-  guide: {
-    eyebrow: "The Design Phase",
-    heading: ["What Happens", "Before We Build"],
-    intro:
-      "Design-build front-loads the decisions. By the time construction starts, the plans are permitted, the selections are made, and the price reflects both.",
-    items: [
-      {
-        title: "Site survey and as-builts",
-        body: "We measure the existing house and lot and check zoning, setbacks, easements, and the parcel's designations — hillside, fire zone, historic overlay — so the design starts from what's actually buildable.",
-      },
-      {
-        title: "Concept and layout",
-        body: "Floor plans and elevations, revised with you until they're right, with construction pricing updated as the design changes. You see the cost of a decision while it's still a line on paper.",
-      },
-      {
-        title: "Engineering",
-        body: "Structural engineering, Title 24 energy calculations, and a soils report when the site calls for one — completed before the plans are final, so they don't send the design back to the drawing board.",
-      },
-      {
-        title: "Selections",
-        body: "Cabinets, fixtures, finishes, and appliances chosen before construction, so the price is real and long-lead items are ordered early instead of holding up the schedule.",
-      },
-      {
-        title: "Permit set and plan check",
-        body: "A complete set of drawings submitted to LADBS or your city. We answer every plan-check correction ourselves and schedule the inspections once construction starts.",
-      },
-    ],
-  },
   estimateHeading: {
     firstLine: "One Team.",
     secondLine: "One",
@@ -189,7 +165,7 @@ const designBuild = {
   coverage: {
     heading: ["Design-Build", "Across Los Angeles"],
     description:
-      "We design and build throughout Los Angeles County. Free on-site estimates anywhere in our coverage zone.",
+      "We design and build throughout Los Angeles and Ventura Counties. Free on-site estimates anywhere in our coverage zone.",
   },
   related: [
     {

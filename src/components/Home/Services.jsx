@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Reveal from "@/components/UI/Reveal";
+import { Grid } from "@/components/UI/Deco";
 import { SERVICES_TITLE } from "@/components/UI/titles";
 import ServiceDrawing from "@/components/Home/ServiceDrawing";
 import { homepageServices, getAreaParagraph } from "@/data/services";
@@ -20,7 +21,7 @@ const CARD = "h-[290px] 700:h-[300px] 1080:h-auto";
 // then built (Home/ServiceDrawing). Over the drawing: the service's icon
 // (the estimate form's) in the top left, and along the bottom its number,
 // name and what it covers — the lead card's full paragraph, the others'
-// short line (the estimate form's hint).
+// short line (the estimate form's hint, "… in <area>" on an area page).
 //
 // The icon is Silver (the user's call, over the lime-on-dark rule).
 // Pointing at it (or tabbing to it): the icon's box fills green, the arrow
@@ -54,7 +55,7 @@ function ServiceCard({ service, index }) {
         )}
 
         <div
-          className={`pointer-events-none relative p-5 700:p-6 1440:p-7 pr-16 700:pr-20 transition-[translate] duration-500 ${EASE} motion-safe:group-hover:-translate-y-1 motion-safe:group-focus-visible:-translate-y-1`}
+          className={`pointer-events-none relative p-5 700:p-6 1440:p-7 pr-16 700:pr-20 1440:pr-20 transition-[translate] duration-500 ${EASE} motion-safe:group-hover:-translate-y-1 motion-safe:group-focus-visible:-translate-y-1`}
         >
           <p className="flex items-center gap-2.5 text-[11px] uppercase tracking-[0.3em] text-silver">
             <span className="block h-1.5 w-1.5 bg-third" />
@@ -69,7 +70,7 @@ function ServiceCard({ service, index }) {
           </h3>
           <p
             className={`text-silver first-letter:uppercase ${
-              lead ? "mt-3 max-w-md text-[15px] 1440:text-[16px] leading-relaxed" : "mt-1.5 text-[13.5px] 1440:text-[14.5px] leading-snug"
+              lead ? "mt-4 max-w-md text-[15px] 1440:text-[16px] leading-relaxed" : "mt-3 text-[13.5px] 1440:text-[14.5px] leading-snug"
             }`}
           >
             {text}
@@ -104,16 +105,21 @@ export default function Services({ area }) {
     href: service.href,
     slug: servicePages.find((page) => page.href === service.href)?.slug,
     icon: projectExtras[service.href]?.icon,
-    // the lead card's paragraph is resolved for this area, on the server
-    text: index === 0 ? getAreaParagraph(service, area) : projectExtras[service.href]?.hint,
+    // the lead card's paragraph is resolved for this area, on the server;
+    // on an area page the others' short lines name the area too
+    text:
+      index === 0
+        ? getAreaParagraph(service, area)
+        : `${projectExtras[service.href]?.hint}${area.isPrimary ? "" : ` in ${area.name}`}`,
   }));
 
   return (
     <section
       aria-labelledby="services-heading"
-      className="wide-zoom relative bg-white pb-[100px] 1080:pb-[120px] scroll-mt-32"
+      className="wide-zoom relative isolate bg-white pb-[100px] 1080:pb-[120px] scroll-mt-32"
       id="services"
     >
+      <Grid mask="42% 40% at 88% 8%" />
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="grid gap-6 1080:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] 1080:items-end pointer-events-none">
           <div className="flex flex-col gap-6 800:gap-8">

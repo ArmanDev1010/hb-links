@@ -3,6 +3,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { TbArrowUpRight } from "react-icons/tb";
 import { servicePages } from "@/data/service-pages";
 import { contactInfo } from "@/data/contact";
+import { Bars, Glow, Grid } from "@/components/UI/Deco";
 
 // Overrides the layout's site-wide "index, follow", which would otherwise
 // sit next to Next's own 404 noindex tag.
@@ -42,7 +43,30 @@ function RollingLabel({ children }) {
 // it without needing to know this is a 404.
 export default function NotFound() {
   return (
-    <section className="relative overflow-hidden min-h-screen bg-black text-neutral-50 flex items-center 700:pt-[9.5rem] pt-36 pb-20">
+    <section className="relative isolate overflow-hidden min-h-screen bg-black text-neutral-50 flex items-center 700:pt-[9.5rem] pt-36 pb-[100px] 700:pb-[130px] 1080:pb-[160px]">
+      {/* drawn like the site's dark sections (UI/Deco); the bottom leaves
+          room for the footer's diagonal */}
+      <Grid tone="dark" mask="55% 55% at 85% 15%" />
+      <Glow
+        alpha={0.45}
+        className="w-[620px] h-[620px] -left-[300px] -top-[200px] 1080:w-[1000px] 1080:h-[800px] 1080:-left-[320px] 1080:-top-[260px]"
+      />
+      <Glow
+        color="lime"
+        alpha={0.3}
+        className="w-[380px] h-[200px] -right-[170px] top-[90px] 1080:w-[660px] 1080:h-[300px] 1080:-right-[230px] 1080:top-[110px]"
+      />
+      <Bars
+        tone="lime"
+        widths={[320, 200, 110]}
+        height={10}
+        className="-right-[40px] top-[130px] 1080:top-[200px] max-1080:scale-[0.6] max-1080:origin-top-right"
+      />
+      <Glow
+        color="silver"
+        alpha={0.3}
+        className="w-[420px] h-[200px] -left-[200px] bottom-[40px] 1080:w-[640px] 1080:h-[260px]"
+      />
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="flex items-center gap-4 pointer-events-none">
           <span className="block h-2 w-2 shrink-0 bg-third" />

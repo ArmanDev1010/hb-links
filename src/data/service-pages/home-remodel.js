@@ -25,40 +25,42 @@ const homeRemodel = {
     { label: "Scope", value: "Gut to Finish" },
     { label: "License", value: "B · C-10 · C-36" },
   ],
-  included: {
-    heading: ["Gut to Finish", "Every System Rebuilt"],
+  // The Build, under the hero (ServicePage/ServiceBuild): the stages of the
+  // build, each with its icon (a key in ServiceBuild's ICONS)
+  build: {
+    heading: ["Your Remodel,","Step by Step"],
     intro:
-      "A home remodel through HB Links rebuilds your home from the inside out. We handle every system and every finish — so you're not coordinating five contractors on your own.",
-    items: [
+      "How a remodel goes with us — from opening up the walls to the final walkthrough.",
+    steps: [
       {
-        title: "Demolition",
-        description:
-          "Full demolition and structural assessment. We open the home cleanly so what gets rebuilt holds for decades.",
+        icon: "demo",
+        title: "Opened Up",
+        text: "Walls, ceilings and floors are opened where the plan calls for it, and what's behind them is checked.",
       },
       {
-        title: "Mechanical",
-        description:
-          "Plumbing, electrical, and HVAC coordinated and brought up to code. Concealed routing, clean transitions, no patchwork.",
+        icon: "systems",
+        title: "Wiring & Plumbing",
+        text: "Wiring, plumbing and ducts are updated while the walls are open, then insulated and closed up.",
       },
       {
-        title: "Cabinetry",
-        description:
-          "Custom cabinetry, millwork, and built-ins designed for the home — not pulled from a catalogue.",
+        icon: "paint",
+        title: "Floors & Paint",
+        text: "New floors go down, and the walls and ceilings are finished and painted.",
       },
       {
-        title: "Finishes",
-        description:
-          "Flooring, tile, and every interior finish selected and installed by finish carpenters who handle this work daily.",
+        icon: "kitchen",
+        title: "Kitchen",
+        text: "Cabinets, counters, appliances and lighting go in where the new layout puts them.",
       },
       {
-        title: "Envelope",
-        description:
-          "Windows, doors, and exterior work where the scope calls for it. Tight transitions and weatherproofing handled in-house.",
+        icon: "bath",
+        title: "Bathroom",
+        text: "Waterproofing, tile, the vanity and the fixtures — built to last behind the surfaces you see.",
       },
       {
-        title: "Walkthrough",
-        description:
-          "Final review and punch list before handover. Every item addressed before you sign off.",
+        icon: "keys",
+        title: "Final Walkthrough",
+        text: "Every room is cleaned, checked and walked with you before we hand it over.",
       },
     ],
   },
@@ -70,6 +72,7 @@ const homeRemodel = {
     items: [
       {
         title: "Single-Room Remodel",
+        plan: "remodel-one",
         description:
           "One space rebuilt top to bottom — a living room opened up, a laundry moved, a dated primary suite redone — with the rest of the house untouched.",
         facts: [
@@ -80,6 +83,7 @@ const homeRemodel = {
       },
       {
         title: "Multi-Room or Phased",
+        plan: "remodel-multi",
         description:
           "Several rooms at once, often with walls moving between them, done in phases so part of the house stays livable while the rest is under construction.",
         facts: [
@@ -90,6 +94,7 @@ const homeRemodel = {
       },
       {
         title: "Whole-Home Remodel",
+        plan: "remodel-whole",
         description:
           "The house taken back to the studs — new layout, wiring, plumbing, insulation, and finishes throughout. The most disruption, and the most house for the money.",
         facts: [
@@ -124,34 +129,6 @@ const homeRemodel = {
         label: "Walkthrough & Handoff",
         description:
           "We walk the completed home room by room. Every item on the punch list addressed before handoff.",
-      },
-    ],
-  },
-  guide: {
-    eyebrow: "Older LA Homes",
-    heading: ["What We Find", "Behind the Walls"],
-    intro:
-      "Much of the San Fernando Valley was built in the decades after World War II. Those houses are solidly built, but their systems are 60 years old or more — this is what a remodel commonly uncovers, and why opening the walls is the best time to deal with it.",
-    items: [
-      {
-        title: "Wiring and the electrical panel",
-        body: "Prewar homes can still have knob-and-tube wiring, and many postwar houses run on ungrounded two-prong circuits and a 60- or 100-amp panel that can't carry a modern kitchen, an EV charger, or central air. Some panels from that era, like Federal Pacific and Zinsco, are widely recommended for replacement. With the walls open, rewiring costs a fraction of what it does later.",
-      },
-      {
-        title: "Plumbing and drains",
-        body: "Galvanized steel supply pipes corrode from the inside, which is why older houses lose water pressure, and cast-iron drain lines crack and scale with age. A remodel with open walls is the time to repipe in copper or PEX, under the same C-36 license as the rest of the plumbing work.",
-      },
-      {
-        title: "Foundation and earthquake bracing",
-        body: "Many raised-foundation homes from that era were built without foundation bolts or braced cripple walls. A bolt-and-brace retrofit is a modest add-on while the crew is on site, and California's Earthquake Brace + Bolt program offers grants for it in many ZIP codes.",
-      },
-      {
-        title: "Asbestos and lead paint",
-        body: "Homes built before 1978 likely have lead paint somewhere, and popcorn ceilings, old flooring, and duct wrap from the period can contain asbestos. Renovation in pre-1978 homes follows the EPA's lead-safe practices, and suspect materials are tested before demolition — if asbestos is found, a certified abatement contractor removes it before work continues.",
-      },
-      {
-        title: "Insulation, windows and alarms",
-        body: "Older houses often have little or no wall insulation and single-pane windows. Open walls are the cheapest time to fix both, and new work is built to California's Title 24 energy code. A permitted remodel also brings smoke and carbon monoxide alarms throughout the house up to current code.",
       },
     ],
   },
@@ -199,7 +176,7 @@ const homeRemodel = {
   coverage: {
     heading: ["Home Remodels", "Across Los Angeles"],
     description:
-      "We remodel homes throughout Los Angeles County. Free on-site estimates anywhere in our coverage zone.",
+      "We remodel homes throughout Los Angeles and Ventura Counties. Free on-site estimates anywhere in our coverage zone.",
   },
   related: [
     {

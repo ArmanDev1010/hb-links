@@ -5,6 +5,7 @@ import HeroShade from "@/components/Home/HeroShade";
 import { reachedByLink } from "@/components/Home/arrival";
 import { drawScene } from "@/components/Home/intro/scene";
 import { drawLife } from "@/components/Home/intro/context";
+import { drawAreaScene, drawMapLife } from "@/components/Home/intro/map";
 
 // The same query as the `intro-still` variant in globals.css: phones held
 // sideways (too short to pin a hero) get the opening frame, the property with
@@ -37,10 +38,14 @@ const LOGO = "/Logos/white_horizontal.png";
 // a canvas — it opens with them outlined and locked, and each is built and
 // unlocked as the visitor scrolls. The copy (`children`) sits at the bottom
 // left; the scene keeps clear of it, and names each service in the space
-// over it. While it's on screen, cars, the crew and dust move about the scene
-// on their own (intro/context.js drawLife). The navbar stays clear over the
-// scene until it ends (data-nav-overlay-end, read by Navigation/Navbar.jsx).
-export default function HeroIntro({ children }) {
+// over it. On an area page (`place`, the area's name) it opens on a map of
+// the Valley with that area's lot pinned, which zooms down to the lot and
+// tilts up into the property (intro/map.js) — a longer track, so the builds
+// after it keep their pace. While it's on screen, cars, the crew and dust
+// move about the scene on their own (intro/context.js drawLife; on the map,
+// traffic and the pin's beacon). The navbar stays clear over the scene
+// until it ends (data-nav-overlay-end, read by Navigation/Navbar.jsx).
+export default function HeroIntro({ children, place = null }) {
   const trackRef = useRef(null);
   const panelRef = useRef(null);
   const canvasRef = useRef(null);
@@ -72,6 +77,7 @@ export default function HeroIntro({ children }) {
         still: still.matches,
         calm: calm.matches,
         arrived,
+        place,
       });
       arrived = false;
     };
@@ -83,14 +89,18 @@ export default function HeroIntro({ children }) {
       calm.removeEventListener("change", sync);
       stop?.();
     };
-  }, []);
+  }, [place]);
 
   return (
     <section
       ref={trackRef}
       id="hero"
       data-nav-overlay
-      className="relative h-[calc(700*var(--vh))] max-700:h-[calc(620*var(--vh))] intro-still:h-auto bg-black text-white"
+      className={`relative ${
+        place
+          ? "h-[calc(900*var(--vh))] max-700:h-[calc(780*var(--vh))]"
+          : "h-[calc(700*var(--vh))] max-700:h-[calc(620*var(--vh))]"
+      } intro-still:h-auto bg-black text-white`}
     >
       <div
         ref={panelRef}
@@ -99,7 +109,11 @@ export default function HeroIntro({ children }) {
         <canvas
           ref={canvasRef}
           role="img"
-          aria-label="An HB Links property at dusk, drawn as you scroll, with four services outlined and locked: one by one they're built and unlocked. First an ADU in the back corner of the lot, starting from the HB Links logo chalked on the ground; then a home remodel, the roof lifted off while the kitchen and bathroom are redone; then a home addition goes up on its side; then a deck and patio with a fire pit and string lights, until the lights come on."
+          aria-label={`${
+            place
+              ? `A map of the San Fernando Valley with a lot in ${place} pinned. As you scroll it zooms down through the streets to that lot and tilts up into an HB Links property at dusk`
+              : "An HB Links property at dusk"
+          }, drawn as you scroll, with four services outlined and locked: one by one they're built and unlocked. First an ADU in the back corner of the lot, starting from the HB Links logo chalked on the ground; then a home remodel, the roof lifted off while the kitchen and bathroom are redone; then a home addition goes up on its side; then a deck and patio with a fire pit and string lights, until the lights come on.`}
           className="absolute inset-0 h-full w-full intro-still:relative intro-still:h-[calc(100*var(--vh))]"
         />
         <div className="intro-still:hidden">
@@ -120,7 +134,7 @@ export default function HeroIntro({ children }) {
 // `still`, its opening frame once). The scene is drawn on a canvas of its own
 // when the scroll moves it; each frame lays that on the screen and draws what
 // moves on its own over it. Returns a function that stops it.
-function playScene({ track, panel, canvas, copy, still, calm, arrived }) {
+function playScene({ track, panel, canvas, copy, still, calm, arrived, place }) {
   const context = canvas.getContext("2d");
   const base = document.createElement("canvas");
   const baseContext = base.getContext("2d");
@@ -147,13 +161,16 @@ function playScene({ track, panel, canvas, copy, still, calm, arrived }) {
     const key = [t.toFixed(4), size.width, size.height, size.dpr, copyTop, copyLeft, copyRight, logo.complete].join(":");
     if (key !== drawn) {
       drawn = key;
-      frame = drawScene(baseContext, { ...size, t, calm, fonts, logo, life });
+      frame = place
+        ? drawAreaScene(baseContext, { ...size, t, calm, fonts, logo, life, place })
+        : drawScene(baseContext, { ...size, t, calm, fonts, logo, life });
     } else if (!life) return;
     context.setTransform(1, 0, 0, 1, 0, 0);
     context.drawImage(base, 0, 0);
     if (life) {
       context.setTransform(size.dpr, 0, 0, size.dpr, 0, 0);
-      drawLife(context, frame, now / 1000);
+      if (frame.map) drawMapLife(context, frame, now / 1000);
+      else drawLife(context, frame, now / 1000);
     }
     // the page transition waits for this before it opens (UI/PageTransition)
     canvas.dataset.drawn = "1";

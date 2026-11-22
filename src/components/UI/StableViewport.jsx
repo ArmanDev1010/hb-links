@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 
-// The same test as the `hero-static` variant in globals.css: a touch screen,
-// where the browser's toolbars slide in and out as the page scrolls.
+// A touch screen, where the browser's toolbars slide in and out as the page
+// scrolls.
 const TOUCH_QUERY = "(hover: none) and (pointer: coarse)";
 
 // One `unit` (vh, svh) in px, read off a hidden element 100 of them tall.

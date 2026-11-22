@@ -25,40 +25,42 @@ const kitchenRemodel = {
     { label: "Scope", value: "Demo to Finish" },
     { label: "License", value: "B · C-10 · C-36" },
   ],
-  included: {
-    heading: ["Demo to Finish", "Every Detail Covered"],
+  // The Build, under the hero (ServicePage/ServiceBuild): the stages of the
+  // build, each with its icon (a key in ServiceBuild's ICONS)
+  build: {
+    heading: ["Your Kitchen,","Step by Step"],
     intro:
-      "A kitchen remodel through HB Links is a full-scope renovation — not a surface refresh. Demo through final installation, every trade coordinated so you don't have to.",
-    items: [
+      "How a kitchen comes together with us — from the old one coming out to the lights going on.",
+    steps: [
       {
-        title: "Demolition",
-        description:
-          "Full tear-down and debris removal. We open the space cleanly so what gets built next holds for decades.",
+        icon: "demo",
+        title: "Demo & Prep",
+        text: "The old kitchen comes out, and the floor and walls are prepped for what goes in.",
       },
       {
-        title: "Cabinetry",
-        description:
-          "Custom cabinetry sourced and installed by finish carpenters. Layout, hardware, and concealed pulls handled in-house.",
+        icon: "systems",
+        title: "Plumbing & Electrical",
+        text: "Plumbing, gas and circuits are run to where the new sink, range and lights will be.",
       },
       {
-        title: "Countertops",
-        description:
-          "Stone, quartz, or butcher-block — fabrication, templating, and seam-precise installation done right the first time.",
+        icon: "paint",
+        title: "Floors & Paint",
+        text: "New flooring goes down and the walls are finished before the cabinets arrive.",
       },
       {
-        title: "Plumbing",
-        description:
-          "Licensed rough-in through trim-out. Sink, faucet, dishwasher, and pot-filler hookups handled in-house.",
+        icon: "kitchen",
+        title: "Cabinets & Island",
+        text: "The cabinets are set, leveled and fastened, and the island built where the layout puts it.",
       },
       {
-        title: "Electrical",
-        description:
-          "Lighting layout, under-cabinet circuits, and outlet placement brought up to current code with concealed routing.",
+        icon: "counter",
+        title: "Counters & Appliances",
+        text: "The counters are templated and installed, then the appliances, sink and faucet are hooked up.",
       },
       {
-        title: "Walkthrough",
-        description:
-          "Final review and punch list before handover. Every item addressed before you sign off.",
+        icon: "light",
+        title: "Backsplash & Lights",
+        text: "The backsplash is tiled and the pendants and under-cabinet lights go in — then the walkthrough.",
       },
     ],
   },
@@ -70,6 +72,7 @@ const kitchenRemodel = {
     items: [
       {
         title: "Same-Layout Remodel",
+        plan: "kitchen-same",
         description:
           "New cabinets, countertops, backsplash, lighting, and appliances in the existing footprint. The fastest and least expensive way to a new kitchen.",
         facts: [
@@ -80,6 +83,7 @@ const kitchenRemodel = {
       },
       {
         title: "New Layout",
+        plan: "kitchen-new",
         description:
           "The sink, range, or island moves to where it works best. Plumbing, gas, and circuits are rerouted, usually under the floor or through the walls.",
         facts: [
@@ -90,6 +94,7 @@ const kitchenRemodel = {
       },
       {
         title: "Open-Concept Kitchen",
+        plan: "kitchen-open",
         description:
           "A wall comes down to join the kitchen to the living or dining room. A load-bearing wall is replaced with an engineered beam, flush with the ceiling or dropped.",
         facts: [
@@ -171,7 +176,7 @@ const kitchenRemodel = {
   coverage: {
     heading: ["Kitchen Remodels", "Across Los Angeles"],
     description:
-      "We remodel kitchens throughout Los Angeles County. Free on-site estimates anywhere in our coverage zone.",
+      "We remodel kitchens throughout Los Angeles and Ventura Counties. Free on-site estimates anywhere in our coverage zone.",
   },
   related: [
     {

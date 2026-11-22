@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Reveal from "@/components/UI/Reveal";
+import { Grid } from "@/components/UI/Deco";
 import { SECTION_TITLE } from "@/components/UI/titles";
 
 const pad = (n) => String(n).padStart(2, "0");
@@ -9,10 +10,18 @@ const pad = (n) => String(n).padStart(2, "0");
 // alongside this one, each with a line on why they go together, as
 // separate cards with a gap between them (like ServiceOptions). The
 // heading, then each card's content, rise in as they scroll into view
-// (UI/Reveal); the cards' frames stay put.
-export default function ServiceRelated({ services }) {
+// (UI/Reveal); the cards' frames stay put. A grid fades from the top left.
+// `last`: right above the footer, whose diagonal pulls up into the bottom
+// of it (Footer) — 40px more room so it clears the cards.
+export default function ServiceRelated({ services, last = false }) {
   return (
-    <section className="wide-zoom relative bg-white pb-[100px] 1080:pb-[120px]" id="related">
+    <section
+      className={`wide-zoom relative isolate bg-white ${
+        last ? "pb-[100px] 700:pb-[130px] 1080:pb-[160px]" : "pb-[100px] 1080:pb-[120px]"
+      }`}
+      id="related"
+    >
+      <Grid mask="42% 40% at 12% 8%" />
       <div className="max-w-[1680px] mx-auto w-full 700:px-[32px] px-[24px]">
         <div className="flex flex-wrap max-1080:flex-col justify-between gap-x-10 gap-y-6 mb-12 1080:mb-16 pointer-events-none">
           <div className="flex-[1]">

@@ -9,7 +9,7 @@
 // beside the scene. At the end the camera pulls back to the finished
 // property, its lights on.
 //
-//   drawScene(context, { width, height, dpr, t, portrait, layout, calm, fonts, logo })
+//   drawScene(context, { width, height, dpr, t, portrait, layout, calm, fonts, logo, shot })
 //
 // paints the scene at progress `t` (0-1) on a canvas of `width` x `height`
 // CSS px at `dpr` device px each. `layout` places it around the hero's copy,
@@ -19,7 +19,9 @@
 // or tilt), only moving from one service to the next as the visitor scrolls. `fonts.gt` is the site's
 // display face; `logo` is the white HB Links logo
 // (public/Logos/white_horizontal.png) once it has loaded, for the ADU's yard
-// sign.
+// sign. `shot` ({ yaw, pitch, s, ox, oy, band }) puts the camera somewhere
+// else for the opening frame — the area pages' map tilting up into it
+// (map.js) — with the arrows beside the lot at `band` strength.
 //
 // Everything is drawn from shapes and numbers, in feet: the house and its
 // yard in property.js (the house at 0, 0), the ADU in adu.js (its own frame,
@@ -190,13 +192,18 @@ export function grid(ctx, P, [cx, cz], reach, minor) {
 
 // The opening shot's scale, and where one of its screen points lies on the
 // ground: the same framing drawScene gives the whole property at t = 0.
-function openingShot({ width, height, portrait, layout }, calm) {
+// (map.js ends on it too.)
+export function openingFrame({ width, height, portrait, layout }, calm) {
   const cam = camera(0, calm, 1, 0, 0);
   const { box } = stage({ width, height, portrait, layout }, cam);
   const m = view(cam, -1);
   const s = 0.98 * Math.min((box.x1 - box.x0) / m.w, (box.y1 - box.y0) / m.h);
   const ox = (box.x0 + box.x1) / 2 - m.mx * s;
   const oy = (box.y0 + box.y1) / 2 - m.my * s;
+  return { cam, box, s, ox, oy };
+}
+function openingShot(size, calm) {
+  const { cam, s, ox, oy } = openingFrame(size, calm);
   const ca = Math.cos(cam.yaw);
   const sa = Math.sin(cam.yaw);
   const se = Math.sin(cam.pitch);
@@ -218,10 +225,16 @@ function openingShot({ width, height, portrait, layout }, calm) {
 // posts, each turned TURN from pointing right (negative turns it up: the
 // user drew them pointing up and to the right, 11-12); ALPHA is their
 // strength at the far left.
+// The same band flat on the screen, for a hero whose camera barely moves
+// (ServicePage/ServiceHero): its opening shot is the screen itself.
+export function drawChevrons(ctx, dpr, w, h) {
+  chevronBand(ctx, dpr, (x, y, z) => [x, z], { ground: (X, Y) => [X, Y] }, [1e5, 1e5], 1, w, h);
+}
+
 const BAND = { TOP_LEFT: 0.3, SLANT: -0.57, GONE: 0.36, SOFT: 44, ALPHA: 0.7, TURN: -45 * RAD };
 const PITCH = 24;
 let BAND_LAYER = null;
-function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h) {
+function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h, alpha = 1) {
   const { width, height } = ctx.canvas;
   if (!BAND_LAYER) BAND_LAYER = document.createElement("canvas");
   if (BAND_LAYER.width !== width || BAND_LAYER.height !== height) {
@@ -319,13 +332,15 @@ function chevronBand(ctx, dpr, P, shot, [fx, fz], reach, w, h) {
 
   ctx.save();
   ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalAlpha = alpha;
   ctx.drawImage(BAND_LAYER, 0, 0);
   ctx.restore();
 }
 
-// Film grain, a small tile of noise laid over the whole scene.
+// Film grain, a small tile of noise laid over the whole scene (and the
+// area pages' map, map.js).
 let GRAIN = null;
-function grain(ctx, w, h) {
+export function grain(ctx, w, h) {
   if (typeof document === "undefined") return;
   if (!GRAIN) {
     GRAIN = document.createElement("canvas");
@@ -353,7 +368,7 @@ function grain(ctx, w, h) {
 // every frame, the dust among them; without it the dust is drawn here.
 // Returns what drawLife needs: the projection, what's in view, how far each
 // service has got.
-export function drawScene(ctx, { width, height, dpr, t, portrait, layout: given, calm, fonts, logo, life }) {
+export function drawScene(ctx, { width, height, dpr, t, portrait, layout: given, calm, fonts, logo, life, shot }) {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   const layout = { copyTop: 0.6, copyLeft: 0.03, copyRight: 0.45, ...given };
   const gt = fonts?.gt ?? "sans-serif";
@@ -374,10 +389,16 @@ export function drawScene(ctx, { width, height, dpr, t, portrait, layout: given,
     const room = i < 0 ? 0.98 : 1;
     return { s: room * Math.min((box.x1 - box.x0) / m.w, (box.y1 - box.y0) / m.h), mx: m.mx, my: m.my };
   };
-  const a = fit(head.from);
-  const z = fit(head.to);
-  const s = Math.exp(lerp(Math.log(a.s), Math.log(z.s), k));
-  const P = projector(cam, s, (box.x0 + box.x1) / 2 - lerp(a.mx, z.mx, k) * s, (box.y0 + box.y1) / 2 - lerp(a.my, z.my, k) * s);
+  let s, P;
+  if (shot) {
+    s = shot.s;
+    P = projector(shot, s, shot.ox, shot.oy);
+  } else {
+    const a = fit(head.from);
+    const z = fit(head.to);
+    s = Math.exp(lerp(Math.log(a.s), Math.log(z.s), k));
+    P = projector(cam, s, (box.x0 + box.x1) / 2 - lerp(a.mx, z.mx, k) * s, (box.y0 + box.y1) / 2 - lerp(a.my, z.my, k) * s);
+  }
   const lw = (ft, min = 1) => Math.max(min, ft * s);
 
   // what's in view: its middle on the ground, and how far the lights are on
@@ -394,9 +415,10 @@ export function drawScene(ctx, { width, height, dpr, t, portrait, layout: given,
   // (beside the copy only: on a phone the scene sits above it, nothing blank
   // beside it; kept clear of the opening shot's grid floor, fixed on the
   // ground)
-  if (!portrait) {
-    const shot = openingShot({ width, height, portrait, layout }, calm);
-    chevronBand(ctx, dpr, P, shot, middle(-1), Math.max(70, (0.55 * width) / shot.s), width, height);
+  const band = shot?.band ?? 1;
+  if (!portrait && band > 0) {
+    const opening = openingShot({ width, height, portrait, layout }, calm);
+    chevronBand(ctx, dpr, P, opening, middle(-1), Math.max(70, (0.55 * width) / opening.s), width, height, band);
   }
   groundGlow(ctx, P, focus[0], focus[1], 60, rgba(mix([70, 130, 96], [120, 104, 76], lit), 0.24));
   grid(ctx, P, focus, reach, clamp((s - 5) / 8));

@@ -3,7 +3,7 @@
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 
 import EstimateForm from "./EstimateForm";
-import ReachUsDirect from "./ReachUsDirect";
+import ReachUsDirect, { DirectCard } from "./ReachUsDirect";
 import { ESTIMATE_STEPS } from "@/data/estimate";
 import Reveal from "@/components/UI/Reveal";
 import { SECTION_TITLE, keepTogether } from "@/components/UI/titles";
@@ -53,16 +53,22 @@ export default function EstimateSection({
   heading,
   id,
   className = "",
+  decoration = null,
 }) {
   const Intro = Heading === "h1" ? Static : Reveal;
 
+  // `decoration`: layers drawn behind everything (the grid, glows and bars
+  // — Home/Contact, EstimatePage), kept inside the section. Clipped with
+  // overflow: clip, not hidden: hidden would make the section a scroll box
+  // and the form's sticky send button would stop sticking to the screen.
   return (
     <section
       id={id}
       className={`wide-zoom relative ${
-        dark ? "bg-black text-white" : "bg-concrete text-black"
-      } ${className}`}
+        decoration ? "isolate overflow-clip" : ""
+      } ${dark ? "bg-black text-white" : "bg-concrete text-black"} ${className}`}
     >
+      {decoration}
       <div className="max-w-[1680px] mx-auto w-full px-[24px] 700:px-[32px]">
         <Intro
           as="p"
@@ -89,7 +95,7 @@ export default function EstimateSection({
                 {keepTogether(heading.firstLine)}
                 <br />
                 {heading.secondLine}{" "}
-                <span className="italic text-third">
+                <span className={`italic ${dark ? "text-lime" : "text-third"}`}>
                   {keepTogether(heading.italic)}
                 </span>
               </>
@@ -139,7 +145,15 @@ export default function EstimateSection({
           <EstimateForm shadow={false} />
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10 1080:mt-12">
+        {/* Reach Us Direct as the /contact page has it (11-22, the user):
+            the "Reach us direct" card below 1080px, the row from 1080px
+            (the card is dark only, so on light the row everywhere) */}
+        {dark && (
+          <Reveal delay={0.1} className="1080:hidden mt-10">
+            <DirectCard />
+          </Reveal>
+        )}
+        <Reveal delay={0.1} className={`${dark ? "max-1080:hidden" : ""} mt-10 1080:mt-12`}>
           <ReachUsDirect dark={dark} />
         </Reveal>
       </div>

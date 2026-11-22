@@ -5,7 +5,7 @@ const homeAdditions = {
   href: servicePageHref("home-additions"),
   tagline: "Add the space you need",
   paragraph:
-    "Room additions, second-story additions, and new construction — from foundation and framing through final finishes across Los Angeles County.",
+    "Room additions, second-story additions, and new construction — from foundation and framing through final finishes across Los Angeles and Ventura Counties.",
 };
 
 export default homeAdditions;

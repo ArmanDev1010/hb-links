@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { BsArrowUpRight, BsClock } from "react-icons/bs";
 
-import { contactInfo, socials } from "@/data/contact";
+import { contactInfo, socials, SOCIAL_HANDLE } from "@/data/contact";
 
 const phone = contactInfo.find((item) => item.type === "Phone");
 const email = contactInfo.find((item) => item.type === "E-Mail");
 const area = contactInfo.find((item) => item.type === "Area");
+// the number as people dial it here, without the country code
+const dial = phone.label.replace(/^\+1\s*/, "");
 
 // Office hours, every day, Los Angeles time.
 const OPENS = 7;
@@ -38,25 +40,25 @@ function useOpenNow() {
 }
 
 // Colours for each background. The brand green is too dark to read on black,
-// so on dark "Open now" and the hovers use the lighter green they always had
-// (the user kept it, 11-12, over lime); the square is HB Green
-// everywhere.
+// so on dark "Open now" and the hovers are Lime (the redesign, 11-20; the
+// lighter green #3fbf74 the user had kept on 11-12 before it); the square is
+// HB Green everywhere.
 const TONES = {
   dark: {
     square: "bg-third",
     rule: "border-white/10",
     body: "text-silver",
-    accent: "text-[#3fbf74]",
-    dot: "bg-[#3fbf74]",
+    accent: "text-lime",
+    dot: "bg-lime",
     closed: "text-silver/70",
     closedDot: "bg-white/30",
     cell: "border-white/[0.06] bg-white/[0.04]",
     cellHover: "hover:border-white/15 hover:bg-white/[0.08]",
-    icon: "border-white/15 bg-white/[0.06] text-silver group-hover:text-[#3fbf74]",
+    icon: "border-white/15 bg-white/[0.06] text-silver group-hover:text-lime",
     label: "text-silver/70",
     value: "text-white",
-    arrow: "text-silver/50 group-hover:text-[#3fbf74]",
-    socialIcon: "text-silver group-hover:text-[#3fbf74]",
+    arrow: "text-silver/50 group-hover:text-lime",
+    socialIcon: "text-silver group-hover:text-lime",
   },
   light: {
     square: "bg-third",
@@ -93,6 +95,70 @@ function OpenStatus({ tone }) {
       />
       {open ? "Open now" : "Closed · opens 7am"}
     </span>
+  );
+}
+
+// The phone's "Reach us direct" card (the user likes it as it is, 11-20):
+// the number large, the email, whether we're open now and the hours, our
+// social pages. Below 1080px on dark, in place of ReachUsDirect: on the
+// /contact page (EstimatePage) and, since 11-22 (the user: "the one we
+// have in the contact us page"), in the contact section (EstimateSection).
+export function DirectCard() {
+  return (
+    <div className="relative border border-white/12 bg-[#0f1411]/85 backdrop-blur-md">
+      <span aria-hidden="true" className="absolute left-0 top-0 h-full w-[3px] bg-lime" />
+      <div className="px-6 pt-6 pb-5 700:px-7">
+        <div className="flex items-center justify-between gap-4 pointer-events-none">
+          <p className="uppercase text-[11.5px] font-bold tracking-[0.18em]">Reach us direct</p>
+          <OpenStatus tone={TONES.dark} />
+        </div>
+        <a
+          href={phone.href}
+          className="group mt-5 flex items-end justify-between gap-4 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
+        >
+          <span>
+            <span className="block text-[11px] uppercase tracking-[0.22em] text-silver/70">Call</span>
+            <span className="mt-1.5 block font-gt font-semibold leading-none tracking-tight text-[30px] transition-colors duration-200 group-hover:text-lime">
+              {dial}
+            </span>
+          </span>
+          <BsArrowUpRight className="mb-1 shrink-0 text-[15px] text-silver/50 transition-colors duration-200 group-hover:text-lime" />
+        </a>
+        <a
+          href={email.href}
+          className="group mt-5 flex items-center justify-between gap-4 border-t border-white/10 pt-4 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
+        >
+          <span>
+            <span className="block text-[11px] uppercase tracking-[0.22em] text-silver/70">Email</span>
+            <span className="mt-1 block text-[16px] font-semibold transition-colors duration-200 group-hover:text-lime">
+              {email.label}
+            </span>
+          </span>
+          <BsArrowUpRight className="shrink-0 text-[13px] text-silver/50 transition-colors duration-200 group-hover:text-lime" />
+        </a>
+        <div className="mt-5 flex items-center justify-between gap-4 border-t border-white/10 pt-4 pointer-events-none">
+          <span className="flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-silver/70">
+            <BsClock className="text-[11px]" /> Hours
+          </span>
+          <span className="text-[14px] font-semibold">Sun – Sat · 7am – 7pm</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-2 border-t border-white/10 px-6 py-4 700:px-7">
+        {socials.map(({ name, href, icon: Icon }) => (
+          <a
+            key={name}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`HB Links on ${name}`}
+            className="group grid h-10 w-10 place-items-center border border-white/15 bg-white/[0.04] transition-colors duration-200 hover:border-lime"
+          >
+            <Icon className="text-[16px] text-silver transition-colors duration-200 group-hover:text-lime" />
+          </a>
+        ))}
+        <span className="ml-2 text-[13px] text-silver/70 pointer-events-none">{SOCIAL_HANDLE}</span>
+      </div>
+    </div>
   );
 }
 
@@ -213,7 +279,7 @@ export default function ReachUsDirect({ dark = false, className = "" }) {
             tone={tone}
             icon={area.icon}
             label="Service area"
-            value={area.label}
+            value={area.short}
             href={area.href}
           />
           <DirectCell

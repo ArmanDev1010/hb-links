@@ -11,6 +11,16 @@ import Link from "next/link";
 import { reviews } from "@/data/reviews";
 import Reveal from "@/components/UI/Reveal";
 import { SECTION_TITLE } from "@/components/UI/titles";
+import {
+  BAND_CLIP,
+  CutLines,
+  Bars,
+  Glow,
+  Grid,
+} from "@/components/UI/Deco";
+
+// Review stars, the one gold on the site (the redesign's approved exception).
+const STAR = "#E89D00";
 
 const toRad = (deg) => (deg * Math.PI) / 180;
 
@@ -111,14 +121,14 @@ function QuoteText({ quote, charLimit }) {
   const displayText = isLong ? quote.slice(0, charLimit).trimEnd() : quote;
 
   return (
-    <p className="italic text-[17px] text-fourth leading-relaxed max-w-xl pointer-events-none">
+    <p className="italic text-[17px] text-silver leading-relaxed max-w-xl pointer-events-none">
       {displayText}
       {isLong && (
         <>
           {"... "}
           <Link
             href={GOOGLE_REVIEWS_URL}
-            className="pointer-events-auto not-italic font-bold text-black hover:underline"
+            className="pointer-events-auto not-italic font-bold text-lime hover:underline"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -211,18 +221,52 @@ export default function Reviews() {
   const geo = isMobile ? mobileGeo : desktopGeo;
   const total = reviews.length;
 
-  // On a wide screen the arc of names draws on down into the section's gap
-  // below, and the reviewers' photos pass along it close to How We Work, so
-  // the space under the reviews looked smaller than the 120px under How We
-  // Work. 40px more there makes them look the same (the user's call, 11-12).
-  // On a phone the reviews stack and their text sets the edge, so it keeps
-  // the usual gap.
+  // A dark band, cut on a diagonal top and bottom (both rising to the
+  // right), with its lines just inside each cut, green glows in the corners,
+  // a lime glow and lime bars top right, a silver glow and silver bars
+  // bottom left, over a faint silver grid (the redesign, 60 white · 30 black
+  // · 10 green/lime). Its padding clears the cuts.
   return (
-    <section className="wide-zoom relative overflow-hidden pb-[100px] 1080:pb-[160px]">
+    <section
+      className={`wide-zoom relative isolate overflow-hidden bg-black text-white pt-[96px] 700:pt-[120px] 1080:pt-[150px] pb-[100px] 1080:pb-[160px] ${BAND_CLIP}`}
+    >
+      <Grid tone="silver" mask="75% 70% at 50% 20%" />
+      <Glow
+        alpha={0.45}
+        className="w-[620px] h-[620px] -left-[300px] -top-[100px] 1080:w-[1000px] 1080:h-[800px] 1080:-left-[250px] 1080:-top-[80px]"
+      />
+      <Glow
+        alpha={0.3}
+        className="w-[500px] h-[500px] -right-[260px] -bottom-[160px] 1080:w-[800px] 1080:h-[700px] 1080:-right-[300px] 1080:-bottom-[200px]"
+      />
+      <Glow
+        color="lime"
+        alpha={0.32}
+        className="w-[360px] h-[180px] -right-[150px] top-[40px] 1080:w-[620px] 1080:h-[280px] 1080:-right-[210px] 1080:top-[11px]"
+      />
+      <Glow
+        color="silver"
+        alpha={0.3}
+        className="w-[400px] h-[180px] -left-[200px] bottom-[40px] 1080:w-[640px] 1080:h-[260px] 1080:-left-[190px] 1080:bottom-[22px]"
+      />
+      <Bars
+        tone="lime"
+        widths={[320, 200, 100]}
+        className="-right-[30px] top-[70px] 1080:top-[120px] max-1080:scale-[0.6] max-1080:origin-top-right"
+      />
+      <Bars
+        tone="silver"
+        align="start"
+        widths={[320, 200, 100]}
+        className="-left-[30px] bottom-[70px] 1080:bottom-[130px] max-1080:scale-[0.6] max-1080:origin-bottom-left"
+      />
+      <CutLines at="top" size="band" />
+      <CutLines at="bottom" size="band" />
+
       <div className="w-full 1080:w-10/12 1080:mx-auto 700:px-[32px] px-[24px] 1080:mb-24 mb-12 text-center">
         <Reveal
           as="p"
-          className="mb-6 800:mb-8 550:text-[13px] text-[12.5px] text-fourth uppercase font-light tracking-[0.3em] pointer-events-none"
+          className="mb-6 800:mb-8 550:text-[13px] text-[12.5px] text-silver/70 uppercase font-light tracking-[0.3em] pointer-events-none"
         >
           Testimonials
         </Reveal>
@@ -241,10 +285,10 @@ export default function Reviews() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Rated 5 stars in 10+ Google reviews. Read them on Google (opens in a new tab)"
-            className="group inline-flex items-center gap-3 rounded-full bg-white border border-black/20 px-4 py-2.5 backdrop-blur-sm
-              transition-[translate,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-              hover:-translate-y-0.5 hover:border-black/45 hover:shadow-[0_12px_28px_-14px_rgba(0,0,0,0.35)]
-              focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-third"
+            className="group inline-flex items-center gap-3 rounded-full bg-white text-black border border-white px-4 py-2.5
+              transition-[translate,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+              hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-10px_rgba(196,229,56,0.35)]
+              focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
           >
             <FcGoogle className="w-[20px] h-[20px]" />
             <div className="flex items-center gap-[3px]">
@@ -259,7 +303,7 @@ export default function Reviews() {
                     height="15"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
-                    style={{ fill: "oklch(75% 0.18 80)" }}
+                    style={{ fill: STAR }}
                   >
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>{" "}
                   </svg>
@@ -268,7 +312,7 @@ export default function Reviews() {
             </div>
             <span className="text-[1rem] font-bold leading-none">5</span>
             <span className="h-3.5 w-px shrink-0 bg-black/25"></span>
-            <span className="text-[0.8125rem] leading-none text-fourth transition-colors duration-300 group-hover:text-black">
+            <span className="text-[0.8125rem] leading-none text-fourth whitespace-nowrap transition-colors duration-300 group-hover:text-black">
               10+ Google Reviews
             </span>
             <BsArrowUpRight
@@ -305,7 +349,7 @@ export default function Reviews() {
                 <path
                   d={geo.path}
                   fill="none"
-                  stroke="rgba(0,0,0,0.15)"
+                  stroke="rgba(197,204,208,0.25)"
                   strokeWidth="1"
                 />
               </svg>
@@ -352,8 +396,8 @@ export default function Reviews() {
                     <span
                       className={`relative block rounded-full overflow-hidden transition-all duration-500 ease-out ${
                         isActive
-                          ? "w-14 h-14 ring-2 ring-third"
-                          : "w-9 h-9 grayscale"
+                          ? "w-14 h-14"
+                          : "w-9 h-9 grayscale opacity-85"
                       }`}
                     >
                       <div className="relative w-full h-full">
@@ -378,9 +422,9 @@ export default function Reviews() {
                         >
                           {review.name}
                         </span>
-                        <span className="flex items-center gap-1 text-xs text-fourth justify-center">
-                          <FaStar className="text-[oklch(75%_0.18_80)] w-3 h-3" />
-                          <span className="font-semibold text-black">
+                        <span className="flex items-center gap-1 text-xs text-silver justify-center">
+                          <FaStar className="text-star w-3 h-3" />
+                          <span className="font-semibold text-white">
                             {review.rating}
                           </span>
                           on {review.date}
@@ -393,9 +437,9 @@ export default function Reviews() {
                         >
                           {review.name}
                         </span>
-                        <span className="flex items-center gap-1 text-xs text-fourth">
-                          <FaStar className="text-[oklch(75%_0.18_80)] w-3 h-3" />
-                          <span className="font-semibold text-black">
+                        <span className="flex items-center gap-1 text-xs text-silver">
+                          <FaStar className="text-star w-3 h-3" />
+                          <span className="font-semibold text-white">
                             {review.rating}
                           </span>
                           on {review.date}
@@ -431,7 +475,7 @@ export default function Reviews() {
                     className="col-start-1 row-start-1 1080:self-center flex flex-col gap-5"
                   >
                     <div>
-                      <span className="block text-5xl font-serif text-third/30 leading-none mb-2 pointer-events-none">
+                      <span className="block text-5xl font-serif text-third leading-none mb-2 pointer-events-none">
                         "
                       </span>
                       <QuoteText
@@ -446,11 +490,11 @@ export default function Reviews() {
 
                     {review.images ? (
                       <div
-                        className={`self-end pointer-events-none ${review.images.length == 4 ? "w-full" : "w-[60%]"} flex justify-center gap-2`}
+                        className={`self-end pointer-events-none ${review.images.length == 4 ? "w-full grid grid-cols-2 700:flex" : "w-[60%] flex"} justify-center gap-2`}
                       >
                         {review.images.map((review_img, ind) => (
                           <div
-                            className="bg-black flex-grow h-[150px] overflow-hidden bg-cover bg-center bg-no-repeat"
+                            className="bg-black flex-grow h-[150px] max-700:h-[140px] overflow-hidden bg-cover bg-center bg-no-repeat"
                             key={ind}
                             style={{
                               backgroundImage: `url(${review_img})`,
