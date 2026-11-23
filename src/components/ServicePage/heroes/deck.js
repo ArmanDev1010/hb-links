@@ -56,12 +56,16 @@ export function drawDeck(G, k) {
   const lights = [windowLight(front, SLIDER, [0, -1]), windowLight(right, SIDE_WINDOW, [1, 0])];
   spill(G, [...lights.map((l) => l.pool), [PIT.x, PIT.z, 8, 0.3]], lit);
   shadow(G, HOUSE.x, HOUSE.z, 13);
+  // the shrub round the house's front-left corner is behind it: drawn first
+  // (11-23: drawn after, it sat on the wall)
+  const plant = (i) => step(k, T.plants[0] + i * 0.015, T.plants[0] + 0.05 + i * 0.015);
+  shrub(G, -1.4, 14, plant(0));
   house(G, lit);
   deck(G, k);
   firePit(G, step(k, ...T.pit), lit);
   pergola(G, k);
   strings(G, step(k, ...T.strings), lit);
-  [[-1.4, 14], [43.5, 16], [43.5, 24], [2.2, -1.2], [23.2, -5.4]].forEach(([x, z], i) => shrub(G, x, z, step(k, T.plants[0] + i * 0.015, T.plants[0] + 0.05 + i * 0.015)));
+  [[43.5, 16], [43.5, 24], [2.2, -1.2], [23.2, -5.4]].forEach(([x, z], i) => shrub(G, x, z, plant(i + 1)));
   glow(G, [...lights.map((l) => l.spot), [PIT.x, 1.6, PIT.z, 3.4, 0.5]], lit);
 }
 

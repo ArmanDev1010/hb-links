@@ -38,8 +38,10 @@ export function drawADU({ ctx, P, s, lw }, b, { logo, gt }) {
   roofFrame(ctx, P, b, lw);
   walls(ctx, P, b, s, lit);
   roof(ctx, P, b, lw);
-  porch(ctx, P, b, s, lw, lit);
+  // the beds along the walls are behind the porch: their shrubs go in
+  // first (11-23: drawn after, one sat on the porch's post)
   shrubs(ctx, P, b, s);
+  porch(ctx, P, b, s, lw, lit);
   sign(ctx, P, b, s, logo, gt);
   glow(ctx, P, s, lit);
 }

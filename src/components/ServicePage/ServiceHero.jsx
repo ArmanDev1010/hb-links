@@ -30,8 +30,8 @@ export const SERVICE_SCENES = {
     },
   },
   "garage-conversion": {
-    crew: { on: [0.16, 0.74], members: [{ a: [4, -3], b: [18, -3] }, { a: [21.6, -2] }] },
-    label: "A Spanish-style garage converted as you scroll: the roll-up door goes, the opening is framed in and stuccoed to match, a window and French doors go in, then a paver patio, planters and the lights.",
+    crew: { on: [0.2, 0.9], members: [{ a: [4, -3], b: [18, -3] }, { a: [21.6, -2] }] },
+    label: "A Spanish-style garage converted as you scroll: the roll-up door goes up, the car backs out and the garage is emptied, the opening is framed in and stuccoed to match, a window and French doors go in, then the roof and walls turn see-through while the studio is built inside — wiring, insulation, drywall, an oak floor, a kitchenette, a bathroom, a bed and a sofa — then a paver patio, planters and the lights.",
     turn: [10, -6],
     notes: {
       dims: [[[0, 0, -16], [24, 0, -16], "24'-0\""], [[27.5, 0, 0], [27.5, 0, 22], "22'-0\""]],

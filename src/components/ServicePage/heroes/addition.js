@@ -70,9 +70,12 @@ export function drawAddition(G, k) {
   spill(G, lights.map((l) => l.pool), lit);
   shadow(G, [0, 26], [0, 30], 17);
   shadow(G, WING.x, WING.z, 12, step(k, ...T.sheath));
+  // round the front-left corner, so behind the house: drawn before it
+  // (11-23: one drawn after it sat on its wall)
+  shrub(G, -1.6, 1.6, 1, 1);
   house(G, HOUSE, lit);
   wing(G, k, lit);
-  [[2, -1.4], [23.5, -1.4], [-1.4, 12]].forEach(([x, z]) => shrub(G, x, z, 1, 1));
+  [[2, -1.4], [23.5, -1.4]].forEach(([x, z]) => shrub(G, x, z, 1, 1));
   [[41.5, 10], [41.5, 17], [41.5, 23], [31, 6.4]].forEach(([x, z], i) => shrub(G, x, z, step(k, T.plants[0] + i * 0.02, T.plants[0] + 0.05 + i * 0.02)));
   glow(G, lights.map((l) => l.spot), lit);
 }

@@ -82,7 +82,10 @@ const MODEL = [...box(LOW.x, [S, MID], LOW.z), ...box(UP.x, [RIM, TOP], UP.z)];
 // from the front door, the shrubs and the tree behind.
 const TERRACE = [18, -7.5, 41.5, 0];
 const STONES = Array.from({ length: 6 }, (_, i) => [12.8, -1.7 - i * 1.75, 15.8, -0.6 - i * 1.75]);
-const SHRUBS = [[1.6, -1.2], [5.6, -1.3], [42.6, 3], [42.6, 10], [42.6, 17], [-1.4, 6]];
+const SHRUBS = [[1.6, -1.2], [5.6, -1.3], [42.6, 3], [42.6, 10], [42.6, 17]];
+// round the front-left corner, behind the house: drawn before it (11-23: one
+// on the far side, drawn after, sat on the white end's window)
+const SHRUB_BEHIND = [-1.6, 1.4];
 
 // When each piece of work happens, as fractions of the build.
 const W = {
@@ -121,6 +124,7 @@ export function drawDesignBuild(G, k, { gt }) {
   spill(G, lit);
   shadow(G, k);
   slab(G, k);
+  shrub(G, ...SHRUB_BEHIND, step(k, W.plants[0] + 0.06, W.plants[0] + 0.11));
 
   // the ground floor
   ctx.save();
